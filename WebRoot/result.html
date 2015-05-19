@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<script language=javascript>
+function hero()
+{
+var herowidth=760;//改为你要的网页宽度
+var heroheight=330;//改为你要的网页高度
+window.resizeTo(herowidth,heroheight);
+window.menubar=no;
+window.scrollbars=no;
+window.location=no;
+}
+hero();
+</script>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<link href="css/result.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<body onload=;>
+<div class="page">
+  <form action="appoint-result.jsp" method="post">
+    <div class="text">为您推荐：</div>
+    <div class="table">
+      <table>
+        <tr class="row1">
+          <td class="col">所在区域</td>
+          <td class="col">充电站名称</td>
+          <td class="col">充电桩名称</td>
+          <td class="col">状态</td>
+          <td class="col">充电费用</td>
+          <td class="col">充电预约</td>
+        </tr>
+        <tr class="row2">
+          <td class="col"></td>
+          <td class="col"></td>
+          <td class="col"></td>
+          <td class="col"></td>
+          <td class="col"></td>
+          <td class="col"><a href="appoint-result.jsp" target="_blank" class="a" >我要预约</a></td>
+        </tr>
+      </table>
+    </div>
+  </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,60 @@
+@charset "utf-8";
+/* CSS Document */
+* {
+	margin: 0;
+	padding: 0;
+}
+.page {
+	width: 998px;
+	height: 198px;
+}
+.form {
+	height: 153px;
+	width: 300px;
+	margin-top: 22px;
+	margin-bottom: 23px;
+	margin-left: auto;
+	margin-right: auto;
+}
+.oldcode, .newcode, .ensurecode {
+	width: 300px;
+	height: 31px;
+	margin-top: 5px;
+	float: left;
+}
+.text, .data {
+	font-family: "Microsoft YaHei UI";
+	font-size: 24px;
+	height: 31px;
+	float: left;
+}
+.text {
+	font-weight: bold;
+	width: 120px;
+}
+.inputdata{
+	border-style:solid;
+	border-width:1px;
+	height:29px;
+	width:170px;
+	font-family:"Microsoft YaHei UI";
+	font-size:24px;}
+	.button{
+	height:40px;
+	width:120px;
+	float:left;
+	margin-top:5px;
+	margin-left:90px;
+	}
+.submit{
+	text-align:center;
+	border:none;
+	height:40px;
+	width:120px;
+	font-family:"Microsoft YaHei UI";
+	font-size:26px;
+	font-weight:bold;
+	background-color:#FF7E23;	
+	}
+.submit:hover{
+	cursor:pointer;}

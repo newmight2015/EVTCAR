@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0"
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+  <servlet>
+    <display-name>jsonSevlet</display-name>
+    <servlet-name>dealQuery</servlet-name>
+    <servlet-class>myServlet.dealQuery</servlet-class>
+  </servlet>
+  <servlet>
+    <display-name>jsonSevlet</display-name>
+    <servlet-name>dealCsQuery</servlet-name>
+    <servlet-class>myServlet.dealCsQuery</servlet-class>
+  </servlet>
+  <servlet>
+    <display-name>jsonSevlet</display-name>
+    <servlet-name>dealPhoneQuery</servlet-name>
+    <servlet-class>myServlet.dealPhoneQuery</servlet-class>
+  </servlet>
+  <servlet>
+    <display-name>jsonSevlet</display-name>
+    <servlet-name>dealRegister</servlet-name>
+    <servlet-class>myServlet.dealRegister</servlet-class>
+  </servlet>
+  <servlet>
+    <display-name>jsonSevlet</display-name>
+    <servlet-name>dealLogin</servlet-name>
+    <servlet-class>myServlet.dealLogin</servlet-class>
+  </servlet>
+ <servlet>
+    <display-name>dealExit</display-name>
+    <servlet-name>dealExit</servlet-name>
+    <servlet-class>myServlet.dealExit</servlet-class>
+  </servlet>
+  <servlet>
+    <display-name>jsonSevlet</display-name>
+    <servlet-name>dealPhoneRegister</servlet-name>
+    <servlet-class>myServlet.dealPhoneRegister</servlet-class>
+  </servlet>
+  <servlet>
+    <display-name>jsonSevlet</display-name>
+    <servlet-name>dealPhoneLogin</servlet-name>
+    <servlet-class>myServlet.dealPhoneLogin</servlet-class>
+  </servlet>
+
+
+  
+
+  <servlet-mapping>
+    <servlet-name>dealQuery</servlet-name>
+    <url-pattern>/dealQuery.do</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>dealCsQuery</servlet-name>
+    <url-pattern>/dealCsQuery.do</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>dealPhoneQuery</servlet-name>
+    <url-pattern>/dealPhoneQuery.do</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>dealRegister</servlet-name>
+    <url-pattern>/dealRegister.do</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>dealLogin</servlet-name>
+    <url-pattern>/dealLogin.do</url-pattern>
+  </servlet-mapping>
+   <servlet-mapping>
+    <servlet-name>dealExit</servlet-name>
+    <url-pattern>/dealExit.do</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>dealPhoneRegister</servlet-name>
+    <url-pattern>/dealPhoneRegister.do</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>dealPhoneLogin</servlet-name>
+    <url-pattern>/dealPhoneLogin.do</url-pattern>
+  </servlet-mapping>
+
+
+<listener>
+  <listener-class>myListener.MyContextListener</listener-class>
+</listener>
+
+<listener>
+  <listener-class>myListener.MyRequestListener</listener-class>
+</listener>
+
+<listener>
+  <listener-class>myListener.MySessionListener</listener-class>
+</listener>
+
+</web-app>

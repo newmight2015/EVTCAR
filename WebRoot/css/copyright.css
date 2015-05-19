@@ -1,0 +1,24 @@
+@charset "utf-8";
+/* CSS Document */
+*{
+	padding:0px;
+	marging:0px;
+	}
+.copyright {
+	width: 1000px;
+	height: 130px;
+	float: left;
+	background-color: #CCCCCC;
+	text-align: center;
+}
+#page #copyright p {
+	display: block;
+	-webkit-margin-before: 1em;
+	-webkit-margin-after: 1em;
+	-webkit-margin-start: 0px;
+	-webkit-margin-end: 0px;
+	top: 5px;
+	font-family:"微软雅黑";
+	font-size:15px;
+	position: relative;
+}

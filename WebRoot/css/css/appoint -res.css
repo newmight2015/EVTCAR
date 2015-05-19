@@ -1,0 +1,201 @@
+@charset "utf-8";
+/* CSS Document */
+* {
+	margin: 0;
+	padding: 0;
+}
+#page #nav .bar #m4 a {
+	color: #C1004F;
+}/*改变导航栏当前标签颜色*/
+.nav {
+	width: 998px;
+	height: auto;
+	float: left;
+	border: thin solid;
+	border-color: #C1004F;
+}
+.page {
+	height: 900px;
+	width: 1000px;
+	margin-left: auto;
+	margin-right: auto;
+}
+#page #log a {
+	font-family: "幼圆";
+	color: #000;
+	text-decoration: none;
+	font-size: 20px;
+	font-weight: bold;
+	margin-right: 10px;
+}
+#page #log a:hover {
+	font-family: "幼圆";
+	color: #CCCCCC;
+	text-decoration: none;
+	font-size: 20px;
+	font-weight: bold;
+}
+.log {
+	float: right;
+	height: auto;
+	width: auto;
+	position: relative;
+	right: 30px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+.title {
+	font-size: 24px;
+	float: none;
+	position: relative;
+	left: 50px;
+}
+.hr {
+	margin: 0;
+	padding: 0;
+	position: relative;
+	top: 5px;
+	left: 0px;
+	right: 49px;
+	width: 898px;
+	height: 3px;
+	background-color: #3399CC;
+	border: none;
+}
+.bar li {
+	float: left;
+	list-style-type: none;
+	left: 10px;
+	position: relative;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.bar li a {
+	text-decoration: none;
+	font-family: "幼圆";
+	font-size: 24px;
+	font-weight: bold;
+	color: #333333;
+}
+.bar li a:hover {
+	color: #0099CC;
+}
+.content {
+	width: 1000px;
+	height: auto;
+	/*background-color: #56C4FF;*/
+	border-style: none;
+	border-width: thin;
+	float: left;
+}
+
+/*从这开始改*/
+.app-info {
+	width: 998px;
+	height: auto;
+	;
+	border-style: solid;
+	border-width: thin;
+	margin-top: 30px;
+	border-color: #C1004F;
+}
+.veh-info {
+	width: 998px;
+	height: auto;
+	margin-top: 30px;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #C1004F;
+}
+.caption {
+	font: Verdana, Geneva, sans-serif;
+	font-size: 24px;
+	font-weight: bold;
+	padding-left: 50px;
+	height: 28px;
+	width: 948px;
+	background-color: #C1004F;
+}
+.info1 {
+	width: 998px;
+	height: 338px;
+}
+.img {
+	width: 240px;
+	height: 336px;
+	margin: 1px;
+}
+.text-box1, .text-box2 {
+	width: 756px;
+	background-color: #999966;
+	position: relative;
+	top: 1px;
+	float: right;
+	margin-bottom: 1px;
+}
+.text-box1 {
+	height: 112px;
+}
+.text-box2 {
+	height: 110px;
+}
+.text {
+	font-family: "Microsoft YaHei UI";
+	font-size: 25px;
+	font-weight: bold;
+	margin-top: 38px;
+	margin-bottom: 39px;
+	margin-left: 30px;
+	float: left;
+}
+.data {
+	font-family: "Microsoft YaHei UI";
+	font-size: 23px;
+	margin-top: 41px;
+	margin-bottom: 39px;
+	margin-left: 30px;
+}
+.info2 {
+	width: 998px;
+	height: 100px;
+	background-color: #999966
+}
+.text-box3 {
+	width: 998px;
+	height: 75px;
+	float: left;
+}
+.sub-box {
+	width: 499px;
+	height: 75px;
+	float:left;
+}
+.alert {
+	text-align: center;
+	font-family: "Microsoft YaHei UI";
+	color: #F00;
+}
+.star{
+	font-family: "Microsoft YaHei UI";
+	font-size: 25px;
+	font-weight: bold;
+	margin-top: 28px;
+	margin-bottom: 20px;
+	margin-left: 100px;
+	float: left;
+	color:#F00;
+	}
+.veh-text{
+		font-family: "Microsoft YaHei UI";
+	font-size: 25px;
+	font-weight: bold;
+	margin-top: 24px;
+	margin-bottom: 24px;
+	float: left;}
+.data2{
+		font-family: "Microsoft YaHei UI";
+	font-size: 23px;
+	margin-top: 25px;
+	margin-bottom: 25px;
+	float:left;}
+

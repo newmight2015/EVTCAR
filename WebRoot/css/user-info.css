@@ -1,0 +1,58 @@
+@charset "utf-8";
+/* CSS Document */
+* {
+	margin: 0;
+	padding: 0;
+}
+.page {
+	width: 998px;
+	height: 198px;
+}
+.text, .data{
+	font-family: "Microsoft YaHei UI";
+	font-size: 24px;
+	height: 31px;
+	float: left;
+	
+}
+.text {
+	font-weight: bold;
+	width: 140px;
+}
+.username,.tel,.email,.veh-num{
+	width:370px;
+	height:31px;
+	margin-top:5px;
+	float:left;}
+.inputdata{
+	border-style:solid;
+	border-width:1px;
+	height:29px;
+	width:170px;
+	font-family:"Microsoft YaHei UI";
+	font-size:24px;}
+.button{
+	height:40px;
+	width:120px;
+	float:left;
+	margin-top:5px;
+	margin-left:90px;
+	}
+.submit{
+	text-align:center;
+	border:none;
+	height:40px;
+	width:120px;
+	font-family:"Microsoft YaHei UI";
+	font-size:26px;
+	font-weight:bold;
+	background-color:#FF7E23;	
+	}
+.submit:hover{
+	cursor:pointer;}
+.form{
+	height:153px;
+	width:370px;
+	margin-bottom:23px;
+	margin-left:auto;
+	margin-right:auto;}

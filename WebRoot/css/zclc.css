@@ -1,0 +1,14 @@
+@charset "utf-8";
+/* CSS Document */
+*{
+	margin:0;
+	padding:0;}
+.p{
+	font-family:"Microsoft JhengHei UI Light";
+	font-size:20px;
+	}
+.page{
+	width:998px;height:366px;
+}
+.p,.img{
+		margin-left:249px;}

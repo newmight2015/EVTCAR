@@ -1,0 +1,22 @@
+@charset "utf-8";
+/* CSS Document */
+*{
+	padding:0px;
+	marging:0px;
+	}
+.copyright {
+	width: 1000px;
+	height: 120px;
+	float: left;
+	background-color: #CCCCCC;
+	text-align: center;
+}
+#page #copyright p {
+	display: block;
+	-webkit-margin-before: 1em;
+	-webkit-margin-after: 1em;
+	-webkit-margin-start: 0px;
+	-webkit-margin-end: 0px;
+	top: 10px;
+	position: relative;
+}

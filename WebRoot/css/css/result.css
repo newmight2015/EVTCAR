@@ -1,0 +1,46 @@
+@charset "utf-8";
+/* CSS Document */
+* {
+	margin: 0;
+	padding: 0;
+}
+.page {
+	width: 740px;
+	height: 320px;
+}
+.text {
+	height:22px;
+	text-align: center;
+	font-size: 26px;
+	font-weight: bold;
+	width: 161px;
+	margin-top: 50px;
+	margin-bottom: 20px;	
+	margin-left:290px;
+	margin-right:289px;
+	font-family: "Lucida Console", Monaco, monospace;
+}
+.table{
+	margin-top:40px;
+margin-left:4px;
+margin-right:4px;
+	}
+.row1{
+border:solid thin #FFF;
+background-color:#C1004F;
+font:Verdana, Geneva, sans-serif;
+font-size:22px;	
+	}
+	.row2{
+border:solid thin #FFF;
+background-color:#999;
+font:Verdana, Geneva, sans-serif;
+font-size:22px;	
+	}
+.col{
+	text-align:center;
+	width:120px;
+	height:40px;
+	}
+.a{
+	text-decoration:none;}

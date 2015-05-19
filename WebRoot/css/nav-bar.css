@@ -1,0 +1,110 @@
+@charset "utf-8";
+/* CSS Document */
+* {
+	margin: 0;
+	padding: 0;
+}
+.m1 {
+	width: 100px;
+}
+.m6, .m2, .m4, .m5 {
+	width: 166px;
+}
+.m3 {
+	width: 230px;
+}
+#exit span,#exit a {
+		font-family: "幼圆";
+	color: #000;
+	text-decoration: none;
+	font-size: 20px;
+	font-weight: bold;
+	margin-right: 10px;
+	
+}
+
+
+#exit{
+	margin-top:5px;
+	margin-bottom:5px;
+	}
+
+#page #log a {
+	font-family: "幼圆";
+	color: #000;
+	text-decoration: none;
+	font-size: 20px;
+	font-weight: bold;
+	margin-left:10px;
+}
+#page #log a:hover {
+	font-family: "幼圆";
+	color: #CCCCCC;
+	text-decoration: none;
+	font-size: 20px;
+	font-weight: bold;
+}
+.log {
+	float: right;
+	position: relative;
+	right: 30px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+#tuichu {
+	float: right;
+}
+.title-text {
+	font-size: 40px;
+	float: left;
+	font-weight: bold;
+	position: relative;
+	top: 5px;
+	left: 50px;
+	width: 600px;
+	font-family: "微软雅黑";
+}
+.title {
+	width: 998px;
+	height: 55px;
+}
+.hr {
+	margin: 0;
+	padding: 0;
+	position: relative;
+	top: 5px;
+	left: 0px;
+	right: 49px;
+	width: 898px;
+	height: 3px;
+	background-color: #3399CC;
+	border: none;
+}
+.bar {
+	width: 998px;
+	height: 52px;
+}
+.bar li {
+	float: left;
+	list-style-type: none;
+	left: 10px;
+	position: relative;
+	margin-top: 10px;
+}
+#nav-text {
+	text-decoration: none;
+	font-family: "幼圆";
+	font-size: 25px;
+	font-weight: bold;
+	color: #333333;
+}
+.bar li a:hover {
+	color: #0099CC;
+}
+.ip-pic {
+	
+
+}
+.ad-pic {
+
+}

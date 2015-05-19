@@ -1,0 +1,133 @@
+@charset "utf-8";
+/* CSS Document */
+* {
+	margin: 0;
+	padding: 0;
+}
+#page #nav .bar #m5 a {
+	color: #FF7E23;
+}/*改变导航栏当前标签颜色*/
+.nav {
+	width: 998px;
+	height: auto;
+	float: left;
+	border:thin solid;
+	border-color: #FF7E23;
+}
+.page {
+	height: 900px;
+	width: 1000px;
+	margin-left: auto;
+	margin-right: auto;
+}
+#page #log a {
+	font-family: "幼圆";
+	color: #000;
+	text-decoration: none;
+	font-size: 20px;
+	font-weight: bold;
+	margin-right: 10px;
+}
+#page #log a:hover {
+	font-family: "幼圆";
+	color: #CCCCCC;
+	text-decoration: none;
+	font-size: 20px;
+	font-weight: bold;
+}
+.log {
+	float: right;
+	height: auto;
+	width: auto;
+	position: relative;
+	right: 30px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.title {
+	font-size: 24px;
+	float: none;
+	position: relative;
+	left: 50px;
+}
+.hr {
+	margin:0;
+	padding:0;
+	position: relative;
+	top: 5px;
+	left: 0px;
+	right: 49px;
+	width: 898px;
+	height: 3px;
+	background-color: #3399CC;
+	border:none;
+}
+.bar li {
+	float: left;
+	list-style-type: none;
+	left: 10px;
+	position: relative;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.bar li a {
+	text-decoration: none;
+	font-family: "幼圆";
+	font-size: 24px;
+	font-weight: bold;
+	color: #333333;
+}
+.bar li a:hover {
+	color: #0099CC;
+}
+.content {
+	width: 1000px;
+	height: auto;
+	float: left;
+}
+.copyright {
+	width: 1000px;
+	height: 105px;
+	float: left;
+	background-color: #CCCCCC;
+	text-align: center;
+
+}
+#page #copyright p {
+	display: block;
+	-webkit-margin-before: 1em;
+	-webkit-margin-after: 1em;
+	-webkit-margin-start: 0px;
+	-webkit-margin-end: 0px;
+	top: 20px;
+	position: relative;
+}
+/*从这开始改*/
+.select-box {
+	width: 398px;
+	height: 34px;
+	border-style: solid;
+	border-width: 1px;
+	margin-top: 30px;
+	border-color: #FF7E23;
+}
+.frame{
+	width: 998px;
+	height: 198px;
+	border-style: solid;
+	border-width: 1px;
+	margin-top: 30px;
+	border-color: #FF7E23;
+	}
+.a{
+	text-decoration:none;
+	color:#000;
+	font-family:"Microsoft YaHei UI";
+	font-size:24px;
+	position:relative;
+	margin-left:30px;
+	}
+.a:hover{
+	cursor:pointer;
+	color:#0099CC;}

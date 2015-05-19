@@ -1,0 +1,120 @@
+@charset "utf-8";
+/* CSS Document */
+* {
+	margin: 0;
+	padding: 0;
+}
+.page {
+	width: 1000px;
+	height: 400px;
+	margin-left: auto;
+	margin-right: auto;
+	border-top-width: thin;
+	border-right-width: thin;
+	border-bottom-width: thin;
+	border-left-width: thin;
+}
+#title a {
+	text-decoration: none;
+	color: #000;
+	position: relative;
+	left: 200px;
+	font-family: "幼圆";
+	font-weight: bold;
+	font-size: 18px;
+}
+.title {
+	border-top-width: thin;
+	border-right-width: thin;
+	border-bottom-width: thin;
+	border-left-width: thin;
+	border-top-style: dotted;
+	border-right-style: dotted;
+	border-bottom-style: dotted;
+	border-left-style: dotted;
+}
+
+.tr1-blank2{
+	width:64px;
+	}
+.tr1-blank1{
+	width:211px;
+	}
+
+#title a:hover{
+	color:#333;
+	}
+.content .table .tr1 td div a {
+		color: #009;
+	text-decoration: none;
+}
+.content .table .tr1 td div {
+	font-size: 14px;
+}
+
+
+.content {
+	border-style: solid;
+	border-width: thin;
+	width: 998px;
+	height: auto;
+}
+.table {
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 60px;
+	width: 500px;
+	border-width:thin;
+	border-top-style: dotted;
+	border-right-style: dotted;
+	border-bottom-style: solid;
+	border-left-style: dotted;
+}
+.table2 {
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 0px;
+	width: 500px;
+	border-width:thin;
+	border-top-style: none;
+	border-right-style: dotted;
+	border-bottom-style: dotted;
+	border-left-style: dotted;	
+	margin-bottom:60px;
+}
+.tr1{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 18px;
+	font-weight: bold;
+	height:30px
+	}
+.tr2{
+	height:40px;}
+.block{
+	border-style:solid;
+	border-width:thin;
+	}
+.star{
+	color:#F00;
+	width:142px;
+	}
+.text{
+	width:70px;
+	}
+.blank{
+	width:125px;
+	}
+.submit{
+	border-style: solid;
+	border-width: thin;
+	font-size: 24px;
+	font-family: "幼圆";
+	color: #000000;
+	background-color: #0099CC;
+	width:96px;
+}
+.submit:hover{
+	cursor:pointer;
+	}
+
+

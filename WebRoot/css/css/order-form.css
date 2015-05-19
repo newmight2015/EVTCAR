@@ -1,0 +1,37 @@
+@charset "utf-8";
+/* CSS Document */
+* {
+	margin: 0;
+	padding: 0;
+}
+.page {
+	width: 998px;
+	height: 198px;
+}
+.table {
+	margin-left:95px;
+	margin-right:96px;
+	margin-top:45px;
+}
+.row1 {
+	width: 800px;
+	background: #999;
+}
+.col,.col2 {
+	width: 159px;
+	height: 50px;
+	text-align: center;
+	font-family: "Microsoft YaHei UI";
+	font-size: 20px;
+	font-weight: bold;
+}
+.col2{
+	background-color:#ccc;}
+
+.button{
+	text-decoration:none;
+	font:Verdana, Geneva, sans-serif;
+	font-size:18px;
+	position:relative;
+	color:#F00;
+	}

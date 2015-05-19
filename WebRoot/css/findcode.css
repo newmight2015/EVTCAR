@@ -1,0 +1,156 @@
+@charset "utf-8";
+/* CSS Document */
+* {
+	margin: 0;
+	padding: 0;
+}
+.page {
+	width: 1000px;
+	height: 400px;
+	margin-left: auto;
+	margin-right: auto;
+	border-top-width: thin;
+	border-right-width: thin;
+	border-bottom-width: thin;
+	border-left-width: thin;
+}
+#title a {
+	text-decoration: none;
+	color: #000;
+	position: relative;
+	left: 200px;
+	font-family: "幼圆";
+	font-weight: bold;
+	font-size: 18px;
+}
+#title a:hover {
+	color: #333;
+}
+.title {
+	border-top-width: thin;
+	border-right-width: thin;
+	border-bottom-width: thin;
+	border-left-width: thin;
+	border-top-style: dotted;
+	border-right-style: dotted;
+	border-bottom-style: dotted;
+	border-left-style: dotted;
+}
+#content .table tr .t2 div {
+	height: 20px;
+	width: 173px;
+}
+#content .table .t3 td {
+	margin-left: 0px;
+	margin-right: 0px;
+}
+#content .table2 .t8 td #email {
+	border-top-style: solid;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	border-top-width: thin;
+	border-right-width: thin;
+	border-bottom-width: thin;
+	border-left-width: thin;
+}
+.content {
+	border-style: solid;
+	border-width: thin;
+	width: 998px;
+	height: 325px;
+}
+.table {
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 60px;
+	border-width: thin;
+	border-style: dotted;
+	width: 411px;
+}
+.t1 {
+	font-family: "Lucida Console", Monaco, monospace;
+	font-size: 24px;
+	font-weight: bold;
+	position: relative;
+	left: 120px;
+}
+.t2 {
+	text-align: left;
+	font-family: "Lucida Console", Monaco, monospace;
+	font-size: 20px;
+	font-weight: bold;
+}
+.t3 {
+	text-align: left;
+	font-family: "Lucida Console", Monaco, monospace;
+	font-size: 20px;
+	font-weight: bold;
+}
+.tel {
+	border-style: solid;
+	border-width: thin;
+}
+
+.hqyzm {
+	border-style: solid;
+	border-width: thin;
+	font-size: 15px;
+}
+.hqyzm:hover {
+	cursor: pointer;
+}
+.t4 {
+	text-align: left;
+	font-family: "Lucida Console", Monaco, monospace;
+	font-size: 20px;
+	font-weight: bold;
+}
+.t5 {
+	border-style: solid;
+	border-width: thin;
+	margin-left: auto;
+	margin-right: auto;
+	font-size: 20px;
+	background-color: #70AD47;
+	position: relative;
+	left: 165px;
+	right: auto;
+}
+.t5:hover {
+	cursor: pointer;
+}
+.table2 {
+	margin-left: auto;
+	margin-right: auto;
+	border-width: thin;
+	border-top-style: none;
+	border-right-style: dotted;
+	border-bottom-style: dotted;
+	border-left-style: dotted;
+	width: 411px;
+	height: auto;
+}
+.t7 {
+	text-align: left;
+	font-family: "Lucida Console", Monaco, monospace;
+	font-size: 20px;
+	font-weight: bold;
+}
+.t8 {
+	text-align: left;
+	font-family: "Lucida Console", Monaco, monospace;
+	font-size: 20px;
+	font-weight: bold;
+}
+.blank {
+	width: 30px;
+	height: 19px;
+}
+.email {
+	width: 171px;
+	border: solid thin;
+}
+#content form .table .t4 td input {
+	border:solid thin;
+}

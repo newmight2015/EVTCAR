@@ -1,0 +1,315 @@
+a:link{text-decoration:none;   /* 指正常的未被访问过的链接*/
+}
+a:visited{text-decoration:none; /*指已经访问过的链接*/
+}
+a:hover{text-decoration:none;/*指鼠标在链接*/}
+a:active{text-decoration:none;/* 指正在点的链接*/ }
+body{
+	font:14px/1.6 "Helvetica Neue",Arial,"Microsoft Yahei",sans-serif;
+}
+.company-head{
+	height:450px;
+	width:100%;
+	background-color:#f1f1f1;
+}
+.nav-head{
+	height:60px;
+	width:100%;
+}
+.carousel-inner img{
+	margin:0 auto;
+	height:300px;
+	width:500px;
+}
+.nav-content{
+	width:1000px;	
+	height:60px;
+	margin:0px auto;
+	line-height:4em;
+	text-align:center;
+}
+.nav-content .nav-btn{
+   
+	margin:3px 30px;
+	width:100px;
+	height:50px;
+	float:left;
+	font-size:18px;
+	font-family:Microsoft YaHei;
+	font-weight:bold;
+}
+
+.nav-content .nav-btn a:hover{
+	background-color:#FFF;
+	color:black;
+	cursor:pointer;
+	border-radius:10px 10px;
+}
+.nav-content .nav-btn a{
+    color:#FFF;
+	display:block;
+}
+.nav-fixed{
+	position: fixed;top: 0px;
+	z-index:1000;
+	
+}
+.nav-green{
+	background-color:rgb(126,194,21);
+	color:#FFF;
+}
+.company-headpic{
+    background-image:url(../pic/headpic.png);
+	width:100%;
+	min-width:1300px;
+	height:100%;
+	background-repeat:no-repeat;
+}
+.contents{
+color:#FFF;
+}	
+
+.head-text{
+	width:560px;
+	margin:0 auto;
+	padding-top:200px;
+	text-align:center;
+	color:#FFF;
+}
+.head-btn{
+	color:#FFF;
+	width:100px;
+	margin:auto;
+	padding-top:20px;
+}
+.company-function{
+	width:1280px;
+	height:447px;
+	margin:50px auto 0px auto;
+	text-align:center;
+	font-family:"Microsoft yahei";
+}
+
+.function{
+	margin-top:50px;
+	
+}
+.function-content{
+	overflow:hidden;
+}
+.function-pic{
+	width:100%;
+	height:120px;
+}
+.function-pic img{
+	width:100px;
+	height:110px;
+	margin:5px auto;
+}
+.tittle{
+	margin-top:40px;
+	font-weight:bold;
+	font-size:20px;
+}
+.content{
+padding:15px 0px;
+      text-indent:2em;
+	font-family:"Hiragino Sans GB", "microsoft yahei", helvetica, arial, sans-serif !important;
+	font-size:15px;
+	line-height:28px;
+	color:gray;
+	text-align:Justify;
+	text-justify:inter-ideograph;
+}
+.pad{
+	margin:0px 50px;
+}
+.company-footer{
+	width:100%;
+	height:200px;
+	overflow:hidden;
+}
+.footer-content{
+	height:100%;
+	width:800px;
+	margin:0px auto;
+}
+.footer-content-text{
+	padding:15px 4px;
+	font-size:18px;
+	float:left;
+	
+}
+.footer-content-text p{
+	line-height:35px;
+	margin:1em 0;
+	float:left;
+	color:#bcc1c5;
+	
+}
+.footer-content-text img{
+	float:left;
+	}
+.copyright{
+	clear:both;
+	font-weight:bold;
+	float: left;
+	margin-right: auto;
+	text-align: center;
+}
+/*************/
+
+.map-container{
+	position:relative;
+}
+
+.map-search{
+	position:absolute;
+	left:50%;
+	top:0px;
+	width:750px;
+	margin-left: -300px;
+	background: #FFF;
+	font-size: 18px;
+}
+#searchResultPanel{
+	position:absolute;
+	left:2px;
+	top:20px;
+	width:300px;
+	background:rgba(0,0,0,.1);
+	border-radius:10px;
+	box-shadow:0 1px 5px rgba(0,0,0,.4) inset,0 1px 0 rgba(255,255,255,.2);
+	
+}
+.search-box{
+	border:3px solid rgb(126,194,21);
+	margin:5px 10px 5px 6px;
+	height:auto;
+	background:white;
+	border-radius:5px;
+	box-shadow:0 1px 2px rgba(255,255,255,.2);
+	overflow:auto;
+}
+.search-head{
+	margin: 0;
+	border-bottom: 1px solid #ddd;
+	color: #666;
+	font: normal 14px/1 "Helvetica Neue",Arial,"Microsoft Yahei",sans-serif;
+	padding: 0 15px 8px 15px;
+	font-size: 15px;
+	line-height: 38px;
+	
+}
+.search-tip{
+	font: normal 18px/1 "Helvetica Neue",Arial,"Microsoft Yahei",sans-serif;
+	font-weight:bold;
+	
+}
+.search-content{
+	word-break:break-all;
+	padding:5px;
+	margin:5px;
+	position:relative;
+	border-bottom:1px solid #ddd;
+	
+	transition:all 0.5s;
+	-moz-transition:all 0.5s; /* Firefox 4 */
+	-webkit-transition:all 0.5s;/* Safari 和 Chrome */
+}
+.resultpic{
+   position:absolute;
+   top:40px;
+   left:5px;
+   display:block;
+	background:url(../pic/map-sprites.png) no-repeat;
+	height:35px;
+	width:25px;
+}
+.result-pic1{
+	background-position:0px 0px;
+}
+.result-pic2{
+	background-position:-30px 0px;
+}
+.result-pic3{
+	background-position:-60px 0px;
+}
+
+.result-content{
+	margin-left:30px;
+}
+.resultAll{
+	height:400px;
+	width:280px;
+}
+.search-content:hover{
+	background-color:#f2f5f7;
+	cursor:pointer;
+}
+.search-content1:hover  .resultpic{
+	background-position:0px -40px;
+}
+.search-content:hover  .result-tips{
+	display:block;
+}
+.search-content2:hover  .resultpic{
+	background-position:-30px -40px;
+}
+.search-content3:hover  .resultpic{
+	background-position:-60px -40px;
+}
+.result-tips{
+	clear:both;
+	position:absolute;
+	top:0px;
+	left:300px;
+	background:#FFF;
+	width:35px;
+	height:100px;
+	padding:5px 5px;
+	display:none;
+    
+	transition:all 0.5s;
+	-moz-transition:all 0.5s; /* Firefox 4 */
+	-webkit-transition:all 0.5s;/* Safari 和 Chrome */
+}
+.result-tips span{
+	display:block;
+	position:absolute;
+	width:0;
+	height:0;
+	top:50%;
+	left:-20px;
+	overflow:hidden;
+	border:10px solid transparent;
+	border-right-color:#FFF;
+	margin-top:-5px;
+}
+.result-tips p{
+	font-family:Microsoft YaHei;
+}
+.map-messagebox{
+	position:absolute;
+	left:50%;
+	top:60%;
+	width:300px;
+	height:60px;
+	padding:5px;
+	margin-left:-150px;
+	background:#444;
+	background:rgba(0,0,0,.2);
+	border-radius:10px;
+	box-shadow:0 1px 10px rgba(0,0,0,.2) inset,0 1px 0 rgba(255,255,255,.2);
+	overflow:hidden;
+	font-size:20px;
+}
+.map-messagebox .message{
+	background:#FFF;
+	height:50px;
+	border-radius:8px;
+	border:3px solid rgb(126,194,21);
+	line-height:2.5em;
+	text-align:center;
+	font-weight:bold;
+}

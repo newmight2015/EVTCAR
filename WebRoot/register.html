@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>注册</title>
+<script type="text/javascript" src="js/users.js" charset="utf-8"></script>
+<link href="css/register.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<div id="page" class="page">
+<div id="title" calss="title"> <img src="pic/title.png"/> <a href="index.jsp">返回首页</a> </div>
+<div class="content">
+<form  name="form1" method="post" action="dealRegister.do" onsubmit="return check();" >
+<table class="table">
+  <tr class="tr1">
+    <td class="tr1-blank1"></td>
+    <td>欢迎注册</td>
+    <td class="tr1-blank2"></td>
+    <td><div>已有账号，直接<a href="login.jsp">登录</a></div></td>
+  </tr>
+</table>
+<table class="table2">
+  <tr class="tr2">
+    <td align="right" class="star">*</td>
+    <td class="text">用&nbsp;户&nbsp;名</td>
+    <td><input name="username"  type="text" class="block" /></td>
+    <td id="div1"></td>
+  </tr>
+  <tr class="tr2">
+    <td align="right" class="star">*</td>
+    <td class="text">电子邮箱</td>
+    <td><input name="email" type="email" class="block"  /></td>
+    <td id="div2"></td>
+  </tr>
+  <tr class="tr2">
+    <td align="right" class="star">*</td>
+    <td class="text">手&nbsp;&nbsp;&nbsp;&nbsp;机</td>
+    <td><input name="tel" type="tel" class="block" /></td>
+    <td id="div3"></td>
+  </tr>
+  <tr class="tr2">
+    <td align="right" class="star">*</td>
+    <td class="text">密&nbsp;&nbsp;&nbsp;&nbsp;码</td>
+    <td><input name="password" type="password" class="block" /></td>
+    <td id="div4"></td>
+  </tr>
+  <tr class="tr2">
+    <td align="right" class="star">*</td>
+    <td class="text">确认密码</td>
+    <td><input name="checkpassword" type="password" class="block"  /></td>
+    <td id="div5"></td>
+  </tr>
+  <tr class="tr2">
+    <td class="tr2-blank1"></td>
+    <td style="width:0"></td>
+    <td ><input value="注册" type="submit" class="submit" /></td>
+    <td></td>
+  </tr>
+</table>
+</form>
+</div>
+</body>
+</html>
+
