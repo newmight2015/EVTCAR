@@ -5,216 +5,110 @@
 	padding: 0;
 }
 .page {
-	height: 500px;
+	height: auto;
 	width: 1000px;
-	margin-left: auto;
-	margin-right: auto;
+	margin:30px auto;
+	margin-bottom:-40px;
+}
+
+#div1,#div2,#div3{ 
+	display: none;
 }
 .title {
-	border: thin dotted #000;
-	height: auto;
-	width: auto;
-	position: relative;
-	left: auto;
-	right: auto;
-}
-#page #title a {
-	text-decoration: none;
-	color: #000;
-	position: relative;
-	left: 200px;
-	font-family: "幼圆";
-	font-weight: bold;
-	font-size: 18px;
-}
-#page #cotent #log p {
-	position: relative;
-	left: auto;
-	right: auto;
-	font-family: "幼圆";
-	font-size: 24px;
-	font-weight: bold;
-	margin-top: 50px;
-	top: 20px;
-}
-.form #page #cotent #log #user #username {
-	float: left;
-	border-top-width: thin;
-	border-right-width: thin;
-	border-bottom-width: thin;
-	border-left-width: thin;
-	border-top-style: solid;
-	border-right-style: solid;
-	border-bottom-style: solid;
-	border-left-style: solid;
-}
-.form #page #cotent #log #user div {
-	font-family: "幼圆";
-	font-size: 20px;
-	width: 100px;
-}
-.form #page #cotent #log #user #username {
-	height: 30px;
-	width: 167px;
-	background-color: #FFF;
-	position: relative;
-	left: 70px;
-	float: left;
-	padding-top: 0px;
-	bottom: 26px;
-	filter: alpha(Opacity=60);
-	-moz-opacity: 0.6;
-	opacity: 0.6;
-	padding-left: 1px;
-	margin-left: 20px;
-}
-.form #page #cotent #log #code div {
-	font-family: "幼圆";
-	font-size: 20px;
-	width: 100px;
-}
-.yzm{
-	font-family: "幼圆";
-	font-size: 20px;
-	width: 100px;
-	
-	}
-.form #page #cotent #log #yanzheng #checkcode {
-	height: 30px;
-	width: 90px;
-	background-color: #FFF;
-	position: relative;
-	left: 70px;
-	float: left;
-	padding-top: 0px;
-	bottom: 26px;
-	filter: alpha(Opacity=60);
-	-moz-opacity: 0.6;
-	opacity: 0.6;
-	padding-left: 1px;
-	margin-left: 20px;
-	border-top-width: thin;
-	border-right-width: thin;
-	border-bottom-width: thin;
-	border-left-width: thin;
-	border-top-style: solid;
-	border-right-style: solid;
-	border-bottom-style: solid;
-	border-left-style: solid;
-	z-index:1;
-	
-}
-.form #page #cotent #log .button input {
-	background-color: #339999;
-	background-image: none;
-	border-style:none;
-	height: 30px;
-	width: 200px;
-	font-family: "幼圆";
-	font-size: 18px;
-	font-weight: bold;
-	position: relative;
-	right: 55px;
-	z-index:2
-}
-.form #page #ad img {
 
-	position: relative;
-	bottom: 330px;
-	left: 440px;
+}
+.log {
+	margin: 30px;
+	width: 320px;
 	
+	background-color: white;
+	float: right;
+	padding:10px
+}
+.log .title{
+	height: 46px;
+	font: normal 14px/46px "Microsoft Yahei";
+	color: #666;
+	font-size: 15px;
 }
 
-.form #page #cotent #log .button input:hover{
-	cursor:pointer;
-	}
+.input-group{ 
+	margin-bottom: 20px;
+}
+.log p{
+	font-family: "Microsoft Yahei";
+	color: #b0b0b0;
+	font-size: 12px;
+	margin:0px;
+	padding: 0px;
+}
+
 .checkcode{
-	width:64px;
+	width:115px;
+	float: left;
+}
+.checkimg{
+	display: inline-block;
 	float:left;
-	position: relative;
-	left: 80px;
-	bottom:20px;
+	width: 60px;
+	height: 34px;
+	margin-left: 20px;
+	text-align: center;
+	}
+#page .checkimg img{
+	width: 60px;
+	height: 34px;
+	border: 0;
+	}
+.check{width: 100%;}
+#page .log .check a{
+	font-size: 12px;
+	float: right;
+	display: block;
+	padding-top: 5px;
 	}
 
-.form #page #cotent #log #code #password {
-	height: 30px;
-	width: 167px;
-	background-color: #FFF;
-	position: relative;
-	left: 70px;
-	float: left;
-	padding-top: 0px;
-	bottom: 26px;
-	filter: alpha(Opacity=60);
-	-moz-opacity: 0.6;
-	opacity: 0.6;
-	padding-left: 1px;
-	margin-left: 20px;
-	border-top-width: thin;
-	border-right-width: thin;
-	border-bottom-width: thin;
-	border-left-width: thin;
-	border-top-style: solid;
-	border-right-style: solid;
-	border-bottom-style: solid;
-	border-left-style: solid;
-}
-.content {
+#page .login-content {
 	height: 400px;
 	width: 1000px;
 	border-width: thin;
 	border-style: dotted;
 	background-color: #92D050;
 }
-.log {
-	margin: 30px;
-	width: 320px;
-	height: 300px;
-	text-align: center;
-	background-color: #999;
-	border-top-style: none;
-	border-right-style: none;
-	border-bottom-style: none;
-	border-left-style: none;
+#div4{ 
+	float: right;
+	margin-top: -10px;
 }
-.user {
-	height: auto;
-	width: auto;
-	top: 40px;
-	position: relative;
-	left: 27px;
+#page .log .regist{ 
+	margin-top: 10px;
+	float: right;
+	font-size: 12px;
+	font-family: "Microsoft Yahei";
+	color: #b0b0b0;
 }
-.code {
-	height: auto;
-	width: auto;
-	top: 40px;
-	position: relative;
-	left: 27px;
-}
-.yanzheng {
-	height: 54px;
-	width: 320px;
-	top: 40px;
-	position: relative;
-	left: 27px;
-	float:left;
-}
+
 .error{
-	width:200px;
+	width:250px;
 	font-family:"Microsoft YaHei UI";
-	font-size:15px;
+	font-size:12px;
 	color:red;
-	position:relative;
-	top:20px;
-	left:70px;
-	float:left;
-}
+	}
 .button{
-	position: relative;
-	left:55px;
-	top:30px;
-	}
+	width: 100%;
+	height: 40px;
+}
+.button input{ 
+	width: 100%;
+	background: green;
+	color: white;
+}
 .ad{
-	width:243;
-	height:244;
+	width:500px;
+	height:500px;
+	float: left;
+	padding:20px;
 	}
+.check{ 
+	text-align: center;
+
+}

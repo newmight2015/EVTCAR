@@ -1,6 +1,7 @@
 $(document).ready(function(){
 							
 	$("#select1 dd").click(function () {
+		$("#select1").data("csoperator",$(this).data("value"));
 		$(this).addClass("selected").siblings().removeClass("selected");
 		if ($(this).hasClass("select-all")) {
 			$("#selectA").remove();
@@ -14,6 +15,7 @@ $(document).ready(function(){
 	});
 	
 	$("#select2 dd").click(function () {
+		$("#select2").data("csrange",$(this).data("value"));
 		$(this).addClass("selected").siblings().removeClass("selected");
 		if ($(this).hasClass("select-all")) {
 			$("#selectB").remove();
@@ -27,6 +29,7 @@ $(document).ready(function(){
 	});
 	
 	$("#select3 dd").click(function () {
+		$("#select3").data("csparkfee",$(this).data("value"));
 		$(this).addClass("selected").siblings().removeClass("selected");
 		if ($(this).hasClass("select-all")) {
 			$("#selectC").remove();
@@ -40,6 +43,7 @@ $(document).ready(function(){
 	});
 
 	$("#select4 dd").click(function () {
+		$("#select4").data("csservicefee",$(this).data("value"));
 		$(this).addClass("selected").siblings().removeClass("selected");
 		if ($(this).hasClass("select-all")) {
 			$("#selectD").remove();
@@ -86,18 +90,8 @@ $(document).ready(function(){
 			node.slideDown();
 			$(this).html("收起");
 		}else{
-			node.slideUp();
+		    node.slideUp();
 			$(this).html("展开");
 		}
 	});
-	$(".search-toggle a").on("mouseenter", function () {
-		var node = $(".select-section");
-		if(node.is(':hidden')){//如果node是隐藏的则显示node元素，否则隐藏
-		    node.slideDown();
-			$(this).html("收起");
-		}
-	});
-	$("#search").click(function(){
-		$(".select-section").hide();
-	})
 });

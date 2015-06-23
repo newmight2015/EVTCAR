@@ -4,117 +4,111 @@
 	margin: 0;
 	padding: 0;
 }
-.page {
-	width: 1000px;
-	height: 400px;
-	margin-left: auto;
-	margin-right: auto;
-	border-top-width: thin;
-	border-right-width: thin;
-	border-bottom-width: thin;
-	border-left-width: thin;
+#bd {
+margin: 0 auto;
+width: 960px;
+padding-top: 30px;
 }
-#title a {
-	text-decoration: none;
-	color: #000;
-	position: relative;
-	left: 200px;
-	font-family: "幼圆";
-	font-weight: bold;
+.register_box {
+border: solid 1px #e9e9e9;
+margin-bottom: 16px;
+background: #fff;
+
+}
+.register_box .head{ 
+  background: url(../pic/register_btn.png) 0 0 ;
+  height: 37px;
+	line-height: 37px;
+	border-bottom: solid 1px #eaeaea;
+	padding-right: 10px;
+}
+.register_box .head h3{ 
 	font-size: 18px;
+	font-weight: normal;
+	padding-left: 18px;
+	_font-weight: bold;
+	font-family: 'Microsoft YaHei';
 }
-.title {
-	border-top-width: thin;
-	border-right-width: thin;
-	border-bottom-width: thin;
-	border-left-width: thin;
-	border-top-style: dotted;
-	border-right-style: dotted;
-	border-bottom-style: dotted;
-	border-left-style: dotted;
+.register_box .body {
+padding: 25px 0 0;
+height: 500px;
+position: relative;
 }
-
-.tr1-blank2{
-	width:64px;
-	}
-.tr1-blank1{
-	width:211px;
-	}
-
-#title a:hover{
-	color:#333;
-	}
-.content .table .tr1 td div a {
-		color: #009;
-	text-decoration: none;
-}
-.content .table .tr1 td div {
-	font-size: 14px;
+.register_box table .t {
+font-size: 16px;
+width: 275px;
+padding-right: 10px;
+text-align: right;
+vertical-align: top;
+color: #404040;
+padding-top: 15px;
+font-family: 'Microsoft YaHei';
+_line-height: 24px;
 }
 
+.register_box table td {
+padding: 10px 0;
+position: relative;
+}
+.register_box .text {
+border: 1px solid #7f9db9;
 
-.content {
-	border-style: solid;
-	border-width: thin;
-	width: 998px;
-	height: auto;
+float: left;
+width: 216px;
+margin-right: 10px;
+padding: 7px 10px;
+line-height: 18px;
+outline: 0 none;
 }
-.table {
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: 60px;
-	width: 500px;
-	border-width:thin;
-	border-top-style: dotted;
-	border-right-style: dotted;
-	border-bottom-style: solid;
-	border-left-style: dotted;
-}
-.table2 {
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: 0px;
-	width: 500px;
-	border-width:thin;
-	border-top-style: none;
-	border-right-style: dotted;
-	border-bottom-style: dotted;
-	border-left-style: dotted;	
-	margin-bottom:60px;
-}
-.tr1{
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 18px;
-	font-weight: bold;
-	height:30px
-	}
-.tr2{
-	height:40px;}
-.block{
-	border-style:solid;
-	border-width:thin;
-	}
-.star{
-	color:#F00;
-	width:142px;
-	}
-.text{
-	width:70px;
-	}
-.blank{
-	width:125px;
-	}
-.submit{
-	border-style: solid;
-	border-width: thin;
-	font-size: 24px;
-	font-family: "幼圆";
-	color: #000000;
-	background-color: #0099CC;
-	width:96px;
-}
-.submit:hover{
-	cursor:pointer;
-	}
+.register_box .v {
+border: solid 1px #e2e2e2;
+vertical-align: middle;
 
-
+}
+.register_box .btn_login {
+display: inline-block;
+border: 0;
+width: 240px;
+height: 36px;
+cursor: pointer;
+  background: url(../pic/register_btn.png) no-repeat 0 -37px;
+}
+.register_box .cue, .register_box .prompt {
+border: solid 1px #ffb8b8;
+background: #fef2f2;
+color: #f40000;
+display: inline-block;
+float: left;
+line-height: 32px;
+padding: 0 4px;	
+margin-right: 5px;
+overflow: hidden;
+}
+.register_box .v_box {
+display: block;
+clear: both;
+padding-top: 10px;
+}
+.register_box .msg_level span {
+background-color: #b9b9b9;
+color: #fff;
+display: inline-block;
+height: 14px;
+line-height: 14px;
+margin-left: 1px;
+text-align: center;
+width: 42px;
+_height: 13px;
+_padding-top: 2px;
+_overflow: hidden;
+_margin-top: -16px;
+}
+.register_box .msg_level .s1 {
+background-color: #ffc6a0;
+}
+.register_box .msg_level .s2 {
+background-color: #ffa568;
+}
+.register_box .msg_level .s3 {
+background-color: #ff8e42;
+}

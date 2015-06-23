@@ -1,0 +1,320 @@
+	*{ 
+		padding: 0px;
+		margin: 0px;
+	}
+	body{font: 14px/1.5 "Microsoft Yahei", "Hiragino Sans GB", Helvetica, "Helvetica Neue", "微软雅黑", Tahoma, Arial, sans-serif;}
+	a {font-size:16px;color: gray;}   
+	a:link {text-decoration:none;}  
+	a:active:{color: red; } 
+	a:visited {text-decoration:none;} 
+	a:hover {text-decoration:none;color: #3594fd;} 
+	ul,li{list-style: none;}
+	i{margin-right: 5px;}
+	.back-color{ 
+		background: #eeeff1;
+	}
+	.grey{ 
+		color:#c0c0c0;
+	}
+	.contain{
+		padding:0px;
+		margin:0px;
+		width:100%;
+		min-width:1280px;
+
+	}
+	.container{ 
+		padding: 0px;
+		margin: 0px;
+	}
+	.newcontainer{ 
+		width:1170px;
+		min-width: 1000px;
+		margin: 0 auto;
+	}
+	.l{float: left;}
+	.r{float: right;}
+	.m{margin: 0 5px;}
+	.font-lg{font-size:20px;font-weight:normal;}
+	.font-md{font-size:16px;font-weight:normal;}
+	.font-sm{font-size:12px;font-weight:normal;}
+	.title{ 
+		padding: 20px 0 10px 0;
+		color: #777;
+		font-size: 18px;
+		border-bottom: 1px solid #CCC;
+	}
+	.containbox{ 
+		margin: 10px 0px;
+		background: white;
+		box-shadow: 1px 2px 2px #C5C5C5;
+	}
+	header{ 
+		background: #D0E49C;
+	}
+	header nav{
+		height:60px;
+		width:800px;
+		margin:0 auto;
+		border-bottom: 1px solid #c0c0c0;
+	}
+	header logo{ 
+		height: 60px;
+
+	}
+	header nav ul{
+		display: block;
+		height: 60px;
+		width: 800px;
+
+	}
+	header nav ul li{
+		list-style: none;
+		display: inline-block;
+		float: left;
+		width: 100px;
+	}
+	header nav ul li a{ 
+		display: inline-block;
+		width: 100%;
+		height: 100%;
+		text-align: center;
+		font-size: 14px;
+		height: 60px;
+		line-height: 60px;
+		color: #ebebeb;
+	}
+	header nav ul li a:hover{ 
+		background: #ebebeb;
+	} 
+	//以下是main样式
+	.main{ padding:20px 0;}
+	#user-card{
+		background: #fff;
+		margin-top: 60px;
+		position: relative;
+		box-shadow: 0 0 4px rgba(0,0,0,.2);
+		height: 219px;
+	}
+	#user-card .maozi {
+		width: 150px;
+		height: 100px;
+		background: #fff;
+		border-radius: 4px;
+		box-shadow: 0 0 4px rgba(0,0,0,.2);
+		position: absolute;
+		left: 15px;
+		top: -40px;
+	}
+	#user-card .inners {
+		height: 170px;
+		background: #fff;
+		position: relative;
+		padding-left: 180px;
+		margin-right: 236px;
+		border-right: 1px solid #EDEDED;
+	}
+	#user-card .inners.without-side {
+	margin-right: 0;
+	border-right: 0;
+	}
+	#user-card .user-inf{
+	width: 360px;
+	}
+	#user-card .user-inf i{
+	margin-right: 5px;
+	}
+	#user-card .avatar-unit {
+		background: #fff;
+		border-radius: 4px;
+		position: absolute;
+		left: 20px;
+		top: -35px;
+		width: 140px;
+	}
+	#user-card .avatar-unit .counts {
+		background: #fcfcfc;
+		text-align: center;
+	}
+	#user-card .tabs {
+		background: #FAFAFA;
+		border-top: 1px solid #EDEDED;
+		position: relative;
+	}
+	#user-card .avatar-unit .img {
+	position: relative;
+	height: 140px;
+	}
+	#user-card .avatar-unit .load {
+	display: none;	
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-top: -8px;
+	margin-left: -8px;
+	}
+	#user-card .avatar-unit .change-avatar {
+	display: none;
+	position: absolute;
+	bottom: 10px;
+	width: 140px;
+	text-align: center;
+	}
+
+	#user-card .avatar-unit .counts .followers {
+display: block;
+float: left;
+width: 70px;
+height: 40px;
+padding-top: 10px;
+border-right: 1px solid #EDEDED;
+text-decoration: none;
+}
+#user-card .avatar-unit .counts .num {
+font-size: 16px;
+font-weight: 700;
+color: #444;
+line-height: 1;
+margin-bottom: 5px;
+}
+#user-card .avatar-unit .counts .sub {
+font-size: 12px;
+line-height: 1;
+color: #999;
+}
+#user-card .avatar-unit .counts .follows {
+display: block;
+height: 40px;
+padding-top: 10px;
+text-decoration: none;
+}
+#user-card .head-line .name {
+font-size: 24px;
+font-weight: 700;
+color: #444;
+display: inline-block;
+margin-right: 10px;
+}
+#user-card .head-line {
+margin: 20px 0 10px;
+line-height: 1;
+position: relative;
+}
+#user-card .introduction {
+font-size: 12px;
+line-height: 12px;
+color: #999;
+margin-bottom: 8px;
+}
+#user-card .introduction li {
+list-style: none;
+display: inline-block;
+margin-right: 10px;
+max-width: 190px;
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+}
+#user-card .introduction li em {
+font-style: normal;
+}
+#user-card .about {
+color: #777;
+line-height: 1.5;
+word-wrap: break-word;
+height: 42px;
+overflow: hidden;
+padding-right: 20px;
+margin-bottom: 10px;
+}
+
+#user-card .bindings {
+position: absolute;
+right: 20px;
+top: 20px;
+height: 140px;
+width: 650px;
+padding: 5px;
+}
+#user-card .fast-item{
+height: 90px;
+padding-bottom: 10px;
+}
+#user-card .fast-item a{
+width: 90px;
+text-align: center;
+display: inline-block;
+padding: 0px;
+padding-right: 5px;
+margin-right: 5px;
+}
+
+#user-card .fast-item .img{
+height: 60px;
+
+vertical-align: center;
+}
+
+#user-card .message{
+height: 40px;
+width: 510px;
+color: #999;
+}
+#user-card .message li{
+float: left;
+margin-right: 20px;
+width: 150px;
+}
+
+#user-card .user-menu{
+background: #FAFAFA;
+border-top: 1px solid #EDEDED;
+position: relative;
+}
+#user-card .user-menu a{ 
+	display: block;
+	font-size: 14px;
+}
+#user-card .user-menu .tab {
+
+height: 48px;
+line-height: 48px;
+padding: 0 20px;
+color: #777;
+border-right: 1px solid #EDEDED;
+display: inline-block;
+text-decoration: none;
+}
+
+//学习内容
+#study-record{ 
+	height: 500px;
+}
+#study-record .inf td,th{ 
+	text-align: center;
+	line-height: 3em;
+}
+
+.introduction li i{ 
+	color: green;
+}
+
+
+
+
+
+
+
+
+
+
+
+	footer{ 
+		background: white;
+		box-shadow: 1px 2px 2px #C5C5C5;
+		text-align: center;
+	}
+	.footer1{ 
+		border-bottom: 1px solid rgba(0,0,0,.3);
+
+	}	

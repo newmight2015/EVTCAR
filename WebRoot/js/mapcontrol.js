@@ -37,6 +37,241 @@ function createJson(prop, val) {
         str1[prop] = val;
     }
 }
+
+
+
+function drive(i){
+	var p2 = new window.BMap.Point(CsAllData[i].CSLongValue,CsAllData[i].CSLatiValue);
+	var driving = new BMap.DrivingRoute(map, {renderOptions:{map: map, autoViewport: true}});
+	driving.search(opoint, p2);
+}
+function showcsintro(i){
+	$('#csintro').modal();
+     var Operator,CSPub,CSState,CSFeeDay;
+        if(CsAllData[i].OperatorID=='001') Operator="国家电网";
+        else if(CsAllData[i].OperatorID=='002') Operator="普天";
+        else if(CsAllData[i].OperatorID=='003') Operator="特锐德";
+        else if(CsAllData[i].OperatorID=='004') Operator="富电科技";
+        else if(CsAllData[i].OperatorID=='005') Operator="特斯拉";
+        else Operator="未核实"
+        
+        if(CsAllData[i].CSPub=='1') CSPub="公用";
+             else if(CsAllData[i].CSPub=='2') CSPub="专用";
+             else if(CsAllData[i].CSPub=='3') CSPub="私用";
+             else if(CsAllData[i].CSPub=='4') CSPub="其他";
+             else CSPub="未核实";
+        if(CsAllData[i].CSState=='1') CSState="运营中";
+             else if(CsAllData[i].CSState=='2') CSState="未运营";
+             else CSState="未核实";
+        if(CsAllData[i].CSMode=='1') CSMode="快充";
+        else if(CsAllData[i].CSMode=='2') CSMode="慢充";
+        else CSMode="快慢充";	
+
+        if(CsAllData[i].CSFeeDay==undefined) CSFeeDay = "未核实";
+        if(window.location.href =="http://localhost:8080/EVTcar/inq_sta.jsp"){ 
+        	$("#csintro .modal-body .info").html("<table data-id='"+i+"'><tbody><tr><th>名称：</th><td>"+CsAllData[i].CSName+
+			"</td></tr><tr><th>地址：</th><td>"+CsAllData[i].CSAddr+
+			"</td></tr><tr><th>充电桩建设日期：</th><td>"+CsAllData[i].Datetime+
+			"</td></tr><tr><th>充电模式：</th><td>"+CSMode+
+			"</td></tr><tr><th>快充数量：</th><td>"+CsAllData[i].CSFast+
+			"</td></tr><tr><th>慢充数量：</th><td>"+CsAllData[i].CSSlow+
+			"</td></tr><tr><th>运营商：</th><td>"+Operator+
+			"</td></tr><tr><th>对外状态：</th><td>"+CSPub+
+			"</td></tr><tr><th>运营状态：</th><td>"+CSState+
+			"</td></tr><tr><th>电话:</th><td>"+CsAllData[i].CSPhone+
+			"</td></tr><tr><th>备注:</th><td>"+CsAllData[i].CSNotes+
+			"</td></tr></tbody></table>"+
+			"<div style='float:right;font-size:14px;'>信息有误？<a style='color:red;' href='#'>>>>点我纠错</a><div></hr>");
+        }else{
+        	$("#csintro .modal-body .info").html("<table data-id='"+i+"'><tbody><tr><th>名称：</th><td>"+CsAllData[i].CSName+
+			"</td></tr><tr><th>地址：</th><td>"+CsAllData[i].CSAddr+
+			"</td></tr><tr><th>充电桩建设日期：</th><td>"+CsAllData[i].Datetime+
+			"</td></tr><tr><th>充电模式：</th><td>"+CSMode+
+			"</td></tr><tr><th>快充数量：</th><td>"+CsAllData[i].CSFast+
+			"</td></tr><tr><th>慢充数量：</th><td>"+CsAllData[i].CSSlow+
+			"</td></tr><tr><th>运营商：</th><td>"+Operator+
+			"</td></tr><tr><th>停车费用：</th><td>"+CsAllData[i].CSFeeDay+"元/小时"+
+			"</td></tr><tr><th>对外状态：</th><td>"+CSPub+
+			"</td></tr><tr><th>运营状态：</th><td>"+CSState+
+			"</td></tr><tr><th>电话:</th><td>"+CsAllData[i].CSPhone+
+			"</td></tr><tr><th>备注:</th><td>"+CsAllData[i].CSNotes+
+			"</td></tr></tbody></table>"+
+			"<div style='float:right;font-size:14px;' id='subchange'>信息有误？<a class='btn btn-danger btn-sm' onclick='changeCsInf()'>>>>点我纠错</a><div></hr>");
+        }
+}
+
+function changeCsInf(){
+	$("#csintro .modal-body .info tr").children("td").each(function(){ 
+		$(this).replaceWith("<input style='width:400px;' name='changedata' value='"+$(this).html()+"'/>");
+	})
+	$("#subchange").html("确认完毕？<a class='btn btn-success btn-sm'>>>>>提交信息</a>")
+
+}
+
+function dealOrder(i){ 
+	$('#csorder').modal();
+	$('#csorder .appoint .errormsg').empty();
+	 var Operator,CSPub,CSState;
+        if(CsAllData[i].OperatorID=='001') Operator="国家电网";
+        else if(CsAllData[i].OperatorID=='002') Operator="普天";
+        else if(CsAllData[i].OperatorID=='003') Operator="特锐德";
+        else if(CsAllData[i].OperatorID=='004') Operator="富电科技";
+        else if(CsAllData[i].OperatorID=='005') Operator="特斯拉";
+        else Operator="未核实"
+        
+        if(CsAllData[i].CSPub=='1') CSPub="公用";
+             else if(CsAllData[i].CSPub=='2') CSPub="专用";
+             else if(CsAllData[i].CSPub=='3') CSPub="私用";
+             else if(CsAllData[i].CSPub=='4') CSPub="其他";
+             else CSPub="未核实";
+        if(CsAllData[i].CSState=='1') CSState="运营中";
+             else if(CsAllData[i].CSState=='2') CSState="未运营";
+             else CSState="未核实";
+        $("#csorder .modal-body .info").html("<table data-id='"+i+"'><tbody>"+
+        	"<tr><th>用户名：</th><td>"+STATICINFO.USERINFO.name+
+        	"<tr><th>您的位置：</th><td>"+STATICINFO.USERPOSITION.name+
+        	"<tr><th>名称：</th><td>"+CsAllData[i].CSName+
+			"</td></tr><tr><th>地址：</th><td>"+CsAllData[i].CSAddr+
+			"</td></tr><tr><th>运营商：</th><td>"+Operator+
+			"</td></tr></tbody></table></hr>");
+}
+function showPostition(i){ 
+ 		var	point = new window.BMap.Point(CsAllData[i].CSLongValue,CsAllData[i].CSLatiValue); //生成新的地图点
+ 		
+ 		var opts = {
+ 				  position : point,    // 指定文本标注所在的地理位置
+ 				  offset   : new BMap.Size(5, -10)    //设置文本偏移量
+ 				}
+ 				var label = new BMap.Label("推荐地点"+(i+1), opts);  // 创建文本标注对象
+ 					label.setStyle({
+ 						 color : "red",
+ 						 fontSize : "15px",
+ 						 fontWeight:"700",
+ 						 height : "20px",
+ 						 lineHeight : "20px",
+ 						 fontFamily:"微软雅黑"
+ 					 });
+ 		map.addOverlay(label);
+ 		map.centerAndZoom(point, 15);
+        //在marker上打开检索信息窗口
+        searchInfoWindow[i].open(marker[i]);
+}
+
+function showRecommend(){
+	$("#searchResultPanel").show();
+	$("#searchResultPanel .resultAll").empty();
+	for(i=0;i<3;i++){
+		$("#searchResultPanel .resultAll").append(
+				"<div class='search-content' onclick='showPostition("+i+")'><i class='resultpic result-pic"+(i+1)+
+				"'></i><div class='result-content'><p>名称："+CsAllData[i].CSAddr+
+				"</p><p>距离："+CsAllData[i].csDis+"米"+
+				"</p><p>快充数："+CsAllData[i].CSFast+
+				"</p><p>慢充数："+CsAllData[i].CSSlow+
+				"</p></div></div>"
+			)
+	}
+
+}
+
+function enableOrderButton(){ 
+	for(i=0;i<CsAllData.length;i++){ 
+		 if(CsAllData[i].CSIsOrder=='0'){ 
+		 	if($('"#dealOrder'+i+'"')!=undefined){ 
+	           $('"#dealOrder'+i+'"').attr("disabled", true);
+	           $('"#dealOrder'+i+'"').removeClass("btn-success").addClass("btn-danger");
+		 	}
+          }
+	}
+}
+
+function eachAllCs(srcpic,point,marker,info,searchInfoWindow,hasOpoint){//输出地图覆盖物
+			var myIcon_car = new BMap.Icon("pic/icon_car.png", new BMap.Size(20, 32), {//是引用图标的名字以及大小，注意大小要一样
+			        anchor: new BMap.Size(20, 32)});//这句表示图片相对于所加的点的位置;
+			if(hasOpoint==true){
+				var omarker = new BMap.Marker(opoint,{icon:myIcon_car});  // 创建标注
+				//添加标注
+				map.addOverlay(omarker);
+			}
+			$.each(CsAllData, function(i, content){
+								if(content!="none"){
+                                point[i] = new window.BMap.Point(CsAllData[i].CSLongValue,CsAllData[i].CSLatiValue); //循环生成新的地图点
+                                //marker[i] = new window.BMap.Marker(point[i]); //按照地图点坐标生成标记
+                                //marker[i].disableMassClear();
+                                var myIcon_charger = new BMap.Icon(srcpic, new BMap.Size(20, 32), {//是引用图标的名字以及大小，注意大小要一样
+                                                anchor: new BMap.Size(20, 32)});//这句表示图片相对于所加的点的位置;
+                                marker[i] = new BMap.Marker(point[i],{icon:myIcon_charger});  // 创建标注
+                                //添加标注
+                                map.addOverlay(marker[i]);
+                                //  marker[i].setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+                                // 创建信息窗口对象
+                                var Operator,CSPub,CSState;
+                                if(CsAllData[i].OperatorID=='001') Operator="国家电网";
+                                else if(CsAllData[i].OperatorID=='002') Operator="普天";
+                                else if(CsAllData[i].OperatorID=='003') Operator="特锐德";
+                                else if(CsAllData[i].OperatorID=='004') Operator="富电科技";
+                                else if(CsAllData[i].OperatorID=='005') Operator="特斯拉";
+                                else Operator="未知"
+                                
+                                if(CsAllData[i].CSPub=='1') CSPub="公用";
+                                     else if(CsAllData[i].CSPub=='2') CSPub="公交专用";
+                                     else if(CsAllData[i].CSPub=='3') CSPub="私用";
+                                     else if(CsAllData[i].CSPub=='4') CSPub="其他";
+                                     else CSPub="未知";
+                                if(CsAllData[i].CSState=='1') CSState="运营中";
+						             else if(CsAllData[i].CSState=='2') CSState="未运营";
+						             else CSState="未核实";    
+                                if(hasOpoint==true){
+                                info[i] =  '<img src="pic/charge-stick.gif" alt="" style="float:right;zoom:1;overflow:hidden;width:100px;height:100px;margin-left:3px;"/>'+
+                                            '</br>地址： '+CsAllData[i].CSAddr+
+                                            '</br>充电桩总数： '+CsAllData[i].CSSum+
+                                            '</br>快充个数： '+CsAllData[i].CSFast+
+                                            '</br>慢充个数： '+CsAllData[i].CSSlow+
+                                            '</br>运营商： '+Operator+
+                                            '</br>对外状态： '+CSPub+
+                                            '</br>停车费用： '+CsAllData[i].CSFeeDay+'元/h'+
+                                            '<p style="margin-top:10px"><a class="btn btn-success btn-sm" onclick="showcsintro('+i+')">详情</a>'+
+                                            '<a class="btn btn-success btn-sm" onclick="javascript:drive('+i+')">导航</a><a class="btn btn-success btn-sm" onclick="dealOrder('+i+')">预约</a></p>';
+                               }else{ 
+                               info[i] =  '<img src="pic/charge-stick.gif" alt="" style="float:right;zoom:1;overflow:hidden;width:100px;height:100px;margin-left:3px;"/>'+
+                                            '</br>地址： '+CsAllData[i].CSAddr+
+                                            '</br>充电桩总数： '+CsAllData[i].CSSum+
+                                            '</br>快充个数： '+CsAllData[i].CSFast+
+                                            '</br>慢充个数： '+CsAllData[i].CSSlow+
+                                            '</br>运营商： '+Operator+
+                                            '</br>对外状态： '+CSPub+
+                                            '</br>运营状态： '+CSState+
+                                            '<p style="margin-top:10px"><a class="btn btn-success btn-sm" onclick="showcsintro('+i+')">详情</a>';
+                               
+                               }
+                               //创建百度样式检索信息窗口对象                       
+                                searchInfoWindow[i] = new BMapLib.SearchInfoWindow(map, info[i], {
+                                        title  : CsAllData[i].CSName,      //标题
+                                        width  : 290,             //宽度
+                                        height : 200,              //高度
+                                        panel  : "panel",         //检索结果面板
+                                        enableAutoPan : true,     //自动平移
+                                        searchTypes   :[
+                                          //  BMAPLIB_TAB_SEARCH,   //周边检索
+                                          //  BMAPLIB_TAB_TO_HERE,  //到这里去
+                                           // BMAPLIB_TAB_FROM_HERE //从这里出发
+                                        ]
+                                    });
+                                //添加点击事件
+                                marker[i].addEventListener("click", 
+                                    (function(k){
+                                        // js 闭包
+                                        return function(){
+                                            //将被点击marker置为中心
+                                            map.centerAndZoom(point[k], 15);
+                                            //在marker上打开检索信息窗口
+                                            searchInfoWindow[k].open(marker[k]);
+                                        }
+                                    })(i)                            
+                                );
+                            }
+			});
+			
+		}
 function createRandomInf(){ //自动生成soc以及目的地
 	var soc=$(".vehicle-inf").children("input.soc");
     var destination=$(".vehicle-inf").children(".destination");
@@ -52,11 +287,11 @@ function createRandomInf(){ //自动生成soc以及目的地
 			tempPt[i]=pt;  //将目标地点存放在tempPt中
 			
 			destination.eq(i).val(tempPt[i].lng+","+tempPt[i].lat);
-			soc.eq(i).val(Math.round(50-Math.random()*40));
+			soc.eq(i).val(0.5-Math.random()*0.4); //SOC
 			
 		}
 }
-function creatClusterer(e,f){//创建聚合点
+function creatClusterer(e,f){//创建聚合点--在保存车辆信息是产生
 	var MAX = e;
 	var markers = [];
 	var pt = null;
@@ -117,6 +352,7 @@ function showInf(e,f){//显示车辆设置面板
 function addMarker(e){
 	  var point = new BMap.Point(e.point.lng, e.point.lat);
 	  var marker = new BMap.Marker(point);
+
 	  map.addOverlay(marker);
 	  productNum++;
 	  var label = new BMap.Label(productNum,{offset:new BMap.Size(20,-10)});
@@ -136,140 +372,8 @@ $(document).ready(function(){
 	productNum=0;
 	VehData = {};
 	tempPt=[];
+	 $("#clearOverlays").bind("click",function(){map.clearOverlays;})
 	
 })
 
 
-
-/**
-function setCookie(c_name,value,expiredays)
-	{
-		var exdate=new Date()
-		exdate.setDate(exdate.getDate()+expiredays)
-		document.cookie=c_name+ "=" +escape(value)+
-		((expiredays==null) ? "" : "; expires="+exdate.toGMTString())
-	}
-function G(id) {
-		return document.getElementById(id);
-	}
-		//绘制地图
-		
-	
-	sendPos=new Object();
-    sendPos.lng="";
-    sendPos.lat="";
-	
-	var ac = new BMap.Autocomplete(    //建立一个自动完成的对象
-		{"input" : "suggestId"
-		,"location" : map
-	});
-	ac.addEventListener("onhighlight", function(e) {  //鼠标放在下拉列表上的事件
-		var str = "";
-		var _value = e.fromitem.value;
-		var value = "";
-		if (e.fromitem.index > -1) {
-			value = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
-		}    
-		str = "FromItem<br />index = " + e.fromitem.index + "<br />value = " + value;
-		
-		value = "";
-		if (e.toitem.index > -1) {
-			_value = e.toitem.value;
-			value = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
-		}    
-		str += "<br />ToItem<br />index = " + e.toitem.index + "<br />value = " + value;
-		//G("searchResultPanel").innerHTML = str;
-	});
-
-	var myValue;
-	ac.addEventListener("onconfirm", function(e) {    //鼠标点击下拉列表后的事件
-		var _value = e.item.value;
-		myValue = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
-		//G("searchResultPanel").innerHTML ="onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
-		G("suggestId").value=myValue;
-		//setCookie('posBuff',myValue,1);
-		setPlace();
-	});
-	function setPlace(){
-		map.clearOverlays();    //清除地图上所有覆盖物
-		function myFun(){
-			var pp = local.getResults().getPoi(0).point;    //获取第一个智能搜索的结果
-			var marker=new BMap.Marker(pp);
-			map.centerAndZoom(pp, 15);
-			sendPos.lng=pp.lng;
-			sendPos.lat=pp.lat;
-			var myIcon = new BMap.Icon("pic/icon_car.png", new BMap.Size(30, 44), {//是引用图标的名字以及大小，注意大小要一样
-    									anchor: new BMap.Size(20, 32)});//这句表示图片相对于所加的点的位置;
-			var marker2 = new BMap.Marker(pp,{icon:myIcon});  // 创建标注
-			map.addOverlay(marker2);    //添加标注
-			var label = new BMap.Label("您的位置",{offset:new BMap.Size(20,-10)});
-			marker2.setLabel(label);
-			marker2.enableDragging(true); //可拖拽
-			marker2.addEventListener("mouseout", function(){ 
-						sendPos.lng=marker2.getPosition().lng;
-						sendPos.lat=marker2.getPosition().lat; //坐标
-			});
-			
-		}
-		var local = new BMap.LocalSearch(map, { //智能搜索
-		  onSearchComplete: myFun
-		});
-		local.search(myValue);
-	}
-
-$( "#toUser" ).autocomplete({
-source: function( request, response ) {
-var userId = $("#toUser").val();
-$.ajax({
-type: "POST",
-url: "MailAction?method=findUser&userIdorNum=" + encodeURI(encodeURI(userId)),
-dataType: "json",
-data: {
-maxRows: 12
-},
-success: function( data ) {
-if(data.length > 0){
-response( $.map( data, function( item ) {
-return {
-userNum:item.usernum,
-userName:item.username,
-value: item.username + "(" + item.usernum +")"
-}
-}));
-}
-}
-});
-},
-minLength: 1,
-select: function( event, ui ) {
-$("#userNum").val(ui.item.userNum);
-},
-open: function() {
-$( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
-},
-close: function() {
-$( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
-}
-});
-
-/////
-$('#autocompleteInput').autocomplete({
-        source:function(query,process){
-            var matchCount = this.options.items;//返回结果集最大数量
-            $.post("/bootstrap/region",{"matchInfo":query,"matchCount":matchCount},function(respData){
-                return process(respData);
-            });
-        },
-        formatItem:function(item){
-            return item["regionName"]+"("+item["regionNameEn"]+"，"+item["regionShortnameEn"]+") - "+item["regionCode"];
-        },
-        setValue:function(item){
-            return {'data-value':item["regionName"],'real-value':item["regionCode"]};
-        }
-    });
- 
-$("#goBtn").click(function(){ //获取文本框的实际值
-        var regionCode = $("#autocompleteInput").attr("real-value") || "";
-        alert(regionCode);
-    });
-	**/

@@ -70,7 +70,7 @@ public class dealLogin extends HttpServlet {
 		HttpSession session = request.getSession();
 		String rand=(String)session.getAttribute("rand");
 		if(!checkcode.equals(rand)) {
-			errors.add("ÑéÖ¤ÂëÊäÈë´íÎó");
+			errors.add("éªŒè¯ç è¾“å…¥é”™è¯¯");
 			wm.setErrors(errors);
 			request.setAttribute("Error",wm);
 			RequestDispatcher dispather=request.getRequestDispatcher("login.jsp");
@@ -85,11 +85,11 @@ public class dealLogin extends HttpServlet {
 					{
 								usInf=(usInformation)session.getAttribute("usInf"); 
 								System.out.println("login name3----->"+usInf.getUsId());
-								RequestDispatcher dispather=request.getRequestDispatcher("index.jsp");
+								RequestDispatcher dispather=request.getRequestDispatcher("searchCS.jsp");
 								dispather.forward(request,response);
 					}else 
 					{
-							errors.add("ÊäÈëµÄÓÃ»§Ãû»òÃÜÂë´íÎó£¡");
+							errors.add("è¾“å…¥çš„ç”¨æˆ·åæˆ–å¯†ç é”™è¯¯ï¼");
 							wm.setErrors(errors);
 							request.setAttribute("Error",wm);
 							request.getRequestDispatcher("login.jsp").forward(request,response);
@@ -102,7 +102,7 @@ public class dealLogin extends HttpServlet {
 		
 	}
 
-/*****************È·ÈÏÊäÈëµÄÓÃ»§ÃûºÍÃÜÂëÊÇ·ñÕýÈ·*****************/
+/*****************ç¡®è®¤è¾“å…¥çš„ç”¨æˆ·åå’Œå¯†ç æ˜¯å¦æ­£ç¡®*****************/
 public boolean isLogin(String username,String password,HttpSession session ) {
 	boolean flag = false;
 	PreparedStatement pstm = null;
@@ -115,8 +115,8 @@ public boolean isLogin(String username,String password,HttpSession session ) {
 		pstm=conn.prepareStatement(sql);
 		pstm.setString(1, username);
 		pstm.setString(2, password);
-		System.out.println("ÕâÊÇÒªÓÃµ½µÄsql¡­¡­¡­¡­¡­¡­£º"+sql);
-		System.out.println("@@@@@@@@Òª²éÑ¯µÄÓÃ»§Ãû£º"+username);
+		System.out.println("è¿™æ˜¯è¦ç”¨åˆ°çš„sqlâ€¦â€¦â€¦â€¦â€¦â€¦ï¼š"+sql);
+		System.out.println("@@@@@@@@è¦æŸ¥è¯¢çš„ç”¨æˆ·åï¼š"+username);
 		rs = pstm.executeQuery();
 		
 		if (rs.next()) {
@@ -125,7 +125,7 @@ public boolean isLogin(String username,String password,HttpSession session ) {
 			
 			
 			session.setAttribute("usInf",usInf); 
-	    	System.out.println("ÓÃ»§Ãû>>>>>>>>"+usInf.getUsId()+","+usInf.getUsPassWd()+"µÇÂ¼");
+	    	System.out.println("ç”¨æˆ·å>>>>>>>>"+usInf.getUsId()+","+usInf.getUsPassWd()+"ç™»å½•");
 		}
 		mc.close(rs, pstm, conn);
 	} catch (Exception ex) {

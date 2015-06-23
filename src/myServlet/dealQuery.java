@@ -52,8 +52,8 @@ public class dealQuery extends HttpServlet {
 			throws ServletException, IOException {
 		this.doPost(request, response);
 	}
-    public boolean sendInf(String x,String y) throws IOException{
-    	 //String host = "219.242.251.168";  //要连接的服务端IP地址
+	/* public boolean sendInf(String x,String y) throws IOException{
+    	//String host = "219.242.251.168";  //要连接的服务端IP地址
     	 String host="127.0.0.1";
     	// String host = "202.112.148.123";  //要连接的服务端IP地址
 	     int port = 10001;   //要连接的服务端对应的监听端口  
@@ -117,7 +117,7 @@ public class dealQuery extends HttpServlet {
 	    	 System.out.println("接受字符串错误:"+e);
 	    	 return false;
 	     }
-    }
+    }*/
     
   
     
@@ -133,7 +133,7 @@ public class dealQuery extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		csInf.clear();
+		/*csInf.clear();
 	    String x=request.getParameter("lng");
 		String y=request.getParameter("lat");
 		//System.out.println(x+","+y);
@@ -148,7 +148,7 @@ public class dealQuery extends HttpServlet {
 			}
 		
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/char_nav.jsp");
-		requestDispatcher.forward(request, response);
+		requestDispatcher.forward(request, response);*/
 	}
 
 	/**

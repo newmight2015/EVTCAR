@@ -1,80 +1,187 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@  page language="java" import="java.util.*" import="myBean.usInformation" pageEncoding="UTF-8" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 request.setCharacterEncoding("UTF-8");
 response.setCharacterEncoding("UTF-8");
 %>
-<%@page import="myBean.csInformation" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>查询充电站信息</title>
 
-<script type="text/javascript" src="js/jquery.js"></script>
+
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=r6bfCVxPZTpoKGGNthyuupYh"></script>
 <script type="text/javascript" src="http://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.js"></script>
 <script type="text/javascript" src="js/map.js"></script>
-<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
-
+<script src="js/jquery-2.1.3.min.js"></script>
+<link href="css/evtcar.css" rel="stylesheet" type="text/css" />
+<link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="styles/nyroModal.css" rel="stylesheet" type="text/css" />
 <link href="css/inq-sta.css" rel="stylesheet" type="text/css" />
 <link href="css/nav-bar.css" rel="stylesheet" type="text/css" />
-<link href="css/copyright.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="http://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.css" /> 
+<link href="static/style/release/other13.css" rel="stylesheet" type="text/css" />
+<script src="static/js/release/cities08.js"  type="text/javascript"></script>
+<script src="static/js/release/jquery.autocomplete.js" type="text/javascript"></script>
+
+<script type="text/javascript" src="http://api.map.baidu.com/library/TextIconOverlay/1.2/src/TextIconOverlay_min.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/library/MarkerClusterer/1.2/src/MarkerClusterer_min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/mapcontrol.js" type="text/javascript"></script>
+	<script src="js/staticinfo.js" type="text/javascript"></script>
+<script type="text/javascript">
+	<%
+		HttpSession sess = request.getSession();
+		usInformation usInf = (usInformation)sess.getAttribute("usInf");
+	%>
+	window.MAINURL = "<%=basePath%>";
+	STATICINFO.USERINFO.URL = "<%=basePath%>";
+	STATICINFO.USERINFO.name = "<%= usInf==null ? "" : usInf.getUsId()%>";
+	</script>
+<style>
+body{
+	font: 14px/1.6 "Helvetica Neue",Arial,"Microsoft Yahei",sans-serif;
+}
+</style>
 </head>
 
 <body>
-<div id="page" class="page">
-  <%@include file="head.jsp" %>
-<div id="content" class="content">
-<div class="search">
-<span class="city">当前城市是:<span name="this-city" class="this-city">北京<!--传入当前城市--></span><a href="#" style="text-decoration:none;font-size:16px;margin-left:10px;">更改城市</a></span>
-<div class="text">查找充电站:</div>
-<div class="input">
-<select name="district" id="district" class="district" onchange="" >
-  <option value="false" class="option">请选择区域</option>
-  <option value="9" class="option">海淀区</option>
-  <option value="1" class="option">朝阳区</option>
-  <option value="15" class="option">西城区</option>
-  <option value="7" class="option">东城区</option>
-  <option value="2" class="option">通州区</option>
-  <option value="4" class="option">昌平区</option>
-   <option value="8" class="option">丰台区</option>
-   <option value="14" class="option">石景山区</option>
-  <option value="11" class="option">大兴区</option>
-  <option value="12" class="option">门头沟</option>
-  <option value="10" class="option">房山区</option>
-  <option value="3" class="option">顺义区</option>
-  <option value="5" class="option">怀柔区</option>
-  <option value="6" class="option">平谷区</option>
-  <option value="13" class="option">密云县</option>
 
-</select>
-<select name="station" id="station" class="station" >
-  <option value="1" class="option">可用充电站</option>
-  <option value="0" class="option">在建充电站</option>
-</select>
+		<!--顶部导航栏开始 -->
+<header>
+<div class="top">
+	<div class="wp">
+		<div class="logo">
+			<a href="/" class="icon_img_logo"></a>
+		</div>
+		<div class="menu">
+			<div class="xl">
+				<ul>
+					<li><a>客户端下载</a></li>
+					<li><a>运营商加盟</a></li>
+				</ul>
+			</div>
+			<div class="loader">
+				<a href="register.html" class="btn btn-success btn-lg"><span>注册</span></a>
+				<a href="login.jsp" class="btn btn-success btn-lg"><span>登录</span></a>
+			</div>
+			<script>
+				if(STATICINFO.USERINFO.name!=""){
+					$(".loader").html("<span style='color:white'>Hi,"+
+							STATICINFO.USERINFO.name+"欢迎回到车快充!  </span><a href='logout.jsp'>退出登录</a>&nbsp;&nbsp;<a href='register.html'>免费注册</a>")
+				}
+			</script>
+		</div>
+	</div>
 </div>
-<div class="button">
-<form action="dealCsQuery.do" id="form1" method="post">
-<input type="hidden" name="csarea" id="quyu"/>
-<input type="hidden" name="cstype" id="c_leibie"/>
-<input type="button" class="submit" onClick="javascript:submitOpt(); return false;" value="搜索"/>
-</form>
+<!--下面是中部导航栏的代码-->
+<div class="nav-green nav-head" id="J_m_nav">
+	<div class="nav-content">
+		<div class="nav-btn"><a href="index.html">首页</a></div>
+		<div class="nav-btn"><a href="searchCS.jsp">我要充电</a></div>
+		<div class="nav-btn active"><a href="inq_sta.jsp">充电站分布</a></div>
+		<div class="nav-btn"><a href="userInf.jsp">用户管理</a></div>
+		<div class="nav-btn"><a href="#">关于我们</a></div>
+	</div>
 </div>
+</header>
+<!-- Modal -->
+<div class="modal fade" id="csintro" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title text"><strong>充电站详细信息</strong></h4>
+      </div>
+      <div class="modal-body">
+        <div class="info"></div>
+        <div class="content">
+        </div>
+     </div>
+      
+    </div>
+  </div>
+</div>
+<!--顶部导航栏结束 -->
+<div id="content">
+
+<div class="order-main">
+	<div class="hot-cities">
+	<div class="search-citys">
+				<span>当前城市：</span>
+				<input class="text ac_input" id="city_name" type="text" value="请输入城市中文或拼音" onKeyUp="input_keyup();" onClick="append_city();" onBlur="input_blur()" onFocus="if(value=='请输入城市中文或拼音'){value='';style.color='#606060';}" />	
+				<input class="text" id="hid_city_name" name="index_city" style="display:none">
+				<input class="text" id="hid_real_city_name" name="real_index_city" style="display:none">
+				<!--热门城市下拉-->
+				<div class="pop search-citys-pop click" style="display:none;z-index:9999" id="cityarea">
+					<a href="javascript:void(0)" class="pop-close" ></a>
+					<div class="search-citys-tit click">热门城市(可直接输入中文名/拼音/三字码)</div>
+					<div class="search-citys-tt click">
+						<a class="current click" onClick="tabCutover(this,'s-citys1')" href="javascript:void(0)">热门<span></span></a>
+						<a class="click" onClick="tabCutover(this,'s-citys2')" href="javascript:void(0)">ABCDEFG<span></span></a>
+						<a class="click" onClick="tabCutover(this,'s-citys3')" href="javascript:void(0)">HIJKL<span></span></a>
+						<a class="click" onClick="tabCutover(this,'s-citys4')" href="javascript:void(0)">MNOPQRST<span></span></a>
+						<a class="click" onClick="tabCutover(this,'s-citys5')" href="javascript:void(0)">UVWXYZ<span></span></a>
+					</div>
+					<div class="search-citys-list click" id="citylist"></div>
+				</div>
+			</div>
+	</div>
 </div>
 <div class="map" id="r-map">
-<iframe name="map" width="697" height="378" frameborder="0" scrolling="no"></iframe>
 </div>
-
-<%@include file="bottom.jsp" %>
 </div>
+<footer>
+			<div class="company-footer nav-green">
+				<div class="footer-content">
+					<div class="footer-content-text">
+						<img src="pic/footer-telephone-icon.png" alt="phone">
+						<p>
+							
+							<span class="contents">Tel:123456789123</span>
+						</p>
+					</div>
+					<div class="footer-content-text">
+						<img src="pic/footer-smartphone-icon.png" alt="smartphone">
+						<p>
+							
+							<span class="contents">Mobile:123456789123</span>
+						</p>
+					</div>
+					<div class="footer-content-text">
+						<img src="pic/footer-mail-icon.png" alt="mail">
+						<p>
+							<span class="contents">Mail:bilinghc@163.com</span>
+						</p>
+					</div>
+					<div>
+					<p class="copyright"> &nbsp;&nbsp;© 2015 京ICP备15002253号
+			&nbsp;&nbsp;|&nbsp;&nbsp;北京交通大学交通运输学院系统工程与控制研究所&nbsp;&nbsp;|&nbsp;&nbsp;充电站数据来自政府有关部门</p>
+					</div>
+				</div>
+			</div>
+		</footer>
 </body>
 </html>
 <script type="text/javascript">
-				initMap();
+
+				  var map = new BMap.Map("r-map");    // 创建Map实例
+				    map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);  // 初始化地图,设置中心点坐标和地图级别
+				    map.addControl(new BMap.MapTypeControl());   //添加地图类型控件
+				    map.setCurrentCity("北京");          // 设置地图显示的城市 此项是必须设置的
+				    map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
+				function myFun(result){
+				    var cityName = result.name;
+				    map.setCenter(cityName);   //关于setCenter()可参考API文档---”传送门“
+				    //alert(cityName);
+				    change_city_val(cityName);
+				}
+				var myCity = new BMap.LocalCity();
+				myCity.get(myFun);   
+				//创建一个LocalCity对象myCity，然后调用其get()方法，就得到了用户IP对应的城市。该城市结果会以参数形式传递给回调函数myFun。接下来就是myFun(结果城市result)来执行了----即上文红色代码。
+
 				function G(id) {
 						return document.getElementById(id);
 					}        
@@ -91,74 +198,191 @@ response.setCharacterEncoding("UTF-8");
 					     }else{
 					     	alert("请选择范围！");
 					     }
-					    }  
+				}  
 /*************输出查询后的充电站位置*******************/
 
 //注意：百度和谷歌的经纬度坐标顺序是相反的。
-				<% List list = (List)request.getAttribute("csInfPos");
-				
-				if(list!=null){
-				%>
- 				var data_info = [
- 					<%
-					for(int a=0;a<list.size();a++) {
-       					csInformation  csInf= (csInformation)list.get(a);%>
-	 					[<%=csInf.getLng()%>,<%=csInf.getLat()%>,<%=csInf.getCsFastNum()%>,<%=csInf.getCsSlowNum()%>
-	 					,"<%=csInf.getCsName()%>","<%=csInf.getCsAddr()%>",<%=csInf.getCsAllNum()%>
-	 					],
-	 				<%}%>
-				 ];
-				 	<%
-				 	String csarea=request.getParameter("csarea").trim();
-					String cstype=request.getParameter("cstype").trim();
-					%>
-					G("district").value=<%=csarea%>;
-					G("station").value=<%=cstype%>;
-                   var point = new Array(); //存放标注点经纬信息的数组
-                    var marker = new Array(); //存放标注点对象的数组
-                    var info = new Array(); //存放提示信息窗口对象的数组
-                    var searchInfoWindow =new Array();//存放检索信息窗口对象的数组
-                    for (var i = 0; i < data_info.length; i++) {
-                        
-                        point[i] = new window.BMap.Point(data_info[i][0],data_info[i][1]); //循环生成新的地图点
-                        //marker[i] = new window.BMap.Marker(point[i]); //按照地图点坐标生成标记
-                        //marker[i].disableMassClear();
-                        var myIcon_charger = new BMap.Icon("pic/icon_charger.png", new BMap.Size(20, 32), {//是引用图标的名字以及大小，注意大小要一样
-    									anchor: new BMap.Size(20, 32)});//这句表示图片相对于所加的点的位置;
-						marker[i] = new BMap.Marker(point[i],{icon:myIcon_charger});  // 创建标注
-						//添加标注
-                        map.addOverlay(marker[i]);
-                        //  marker[i].setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
-                        // 创建信息窗口对象
-                        info[i] =  '<img src="pic/charge-stick.gif" alt="" style="float:right;zoom:1;overflow:hidden;width:100px;height:100px;margin-left:3px;"/>'+
-                        			'</br>地址：'+data_info[i][5]+'</br>充电桩总数：'+data_info[i][6]+
-                        			'</br>快充个数:'+data_info[i][2]+'</br>慢充个数:'+data_info[i][3]+'</br>空闲充电桩数：0';
-                       //创建百度样式检索信息窗口对象                       
-                        searchInfoWindow[i] = new BMapLib.SearchInfoWindow(map, info[i], {
-                                title  : data_info[i][4],      //标题
-                                width  : 290,             //宽度
-                                height : 130,              //高度
-                                panel  : "panel",         //检索结果面板
-                                enableAutoPan : true,     //自动平移
-                                searchTypes   :[
-                                  //  BMAPLIB_TAB_SEARCH,   //周边检索
-                                    BMAPLIB_TAB_TO_HERE,  //到这里去
-                                    BMAPLIB_TAB_FROM_HERE //从这里出发
-                                ]
-                            });
-                        //添加点击事件
-                        marker[i].addEventListener("click", 
-                            (function(k){
-                                // js 闭包
-                                return function(){
-                                    //将被点击marker置为中心
-                                    map.centerAndZoom(point[k], 15);
-                                    //在marker上打开检索信息窗口
-                                    searchInfoWindow[k].open(marker[k]);
-                                }
-                            })(i)                            
-                        ); 
-                }
-  <%list.clear();}%>
+			
 </script>
+<script language="javascript">
+
+var cityChange= eval(cityChange);
+$(function(){
+ $('#index_province').change(function(){
+    for(var i in cityChange){
+        if(i==this.value){
+           var index_city_obj = $('#index_city')[0];
+           index_city_obj.innerHTML='';
+           var obj = cityChange[i];
+           for(var k in obj){
+              if(obj[k].name){             
+			  	index_city_obj.options[index_city_obj.options.length] = new Option( obj[k].name,obj[k].pinyin);
+              }
+           }
+           break;
+        }
+    }
+    
+ });
+ 
+})
+$(function() {
+	$('#city_name').autocomplete(cities, {
+	max: 12, //列表里的条目数
+	minChars: 0, //自动完成激活之前填入的最小字符
+	width: 385, //提示的宽度，溢出隐藏
+	scrollHeight: 300, //提示的高度，溢出显示滚动条
+	matchContains: true, //包含匹配，就是data参数里的数据，是否只要包含文本框里的数据就显示
+	autoFill: false, //自动填充
+	minChars:1,
+	formatItem: function(row, i, max) {
+	return row.name + '（'+row.pinyin+'）';
+	},
+	formatMatch: function(row, i, max) {
+	return row.match;
+	},
+	
+	formatResult: function(row) {
+	return row.name;
+	},resultsClass:'search-text'
+	}).result(function(event, row, formatted) {
+		$("#hid_city_name").val(row.pinyin);
+		$("#hid_real_city_name").val(row.name);
+		$('#pop_cities').hide();
+		});
+});
+
+
+$(document).ready(function(){
+		$(document).bind('click', hide_div);
+    });
+    
+    function hide_div(e){
+    	var biaoqian = "click";
+    	var classname= $(e.target)[0].className;
+    	if(classname.indexOf('click')>'-1' ||$(e.target)[0].id=='city_name')
+    	return ;
+
+    	if($('#city_name').val()=='')
+        {
+        	$('#city_name').val('请输入城市中文或拼音');
+        	$('#city_name').css('color','#B7B7B7');
+        }
+        $("#cityarea").hide();
+    } 
+
+//直接输入地址框的onblur事件
+function input_blur()
+{
+	var value = $('#city_name').val();
+	var all_city_val = $(".ac_over").text();
+	if(all_city_val && all_city_val!="")
+	{
+		var str = all_city_val.substr(0,(all_city_val.length-1));
+		strs=str.split("（");
+		$("#hid_city_name").val(strs[1]);
+		$("#hid_real_city_name").val(strs[0]);
+		$("#city_name").val(strs[0]);
+		$(".search-text").hide();
+	}else if($.trim(value)==''&& $('#cityarea').css('display')=='none')
+	{
+		$('#city_name').val('请输入城市中文或拼音');
+		$('#city_name').css("color","#B7B7B7");
+	}	
+}
+    
+//直接输入地址框的onkeyup事件
+function input_keyup()
+{
+	var value = $('#city_name').val();
+	if($('#hid_real_city_name').val()!=value || $('#hid_real_city_name').val()=='')
+	{
+		$('#cityarea').hide();
+		
+	}else if(value==$('#hid_real_city_name').val())
+	{
+		$('#cityarea').hide();
+		
+	}
+		
+}
+
+function check_input(){
+	var value = $('#city_name').val();
+	if(value==$('#hid_real_city_name').val() && $("#hid_city_name").val()!=""){
+		return true;
+	}
+	return false;
+}
+
+/**
+ * 字母页面内链
+ *
+ */
+function letter_scroll(letter)
+{
+	 var obj = $("#c_"+letter);
+	 $('html,body').animate({scrollTop: obj.offset().top}, 500);
+}
+
+/**
+ * 用户点击城市后，城市名填入input框
+ *
+ */
+function change_city_val(city, pinyin_city)
+{
+	$('#city_name').css({ color: "#606060"});
+	$('#city_name').val(city);
+	$('#hid_city_name').val(pinyin_city);
+	$("#hid_real_city_name").val(city);
+	$('#cityarea').hide();
+	map.centerAndZoom(city,11);
+	map.clearOverlays();
+    $.ajax({
+                        type: "POST",
+                        dataType: "html",
+                        url: "dealMessage",
+                        data: {cityname:city,act:"searchCityCS"},
+                        success: function (data) {
+                                CsAllData = JSON.parse(data);
+                                var point = new Array(); //存放标注点经纬信息的数组
+                                marker = new Array(); //存放标注点对象的数组
+                                var info = new Array(); //存放提示信息窗口对象的数组
+                                searchInfoWindow =new Array();//存放检索信息窗口对象的数组
+                                var srcpic = "pic/icon_charger.png";
+                                eachAllCs(srcpic,point,marker,info,searchInfoWindow,false);
+                                map.addEventListener('zoomend', function(){
+								    var mapstatue = map.getZoom();
+								    if(mapstatue <= 11 ){
+								    	hidemakers(marker);
+								        markerClusterer = new BMapLib.MarkerClusterer(map, {markers:marker});
+								    }else {
+								    	markerClusterer.clearMarkers(marker);
+								    	showmarkers(marker);
+								    }
+								});
+                                //创建聚合点
+                                //map.centerAndZoom(opoint, 11);
+                                //new showRecommend();
+                        },
+                        error: function(data) {
+                            alert("error:"+data.responseText);
+                         }
+                    });  
+}
+
+function hidemakers(marker){ 
+	for (var i = marker.length - 1; i >= 0; i--) {
+		map.removeOverlay(marker[i]);
+	};
+}
+function showmarkers(marker){ 
+	for (var i = marker.length - 1; i >= 0; i--) {
+		map.addOverlay(marker[i]);
+	};
+}
+
+function tabCutover(c,d){$(c).parent().attr("class");$(c).parent().children().removeClass("current");$(c).addClass("current");$("."+d).parent().children().hide();$("."+d).show();}
+</script>
+
 

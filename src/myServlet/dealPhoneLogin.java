@@ -67,33 +67,25 @@ public class dealPhoneLogin extends HttpServlet {
 			pstm=conn.prepareStatement(sql);
 			pstm.setString(1, username);
 			pstm.setString(2, password);
-			System.out.println("这是要用到的sql………………："+sql);
-			System.out.println("@@@@@@@@要查询的用户名："+username);
 			rs = pstm.executeQuery();
-			JSONArray ja = new JSONArray();
-			if (rs.next()) {
-		    		Map<String, String> map1 = new HashMap<String, String>();
-					map1.put("USid", rs.getString(1));
-					map1.put("USPassWd",rs.getString(2));
-					map1.put("USMail", rs.getString(3));
-					map1.put("USPhoneNum",rs.getString(4));
-					map1.put("USCity", rs.getString(5));
-					map1.put("USCarType", rs.getString(6));
-					map1.put("USBatType", rs.getString(7));
-					map1.put("USCarNum", rs.getString(8));
-					ja.put(map1);
-					map1.clear();
+			JSONObject jo = new JSONObject();
+			if (rs.next()){
+					String usid = rs.getString("USid");
+					JSONObject usinf = new JSONObject();//瀛樻斁鐢ㄦ埛淇℃伅
+					usinf.put("USid", usid);
+					
+					jo.put("isSuccess",true);//鐧诲綍鎴愬姛鏍囧織
+					jo.put("message",usinf);
 			}else {
-					ja.put("你输入的用户名或密码有误！");
+					jo.put("isSuccess",false);//鐧诲綍澶辫触
 			}
-			String buff=ja.toString();
 			mc.close(rs, pstm, conn);
 			try{
 	           	  PrintWriter out = response.getWriter(); 
-	              out.write(new String(buff));  
+	              out.println(jo.toString());  
 	              out.flush();  
-	              out.close();//关闭   
-	               }catch(Exception e){  
+	              out.close();
+	        }catch(Exception e){  
 	               System.out.println(e);  
 	               e.printStackTrace();  
 	           }

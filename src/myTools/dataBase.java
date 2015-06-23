@@ -9,20 +9,20 @@ import java.sql.SQLException;
 //import org.apache.log4j.Logger;  
  
 public class dataBase {  
-   // Ê¹ÓÃlog4j¼ÇÂ¼ÈÕÖ¾  
+   // ä½¿ç”¨log4jè®°å½•æ—¥å¿—  
   // private static Logger logger = Logger.getLogger(BaseDao.class);  
-   // Á¬½ÓÇı¶¯  
+   // è¿æ¥é©±åŠ¨  
 	   private static final String DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";  
-	   // Á¬½ÓÂ·¾¶  
-	   private static final String URL = "jdbc:sqlserver://localhost:1433;databaseName=³äµç·şÎñÏµÍ³5.18";  
-	   // ÓÃ»§Ãû  
+	   // è¿æ¥è·¯å¾„  
+	   private static final String URL = "jdbc:sqlserver://localhost:1433;databaseName=å……ç”µæœåŠ¡ç³»ç»Ÿ6.5";  
+	   // ç”¨æˆ·å  
 	   private static final String USERNAME = "sa";  
-	   // ÃÜÂë  
+	   // å¯†ç   
 	   private static final String PASSWORD = "sa12345";  
-   //¾²Ì¬´úÂë¿é  
+   //é™æ€ä»£ç å—  
    static {  
        try {  
-           // ¼ÓÔØÇı¶¯  
+           // åŠ è½½é©±åŠ¨  
            Class.forName(DRIVER);  
        } catch (ClassNotFoundException e) {  
            e.printStackTrace();  
@@ -30,26 +30,26 @@ public class dataBase {
    }  
  
    /* 
-    * »ñÈ¡Êı¾İ¿âÁ¬½Ó 
+    * è·å–æ•°æ®åº“è¿æ¥ 
     */  
    public Connection getConnection() {  
        Connection conn = null;  
-     //  logger.debug("¿ªÊ¼Á¬½ÓÊı¾İ¿â"); 
-       System.out.println("¿ªÊ¼Á¬½ÓÊı¾İ¿â");
+     //  logger.debug("å¼€å§‹è¿æ¥æ•°æ®åº“"); 
+       System.out.println("å¼€å§‹è¿æ¥æ•°æ®åº“");
        try{  
            conn=DriverManager.getConnection(URL, USERNAME, PASSWORD);  
        }catch(SQLException e){  
            e.printStackTrace();  
-         //  logger.error("Êı¾İ¿âÁ¬½ÓÊ§°Ü£¡");
-           System.out.println("Êı¾İ¿âÁ¬½ÓÊ§°Ü£¡");
+         //  logger.error("æ•°æ®åº“è¿æ¥å¤±è´¥ï¼");
+           System.out.println("æ•°æ®åº“è¿æ¥å¤±è´¥ï¼");
        }  
-      // logger.debug("Êı¾İ¿âÁ¬½Ó³É¹¦"); 
-       System.out.println("Êı¾İ¿âÁ¬½Ó³É¹¦£¡");
+      // logger.debug("æ•°æ®åº“è¿æ¥æˆåŠŸ"); 
+       System.out.println("æ•°æ®åº“è¿æ¥æˆåŠŸï¼");
        return conn;  
    }  
  
    /* 
-    * ¹Ø±ÕÊı¾İ¿âÁ¬½Ó£¬×¢Òâ¹Ø±ÕµÄË³Ğò 
+    * å…³é—­æ•°æ®åº“è¿æ¥ï¼Œæ³¨æ„å…³é—­çš„é¡ºåº 
     */  
    public void close(ResultSet rs, PreparedStatement ps, Connection conn) {  
        if(rs!=null){  
@@ -58,7 +58,7 @@ public class dataBase {
                rs=null;  
            }catch(SQLException e){  
                e.printStackTrace();  
-             //  logger.error("¹Ø±ÕResultSetÊ§°Ü");  
+             //  logger.error("å…³é—­ResultSetå¤±è´¥");  
            }  
        }  
        if(ps!=null){  
@@ -67,7 +67,7 @@ public class dataBase {
                ps=null;  
            }catch(SQLException e){  
                e.printStackTrace();  
-              // logger.error("¹Ø±ÕPreparedStatementÊ§°Ü");  
+              // logger.error("å…³é—­PreparedStatementå¤±è´¥");  
            }  
        }  
        if(conn!=null){  
@@ -76,7 +76,7 @@ public class dataBase {
                conn=null;  
            }catch(SQLException e){  
                e.printStackTrace();  
-              // logger.error("¹Ø±ÕConnectionÊ§°Ü");  
+              // logger.error("å…³é—­Connectionå¤±è´¥");  
            }  
        }  
    }  

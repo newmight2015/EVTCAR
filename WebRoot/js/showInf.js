@@ -59,7 +59,7 @@
             map.centerAndZoom(pp, 15);
             sendPos.lng=pp.lng;
             sendPos.lat=pp.lat;
-            var myIcon = new BMap.Icon("pic/icon_car.png", new BMap.Size(20, 32), {//是引用图标的名字以及大小，注意大小要一样
+            var myIcon = new BMap.Icon("pic/icon_car.png", new BMap.Size(30, 44), {//是引用图标的名字以及大小，注意大小要一样
                                         anchor: new BMap.Size(20, 32)});//这句表示图片相对于所加的点的位置;
             var marker2 = new BMap.Marker(pp,{icon:myIcon});  // 创建标注
             map.addOverlay(marker2);    //添加标注
@@ -70,66 +70,27 @@
                         sendPos.lng=marker2.getPosition().lng;
                         sendPos.lat=marker2.getPosition().lat; //坐标
             });
-            
         }
         var local = new BMap.LocalSearch(map, { //智能搜索
           onSearchComplete: myFun
         });
         local.search(myValue);
     }
-
-    function eachAllCs(point,marker,info,searchInfoWindow){//输出地图覆盖物
-            $.each(CsAllData, function(i, content){
-                                point[i] = new window.BMap.Point(CsAllData[i].lng,CsAllData[i].lat); //循环生成新的地图点
-                                //marker[i] = new window.BMap.Marker(point[i]); //按照地图点坐标生成标记
-                                //marker[i].disableMassClear();
-                                var myIcon_charger = new BMap.Icon("pic/icon_charger.png", new BMap.Size(20, 32), {//是引用图标的名字以及大小，注意大小要一样
-                                                anchor: new BMap.Size(20, 32)});//这句表示图片相对于所加的点的位置;
-                                marker[i] = new BMap.Marker(point[i],{icon:myIcon_charger});  // 创建标注
-                                //添加标注
-                                map.addOverlay(marker[i]);
-                                //  marker[i].setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
-                                // 创建信息窗口对象
-                                info[i] =  '<img src="pic/charge-stick.gif" alt="" style="float:right;zoom:1;overflow:hidden;width:100px;height:100px;margin-left:3px;"/>'+
-                                            '</br>地址：'+CsAllData[i].csAddr+'</br>充电桩总数：'+CsAllData[i].csAllNum+
-                                            '</br>快充个数:'+CsAllData[i].csFastNum+'</br>慢充个数:'+CsAllData[i].csSlowNum+'</br>空闲充电桩数：0';
-                               //创建百度样式检索信息窗口对象                       
-                                searchInfoWindow[i] = new BMapLib.SearchInfoWindow(map, info[i], {
-                                        title  : CsAllData[i].csName,      //标题
-                                        width  : 290,             //宽度
-                                        height : 130,              //高度
-                                        panel  : "panel",         //检索结果面板
-                                        enableAutoPan : true,     //自动平移
-                                        searchTypes   :[
-                                          //  BMAPLIB_TAB_SEARCH,   //周边检索
-                                            BMAPLIB_TAB_TO_HERE,  //到这里去
-                                            BMAPLIB_TAB_FROM_HERE //从这里出发
-                                        ]
-                                    });
-                                //添加点击事件
-                                marker[i].addEventListener("click", 
-                                    (function(k){
-                                        // js 闭包
-                                        return function(){
-                                            //将被点击marker置为中心
-                                            map.centerAndZoom(point[k], 15);
-                                            //在marker上打开检索信息窗口
-                                            searchInfoWindow[k].open(marker[k]);
-                                        }
-                                    })(i)                            
-                                );
-                            });
-        }
-
     $("#search").on("click",function(){
-    	$(".select-section").hide(300);
+    	$(".select-section").slideUp();
+    	$(".search-toggle a").html("展开");
+    	STATICINFO.USERPOSITION.name = $("#suggestId").val();
         if(sendPos.lat==""){
             $(".map-messagebox .message").html("请输入您的位置");
             $(".map-messagebox").show(1000,function(){setTimeout(function(){$(".map-messagebox").hide(1000)},2000) });
         }else {
-            var AjaxURL="dealPhoneQuery.do?lng="+sendPos.lng+"&lat="+sendPos.lat;
-            var opoint = new BMap.Point(sendPos.lng,sendPos.lat);
-            map.centerAndZoom(opoint, 13);
+        	map.clearOverlays();
+        	opoint = new BMap.Point(sendPos.lng, sendPos.lat);
+            var csOperator = $("#select1").data("csoperator");
+            var csRange = $("#select2").data("csrange");
+            var csParkFee = $("#select3").data("csparkfee");
+            var AjaxURL="dealCsQuery.do?lng="+sendPos.lng+"&lat="+sendPos.lat+"&csOperator="+csOperator
+            +"&csRange="+csRange+"&csParkFee="+csParkFee;
             $.ajax({
                         type: "GET",
                         dataType: "html",
@@ -138,10 +99,14 @@
                         success: function (data) {
                                 CsAllData = JSON.parse(data);
                                 var point = new Array(); //存放标注点经纬信息的数组
-                                var marker = new Array(); //存放标注点对象的数组
+                                marker = new Array(); //存放标注点对象的数组
                                 var info = new Array(); //存放提示信息窗口对象的数组
-                                var searchInfoWindow =new Array();//存放检索信息窗口对象的数组
-                                eachAllCs(point,marker,info,searchInfoWindow);
+                                searchInfoWindow =new Array();//存放检索信息窗口对象的数组
+                                var srcpic = "pic/icon_charger.png";
+                                eachAllCs(srcpic,point,marker,info,searchInfoWindow,true);
+                                map.centerAndZoom(opoint, 11);
+                                new showRecommend();
+                              //  new enableOrderButton();
                         },
                         error: function(data) {
                             alert("error:"+data.responseText);
@@ -149,3 +114,43 @@
                     });  
         }
     })
+    
+	$("#csorder .cptype :input").on("click",function(){ 
+		$("#csorder .cptype :checked").siblings("[name='cp']").removeAttr("checked");
+		$(this).prop("checked",true);
+	})
+
+    $("#makeOrder").on("click",function(){
+        USERCheck.isLogin(function(isok,error){
+            if(isok != 'false'){
+            	var id = $("#csorder table").data("id");
+                var dateBegin =	 $("#csorder [name='start-date']").val();
+                var timeBegin = $("#csorder [name='start-time']").val();
+                var dateStop = $("#csorder [name='stop-date']").val();
+                var timeStop = $("#csorder [name='stop-time']").val();
+                var csId = CsAllData[id].CSId;
+                var csName = CsAllData[id].CSName;
+                var csAddr = CsAllData[id].CSAddr;
+                var csType = $("input[name='cp']:checked").val();
+                if(dateBegin==""||timeBegin==""||dateStop==""||timeStop==""){ 
+                	$("#csorder .errormsg").html("请输入准确的预约时间");
+                	return null;
+                }
+
+                USERCheck.produceOrder(csId,dateBegin,timeBegin,dateStop,timeStop,csType,csName,csAddr,function(isok,error){ 
+                	if(isok=="false"){ 
+                		$("#csorder .errormsg").html(error);
+                	}else { 
+                		$("#csorder .errormsg").html("您的预约请求已提交，请到用户管理中查看订单详情。");
+                		//window.location.href = 'userInf.html';
+                	}
+                },window.MAINURL)
+            }else { 
+            	alert("您好，请先登录！登录后才能预约");
+                window.location.href = "login.jsp";
+            }
+        },window.MAINURL)
+    })
+
+	
+    

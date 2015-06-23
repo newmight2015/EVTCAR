@@ -4,7 +4,15 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.TreeMap;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,9 +24,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
+import myBean.csInformation;
 import myTools.dataBase;
-
+import myTools.sort;
+import myTools.utils;
 public class dealCsQuery extends HttpServlet {
 
 	/**
@@ -61,30 +70,79 @@ public class dealCsQuery extends HttpServlet {
 		response.setCharacterEncoding("utf-8");
 		PrintWriter out = response.getWriter();
 		JSONArray csInf = new JSONArray();
-		
+		JSONArray dataAsec = new JSONArray();
 		//String csarea=request.getParameter("csarea").trim();
-		String cstype=request.getParameter("cstype").trim();
+		String csOperator=request.getParameter("csOperator").trim();
+		Double csRange;
+		if(request.getParameter("csRange").equals("none")) csRange =  5.0;
+		else csRange = Double.parseDouble(request.getParameter("csRange"));
+		String csParkFee=request.getParameter("csParkFee").trim();
+		String lng=request.getParameter("lng").trim();
+		String lat=request.getParameter("lat").trim();
+		
 		
 		dataBase db=new dataBase();
 		Connection con =db.getConnection();
-		String condition = "Select * from ³äµçÕ¾¾²Ì¬Êý¾Ý±í where CSState="+cstype;
-		PreparedStatement sql;
+		String condition ;
+		ArrayList<String> temp = new ArrayList<String>();
+		StringBuffer tempCondition = new StringBuffer();
+		condition ="Select * from CS_BasicInformation cs,CS_ParkOperatorInformation cp where cs.CSPub = 1 and cs.CSState = 1 ";
+		if(!csOperator.equals("none")){
+			temp.add(" cs.OperatorID= '"+csOperator+"'");
+		}
+		if(!csParkFee.equals("none")){
+			temp.add(" cs.CSID IN (select CSID from [CS_ParkOperatorInformation] cp where cp.ParkFeeDay <="+csParkFee +")");
+		}
 		
+		if(temp.isEmpty()) condition ="Select * from CS_BasicInformation cs,CS_ParkOperatorInformation cp where cs.CSID = cp.CSID and cs.CSPub = 1 and cs.CSState = 1 ";
+		else {
+			Iterator i = temp.iterator();
+			while(i.hasNext()){
+				 tempCondition.append(i.next());
+				 if(!i.hasNext()) {//ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Ôªï¿½ï¿½
+			         tempCondition.append(" and cs.CSID = cp.CSID");
+			      }else{
+			    	  tempCondition.append(" and ");
+			      }
+			}
+			System.out.println(tempCondition);
+			condition +=tempCondition.toString();
+		}
+		System.out.println(condition);
+		PreparedStatement sql;
 		try {
 		sql = con.prepareStatement(condition);
 		ResultSet rs = sql.executeQuery();
 		while (rs.next()) {
 			JSONObject data = new JSONObject();
-			data.put("cslng", rs.getFloat(6));
-			data.put("cslat", rs.getFloat(5));
-			data.put("csFastNum", rs.getString(7).trim());
-			data.put("csSlowNum", rs.getString(8).trim());
-			data.put("csName", rs.getString(1).trim());
-			data.put("csAddr", rs.getString(4).trim());
-			data.put("csAreaCode",rs.getString(9).trim());
-			data.put("csAllNum", rs.getString(10));
-			data.put("csFreeNum","");
-			data.put("csState", "");
+			data.put("CSId", rs.getString(1));
+			data.put("CSName", rs.getString(2).trim());
+			data.put("CSAddr", rs.getString(3).trim());
+			data.put("CSProvince", rs.getString(4).trim());
+			data.put("CSCity", rs.getString(5).trim());
+			data.put("CSArea", rs.getString(6).trim());
+			data.put("Datetime",rs.getDate(7));
+			data.put("CSLatiValue", rs.getFloat(8));
+			data.put("CSLongValue", rs.getFloat(9));
+			data.put("CSMode",rs.getFloat(10));
+			data.put("CSFast", rs.getFloat(11));
+			data.put("CSSlow", rs.getFloat(12));
+			data.put("CSSum", rs.getFloat(13));
+			data.put("OperatorID",rs.getString(14));
+			data.put("CSIsOrder",rs.getFloat(15));
+			data.put("ParkID",rs.getString(16));
+			data.put("ChargeFee", rs.getFloat(17));
+			data.put("ServiceFee", rs.getFloat(18));
+			if(rs.getString(19)!=null) data.put("Feenotes", rs.getString(19).trim());
+			else data.put("Feenotes", "æš‚æ— ä¿¡æ¯");
+			data.put("CSPub", rs.getFloat(20));
+			data.put("CSState", rs.getFloat(21));
+			data.put("CSTime", rs.getString(22));
+			if(rs.getString(23)!=null) data.put("CSPhone", rs.getString(23).trim());
+			else data.put("CSPhone", "æš‚æ— ä¿¡æ¯");
+			if(rs.getString(24)!=null) data.put("CSNotes", rs.getString(24).trim());
+			else data.put("CSNotes", "æš‚æ— æ¶ˆæ¯");
+			data.put("CSFeeDay", rs.getFloat(28));
 			csInf.put(data);
 		}
 		rs.close();
@@ -96,8 +154,45 @@ public class dealCsQuery extends HttpServlet {
 		catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally{
+			Map<String,Double> map= new TreeMap<String,Double>();
+			for(int i=0;i<csInf.length();i++){
+				JSONObject data = new JSONObject();
+				Double dis = null;
+				try {
+					data = (JSONObject) csInf.get(i);
+					dis = utils.Distance(Double.parseDouble(lng),Double.parseDouble(lat),(Double)data.get("CSLongValue"),(Double)data.get("CSLatiValue"));
+					data.put("csDis",dis);
+					if(dis>csRange*1000){
+						csInf.put(i, "none");
+					}else{
+						
+						map.put(String.valueOf(i), dis);
+					}
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+			//ï¿½ï¿½map ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			sort sort = new sort();
+			List<Entry<String, Double>> list = sort.mapSortAsce(map);
+			
+			for(Map.Entry<String,Double> mapping:list){ 
+				try {
+					dataAsec.put(csInf.get(Integer.parseInt(mapping.getKey()) ) );
+				} catch (NumberFormatException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			} 
 		}
-		out.println(csInf);
+		
+		out.println(dataAsec);
 		out.flush();
 		out.close();
 	}
