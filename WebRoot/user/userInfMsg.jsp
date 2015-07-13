@@ -27,13 +27,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script src="../js/staticinfo.js" type="text/javascript"></script>
 	<script src="../js/UserCheck.js"></script> 
 	<script type="text/javascript">
-	<%
-		HttpSession sess = request.getSession();
-		usInformation usInf = (usInformation)sess.getAttribute("usInf");
-	%>
-	window.MAINURL = "<%=basePath%>";
-	STATICINFO.USERINFO.URL = "<%=basePath%>";
-	STATICINFO.USERINFO.name = "<%= usInf==null ? "" : usInf.getUsId()%>";
+		<%
+			HttpSession sess = request.getSession();
+			usInformation usInf = (usInformation)sess.getAttribute("usInf");
+		%>
+		window.MAINURL = "<%=basePath%>";
+		STATICINFO.USERINFO.URL = "<%=basePath%>";
+		STATICINFO.USERINFO.name = "<%= usInf==null ? "" : usInf.getUsId()%>";
+	</script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+		  $(".panel-heading").click(function(){
+		  	  $("#oldMsgContent").toggle();
+		  });
+		});
 	</script>
 </head>
 
@@ -180,19 +187,32 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div id="chargemessage">
 					<div class="title">消息提醒</div>
 					<div class="inf">
-					<!--panel面板的标题，下同-->
-					<div class="containbox">
-			            <div class="panel panel-primary"> 
-				            <!--panel面板的标题，下同-->
-				            <div class="panel-heading">
-				              <h3 class="panel-title">最新提醒</h3>
-				            </div>
-				            <!--panel面板的内容，下同-->
-				            <div class="panel-body" id = "msgContent">
-				              
+						<!--panel面板的标题，下同-->
+						<div class="containbox">
+				            <div class="panel panel-primary"> 
+					            <!--panel面板的标题，下同-->
+					            <div class="panel-heading">
+					              <h3 class="panel-title">最新提醒</h3>
+					            </div>
+					            <!--panel面板的内容，下同-->
+					            <div class="panel-body" id = "msgContent">
+									
+					          	</div>
 				          </div>
-			          </div>
-			         </div>
+				         </div>
+				         <!--panel面板的标题，下同-->
+						<div class="containbox">
+				            <div class="panel panel-primary"> 
+					            <!--panel面板的标题，下同-->
+					            <div class="panel-heading">
+					              <h3 class="panel-title">历史提醒</h3>
+					            </div>
+					            <!--panel面板的内容，下同-->
+					            <div class="panel-body" id = "oldMsgContent">
+									
+					          	</div>
+				          </div>
+				         </div>
 					</div>
 				</div>
 				
@@ -244,22 +264,133 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			e.preventDefault()
 			$(this).tab('show')
 		})
-		$(function(){ 
+		$(function(){
+			//功能：查询最新消息提醒
 			USERCheck.checkMsg(function(isok,error){ 
 				if(isok){ 
 					data = JSON.parse(error);
+					var j=0;
 					$.each(data, function(i, content){
-						var msg = "<div class='alert alert-success alert-dismissible' role='alert'><strong>"+data[i].msgCreatTime+
+						var msg = "<div class='alert alert-success alert-dismissible' role='alert'><input id='msg"+j+"' style='display: none;' value='"+data[i].msgid+
+								"'><strong>"+data[i].msgCreatTime+
 				              	"</strong>&nbsp;&nbsp;&nbsp;<strong>提示:</strong><span class='content'>"+data[i].msgValue+
-				                "</span><button type='button' class='close' id='close' aria-label='Close'><span aria-hidden='true'>×</span></button></div>"
+				                "</span><button type='button' class='close' id='close' aria-label='Close'><span aria-hidden='true' onclick='deleteMsg("+j+");' >×</span></button></div>"
 				        $("#msgContent").append(msg);
+				                j++;
 					})
 				}else{ 
 					alert("false")
 				}
-
+			},window.MAINURL);
+			//功能：查询历史消息提醒
+			USERCheck.checkOldMsg(function(isok,error){
+				if(isok){
+					data = JSON.parse(error);
+					var j=0;
+					$.each(data, function(i, content){
+						var msg = "<div class='alert alert-success alert-dismissible' role='alert'><input id='oldmsg"+j+"' style='display: none;' value='"+data[i].msgid+
+								"'><strong>"+data[i].msgCreatTime+
+				              	"</strong>&nbsp;&nbsp;&nbsp;<strong>提示:</strong><span class='content'>"+data[i].msgValue+
+				                "</span><button type='button' class='close' id='close' aria-label='Close'><span aria-hidden='true' onclick='deleteOldMsg("+j+");' >×</span></button></div>"
+				        $("#oldMsgContent").append(msg);
+				                j++;
+					})
+				}else{ 
+					alert("false")
+				}
 			},window.MAINURL)
-		})
+		});
+		//点击最新消息后的“X”将此消息移至历史提醒消息，修改数据库msgState为'2'，表示历史消息
+		function deleteMsg(j){
+			var msg="#msg"+j;
+			var msgid=$(msg).val();
+			var act="deleteMsg";
+			//alert(""+msgid+"");
+			var AjaxURL=window.MAINURL+"dealMessage?msgid="+msgid+"&act="+act;
+        	$.ajax({
+                type: "POST",
+                dataType: "html",
+                url: AjaxURL,
+                success: function (data) {
+                	alert("删除消息成功！");
+                	//重新执行查询最新消息---张伟
+                	$("#msgContent").empty();
+                	$("#oldMsgContent").empty();
+                	USERCheck.checkMsg(function(isok,error){ 
+        				if(isok){ 
+        					data = JSON.parse(error);
+        					var j=0;
+        					$.each(data, function(i, content){
+        						var oldmsg = "<div class='alert alert-success alert-dismissible' role='alert'><input id='oldmsg"+j+"' style='display: none;' value='"+data[i].msgid+
+        								"'><strong>"+data[i].msgCreatTime+
+        				              	"</strong>&nbsp;&nbsp;&nbsp;<strong>提示:</strong><span class='content'>"+data[i].msgValue+
+        				                "</span><button type='button' class='close' id='close' aria-label='Close'><span aria-hidden='true' onclick='deleteOldMsg("+j+");' >×</span></button></div>"
+        				        $("#msgContent").append(oldmsg);
+        				                j++;
+        					})
+        				}else{ 
+        					alert("false")
+        				}
+        			},window.MAINURL)
+        			USERCheck.checkOldMsg(function(isok,error){
+						if(isok){
+							data = JSON.parse(error);
+							var j=0;
+							$.each(data, function(i, content){
+								var msg = "<div class='alert alert-success alert-dismissible' role='alert'><input id='oldmsg"+j+"' style='display: none;' value='"+data[i].msgid+
+										"'><strong>"+data[i].msgCreatTime+
+						              	"</strong>&nbsp;&nbsp;&nbsp;<strong>提示:</strong><span class='content'>"+data[i].msgValue+
+						                "</span><button type='button' class='close' id='close' aria-label='Close'><span aria-hidden='true' onclick='deleteOldMsg("+j+");' >×</span></button></div>"
+						        $("#oldMsgContent").append(msg);
+						                j++;
+							})
+						}else{ 
+							alert("false")
+						}
+						},window.MAINURL)
+                },
+                error: function(data) {
+                    alert("error:");
+                }
+            });
+		};
+		//点击最新消息后的“X”将此消息从历史提醒消息中删除，修改数据库数据msgState='3'，表示删除的消息
+		function deleteOldMsg(j){
+			var oldmsg="#oldmsg"+j;
+			var msgid=$(oldmsg).val();
+			var act="deleteOldMsg";
+			//alert(""+msgid+"");
+			var AjaxURL=window.MAINURL+"dealMessage?msgid="+msgid+"&act="+act;
+        	$.ajax({
+                type: "POST",
+                dataType: "html",
+                url: AjaxURL,
+                success: function (data) {
+                	alert("删除消息成功！");
+                	//重新执行查询最新消息---张伟
+                	$("#oldMsgContent").empty();
+                	USERCheck.checkOldMsg(function(isok,error){
+						if(isok){
+							data = JSON.parse(error);
+							var j=0;
+							$.each(data, function(i, content){
+								var msg = "<div class='alert alert-success alert-dismissible' role='alert'><input id='oldmsg"+j+"' style='display: none;' value='"+data[i].msgid+
+										"'><strong>"+data[i].msgCreatTime+
+						              	"</strong>&nbsp;&nbsp;&nbsp;<strong>提示:</strong><span class='content'>"+data[i].msgValue+
+						                "</span><button type='button' class='close' id='close' aria-label='Close'><span aria-hidden='true' onclick='deleteOldMsg("+j+");' >×</span></button></div>"
+						        $("#oldMsgContent").append(msg);
+						                j++;
+							})
+						}else{ 
+							alert("false")
+						}
+						},window.MAINURL)
+                },
+                error: function(data) {
+                    alert("error:");
+                }
+            });
+		};
 	</script>
 </body>
 </html>

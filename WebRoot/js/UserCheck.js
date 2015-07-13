@@ -81,6 +81,40 @@ var USERCheck = {
             }
         })
     },
+    //功能：发送纠错信息----张伟增加15/7/6
+    //参数：12项充电桩信息
+    //返回：无返回值null
+    correctCsInf:function(CSId,CSName,CSAddr,CSDate,CSMode,CSFast,CSlow,Operator,ParkFee,CSPub,CSState,CSPhone,CSNotes,callback,url){
+    	var _this = this;
+        $.ajax({ 
+            url:url+"/dealMessage",
+            type:"POST",
+            dataType:"json",
+            data:{
+            	act:'correctCsInf',
+            	CSId:CSId,
+            	CSName:CSName,
+            	CSAddr:CSAddr,
+            	CSDate:CSDate,
+            	CSMode:CSMode,
+            	CSFast:CSFast,
+            	CSlow:CSlow,
+            	Operator:Operator,
+            	ParkFee:ParkFee,
+            	CSPub:CSPub,
+            	CSState:CSState,
+            	CSPhone:CSPhone,
+            	CSNotes:CSNotes,
+            },
+            success:function(data){
+                return _this._callback(callback,data.isSuccess,data.message,data)
+            },
+            error:function(data){ 
+                console.log(data);
+                return _this._callback(callback,false,"连接服务器失败，请稍后再试",data);
+            }
+        })
+    },
     //功能：发送预约订单信息
     //参数：预约起始时间、电桩id、验证成功后的回调函数（callback)、
     //返回：无返回值 null，跳转至预约订单页
@@ -131,6 +165,27 @@ var USERCheck = {
             }
         })
     },
+    /*
+     * 功能：查询历史消息提醒----张伟
+     */
+    checkOldMsg:function(callback,url){ 
+        var _this = this;
+        $.ajax({ 
+            url:url+"dealMessage",
+            type:"GET",
+            dataType:"html",
+            data:{
+            	act:'checkOldMsg',
+            },
+            success:function(data){
+                return _this._callback(callback,true,data,data)
+            },
+            error:function(data){ 
+                console.log(data);
+                return _this._callback(callback,false,"连接服务器失败，请稍后再试",data);
+            }
+        })
+    },
      //功能：查询最新订单
     //参数：预约起始时间、电桩id、验证成功后的回调函数（callback)、
     //返回：无返回值 null，跳转至预约订单页
@@ -144,7 +199,28 @@ var USERCheck = {
             	act:'checkNewOrder',
             },
             success:function(data){
-                return _this._callback(callback,true,data,data)
+                return _this._callback(callback,true,data,data);
+            },
+            error:function(data){ 
+                console.log(data);
+                return _this._callback(callback,false,"连接服务器失败，请稍后再试",data);
+            }
+        })
+    },
+    //功能：查询历史订单
+    //参数：预约起始时间、电桩id、验证成功后的回调函数（callback)、
+    //返回：无返回值 null，跳转至预约订单页
+    checkOldOrder:function(callback,url){ 
+        var _this = this;
+        $.ajax({ 
+            url:url+"dealMessage",
+            type:"GET",
+            dataType:"html",
+            data:{
+            	act:'checkOldOrder',
+            },
+            success:function(data){
+                return _this._callback(callback,true,data,data);
             },
             error:function(data){ 
                 console.log(data);

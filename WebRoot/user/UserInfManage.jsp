@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" import="myBean.usInformation" pageEncoding="utf-8"%>
+<%@ page language="java" import="java.util.*" import="myBean.usInformation"  pageEncoding="utf-8"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -10,21 +10,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-	<title>学生信息</title>
+	<title>个人资料</title>
 	    <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
+	<link href="../css/register.css" rel="stylesheet" type="text/css" />
+	<link href="../css/evtcar.css" rel="stylesheet" type="text/css" />
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+	<script src="../js/staticinfo.js" type="text/javascript"></script>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
       <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <link href="css/evtcar.css" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" href="css/userInf.css">
-	<link rel="stylesheet" href="font-awesome-4.3.0/css/font-awesome.min.css">
-	<script src="js/staticinfo.js" type="text/javascript"></script>
-	<script src="js/jquery-2.1.3.min.js"></script>
+    <link href="../css/evtcar.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="../css/userInf.css">
+	<link rel="stylesheet" href="../font-awesome-4.3.0/css/font-awesome.min.css">
+	 <script src="../js/jquery-2.1.3.min.js"></script>
+	<script src="../js/staticinfo.js" type="text/javascript"></script>
+	<script src="../js/UserCheck.js"></script> 
 	<script type="text/javascript">
 	<%
 		HttpSession sess = request.getSession();
@@ -33,28 +36,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	window.MAINURL = "<%=basePath%>";
 	STATICINFO.USERINFO.URL = "<%=basePath%>";
 	STATICINFO.USERINFO.name = "<%= usInf==null ? "" : usInf.getUsId()%>";
-	if(STATICINFO.USERINFO.name==""){
-		alert("您好，请先登录！点击关闭跳转至登录界面");
-		window.location ="login.jsp";
-	}
 	</script>
 </head>
 
-<body class="back-color">
-	<div class="contain ">
-<!--顶部导航栏开始 -->
-<%@include file="head.jsp" %>
-<div class="nav-green nav-head" id="J_m_nav">
-	<div class="nav-content">
-		<div class="nav-btn "><a href="index.jsp">首页</a></div>
-		<div class="nav-btn "><a href="searchCS.jsp">我要充电</a></div>
-		<div class="nav-btn"><a href="inq_sta.jsp">充电站分布</a></div>
-		<div class="nav-btn active"><a href="userInf.jsp">用户管理</a></div>
-		<div class="nav-btn"><a href="#">关于我们</a></div>
-	</div>
-</div>
-</header>
+<body>
 
+	<div class="contain back-color">
+<!--顶部导航栏开始 -->
+<%@include file="../head.jsp" %>
 <!--顶部导航栏结束 -->
 		<div class="main">
 			<div class="newcontainer">
@@ -62,7 +51,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="maozi"></div>
 					<div class="inners clearfix without-side">
 						<div class="avatar-unit">
-							<div class="img"><img src="pic/user1.jpg"><img src="pic/load2.gif" style=";" class="load">
+							<div class="img"><img src="../pic/user1.jpg"><img src="../pic/load2.gif" style=";" class="load">
 								<div class="change-avatar">
 									<a class="btn wbtn btn12"><span class="text">更换头像</span></a>
 									<div style="position: absolute; opacity: 0.01; overflow: hidden;">
@@ -89,14 +78,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<div class="about clearfix">自从用了乐充，充电从此无忧</div>
 						</div>
 						<script type="text/javascript">
-						     $(".user-inf .head-line .name").html(STATICINFO.USERINFO.name);
+						$(function(){ 
+							 $(".user-inf .head-line .name").html(STATICINFO.USERINFO.name);
+						})
 						</script>
 						<div class="bindings"> 
 							<div class="fast-item">
-									<a href="user/userInfMsg.jsp" class="btn">
+									<a href="userInfMsg.jsp" class="btn">
 											<div class="img"><i class="fa fa-calendar fa-3x"></i></div>消息提醒
 									</a>
-									<a href="user/userInfOrd.jsp" class="btn">
+									<a href="userInfOrd.jsp" class="btn">
 											<div class="img">	<i class="fa fa-shopping-cart fa-3x"></i></div>预约订单
 									</a>
 									<a href="" class="btn">
@@ -106,10 +97,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 											<div class="img"><i class="fa fa-credit-card fa-3x"></i></div>我的收藏
 									</a>
 									
-									<a href="user/userCsSubmit.jsp" class="btn">
+									<a href="userCsSubmit.jsp" class="btn">
 											<div class="img"><i class="fa fa-comments fa-3x"></i></div>分享地址
 									</a>
-									<a href="user/UserInfManage.jsp" class="btn without-side">
+									<a href="UserInfManage.jsp" class="btn without-side">
 											<div class="img"><i class="fa fa-info-circle fa-3x"></i></div>更新个人资料
 									</a>
 							</div>
@@ -152,26 +143,75 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						
 					</div>
 				</div>
-			
-				</div>
+				
+				
 
 		    </div>
 		</div>
-		<br><br><br><br><br><br><br><br>
-		<%@include file="footer.jsp" %>
+		<!-- 更新个人资料主体部分 start-->
+		<div id="content">
+		</div>
+		<div id="bd">
+			<div class="register_box">
+				<div class="head">
+					<h3>修改信息</h3>
+				</div>
+				<div class="body">
+				
+				<form  name="form1" method="post" action="">
+					<table cellpadding="0" cellspacing="0" border="0" width="100%">
+			            <tbody>
+			            				<tr>
+			                                <td class="t">昵称：</td>
+			                                <td><input type="text" id="name" value="" ></td>
+			                            </tr>
+			                            <tr>
+			                                <td class="t">邮箱：</td>
+			                                <td><input type="text" id="name" value="" ></td>
+			                            </tr>
+			                            <tr>
+			                                <td class="t">手机：</td>
+			                                <td><input type="text" id="name" value="" ></td>
+			                            </tr>
+			                            <tr>
+			                                <td class="t">城市：</td>
+			                                <td><input type="text" id="name" value="" ></td>
+			                            </tr>
+			                            <tr>
+			                                <td class="t">简介：</td>
+			                                <td><input type="text" id="name" value="" ></td>
+			                            </tr>
+			                            <tr>
+			                                <td class="t">
+			                                    &nbsp;
+			                                </td>
+			                                <td>
+			                                	<button id="saveusinf">保存信息</button>
+			                                	<!-- <a id="register" name="register" class="btn_login"  tabindex="7" onclick="check();"></a> -->
+			                                </td>
+			                            </tr>
+			                        </tbody>
+			           </table>
+					</div>
+				</form>
+			</div>
+		</div>
+		<!-- 更新个人资料主体部分 end-->
+		<%@include file="../footer.jsp" %>
+		
 	</div>
 
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    
+   
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
 
     <script type="text/javascript">
 		$('#myTab a').click(function (e) {
-							  e.preventDefault()
-							  $(this).tab('show')
-							})
+			e.preventDefault()
+			$(this).tab('show')
+		})
 	</script>
 </body>
 </html>

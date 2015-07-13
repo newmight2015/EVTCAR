@@ -24,7 +24,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script src="js/calendar.js" type="text/javascript"></script>
 <script src="js/jquery-2.1.3.min.js"></script> 
 <script src="js/staticinfo.js" type="text/javascript"></script>
-<link rel="stylesheet" href="lib/jquery.raty.js">
 <!--[if lt IE 9]>
 <script src="js/html5shiv.js"></script>
 <script src="js/respond.min.js"></script>
@@ -35,6 +34,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<%
 		HttpSession sess = request.getSession();
 		usInformation usInf = (usInformation)sess.getAttribute("usInf");
+
 	%>
 	window.MAINURL = "<%=basePath%>";
 	STATICINFO.USERINFO.URL = "<%=basePath%>";
@@ -58,6 +58,16 @@ body {
 </head>
 
 <body>
+<%
+ if ((String)request.getAttribute("message")=="true") {
+ %>
+ <script>
+ alert("操作成功");
+ </script>
+ <%
+ }
+ %>
+
 <!-- Modal -->
 <div class="modal fade" id="csintro" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -68,57 +78,55 @@ body {
       </div>
       <div class="modal-body">
         <div class="info"></div>
+        
          <div class="content">
         	<hr>
         	<div class="op-bar">
         		<div class="op-total">*评价是用户对本充电站的服务及设施点评</div>
         		<div class="op-statis">
         			<div class="item font-show">
-        				<p class="c-total">5.0</p>
-        				<p><span class="star-rating">
-        					<span class="yellowstar50 star-icon"></span>
-        					</span>
-        				</p>
-        				<p class="c-num">共有<b>100</b>人评价</p>
+        				<div class="c-total"></div>
+        				<div class="star-rating"></div>        				
+        				<div class="c-num"></div>
         			</div>
         			<div class="item fig-show">
         				<p class="list">
         					<span>5分</span>
         					<span class="o-bg">
-	        					<span class="n-bg" style="width: 57px;">
-	        						<span class="p-num">0人</span>
+	        					<span class="n-bg" id="p5-bg" style="width: 57px;">
+	        						<span class="p-num" id="p5"></span>
 	        					</span>
         					</span>
         				</p>
         				<p class="list">
         					<span>4分</span>
         					<span class="o-bg">
-	        					<span class="n-bg" style="width: 57px;">
-	        						<span class="p-num">0人</span>
+	        					<span class="n-bg" id="p4-bg" style="width: 57px;">
+	        						<span class="p-num" id="p4"></span>
 	        					</span>
         					</span>
         				</p>
         				<p class="list">
         					<span>3分</span>
         					<span class="o-bg">
-	        					<span class="n-bg" style="width: 57px;">
-	        						<span class="p-num">0人</span>
+	        					<span class="n-bg" id="p3-bg" style="width: 57px;">
+	        						<span class="p-num" id="p3"></span>
 	        					</span>
         					</span>
         				</p>
         				<p class="list">
         					<span>2分</span>
         					<span class="o-bg">
-	        					<span class="n-bg" style="width: 57px;">
-	        						<span class="p-num">0人</span>
+	        					<span class="n-bg" id="p2-bg" style="width: 57px;">
+	        						<span class="p-num" id="p2"></span>
 	        					</span>
         					</span>
         				</p>
         				<p class="list">
         					<span>1分</span>
         					<span class="o-bg">
-	        					<span class="n-bg" style="width: 57px;">
-	        						<span class="p-num">0人</span>
+	        					<span class="n-bg" id="p1-bg" style="width: 57px;">
+	        						<span class="p-num" id="p1"></span>
 	        					</span>
         					</span>
         				</p>
@@ -130,34 +138,26 @@ body {
         			<span class="r ">想说点什么？</span>
 	        </div>
 	        <div class="clearfix commentcontent">
-	        		<textarea rows="3" cols="20" maxlength="100" class="comment" placeholder="在此输入您的简短评论，不得超过100字"></textarea>
-	        		<br><span>服务、基础设施评星 :</span><div id="starcomment"></div>
-	        		<div class="r"><span >点评完毕?<a class='btn btn-success btn-sm'>提交</a></span></div>
+	            <form  method="post" action="dealMessage">
+	                <input name="act" id="act" value="comment" style="display: none;">
+	                <input name="csid"  id="csidv"  value="" style="display: none;">
+	        		<textarea rows="3" cols="20" maxlength="100" class="comment" id="comment" name="comment" placeholder="在此输入您的简短评论，不得超过100字"></textarea>
+	        		<br><span>服务、基础设施评星 :</span><div><div id="starcomment"></div><input type="text"  id="starsum" name="starsum" style="display: none;" value="5" /></div>
+	        		<div class="r">
+	        		<% if(usInf!=null){ %>
+	        		<!-- <span >点评完毕?<input type="submit" class='btn btn-success btn-sm' value="提交"></input>  -->
+	        		<span>点评完毕? <a id="makeComment" class='btn btn-success btn-sm'>提交</a>
+	        		<%}else{ %>
+	        		<span >登录后可点评。<a href="login.jsp" >点此登录</a>
+	        		<%} %>
+	        		</span></div>
+	            </form>
 	        </div>
-        	<ul>
-        		
-        		<li>
-        			<div class="comment-body">
-        			<span class="star-rating">
-        				<span class="syellowstar50 star-icon"></span>
-        			</span>
-        			<span class="name">ssk***2</span>
-        			<span class="date">2015-06-22</span>
-        			<div class="commentdetail">设备完好，下次再来</div>
-        			</div>
-        		</li>
-        		
-        		<li>
-        			<div class="comment-body">
-        			<span class="star-rating">
-        				<span class="syellowstar50 star-icon"></span>
-        			</span>
-        			<span class="name">速度***是 </span>
-        			<span class="date">2015-06-22</span>
-        			<div class="commentdetail">快充数量有点少，平时可能排队</div>
-        			</div>
-        		</li>
-        	</ul>
+	        
+	       <div class="commentinfo" >
+	       		<ul class="cminfo"></ul>
+	       </div>
+        	
         	<ul class="pagination r pagination-sm">
 			  <li><a href="#">&laquo;</a></li>
 			  <li><a href="#">1</a></li>
@@ -167,7 +167,10 @@ body {
 			  <li><a href="#">5</a></li>
 			  <li><a href="#">&raquo;</a></li>
 			</ul>
+			<br>
+			<br>
         </div>
+        
      </div>
       
     </div>
@@ -224,40 +227,13 @@ body {
 <!--<div></div> -->
 
 <!--顶部导航栏开始 -->
-<header>
-<div class="top">
-	<div class="wp">
-		<div class="logo">
-			<a href="/" class="icon_img_logo"></a>
-		</div>
-		<div class="menu">
-			<div class="xl">
-				<ul>
-					<li><a>客户端下载</a></li>
-					<li><a>运营商加盟</a></li>
-				</ul>
-			</div>
-			<div class="loader">
-				<a href="register.html" class="btn btn-success btn-lg"><span>注册</span></a>
-				<a href="login.jsp" class="btn btn-success btn-lg"><span>登录</span></a>
-			</div>
-			<script>
-				if(STATICINFO.USERINFO.name!=""){
-					$(".loader").html("<span style='color:white'>Hi,"+
-							STATICINFO.USERINFO.name+"欢迎回到车快充!  </span><a href='logout.jsp' style='color:white'>退出登录</a>&nbsp;&nbsp;<a href='register.html'>免费注册</a>")
-				}
-			</script>
-		
-		</div>
-	</div>
-</div>
-<!--下面是中部导航栏的代码-->
+<%@include file="head.jsp" %>
 <div class="nav-green nav-head" id="J_m_nav">
 	<div class="nav-content">
-		<div class="nav-btn"><a href="index.html">首页</a></div>
+		<div class="nav-btn "><a href="index.jsp">首页</a></div>
 		<div class="nav-btn active"><a href="searchCS.jsp">我要充电</a></div>
 		<div class="nav-btn"><a href="inq_sta.jsp">充电站分布</a></div>
-		<div class="nav-btn"><a href="userInf.jsp">用户管理</a></div>
+		<div class="nav-btn "><a href="userInf.jsp">用户管理</a></div>
 		<div class="nav-btn"><a href="#">关于我们</a></div>
 	</div>
 </div>
@@ -340,34 +316,7 @@ body {
 </div>
 
 
-<div class="company-footer nav-green">
-	<div class="footer-content">
-		<div class="footer-content-text">
-			<img src="pic/footer-telephone-icon.png" alt="phone">
-			<p>
-				
-				<span class="contents">Tel:123456789123</span>
-			</p>
-		</div>
-		<div class="footer-content-text">
-			<img src="pic/footer-smartphone-icon.png" alt="smartphone">
-			<p>
-				
-				<span class="contents">Mobile:123456789123</span>
-			</p>
-		</div>
-		<div class="footer-content-text">
-			<img src="pic/footer-mail-icon.png" alt="mail">
-			<p>
-				<span class="contents">Mail:bilinghc@163.com</span>
-			</p>
-		</div>
-		<div>
-		<p class="copyright"> &nbsp;&nbsp;© 2015 京ICP备15002253号
-&nbsp;&nbsp;|&nbsp;&nbsp;北京交通大学交通运输学院系统工程与控制研究所&nbsp;&nbsp;|&nbsp;&nbsp;充电站数据来自政府有关部门</p>
-		</div>
-	</div>
-</div>
+<%@include file="footer.jsp" %>
 
 <!--下面是左侧导航栏的代码-->
 <script src="js/bootstrap.min.js"></script>
@@ -377,21 +326,26 @@ body {
 <script src="js/jquery.raty.js" type="text/javascript"></script>
 <script>
 $(function(){
-	$("[name='start-date']").val(CurentDateTime(0)+"         今天");
+	$("[name='start-date']").val(CurentDateTime(0));
 	$("[name='start-time']").val(CurentTime());
-	$("[name='stop-date']").val(CurentDateTime(1)+"         明天");
+	$("[name='stop-date']").val(CurentDateTime(1));
 	$("[name='stop-time']").val(CurentTime());
+	//$("#csid").val(CsAllData[i].CSId);
 	$("#starcomment").raty();
 	$(".commentbtn a").click(function(){ 
 		$(".commentcontent").show();
-	})
+	});
+	$("#starcomment").click(function(){
+		var starsum=$('#starcomment').raty('getScore');
+		$("#starsum").val(starsum);
+		//alert(CsAllData[i].CSId);
+	});
 })
-
 function CurentDateTime(i)
 { 
     var now = new Date();
     var year = now.getFullYear();    //年
-    var month = now.getMonth();     //月
+    var month = now.getMonth()+1;     //月
     var day = now.getDate()+i;        //日
     var clock = year + "-";
     if(month < 10)
@@ -402,6 +356,135 @@ function CurentDateTime(i)
     clock += day;
     return(clock); 
 }
+//点击提交评价信息----张伟增加
+$("#makeComment").click(function(){
+	USERCheck.isLogin(function(isok,error){
+        if(isok != 'false'){
+        	
+        	var act=$("#act").val();
+        	var starsum=$("#starsum").val();
+        	var comment=$("#comment").val();
+        	var csid=$("#csidv").val();
+        	var usordid="1";
+        	var AjaxURL="dealMessage?act="+act+"&starsum="+starsum+"&comment="+comment+"&csid="+csid+"&usordid="+usordid;
+        	$.ajax({
+                type: "POST",
+                dataType: "html",
+                url: AjaxURL,
+                success: function (data) {
+                	
+                	if(data.isSuccess=="false"){
+	            		alert("提交评价失败，请重新提交!");
+	            		//$("#csorder .errormsg").html(error);
+	            			          
+                	}else { 
+	            		alert("提交评价成功!");
+	            		$("#comment").val("");
+			            var AjaxURL="dealMessage?CSId="+csid;
+			            $.ajax({
+			                        type: "GET",
+			                        dataType: "html",
+			                        url: AjaxURL,
+			                        data:{act:'commentinfo'},
+			                       // data: {VehData:JSON.stringify(VehData)},
+			                        success: function (data) {
+			                                  var CommentInfo = JSON.parse(data);//存放评价信息的数组
+	            							 
+			                                  coo();
+			                                  //将评论信息显示在面板上
+			                        	      function coo(){
+			                        	    	  $("#csintro .modal-body .commentinfo .cminfo li").remove();
+				                                  for(var j=0;j<CommentInfo.length;j++){
+				                              		$("#csintro .modal-body .commentinfo .cminfo").append(
+				                              				"<li><div class='comment-body'><span class='star-rating1'><span class='syellowstar50 star-icon'></span></span><span class='name'>"+CommentInfo[j].USId+"</span>&nbsp;&nbsp;<div class='Star' data-starnum='"+CommentInfo[j].Star+"'></div>"+
+				                                  			"<span class='date'>"+CommentInfo[j].Time+
+				                                  			"</span><div class='commentdetail'>"+CommentInfo[j].Content+
+				                                  			"</div></div></li>");
+				                              		
+				                              	   }
+				                                   $("#csidv").attr("value",csid);
+					                                $(".Star").each(function(){
+					                              		var num = $(this).data("starnum");
+					                              		$(this).raty({readOnly:true,score:num}); 
+					                              	});
+				                                  //统计评星并显示
+				                                  $.ajax({
+				                                      type: "GET",
+				                                      dataType: "html",
+				                                      url: AjaxURL,
+				                                      data:{act:'analysiscminfo'},
+				                                     // data: {VehData:JSON.stringify(VehData)},
+				                                      success: function (data) {
+				                                                var AnalysisCmInfo = JSON.parse(data);//存放评价信息的数组
+				                                                
+				                                                //alert(AnalysisCmInfo);
+				                                                analysis();
+				                                                //将评星信息显示在面板上
+				                                      	      	function analysis(){
+				                                      	    	   $(".c-total").empty();	                                      	    	   
+				                                      	    	   $(".star-rating").raty({readOnly:true,score:0});
+				                                      	    	   $(".c-total").empty();
+				                                      	    	   $(".c-num").empty();
+				                                                    for(var j=0;j<AnalysisCmInfo.length;j++){
+				                                                    	var avg = AnalysisCmInfo[j].StarAvg;
+					                                                    //alert(avg);
+					                                                	$(".star-rating").raty({readOnly:true,score:avg});
+				                                                		$(".c-total").html("<P>"+AnalysisCmInfo[j].StarAvg+"</p>");
+				                                                		$(".c-num").html("<P>共有"+AnalysisCmInfo[j].ussum+"人评价</p>");
+				                                                		$("#p5").html("<p>"+AnalysisCmInfo[j].Star5+"人</p>");
+				                                                		$("#p4").html("<p>"+AnalysisCmInfo[j].Star4+"人</p>");
+				                                                		$("#p3").html("<p>"+AnalysisCmInfo[j].Star3+"人</p>");
+				                                                		$("#p2").html("<p>"+AnalysisCmInfo[j].Star2+"人</p>");
+				                                                		$("#p1").html("<p>"+AnalysisCmInfo[j].Star1+"人</p>");
+				                                                		if(AnalysisCmInfo[j].ussum!=0){
+					                                                		var p5=(AnalysisCmInfo[j].Star5/AnalysisCmInfo[j].ussum)*100;
+					                                                		var p4=(AnalysisCmInfo[j].Star4/AnalysisCmInfo[j].ussum)*100;
+					                                                		var p3=(AnalysisCmInfo[j].Star3/AnalysisCmInfo[j].ussum)*100;
+					                                                		var p2=(AnalysisCmInfo[j].Star2/AnalysisCmInfo[j].ussum)*100;
+					                                                		var p1=(AnalysisCmInfo[j].Star1/AnalysisCmInfo[j].ussum)*100;
+				                                                		}else{
+				                                                			var p5=0;
+					                                                		var p4=0;
+					                                                		var p3=0;
+					                                                		var p2=0;
+					                                                		var p1=0;
+				                                                		}
+				                                                		$("#p5-bg").width(""+p5+"px");
+				                                                		$("#p4-bg").width(""+p4+"px");
+				                                                		$("#p3-bg").width(""+p3+"px");
+				                                                		$("#p2-bg").width(""+p2+"px");
+				                                                		$("#p1-bg").width(""+p1+"px");
+				                                                		
+				                                                		
+				                                                	}                   		
+				                                              }
+				                                                
+				                                      },
+				                                      error: function(data) {
+				                                          alert("查询评价信息失败");
+				                                      }
+				                                  }); 
+			                        	    }
+			                                  
+			                        },
+			                        error: function(data) {
+			                            alert("查询评价信息失败");
+			                        }
+			                    });
+				            		//$("#csorder .errormsg").html("您的预约请求已提交，请到用户管理中查看订单详情。");
+				            		//window.location.href = 'userInf.html';
+			                	}
+			                },
+			                error: function(data) {
+			                    alert("error:"+data.message);
+			                 }
+			            });
+        }else { 
+        	alert("您好，请先登录！登录后才能预约");
+            window.location.href = "login.jsp";
+        }
+    },window.MAINURL);
+});
 function CurentTime()
 { 
     var now = new Date();

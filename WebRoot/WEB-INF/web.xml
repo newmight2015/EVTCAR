@@ -49,6 +49,12 @@
     <servlet-name>dealMessage</servlet-name>
     <servlet-class>myServlet.dealMessage</servlet-class>
   </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>dealCorrect</servlet-name>
+    <servlet-class>myServlet.dealCorrect</servlet-class>
+  </servlet>
 
 
 
@@ -89,6 +95,10 @@
   <servlet-mapping>
     <servlet-name>dealMessage</servlet-name>
     <url-pattern>/dealMessage</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>dealCorrect</servlet-name>
+    <url-pattern>/dealCorrect</url-pattern>
   </servlet-mapping>
 
 

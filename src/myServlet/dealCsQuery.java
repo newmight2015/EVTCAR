@@ -72,6 +72,7 @@ public class dealCsQuery extends HttpServlet {
 		JSONArray csInf = new JSONArray();
 		JSONArray dataAsec = new JSONArray();
 		//String csarea=request.getParameter("csarea").trim();
+		
 		String csOperator=request.getParameter("csOperator").trim();
 		Double csRange;
 		if(request.getParameter("csRange").equals("none")) csRange =  5.0;
@@ -79,7 +80,11 @@ public class dealCsQuery extends HttpServlet {
 		String csParkFee=request.getParameter("csParkFee").trim();
 		String lng=request.getParameter("lng").trim();
 		String lat=request.getParameter("lat").trim();
-		
+		/*System.out.println(lng);
+		System.out.println(lat);
+		System.out.println(csRange);
+		System.out.println(csParkFee);
+		System.out.println(csOperator);*/
 		
 		dataBase db=new dataBase();
 		Connection con =db.getConnection();
@@ -98,21 +103,26 @@ public class dealCsQuery extends HttpServlet {
 		else {
 			Iterator i = temp.iterator();
 			while(i.hasNext()){
+				 tempCondition.append(" and ");
 				 tempCondition.append(i.next());
 				 if(!i.hasNext()) {//���һ��Ԫ��
 			         tempCondition.append(" and cs.CSID = cp.CSID");
-			      }else{
-			    	  tempCondition.append(" and ");
 			      }
 			}
-			System.out.println(tempCondition);
 			condition +=tempCondition.toString();
 		}
-		System.out.println(condition);
+		//System.out.println(condition);
 		PreparedStatement sql;
 		try {
 		sql = con.prepareStatement(condition);
 		ResultSet rs = sql.executeQuery();
+		if(!rs.next()){
+				JSONObject data = new JSONObject();
+				data.put("message", "无查询结果");
+				csInf.put(data);
+				//System.out.println("无查询结果");
+		}
+		int i=0;
 		while (rs.next()) {
 			JSONObject data = new JSONObject();
 			data.put("CSId", rs.getString(1));
@@ -144,7 +154,9 @@ public class dealCsQuery extends HttpServlet {
 			else data.put("CSNotes", "暂无消息");
 			data.put("CSFeeDay", rs.getFloat(28));
 			csInf.put(data);
+			i++;
 		}
+		//System.out.println("共"+i+"条结果");
 		rs.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

@@ -49,38 +49,13 @@ body{
 
 <body>
 
-		<!--顶部导航栏开始 -->
-<header>
-<div class="top">
-	<div class="wp">
-		<div class="logo">
-			<a href="/" class="icon_img_logo"></a>
-		</div>
-		<div class="menu">
-			<div class="xl">
-				<ul>
-					<li><a>客户端下载</a></li>
-					<li><a>运营商加盟</a></li>
-				</ul>
-			</div>
-			<div class="loader">
-				<a href="register.html" class="btn btn-success btn-lg"><span>注册</span></a>
-				<a href="login.jsp" class="btn btn-success btn-lg"><span>登录</span></a>
-			</div>
-			<script>
-				if(STATICINFO.USERINFO.name!=""){
-					$(".loader").html("<span style='color:white'>Hi,"+
-							STATICINFO.USERINFO.name+"欢迎回到车快充!  </span><a href='logout.jsp'>退出登录</a>&nbsp;&nbsp;<a href='register.html'>免费注册</a>")
-				}
-			</script>
-		</div>
-	</div>
-</div>
+<!--顶部导航栏开始 -->
+<%@include file="head.jsp" %>
 <!--下面是中部导航栏的代码-->
 <div class="nav-green nav-head" id="J_m_nav">
 	<div class="nav-content">
-		<div class="nav-btn"><a href="index.html">首页</a></div>
-		<div class="nav-btn"><a href="searchCS.jsp">我要充电</a></div>
+		<div class="nav-btn "><a href="index.jsp">首页</a></div>
+		<div class="nav-btn "><a href="searchCS.jsp">我要充电</a></div>
 		<div class="nav-btn active"><a href="inq_sta.jsp">充电站分布</a></div>
 		<div class="nav-btn"><a href="userInf.jsp">用户管理</a></div>
 		<div class="nav-btn"><a href="#">关于我们</a></div>
@@ -130,39 +105,9 @@ body{
 			</div>
 	</div>
 </div>
-<div class="map" id="r-map">
+<div class="map" id="r-map"></div>
 </div>
-</div>
-<footer>
-			<div class="company-footer nav-green">
-				<div class="footer-content">
-					<div class="footer-content-text">
-						<img src="pic/footer-telephone-icon.png" alt="phone">
-						<p>
-							
-							<span class="contents">Tel:123456789123</span>
-						</p>
-					</div>
-					<div class="footer-content-text">
-						<img src="pic/footer-smartphone-icon.png" alt="smartphone">
-						<p>
-							
-							<span class="contents">Mobile:123456789123</span>
-						</p>
-					</div>
-					<div class="footer-content-text">
-						<img src="pic/footer-mail-icon.png" alt="mail">
-						<p>
-							<span class="contents">Mail:bilinghc@163.com</span>
-						</p>
-					</div>
-					<div>
-					<p class="copyright"> &nbsp;&nbsp;© 2015 京ICP备15002253号
-			&nbsp;&nbsp;|&nbsp;&nbsp;北京交通大学交通运输学院系统工程与控制研究所&nbsp;&nbsp;|&nbsp;&nbsp;充电站数据来自政府有关部门</p>
-					</div>
-				</div>
-			</div>
-		</footer>
+<%@include file="footer.jsp" %>
 </body>
 </html>
 <script type="text/javascript">
@@ -351,7 +296,7 @@ function change_city_val(city, pinyin_city)
                                 searchInfoWindow =new Array();//存放检索信息窗口对象的数组
                                 var srcpic = "pic/icon_charger.png";
                                 eachAllCs(srcpic,point,marker,info,searchInfoWindow,false);
-                                map.addEventListener('zoomend', function(){
+                               /*  map.addEventListener('zoomend', function(){
 								    var mapstatue = map.getZoom();
 								    if(mapstatue <= 11 ){
 								    	hidemakers(marker);
@@ -360,7 +305,7 @@ function change_city_val(city, pinyin_city)
 								    	markerClusterer.clearMarkers(marker);
 								    	showmarkers(marker);
 								    }
-								});
+								}); */
                                 //创建聚合点
                                 //map.centerAndZoom(opoint, 11);
                                 //new showRecommend();

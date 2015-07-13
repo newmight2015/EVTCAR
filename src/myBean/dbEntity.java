@@ -32,7 +32,6 @@ public class dbEntity {
 		if(this.dbResu()!=0) { //�������ɹ�
 			System.out.println("---------SaveOrder:保存订单成功");
 	    	return true;
-	    	
 		}
 		else {
 			System.out.println("---------SaveOrder:保存订单失败");
@@ -46,7 +45,7 @@ public class dbEntity {
 	 * @return
 	 */
 	public boolean saveMsg(String...pras){
-		String checkConditon = "INSERT INTO UserMessageInf(MsgType,MsgValue,MsgCreatTime,USid) VALUES(?,?,?,?)";
+		String checkConditon = "INSERT INTO UserMessageInf(MsgType,MsgValue,MsgCreatTime,USid,MsgState) VALUES(?,?,?,?,'1')";
 		db.update(checkConditon, pras);
 		if(this.dbResu()!=0) { //�������ɹ�
 			System.out.println("---------SaveMsg:生成消息成功");

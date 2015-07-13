@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" import="myBean.usInformation" pageEncoding="utf-8"%>
+<%@ page language="java" import="java.util.*" import="myBean.usInformation"  pageEncoding="utf-8"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -10,24 +10,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-	<title>消息提醒</title>
+	<title>充电站分享</title>
 	    <!-- Bootstrap -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
-
+	<script src="../js/staticinfo.js" type="text/javascript"></script>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
       <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <link rel="stylesheet" href="../lib/jquery.raty.css">
     <link href="../css/evtcar.css" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="../css/userInf.css">
 	<link rel="stylesheet" href="../font-awesome-4.3.0/css/font-awesome.min.css">
-	 <script src="../js/jquery-2.1.3.min.js"></script>
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=r6bfCVxPZTpoKGGNthyuupYh"></script>
+	<script type="text/javascript" src="http://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.js"></script>
+	<script src="../js/jquery-2.1.3.min.js"></script>
 	<script src="../js/staticinfo.js" type="text/javascript"></script>
 	<script src="../js/UserCheck.js"></script> 
-	<script src="../js/jquery.raty.js" type="text/javascript"></script>
 	<script type="text/javascript">
 	<%
 		HttpSession sess = request.getSession();
@@ -35,51 +35,42 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	%>
 	window.MAINURL = "<%=basePath%>";
 	STATICINFO.USERINFO.URL = "<%=basePath%>";
-	STATICINFO.USERINFO.name = "<%= usInf==null ? "&nbsp;" : usInf.getUsId()%>";
-	if(STATICINFO.USERINFO.name==" "){ 
-		window.location.href="login.jsp";
-	}
+	STATICINFO.USERINFO.name = "<%= usInf==null ? "" : usInf.getUsId()%>";
 	</script>
+	<style type="text/css">
+		.submitInfo{
+			border: 1px solid #7f9db9;
+			padding:20px;
+			margin-bottom:20px
+		}
+		
+		.submitInfo th{ 
+			font-size: 16px;
+			width: 275px;
+			padding-right: 10px;
+			text-align: right;
+			vertical-align: top;
+			color: #404040;
+			padding-top: 15px;
+			font-family: 'Microsoft YaHei';
+		}
+		.submitInfo input{
+			border: 1px solid #7f9db9;
+			float: left;
+			width: 400px;
+			margin-right: 10px;
+			padding: 7px 10px;
+			line-height: 18px;
+			outline: 0 none;
+		}
+	</style>
+	
 </head>
 
 <body>
-<!-- 充电站评价模态框 $('#starcomment').raty('getScore');获取星星数 -->
-<div class="modal fade" id="csintro" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title text"><strong>对充电站点评</strong></h4>
-      </div>
-      <div class="modal-body">
-        <div class="info">
-        	<table>
-        		<tbody>
-        		 	<tr>
-	        			<th>充电站名:</th>
-	        			<td id="csname"></td>
-        		 	</tr>
-        		</tbody>
-        	</table>
-        </div>
-         <div class="content">
-	        <div class="clearfix commentcontent">
-	        		<input id="csidv"  value="" style="display: none;">
-	        		<input id="usordidv"  value="" style="display: none;">
-	        		<textarea rows="3" cols="20" maxlength="100" class="comment" id="comment" placeholder="在此输入您的简短评论，不得超过100字"></textarea>
-	        		<br><span>服务、基础设施评星 :</span><div id="starcomment"></div><input type="text" style="display: none;" id="starsum" name="starsum"  value="5" />
-	        		<div class="r"><span >点评完毕?&nbsp;&nbsp;<a id="makeComment" class='btn btn-success btn-sm'>提交</a></span></div>
-	        </div>
-        	
-        </div>
-     </div>
-      
-    </div>
-  </div>
-</div>
-<!-- 充电站评价模态框结束 -->
-<div class="contain back-color">
-<!--顶部导航栏开始 -->
+
+	<div class="contain back-color">
+		<!--顶部导航栏开始 -->
 <header>
 <div class="top">
 	<div class="wp">
@@ -97,6 +88,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<a href="../register.html" class="btn btn-success btn-lg"><span>注册</span></a>
 				<a href="../login.jsp" class="btn btn-success btn-lg"><span>登录</span></a>
 			</div>
+			<script>
+				if(STATICINFO.USERINFO.name!=""){
+					$(".loader").html("<span style='color:white'>Hi,"+
+							STATICINFO.USERINFO.name+"欢迎回到车快充!  </span><a href='logout.jsp' style='color:white'>退出登录</a>&nbsp;&nbsp;<a href='register.html'>免费注册</a>")
+				}
+			</script>
 		</div>
 	</div>
 </div>
@@ -112,8 +109,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 </header>
 <!--顶部导航栏结束 -->
-
-<!--body-->
 		<div class="main">
 			<div class="newcontainer">
 				<div id="user-card">
@@ -144,7 +139,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<em>来自北京</em></li>
 								<li><i class="fa fa-suitcase"></i><em>电动车爱好者</em></li>
 							</ul>
-							<div class="about clearfix">自从用了车快充，充电从此无忧</div>
+							<div class="about clearfix">自从用了乐充，充电从此无忧</div>
 						</div>
 						<script type="text/javascript">
 						$(function(){ 
@@ -166,8 +161,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 											<div class="img"><i class="fa fa-credit-card fa-3x"></i></div>我的收藏
 									</a>
 									
-									<a href="" class="btn">
-											<div class="img"><i class="fa fa-comments fa-3x"></i></div>分享地址
+									<a href="userCsSubmit.jsp" class="btn">
+											<div class="img"><i class="fa fa-comments fa-3x"></i></div>充电站分享
 									</a>
 									<a href="" class="btn without-side">
 											<div class="img"><i class="fa fa-info-circle fa-3x"></i></div>更新个人资料
@@ -212,62 +207,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						
 					</div>
 				</div>
-				<div id="study-record">
-					<div class="title">订单管理</div>
+				<div id="chargemessage">
+					<div class="title">充电站分享</div>
 					<div class="inf">
-						<div class="containbox">
-						<div class="bar"> 
-							<div role="tabpanel">
-							  <!-- Nav tabs -->
-							  <ul class="nav nav-tabs" role="tablist">
-							    <li role="presentation" class="active"><a href="#neworder" aria-controls="neworder" role="tab" data-toggle="tab">最新订单</a></li>
-							    <li role="presentation"><a href="#oldorder" aria-controls="oldorder" role="tab" data-toggle="tab">历史订单</a></li>
-							  </ul>
-
-							  <!-- Tab panes -->
-							  <div class="tab-content">
-							    <div role="tabpanel" class="tab-pane active" id="neworder">
-							    	<table class="table table-striped" id="newOrderContent">
-									  <th>订单编号</th>
-									  <th>充电站名</th>
-									  <th>充电地点</th>
-									  <th>起始时间</th>
-									  <th>结束时间</th>
-									  <th>操作</th>
-									</table>
-							    </div>
-							    
-							    <div role="tabpanel" class="tab-pane" id="oldorder">
-							    	<table class="table table-striped" id="oldOrderContent">
-									  <th>订单编号</th>
-									  <th>充电站名</th>
-									  <th>充电地点</th>
-									  <th>起始时间</th>
-									  <th>结束时间</th>
-									  <th>操作</th>
-									</table>
-							    </div>
-									  <!-- 
-									  <tr>
-									  	<td>1213123123</td>
-									  	<td class='csname'>北京交大充电站</td>
-									  	<td>北京市海淀区北下关北京交通大学电气工程楼后面</td>
-									  	<td>2015-4-16 16:20:20</td>
-									  	<td>2015-4-16 20:20:50</td>
-									  	<td>已完成</td>
-									  	<td><a href="">删除</a>&nbsp;&nbsp;<a href="">收藏</a>&nbsp;&nbsp; 
-									  	<a href="">预约</a>&nbsp;&nbsp;<a class="givecomment">点评</a></td>
-									  </tr>
-									   -->
-
-
-							    </div>
-							  </div>
-							</div>
+						<h3>第一步：请在地图中拾取您要分享的充电站地址</h3>
+						<br>
+						<div class="map-container">
+							<div class="map" id="r-map" style="min-width:768px;height:500px;margin:0 auto;">
+						</div>
+						<h3>第二步：请填入充电站详细信息</h3>
+						<div class="submitInfo">
+							<table>
+							<tbody><tr><th>地址：</th><td><input name="CSAddr" maxlength="50" placeholder="请填入充电站地址"></td><td><a><i class="icon-map-marker icon-small btn pickPositon" style="float:left;border:1px solid #000">重新拾取</a></td></tr>
+								<tr><th>快充数量：</th><td><input  name="CSFast" maxlength="50" placeholder="请填入数字"/></td></tr>
+								<tr><th>慢充数量：</th><td><input  name="CSSlow" maxlength="50" placeholder="请填入数字"/></td></tr>
+								<tr><th>运营商：</th><td><select value="" name="OperatorID"><option>普天</option><option>国家电网</option><option>特斯拉</option><option>特锐德</option><option>富电科技</option><option>其他</option></select> </td></tr>
+								<tr><th>对外状态：</th><td><select value="" name="CSPub"><option>公用</option><option>专用</option><option>待核实</option></select></td></tr>
+								<tr><th>运营状态：</th><td><select value="" name="CSState"><option>运营中</option><option>未运营</option><option>待核实</option></select></td></tr>
+								<tr><th>停车费用：</th><td><input name="ParkFeeDay" maxlength="50" placeholder="请填入数字"/></td></tr>
+								<tr><th>电话:</th><td><input  name="CSPhone" maxlength="50" placeholder="请填入充电站联系电话"/></td></tr>
+								<tr><th>备注:</th><td><input  name="CSNotes" maxlength="50" placeholder="请填入其他充电站相关信息"/></td></tr>
+								<tr><td></td><td><a class="btn btn-success btn-sm" id="csInfSubmit" style="width:200px">提交</a></td></tr>
+								</tbody>
+							</table>
 						</div>
 					</div>
-					</div>
 				</div>
+				
+				
 
 		    </div>
 		</div>
@@ -311,108 +278,60 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <script src="../js/bootstrap.min.js"></script>
 
     <script type="text/javascript">
-
-    	//$("#givecomment").click(function (e) {
-		//	$("#csintro").modal();
-		//	$("#starcomment").raty();
-		//	$("#csname").html($(this).parent().siblings(".csname").html());
-		//})
-
+	    $(document).ready(function(){
+	        map = new BMap.Map("r-map");    // 创建Map实例
+	    	map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);  // 初始化地图,设置中心点坐标和地图级别
+	    	map.addControl(new BMap.MapTypeControl());   //添加地图类型控件
+	    	map.setCurrentCity("北京");          // 设置地图显示的城市 此项是必须设置的
+	    	map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
+	    	
+	    	
+	    	map.addEventListener("click",addMarker);  
+	    	geoc = new BMap.Geocoder();    
+	    	map.addEventListener("click", function(e){        
+	    		var pt = e.point;
+	    		geoc.getLocation(pt, function(rs){
+	    			var addComp = rs.addressComponents;
+	    			$("[name='CSAddr']").val(addComp.province +  addComp.city  + addComp.district  + addComp.street + addComp.streetNumber);
+	    		});        
+	    	});
+	    })
+	    function posToAddr(point){
+	    	var geoc = new BMap.Geocoder();      
+	    	var pt = point;
+	    	geoc.getLocation(pt, function(rs){
+	    			var addComp = rs.addressComponents;
+	    			$("[name='CSAddr']").val(addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber);
+	    	});   
+	    } 
+	    function addMarker(e){
+	    	  map.clearOverlays();
+			  var point = new BMap.Point(e.point.lng, e.point.lat);
+			  var marker = new BMap.Marker(point);
+			  map.addOverlay(marker);
+			  marker.enableDragging();
+			  marker.addEventListener("dragend", function(e){   
+				  var pt = e.point;
+		    		geoc.getLocation(pt, function(rs){
+		    			var addComp = rs.addressComponents;
+		    			$("[name='CSAddr']").val(addComp.province +  addComp.city  + addComp.district  + addComp.street + addComp.streetNumber);
+		    		}); 
+              });  	
+		}
+    	$("#csInfSubmit").click(function(){
+			alert("信息提交成功!  非常感谢您对本站的支持，工作人员稍后会审核您提交的信息，恭喜您获得50金币！")
+		})
+		
+		
+		$(".stopPick").click(function(){
+			map.removeEventListener("click",addMarker);  
+		})
+		
 		$('#myTab a').click(function (e) {
 			e.preventDefault()
 			$(this).tab('show')
 		})
-
 		
-		$(function(){
-			USERCheck.checkNewOrder(function(isok,error){
-				if(isok){ 
-					var data = JSON.parse(error);
-					$.each(data, function(i, content){
-						var msg = "<tr><td>"+data[i].USOrdId+
-								"</td><td>"+data[i].USOrdCsName+
-								"</td><td>"+data[i].USOrdCsAddr+
-								"</td><td>"+data[i].USOrdStartTime+
-								"</td><td>"+data[i].USOrdEndTime+
-								"</td><td><a href=''>取消</a>&nbsp;&nbsp;<a href=''>修改</a></td></tr>"
-				        $("#newOrderContent").append(msg);
-					})
-				}else{ 
-					alert("false")
-				}
-
-			},window.MAINURL)
-			USERCheck.checkOldOrder(function(isok,error){ 
-				if(isok){ 
-					var data = JSON.parse(error);
-					//alert(data);
-					var j=0;
-					$.each(data, function(i, content){
-						var msg = "<tr><td >"+data[i].USOrdId+
-						 		"</td><td style='display: none;' ><input id='csid"+j+"' value='"+data[i].CSID+"'><input id='usordid"+j+"' value='"+data[i].USOrdId+"'>"+
-								"</td><td class='csname"+j+"'>"+data[i].USOrdCsName+
-								"</td><td>"+data[i].USOrdCsAddr+
-								"</td><td>"+data[i].USOrdStartTime+
-								"</td><td>"+data[i].USOrdEndTime+
-								"</td><td><a href=''>删除</a>&nbsp;&nbsp;<a href=''>收藏</a>&nbsp;&nbsp;<a href=''>预约</a>&nbsp;&nbsp;<a class='givecomment' onclick='givecomment("+j+");'>点评</a></td></tr>"
-				        //$("#newOrderContent").append(msg);
-						$("#oldOrderContent").append(msg);
-						j++;
-					})
-				}else{ 
-					alert("false")
-				}
-
-			},window.MAINURL)
-		});
-		function givecomment(j) {
-				$("#csintro").modal();
-				$("#starcomment").raty();
-				//$("#csname").html($(this).parent().siblings(".csname").html());
-				$("#csname").html($(".csname"+j).html());
-				var csid=$("#csid"+j).val();
-				var usordid=$("#usordid"+j).val();
-				$("#csidv").attr("value",csid);
-				$("#usordidv").attr("value",usordid);
-				//csidnum="#csid"+j;
-				//csid=$(csidnum).val;
-				//$("#csname").html("");
-		}
-		$("#starcomment").click(function(){
-			var starsum=$('#starcomment').raty('getScore');
-			$("#starsum").val(starsum);
-			//alert(CsAllData[i].CSId);
-		});
-		//点击提交评价信息----张伟增加
-		$("#makeComment").click(function(){
-		        	var act="comment";
-		        	var starsum=$("#starsum").val();
-		        	var comment=$("#comment").val();
-		        	var csid=$("#csidv").val();
-		        	var usordid=$("#usordidv").val();
-		        	//alert(""+act+starsum+comment+csid+usordid);
-		        	var AjaxURL=window.MAINURL+"dealMessage?act="+act+"&starsum="+starsum+"&comment="+comment+"&csid="+csid+"&usordid="+usordid;
-		        	$.ajax({
-		                type: "POST",
-		                dataType: "html",
-		                url: AjaxURL,
-		                success: function (data) {
-		                	
-		                	if(data.isSuccess=="false"){
-			            		alert("提交评价失败，请重新提交!");
-			            		//$("#csorder .errormsg").html(error);
-			            			          
-		                	}else { 
-			            		alert("提交评价成功!");
-			            		$("#csintro").hide();
-
-					        }
-					     },
-					     error: function(data) {
-					            alert("error:"+data.message);
-					     }
-					});
-		});
 	</script>
 </body>
 </html>

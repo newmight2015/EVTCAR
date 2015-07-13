@@ -1,5 +1,8 @@
+/*
+ * 功能：搜索js的响应事件
+ */
 $(document).ready(function(){
-							
+	//选择服务商						
 	$("#select1 dd").click(function () {
 		$("#select1").data("csoperator",$(this).data("value"));
 		$(this).addClass("selected").siblings().removeClass("selected");
@@ -13,7 +16,7 @@ $(document).ready(function(){
 			$("#selectA a").html("服务商："+$(this).text());
 		}
 	});
-	
+	//选择范围
 	$("#select2 dd").click(function () {
 		$("#select2").data("csrange",$(this).data("value"));
 		$(this).addClass("selected").siblings().removeClass("selected");
@@ -27,7 +30,7 @@ $(document).ready(function(){
 			$("#selectB a").html("范围："+$(this).text());
 		}
 	});
-	
+	//选择停车费
 	$("#select3 dd").click(function () {
 		$("#select3").data("csparkfee",$(this).data("value"));
 		$(this).addClass("selected").siblings().removeClass("selected");

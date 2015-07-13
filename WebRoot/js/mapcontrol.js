@@ -45,8 +45,10 @@ function drive(i){
 	var driving = new BMap.DrivingRoute(map, {renderOptions:{map: map, autoViewport: true}});
 	driving.search(opoint, p2);
 }
+//显示充电站详情js
 function showcsintro(i){
 	$('#csintro').modal();
+	$("#csid").value=CsAllData[i].CSId;
      var Operator,CSPub,CSState,CSFeeDay;
         if(CsAllData[i].OperatorID=='001') Operator="国家电网";
         else if(CsAllData[i].OperatorID=='002') Operator="普天";
@@ -69,43 +71,251 @@ function showcsintro(i){
 
         if(CsAllData[i].CSFeeDay==undefined) CSFeeDay = "未核实";
         if(window.location.href =="http://localhost:8080/EVTcar/inq_sta.jsp"){ 
-        	$("#csintro .modal-body .info").html("<table data-id='"+i+"'><tbody><tr><th>名称：</th><td>"+CsAllData[i].CSName+
-			"</td></tr><tr><th>地址：</th><td>"+CsAllData[i].CSAddr+
-			"</td></tr><tr><th>充电桩建设日期：</th><td>"+CsAllData[i].Datetime+
-			"</td></tr><tr><th>充电模式：</th><td>"+CSMode+
-			"</td></tr><tr><th>快充数量：</th><td>"+CsAllData[i].CSFast+
-			"</td></tr><tr><th>慢充数量：</th><td>"+CsAllData[i].CSSlow+
-			"</td></tr><tr><th>运营商：</th><td>"+Operator+
-			"</td></tr><tr><th>对外状态：</th><td>"+CSPub+
-			"</td></tr><tr><th>运营状态：</th><td>"+CSState+
-			"</td></tr><tr><th>电话:</th><td>"+CsAllData[i].CSPhone+
-			"</td></tr><tr><th>备注:</th><td>"+CsAllData[i].CSNotes+
-			"</td></tr></tbody></table>"+
-			"<div style='float:right;font-size:14px;'>信息有误？<a style='color:red;' href='#'>>>>点我纠错</a><div></hr>");
+        	$("#csintro .modal-body .info").html("<form id='change' name='changecsinf'  method='post' action='dealCorrect' ><table data-id='"+i+"'><tbody><tr style='display: none;'><th>ID：</th><td>"+CsAllData[i].CSId+
+                	"</td></tr><tr><th>名称：</th><td>"+CsAllData[i].CSName+
+        			"</td></tr><tr><th>地址：</th><td>"+CsAllData[i].CSAddr+
+        			"</td></tr><tr><th>充电桩建设日期：</th><td>"+CsAllData[i].Datetime+
+        			"</td></tr><tr><th>充电模式：</th><td>"+CSMode+
+        			"</td></tr><tr><th>快充数量：</th><td>"+CsAllData[i].CSFast+
+        			"</td></tr><tr><th>慢充数量：</th><td>"+CsAllData[i].CSSlow+
+        			"</td></tr><tr><th>运营商：</th><td>"+Operator+
+        			"</td></tr><tr><th>停车费用：</th><td>"+CsAllData[i].CSFeeDay+"元/小时"+
+        			"</td></tr><tr><th>对外状态：</th><td>"+CSPub+
+        			"</td></tr><tr><th>运营状态：</th><td>"+CSState+
+        			"</td></tr><tr><th>电话:</th><td>"+CsAllData[i].CSPhone+
+        			"</td></tr><tr><th>备注:</th><td>"+CsAllData[i].CSNotes+
+        			"</td></tr></tbody></table>"+
+        			"<div style='float:right;font-size:14px;' id='subchange'>信息有误？<a class='btn btn-danger btn-sm' onclick='changeCsInf("+i+")'>>>>点我纠错</a><div></form></hr>");
         }else{
-        	$("#csintro .modal-body .info").html("<table data-id='"+i+"'><tbody><tr><th>名称：</th><td>"+CsAllData[i].CSName+
-			"</td></tr><tr><th>地址：</th><td>"+CsAllData[i].CSAddr+
-			"</td></tr><tr><th>充电桩建设日期：</th><td>"+CsAllData[i].Datetime+
-			"</td></tr><tr><th>充电模式：</th><td>"+CSMode+
-			"</td></tr><tr><th>快充数量：</th><td>"+CsAllData[i].CSFast+
-			"</td></tr><tr><th>慢充数量：</th><td>"+CsAllData[i].CSSlow+
-			"</td></tr><tr><th>运营商：</th><td>"+Operator+
-			"</td></tr><tr><th>停车费用：</th><td>"+CsAllData[i].CSFeeDay+"元/小时"+
-			"</td></tr><tr><th>对外状态：</th><td>"+CSPub+
-			"</td></tr><tr><th>运营状态：</th><td>"+CSState+
-			"</td></tr><tr><th>电话:</th><td>"+CsAllData[i].CSPhone+
-			"</td></tr><tr><th>备注:</th><td>"+CsAllData[i].CSNotes+
-			"</td></tr></tbody></table>"+
-			"<div style='float:right;font-size:14px;' id='subchange'>信息有误？<a class='btn btn-danger btn-sm' onclick='changeCsInf()'>>>>点我纠错</a><div></hr>");
+        	$("#csintro .modal-body .info").html("<form id='change' name='changecsinf'  method='post' action='dealCorrect' ><table data-id='"+i+"'><tbody><tr style='display: none;'><th>ID：</th><td>"+CsAllData[i].CSId+
+                	"</td></tr><tr><th>名称：</th><td>"+CsAllData[i].CSName+
+        			"</td></tr><tr><th>地址：</th><td>"+CsAllData[i].CSAddr+
+        			"</td></tr><tr><th>充电桩建设日期：</th><td>"+CsAllData[i].Datetime+
+        			"</td></tr><tr><th>充电模式：</th><td>"+CSMode+
+        			"</td></tr><tr><th>快充数量：</th><td>"+CsAllData[i].CSFast+
+        			"</td></tr><tr><th>慢充数量：</th><td>"+CsAllData[i].CSSlow+
+        			"</td></tr><tr><th>运营商：</th><td>"+Operator+
+        			"</td></tr><tr><th>停车费用：</th><td>"+CsAllData[i].CSFeeDay+"元/小时"+
+        			"</td></tr><tr><th>对外状态：</th><td>"+CSPub+
+        			"</td></tr><tr><th>运营状态：</th><td>"+CSState+
+        			"</td></tr><tr><th>电话:</th><td>"+CsAllData[i].CSPhone+
+        			"</td></tr><tr><th>备注:</th><td>"+CsAllData[i].CSNotes+
+        			"</td></tr></tbody></table>"+
+        			"<div style='float:right;font-size:14px;' id='subchange'>信息有误？<a class='btn btn-danger btn-sm' onclick='changeCsInf("+i+")'>>>>点我纠错</a><div></form></hr>");
         }
+        
+            //查询充电站评价信息     
+            var CSId=CsAllData[i].CSId;
+            var AjaxURL="dealMessage?CSId="+CSId;
+            $.ajax({
+                        type: "GET",
+                        dataType: "html",
+                        url: AjaxURL,
+                        data:{act:'commentinfo'},
+                       // data: {VehData:JSON.stringify(VehData)},
+                        success: function (data) {
+                                  var CommentInfo = JSON.parse(data);//存放评价信息的数组
+                                  coo();
+                                  //将评论信息显示在面板上
+                        	      function coo(){
+                        	    	  $("#csintro .modal-body .commentinfo .cminfo li").remove();
+	                                  for(var j=0;j<CommentInfo.length;j++){
+	                              		$("#csintro .modal-body .commentinfo .cminfo").append(
+	                              				"<li><div class='comment-body'><span class='star-rating1'><span class='syellowstar50 star-icon'></span></span><span class='name'>"+CommentInfo[j].USId+"</span>&nbsp;&nbsp;<div class='Star' data-starnum='"+CommentInfo[j].Star+"'></div>"+
+	                                  			"<span class='date'>"+CommentInfo[j].Time+
+	                                  			"</span><div class='commentdetail'>"+CommentInfo[j].Content+
+	                                  			"</div></div></li>");
+	                              		
+	                              	   }
+	                                  $("#csidv").attr("value",CSId);
+	                                  $(".Star").each(function(){
+	                              		var num = $(this).data("starnum");
+	                              		$(this).raty({readOnly:true,score:num}); 
+	                              	});
+	                                  //统计评星并显示
+	                                  $.ajax({
+	                                      type: "GET",
+	                                      dataType: "html",
+	                                      url: AjaxURL,
+	                                      data:{act:'analysiscminfo'},
+	                                     // data: {VehData:JSON.stringify(VehData)},
+	                                      success: function (data) {
+	                                                var AnalysisCmInfo = JSON.parse(data);//存放评价信息的数组
+	                                                
+	                                                //alert(AnalysisCmInfo);
+	                                                analysis();
+	                                                //将评星信息显示在面板上
+	                                      	      function analysis(){
+	                                      	    	   $(".c-total").empty();	                                      	    	   
+	                                      	    	   $(".star-rating").raty({readOnly:true,score:0});
+	                                      	    	   $(".c-total").empty();
+	                                      	    	   $(".c-num").empty();
+	                                                    for(var j=0;j<AnalysisCmInfo.length;j++){
+	                                                    	var avg = AnalysisCmInfo[j].StarAvg;
+		                                                    //alert(avg);
+		                                                	$(".star-rating").raty({readOnly:true,score:avg});
+	                                                		$(".c-total").html("<P>"+AnalysisCmInfo[j].StarAvg+"</p>");
+	                                                		$(".c-num").html("<P>共有"+AnalysisCmInfo[j].ussum+"人评价</p>");
+	                                                		$("#p5").html("<p>"+AnalysisCmInfo[j].Star5+"人</p>");
+	                                                		$("#p4").html("<p>"+AnalysisCmInfo[j].Star4+"人</p>");
+	                                                		$("#p3").html("<p>"+AnalysisCmInfo[j].Star3+"人</p>");
+	                                                		$("#p2").html("<p>"+AnalysisCmInfo[j].Star2+"人</p>");
+	                                                		$("#p1").html("<p>"+AnalysisCmInfo[j].Star1+"人</p>");
+	                                                		if(AnalysisCmInfo[j].ussum!=0){
+		                                                		var p5=(AnalysisCmInfo[j].Star5/AnalysisCmInfo[j].ussum)*100;
+		                                                		var p4=(AnalysisCmInfo[j].Star4/AnalysisCmInfo[j].ussum)*100;
+		                                                		var p3=(AnalysisCmInfo[j].Star3/AnalysisCmInfo[j].ussum)*100;
+		                                                		var p2=(AnalysisCmInfo[j].Star2/AnalysisCmInfo[j].ussum)*100;
+		                                                		var p1=(AnalysisCmInfo[j].Star1/AnalysisCmInfo[j].ussum)*100;
+	                                                		}else{
+	                                                			var p5=0;
+		                                                		var p4=0;
+		                                                		var p3=0;
+		                                                		var p2=0;
+		                                                		var p1=0;
+	                                                		}
+	                                                		$("#p5-bg").width(""+p5+"px");
+	                                                		$("#p4-bg").width(""+p4+"px");
+	                                                		$("#p3-bg").width(""+p3+"px");
+	                                                		$("#p2-bg").width(""+p2+"px");
+	                                                		$("#p1-bg").width(""+p1+"px");
+	                                                		
+	                                                		
+	                                                	}
+//	                                                    var avg = AnalysisCmInfo[1].StarAvg;
+//	                                                    alert(avg);
+//	                                                	$(".star-rating").raty({readOnly:true,score:4});                         		
+	                                              }
+	                                                
+	                                      },
+	                                      error: function(data) {
+	                                          alert("查询评价信息失败");
+	                                      }
+	                                  }); 
+                        	    }
+                                  
+                        },
+                        error: function(data) {
+                            alert("查询评价信息失败");
+                        }
+                    }); 
+            
+        	
+}
+//点击详情界面“点我纠错”按钮的事件，把各项充电站信息变成可编辑状态。	//张伟：修改此方法
+function changeCsInf(i){
+  USERCheck.isLogin(function(isok,error){
+	if(isok != 'false'){
+		var j=0;
+		$("#csintro .modal-body .info tr").children("td").each(function(){ 
+			$(this).replaceWith("<input type='text' style='width:400px;'  id='changedata"+j+"' name='changedata"+j+"' value='"+$(this).html()+"'/>");
+			j++;
+		})
+		//$("#subchange").html("确认完毕？<input type='submit' value='>>>>提交信息'  class='btn btn-success btn-sm'  ></input>")
+		$("#subchange").html("确认完毕？&nbsp;&nbsp;<a id='correctCsInf' onclick='dealCorrect("+i+")' class='btn btn-success btn-sm' >>>>提交信息</a>")
+	}else { 
+    	alert("您好，请先登录！登录后才能提交信息");
+        window.location.href = "login.jsp";
+    }
+  },window.MAINURL)
+
 }
 
-function changeCsInf(){
-	$("#csintro .modal-body .info tr").children("td").each(function(){ 
-		$(this).replaceWith("<input style='width:400px;' name='changedata' value='"+$(this).html()+"'/>");
-	})
-	$("#subchange").html("确认完毕？<a class='btn btn-success btn-sm'>>>>>提交信息</a>")
-
+//处理纠错信息的方法
+function dealCorrect(i){
+	
+	USERCheck.isLogin(function(isok,error){
+        if(isok != 'false'){
+        	//var id = $("#csorder table").data("id");
+        	var CSId=$("#changedata0").val();
+        	var CSName=$("#changedata1").val();
+        	var CSAddr=$("#changedata2").val();
+        	var CSDate=$("#changedata3").val();
+        	var CSMode=$("#changedata4").val();
+        	var CSFast=$("#changedata5").val();
+        	var CSlow=$("#changedata6").val();
+        	var Operator=$("#changedata7").val();
+        	var ParkFee=$("#changedata8").val();
+        	var CSPub=$("#changedata9").val();
+        	var CSState=$("#changedata10").val();
+        	var CSPhone=$("#changedata11").val();
+        	var CSNotes=$("#changedata12").val();
+        	var AjaxURL="dealCorrect?CSId="+CSId+"&CSName="+CSName+"&CSAddr="+CSAddr+"&CSDate="+CSDate+"&CSMode="+CSMode+"&CSFast="+CSFast+"&CSlow="+CSlow+"&Operator="+Operator+"&ParkFee="+ParkFee+"&CSPub="+CSPub+"&CSState="+CSState+"&CSPhone="+CSPhone+"&CSNotes="+CSNotes;
+        	//var url="localhost:8080/EVTcar2";
+        	$.ajax({
+                type: "POST",
+                dataType: "html",
+                url: AjaxURL,
+               // data: {VehData:JSON.stringify(VehData)},
+                success: function (data) {
+                	if(data.isSuccess=="false"){
+	            		alert("提交信息失败，请重新提交!");
+	            		//$("#csorder .errormsg").html(error);
+                	}else { 
+	            		alert("提交纠错信息成功!");
+	            		//$("#csorder .errormsg").html("您的预约请求已提交，请到用户管理中查看订单详情。");
+	            		//window.location.href = 'userInf.html';
+                	}
+                },
+                error: function(data) {
+                    alert("error:"+data.message);
+                 }
+            });
+//        	$.ajax({
+//                url:url+"/dealMessage",
+//                type:"POST",
+//                dataType:"json",
+//                data:{
+//                	act:'correctCsInf',
+//                	CSId:CSId,
+//                	CSName:CSName,
+//                	CSAddr:CSAddr,
+//                	CSDate:CSDate,
+//                	CSMode:CSMode,
+//                	CSFast:CSFast,
+//                	CSlow:CSlow,
+//                	Operator:Operator,
+//                	ParkFee:ParkFee,
+//                	CSPub:CSPub,
+//                	CSState:CSState,
+//                	CSPhone:CSPhone,
+//                	CSNotes:CSNotes,
+//                },
+//                success:function(data){
+//                	if(data.isSuccess=="false"){
+//	            		alert(""+data.message+"");
+//	            		//$("#csorder .errormsg").html(error);
+//            	    }else { 
+//	            		alert("提交纠错信息成功!"+data.message);
+//	            		//$("#csorder .errormsg").html("您的预约请求已提交，请到用户管理中查看订单详情。");
+//	            		//window.location.href = 'userInf.html';
+//            	    }
+////                  return _this._callback(callback,data.isSuccess,data.message,data)
+//                },
+//                error:function(data){ 
+//                    console.log(data);
+//                    return _this._callback(callback,false,"连接服务器失败，请稍后再试",data);
+//                }
+//        	});
+//            USERCheck.correctCsInf(CSId,CSName,CSAddr,CSDate,CSMode,CSFast,CSlow,Operator,ParkFee,CSPub,CSState,CSPhone,CSNotes,function(isok,error){ 
+//            	if(isok=="false"){ 
+//            		alert(""+error+"");
+//            		//$("#csorder .errormsg").html(error);
+//            	}else { 
+//            		alert("提交纠错信息成功!");
+//            		//$("#csorder .errormsg").html("您的预约请求已提交，请到用户管理中查看订单详情。");
+//            		//window.location.href = 'userInf.html';
+//            	}
+//            },window.MAINURL);
+            
+            
+        }else { 
+        	alert("您好，请先登录！登录后才能预约");
+            window.location.href = "login.jsp";
+        }
+    },window.MAINURL)
+	
+	
 }
 
 function dealOrder(i){ 
@@ -156,7 +366,7 @@ function showPostition(i){
         //在marker上打开检索信息窗口
         searchInfoWindow[i].open(marker[i]);
 }
-
+//显示推荐充电站
 function showRecommend(){
 	$("#searchResultPanel").show();
 	$("#searchResultPanel .resultAll").empty();
@@ -172,7 +382,6 @@ function showRecommend(){
 	}
 
 }
-
 function enableOrderButton(){ 
 	for(i=0;i<CsAllData.length;i++){ 
 		 if(CsAllData[i].CSIsOrder=='0'){ 
@@ -219,8 +428,14 @@ function eachAllCs(srcpic,point,marker,info,searchInfoWindow,hasOpoint){//输出
                                      else CSPub="未知";
                                 if(CsAllData[i].CSState=='1') CSState="运营中";
 						             else if(CsAllData[i].CSState=='2') CSState="未运营";
-						             else CSState="未核实";    
+						             else CSState="未核实"; 
+
+
+						             
                                 if(hasOpoint==true){
+
+                                
+
                                 info[i] =  '<img src="pic/charge-stick.gif" alt="" style="float:right;zoom:1;overflow:hidden;width:100px;height:100px;margin-left:3px;"/>'+
                                             '</br>地址： '+CsAllData[i].CSAddr+
                                             '</br>充电桩总数： '+CsAllData[i].CSSum+
@@ -265,6 +480,7 @@ function eachAllCs(srcpic,point,marker,info,searchInfoWindow,hasOpoint){//输出
                                             map.centerAndZoom(point[k], 15);
                                             //在marker上打开检索信息窗口
                                             searchInfoWindow[k].open(marker[k]);
+                                            
                                         }
                                     })(i)                            
                                 );

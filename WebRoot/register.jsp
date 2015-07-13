@@ -1,3 +1,8 @@
+<%@ page language="java" import="java.util.*,myBean.usInformation" pageEncoding="ISO-8859-1"%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -9,6 +14,15 @@
 <script type="text/javascript" src="js/jquery-2.1.3.min.js"></script>
 <script type="text/javascript" src="js/register_121015.js"></script>
 <script type="text/javascript" src="js/UserCheck.js"></script>
+<script type="text/javascript">
+	<%
+		HttpSession sess = request.getSession();
+		usInformation usInf = (usInformation)sess.getAttribute("usInf");
+	%>
+	window.MAINURL = "<%=basePath%>";
+	STATICINFO.USERINFO.URL = "<%=basePath%>";
+	STATICINFO.USERINFO.name = "<%= usInf==null ? "" : usInf.getUsId()%>";
+	</script>
 <style>
 	.important{ 
 		color:red;
@@ -26,39 +40,8 @@
 </style>
 </head>
 
-<body>
-<!--顶部导航栏开始 -->
-<header>
-<div class="top">
-	<div class="wp">
-		<div class="logo">
-			<a href="/" class="icon_img_logo"></a>
-		</div>
-		<div class="menu">
-			<div class="xl">
-				<ul>
-					<li><a>客户端下载</a></li>
-					<li><a>运营商加盟</a></li>
-				</ul>
-			</div>
-			<div class="loader">
-				<a href="register.html" class="btn btn-success btn-lg"><span>注册</span></a>
-				<a href="login.jsp" class="btn btn-success btn-lg"><span>登录</span></a>
-			</div>
-		</div>
-	</div>
-</div>
-<!--下面是中部导航栏的代码-->
-<div class="nav-green nav-head" id="J_m_nav">
-	<div class="nav-content">
-		<div class="nav-btn"><a href="index.html">首页</a></div>
-		<div class="nav-btn"><a href="searchCS.jsp">我要充电</a></div>
-		<div class="nav-btn"><a href="inq_sta.jsp">充电站分布</a></div>
-		<div class="nav-btn"><a href="userInf.html">用户管理</a></div>
-		<div class="nav-btn"><a href="#">关于我们</a></div>
-	</div>
-</div>
-</header>
+<body><!--顶部导航栏开始 -->
+<%@include file="head.jsp" %>
 <!--顶部导航栏结束 -->
 
 <div id="bd">
@@ -161,16 +144,9 @@
                                     <span id="spn_vcode_wrong" class="cue" style="display: none;"></span>
                                     <div class="v_box">
                                         <a href="javascript:show_vcode('imgVcode')" name="change_code_img" tabindex="5">
-                                            <img alt="code..." name="randImage" id="randImage" src="image.jsp" onclick="reload()"></a>看不清?<a href="javascript:reload()" class="changepic" tabindex="6">换张图</a>
+                                            <img alt="code..." name="randImage" id="randImage" src="image.jsp" onclick="reload()"></a>看不清?<a href="javascript:reload()" name="change_code_link" tabindex="6">换张图</a>
                                     </div>
-									 <script>
-							          	$("#randImage").click(function(){
-						        			$(this).attr("src","image.jsp");
-						        		})
-						          		$(".changepic").click(function(){
-						          			$("#randImage").attr("src","image.jsp");
-						          		})	
-						          </script>
+
                                 </td>
                             </tr>
                             <tr>
@@ -199,34 +175,7 @@
 </div>
 
   
-  <div class="company-footer nav-green">
-	<div class="footer-content">
-		<div class="footer-content-text">
-			<img src="pic/footer-telephone-icon.png" alt="phone">
-			<p>
-				
-				<span class="contents">Tel:123456789123</span>
-			</p>
-		</div>
-		<div class="footer-content-text">
-			<img src="pic/footer-smartphone-icon.png" alt="smartphone">
-			<p>
-				
-				<span class="contents">Mobile:123456789123</span>
-			</p>
-		</div>
-		<div class="footer-content-text">
-			<img src="pic/footer-mail-icon.png" alt="mail">
-			<p>
-				<span class="contents">Mail:bilinghc@163.com</span>
-			</p>
-		</div>
-		<div>
-		<p class="copyright"> &nbsp;&nbsp;© 2015 京ICP备15002253号
-&nbsp;&nbsp;|&nbsp;&nbsp;北京交通大学交通运输学院系统工程与控制研究所&nbsp;&nbsp;|&nbsp;&nbsp;充电站数据来自政府有关部门</p>
-		</div>
-	</div>
-</div>
+ <%@include file="footer.jsp" %>
 </body>
 
 <script type="text/javascript">
@@ -380,4 +329,5 @@
 </script>
 
 </html>
+
 

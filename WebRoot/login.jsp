@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*,myBean.wrongMessage" pageEncoding="utf-8"%>
+<%@ page language="java" import="java.util.*,myBean.wrongMessage" import="myBean.usInformation" pageEncoding="utf-8"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -10,47 +10,37 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <title>登录</title>
 <script type="text/javascript" src="js/login.js" charset="utf-8"></script>
 <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-
 <link href="css/evtcar.css" rel="stylesheet" type="text/css" />
 <link href="css/login.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" href="font-awesome-4.3.0/css/font-awesome.min.css">
 
 <script type="text/javascript" src="js/jquery-2.1.3.min.js"></script>
+<script src="js/staticinfo.js"></script>
+<script type="text/javascript">
+	<%
+		HttpSession sess = request.getSession();
+		usInformation usInf = (usInformation)sess.getAttribute("usInf");
+	%>
+	window.MAINURL = "<%=basePath%>";
+	STATICINFO.USERINFO.URL = "<%=basePath%>";
+	STATICINFO.USERINFO.name = "<%= usInf==null ? "" : usInf.getUsId()%>";
+	</script>
 </head>
-
 <body>
-		<!--顶部导航栏开始 -->
-<header>
-<div class="top">
-	<div class="wp">
-		<div class="logo">
-			<a href="/" class="icon_img_logo"></a>
-		</div>
-		<div class="menu">
-			<div class="xl">
-				<ul>
-					<li><a>客户端下载</a></li>
-					<li><a>运营商加盟</a></li>
-				</ul>
-			</div>
-			<div class="loader">
-				<a href="register.html" class="btn btn-success btn-lg"><span>注册</span></a>
-				<a href="login.jsp" class="btn btn-success btn-lg"><span>登录</span></a>
-			</div>
-		</div>
-	</div>
-</div>
+<!--顶部导航栏开始 -->
+<%@include file="head.jsp" %>
 <!--下面是中部导航栏的代码-->
 <div class="nav-green nav-head" id="J_m_nav">
 	<div class="nav-content">
 		<div class="nav-btn"><a href="index.html">首页</a></div>
 		<div class="nav-btn"><a href="searchCS.jsp">我要充电</a></div>
 		<div class="nav-btn"><a href="inq_sta.jsp">充电站分布</a></div>
-		<div class="nav-btn"><a href="userInf.jsp">用户管理</a></div>
+		<div class="nav-btn"><a href="userInf.html">用户管理</a></div>
 		<div class="nav-btn"><a href="#">关于我们</a></div>
 	</div>
 </div>
 </header>
+<!--顶部导航栏结束 -->
 
 <form action="dealLogin.do" method="post" class="form" onsubmit="checklogin();return false;">
   <div id="page" class="page">
@@ -115,34 +105,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </div>
   </div>
   
-  <div class="company-footer nav-green">
-	<div class="footer-content">
-		<div class="footer-content-text">
-			<img src="pic/footer-telephone-icon.png" alt="phone">
-			<p>
-				
-				<span class="contents">Tel:123456789123</span>
-			</p>
-		</div>
-		<div class="footer-content-text">
-			<img src="pic/footer-smartphone-icon.png" alt="smartphone">
-			<p>
-				
-				<span class="contents">Mobile:123456789123</span>
-			</p>
-		</div>
-		<div class="footer-content-text">
-			<img src="pic/footer-mail-icon.png" alt="mail">
-			<p>
-				<span class="contents">Mail:bilinghc@163.com</span>
-			</p>
-		</div>
-		<div>
-		<p class="copyright"> &nbsp;&nbsp;© 2015 京ICP备15002253号
-&nbsp;&nbsp;|&nbsp;&nbsp;北京交通大学交通运输学院系统工程与控制研究所&nbsp;&nbsp;|&nbsp;&nbsp;充电站数据来自政府有关部门</p>
-		</div>
-	</div>
-</div>
+  <%@include file="footer.jsp" %>
 </form>
 
 

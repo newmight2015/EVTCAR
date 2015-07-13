@@ -21,8 +21,5 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/json.org.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/sqljdbc4.jar"/>
-	<classpathentry kind="lib" path="E:/Program Files/Apache Software Foundation/Tomcat 7.0/lib/servlet-api.jar"/>
-	<classpathentry kind="lib" path="G:/S/webworkspace/Professor/WebContent/WEB-INF/lib/mail.jar"/>
-	<classpathentry kind="lib" path="G:/S/webworkspace/Professor/WebContent/WEB-INF/lib/commons-logging-1.2.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

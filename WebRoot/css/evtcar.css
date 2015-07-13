@@ -2,7 +2,7 @@ a:link{text-decoration:none;   /* 鎸囨甯哥殑鏈璁块棶杩囩殑�
 }
 a:visited{text-decoration:none; /*鎸囧凡缁忚闂繃鐨勯摼鎺�*/
 }
-a:hover{text-decoration:none;/*鎸囬紶鏍囧湪閾炬帴*/}
+a:hover{text-decoration:none;cursor:pointer;/*鎸囬紶鏍囧湪閾炬帴*/}
 a:active{text-decoration:none;/* 鎸囨鍦ㄧ偣鐨勯摼鎺�*/ }
 body{
 	font:14px/1.6 "Helvetica Neue",Arial,"Microsoft Yahei",sans-serif;
@@ -194,7 +194,7 @@ padding:15px 0px;
 .footer-content{
 	height:100%;
 	width:800px;
-	margin:0px auto;
+	margin:80px auto;
 }
 .footer-content-text{
 	padding:15px 4px;
@@ -213,11 +213,11 @@ padding:15px 0px;
 	float:left;
 	}
 .copyright{
-	clear:both;
-	font-weight:bold;
-	float: left;
-	margin-right: auto;
-	text-align: center;
+  clear: both;
+  font-weight: bold;
+  /* float: left; */
+  /* margin-top: 40px; */
+  text-align: center;
 }
 /*************/
 
@@ -394,7 +394,7 @@ padding:15px 0px;
 #csorder .appoint{
 	margin-top: 30px;
 	border-top:3px solid rgb(126,194,21);
-	height: 150px;
+	height: 200px;
 }
 #csorder .appoint .box{
 	width: 80%;
@@ -433,13 +433,14 @@ padding:15px 0px;
 	line-height: 1.5;
 	font-size: 14px;
 	color:#333;
-	height:600px;
+	height:auto;
 }
 
 #csintro .content .op-bar{ 
 	padding-top: 10px;
 	color: #333;
 	position: relative;
+	height: 120px;
 } 
 #csintro .content .op-bar .op-total{ 
 	font-size: 12px;
