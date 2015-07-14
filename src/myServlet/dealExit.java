@@ -29,20 +29,11 @@ public class dealExit extends HttpServlet {
 		//String username = (String) session.getAttribute("username");
 		// �ж��û��Ƿ���Ч
 		if(usInf != null){
-			// ���û��������session
 			session.removeAttribute("usInf");
-			//session.invalidate();
-			//ServletContext application = (ServletContext)session.getServletContext();
-			//ʵ����ʾ����������
-//			List onlineUserList = (List) application.getAttribute("onlineUserList");
-//		    onlineUserList.remove(username);
-	    	//System.out.println(SessionCounter.getActiveSessions());
-			// ������ʾ��Ϣ
-			//request.setAttribute("info", usInf.getUsId() + " �ѳɹ��˳���");
 		}else{
-			System.out.println("usInf������");
+			System.out.println(usInf+"退出登录失败");
 		}
-		request.getRequestDispatcher("index.jsp").forward(request, response);
+		request.getRequestDispatcher("login.jsp").forward(request, response);
 	}
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

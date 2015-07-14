@@ -71,9 +71,14 @@ public class dealPhoneLogin extends HttpServlet {
 			JSONObject jo = new JSONObject();
 			if (rs.next()){
 					String usid = rs.getString("USid");
+					String usphone = rs.getString("USMail");
+					String usmail = rs.getString("USMail");
+					String coin = rs.getString("USCoin");
 					JSONObject usinf = new JSONObject();//存放用户信息
 					usinf.put("USid", usid);
-					
+					usinf.put("USPhone", usphone);
+					usinf.put("USMail", usmail);
+					usinf.put("USCoin", coin);
 					jo.put("isSuccess",true);//登录成功标志
 					jo.put("message",usinf);
 			}else {

@@ -22,11 +22,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpSessionBindingEvent;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import myBean.ApplicationConstants;
 import myBean.dbEntity;
 import myBean.messageAlert;
 import myBean.usInformation;
@@ -331,6 +333,31 @@ public class dealMessage extends HttpServlet {
 				try {
 					ms.append("isSuccess", false);
 					ms.append("message", "用户未登录");
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			out.println(ms.toString());
+		}
+		/**
+		 * 用户退出登录
+		 */
+		if(act.equals("userLogout")){
+			String username = (String) request.getAttribute("username");
+			if(usInf != null){
+				ss.removeAttribute("usInf");
+				try {
+					ms.append("isSuccess", true);
+					ms.append("message", "成功退出");
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}else {
+				try {
+					ms.append("isSuccess", false);
+					ms.append("message", "退出失败");
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
