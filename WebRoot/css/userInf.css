@@ -5,9 +5,9 @@
 	body{font: 14px/1.5 "Microsoft Yahei", "Hiragino Sans GB", Helvetica, "Helvetica Neue", "微软雅黑", Tahoma, Arial, sans-serif;}
 	a {font-size:16px;color: gray;}   
 	a:link {text-decoration:none;}  
-	a:active:{color: red; } 
+	a:active:{color: red;color: green; } 
 	a:visited {text-decoration:none;} 
-	a:hover {text-decoration:none;color: #3594fd;} 
+	a:hover {text-decoration:none;} 
 	ul,li{list-style: none;}
 	i{margin-right: 5px;}
 	.back-color{ 
@@ -110,7 +110,7 @@
 		height: 170px;
 		background: #fff;
 		position: relative;
-		padding-left: 180px;
+		padding-left: 50px;
 		margin-right: 236px;
 		border-right: 1px solid #EDEDED;
 	}

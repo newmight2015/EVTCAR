@@ -594,11 +594,15 @@ public class dealMessage extends HttpServlet {
 		 */
 		if(act.equals("searchCityCS")){ 
 			String cityname = request.getParameter("cityname");
+			
 			JSONArray csInf = new JSONArray();
 			dataBase db=new dataBase();
 			Connection con =db.getConnection();
 			String condition ;
-			condition ="Select * from CS_BasicInformation where CSCity LIKE '"+cityname+"%'";
+			if(cityname.equals("全国")){ 
+				condition ="Select * from CS_BasicInformation ";
+			}
+			else condition ="Select * from CS_BasicInformation where CSCity LIKE '"+cityname+"%'";
 			PreparedStatement sql;
 			try {
 			sql = con.prepareStatement(condition);

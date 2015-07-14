@@ -352,8 +352,8 @@ function showPostition(i){
  				  position : point,    // 指定文本标注所在的地理位置
  				  offset   : new BMap.Size(5, -10)    //设置文本偏移量
  				}
- 				var label = new BMap.Label("推荐地点"+(i+1), opts);  // 创建文本标注对象
- 					label.setStyle({
+ 		var label = new BMap.Label("推荐地点"+(i+1), opts);  // 创建文本标注对象
+ 		label.setStyle({
  						 color : "red",
  						 fontSize : "15px",
  						 fontWeight:"700",
@@ -433,9 +433,6 @@ function eachAllCs(srcpic,point,marker,info,searchInfoWindow,hasOpoint){//输出
 
 						             
                                 if(hasOpoint==true){
-
-                                
-
                                 info[i] =  '<img src="pic/charge-stick.gif" alt="" style="float:right;zoom:1;overflow:hidden;width:100px;height:100px;margin-left:3px;"/>'+
                                             '</br>地址： '+CsAllData[i].CSAddr+
                                             '</br>充电桩总数： '+CsAllData[i].CSSum+
@@ -577,19 +574,16 @@ function addMarker(e){
 	  var temp={"lng":e.point.lng,"lat":e.point.lat,"address":null};
 	  VehData[productNum]=temp;
 }
-$(document).ready(function(){
-    map = new BMap.Map("r-map");    // 创建Map实例
-	map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);  // 初始化地图,设置中心点坐标和地图级别
-	map.addControl(new BMap.MapTypeControl());   //添加地图类型控件
-	map.setCurrentCity("北京");          // 设置地图显示的城市 此项是必须设置的
-	map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
-	
-	
-	productNum=0;
-	VehData = {};
-	tempPt=[];
-	 $("#clearOverlays").bind("click",function(){map.clearOverlays;})
-	
-})
+
+function initalMap(){
+	    map = new BMap.Map("r-map");    // 创建Map实例
+		map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);  // 初始化地图,设置中心点坐标和地图级别
+		map.addControl(new BMap.MapTypeControl());   //添加地图类型控件
+		map.setCurrentCity("北京");          // 设置地图显示的城市 此项是必须设置的
+		map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
+		var top_right_navigation = new BMap.NavigationControl({anchor: BMAP_ANCHOR_TOP_RIGHT, type: BMAP_NAVIGATION_CONTROL_LARGE}); 
+		map.addControl(top_right_navigation);  //右上角，仅包含平移和缩放按钮
+}
+
 
 

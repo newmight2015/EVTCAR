@@ -20,7 +20,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <div class="select-box"><a href="sub-html/zclc.html" target="frame" class="a">注册流程</a><a href="sub-html/nav-proc.html" target="frame" class="a">充电导航流程</a><a href="sub-html/app-proc.html" target="frame" class="a">充电预约流程</a></div>
   <iframe name="frame" scrolling="yes" class="frame"></iframe>
   
- <%@include file="bottom.jsp" %>
+ <%@include file="footer.jsp" %>
 </div>
 </body>
 </html>

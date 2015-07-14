@@ -28,6 +28,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script src="../js/jquery-2.1.3.min.js"></script>
 	<script src="../js/staticinfo.js" type="text/javascript"></script>
 	<script src="../js/UserCheck.js"></script> 
+    <script src="../js/mapcontrol.js" type="text/javascript"></script>
 	<script type="text/javascript">
 	<%
 		HttpSession sess = request.getSession();
@@ -86,102 +87,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!--顶部导航栏结束 -->
 		<div class="main">
 			<div class="newcontainer">
-				<div id="user-card">
-					<div class="maozi"></div>
-					<div class="inners clearfix without-side">
-						<div class="avatar-unit">
-							<div class="img"><img src="../pic/user1.jpg"><img src="../pic/load2.gif" style=";" class="load">
-								<div class="change-avatar">
-									<a class="btn wbtn btn12"><span class="text">更换头像</span></a>
-									<div style="position: absolute; opacity: 0.01; overflow: hidden;">
-										<iframe src="javascript:'<html></html>'" frameborder="no" border="0" name="IFrame_i8i1vmjl" id="IFrame_i8i1vmjl" style="display: none;">
-										</iframe>
-										<input type="file" name="file" size="1" style="position: absolute; top: 0px; left: 0px; border: 0px;">
-									</div>
-								</div>
-							</div>
-							<div class="counts clearfix">
-								<a href="/yclovezyw/followers/" rel="nofollow" class="followers">
-								<div class="num">0</div><div class="sub">粉丝</div></a>
-								<a href="/yclovezyw/following/" class="follows">
-								<div class="num">1</div><div class="sub">关注</div></a>
-							</div>
-						</div>
-						<div class="user-inf">
-							<div class="head-line"><div class="name">碎步行</div></div>
-							<ul class="introduction">
-								<li><i class="fa fa-location-arrow"></i>
-								<em>来自北京</em></li>
-								<li><i class="fa fa-suitcase"></i><em>电动车爱好者</em></li>
-							</ul>
-							<div class="about clearfix">自从用了乐充，充电从此无忧</div>
-						</div>
-						<script type="text/javascript">
-						$(function(){ 
-							 $(".user-inf .head-line .name").html(STATICINFO.USERINFO.name);
-						})
-						</script>
-						<div class="bindings"> 
-							<div class="fast-item">
-									<a href="userInfMsg.jsp" class="btn">
-											<div class="img"><i class="fa fa-calendar fa-3x"></i></div>消息提醒
-									</a>
-									<a href="userInfOrd.jsp" class="btn">
-											<div class="img">	<i class="fa fa-shopping-cart fa-3x"></i></div>预约订单
-									</a>
-									<a href="" class="btn">
-											<div class="img"><i class="fa fa-desktop fa-3x"></i></div>最新活动
-									</a>
-									<a href="" class="btn">
-											<div class="img"><i class="fa fa-credit-card fa-3x"></i></div>我的收藏
-									</a>
-									
-									<a href="userCsSubmit.jsp" class="btn">
-											<div class="img"><i class="fa fa-comments fa-3x"></i></div>充电站分享
-									</a>
-									<a href="" class="btn without-side">
-											<div class="img"><i class="fa fa-info-circle fa-3x"></i></div>更新个人资料
-									</a>
-							</div>
-							<div class="message">
-								<ul class="clearfix">
-									<li><i class="fa fa-clock-o"></i>已预约时间：
-									<span>80</span>小时
-									</li>
-									<li><i class="fa fa-question-circle"></i>充电地址分享：
-									<span>0</span>条
-									</li>
-									<li><i class="fa fa-pencil"></i>金币：
-									<span>80</span>枚
-									</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-					<div class="user-menu">
-						
-						<div class="btn-group l">
-							<a href="" class="dropdown-toggle  tab" data-toggle="dropdown" aria-expanded="false">个人信息 <span class="caret"></span></a>
-							<ul class="dropdown-menu" role="menu">
-							    <li><a href="">基本信息</a></li>
-							    <li><a href="">我的订单</a></li>
-							    <li><a href="">账户金额</a></li>
-							    <li><a href="">充值提现</a></li>
-							    <li><a href="">积分</a></li>
-							 </ul>
-						</div>
-						<div class="btn-group l">
-							<a href="" class="dropdown-toggle  tab" data-toggle="dropdown" aria-expanded="false">客户服务 <span class="caret"></span></a>
-							<ul class="dropdown-menu" role="menu">
-							    <li><a href="">投诉</a></li>
-							    <li><a href="">申诉</a></li>
-							    <li><a href="">消息</a></li>
-							    <li><a href="">评价</a></li>
-							 </ul>
-						</div>
-						
-					</div>
-				</div>
+				<%@include file="menu.jsp" %>
 				<div id="chargemessage">
 					<div class="title">充电站分享</div>
 					<div class="inf">
@@ -191,28 +97,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<div class="map" id="r-map" style="min-width:768px;height:500px;margin:0 auto;">
 						</div>
 						<h3>第二步：请填入充电站详细信息</h3>
-						<div class="submitInfo">
-							<table>
-							<tbody><tr><th>地址：</th><td><input name="CSAddr" maxlength="50" placeholder="请填入充电站地址"></td><td><a><i class="icon-map-marker icon-small btn pickPositon" style="float:left;border:1px solid #000">重新拾取</a></td></tr>
-								<tr><th>快充数量：</th><td><input  name="CSFast" maxlength="50" placeholder="请填入数字"/></td></tr>
-								<tr><th>慢充数量：</th><td><input  name="CSSlow" maxlength="50" placeholder="请填入数字"/></td></tr>
-								<tr><th>运营商：</th><td><select value="" name="OperatorID"><option>普天</option><option>国家电网</option><option>特斯拉</option><option>特锐德</option><option>富电科技</option><option>其他</option></select> </td></tr>
-								<tr><th>对外状态：</th><td><select value="" name="CSPub"><option>公用</option><option>专用</option><option>待核实</option></select></td></tr>
-								<tr><th>运营状态：</th><td><select value="" name="CSState"><option>运营中</option><option>未运营</option><option>待核实</option></select></td></tr>
-								<tr><th>停车费用：</th><td><input name="ParkFeeDay" maxlength="50" placeholder="请填入数字"/></td></tr>
-								<tr><th>电话:</th><td><input  name="CSPhone" maxlength="50" placeholder="请填入充电站联系电话"/></td></tr>
-								<tr><th>备注:</th><td><input  name="CSNotes" maxlength="50" placeholder="请填入其他充电站相关信息"/></td></tr>
-								<tr><td></td><td><a class="btn btn-success btn-sm" id="csInfSubmit" style="width:200px">提交</a></td></tr>
-								</tbody>
-							</table>
+							<div class="submitInfo">
+								<table>
+								<tbody><tr><th>地址：</th><td><input name="CSAddr" maxlength="50" placeholder="请填入充电站地址"></td><td><a><i class="icon-map-marker icon-small btn pickPositon" style="float:left;border:1px solid #000">重新拾取</a></td></tr>
+									<tr><th>快充数量：</th><td><input  name="CSFast" maxlength="50" placeholder="请填入数字"/></td></tr>
+									<tr><th>慢充数量：</th><td><input  name="CSSlow" maxlength="50" placeholder="请填入数字"/></td></tr>
+									<tr><th>运营商：</th><td><select value="" name="OperatorID"><option>普天</option><option>国家电网</option><option>特斯拉</option><option>特锐德</option><option>富电科技</option><option>比亚迪</option><option>其他</option></select> </td></tr>
+									<tr><th>对外状态：</th><td><select value="" name="CSPub"><option>公用</option><option>专用</option><option>待核实</option></select></td></tr>
+									<tr><th>运营状态：</th><td><select value="" name="CSState"><option>运营中</option><option>未运营</option><option>待核实</option></select></td></tr>
+									<tr><th>停车费用：</th><td><input name="ParkFeeDay" maxlength="50" placeholder="请填入数字"/></td></tr>
+									<tr><th>电话:</th><td><input  name="CSPhone" maxlength="50" placeholder="请填入充电站联系电话"/></td></tr>
+									<tr><th>备注:</th><td><input  name="CSNotes" maxlength="50" placeholder="请填入其他充电站相关信息"/></td></tr>
+									<tr><td></td><td><a class="btn btn-success btn-sm" id="csInfSubmit" style="width:200px">提交</a></td></tr>
+									</tbody>
+								</table>
+							</div>
 						</div>
 					</div>
-				</div>
-				
-				
-
-		    </div>
-		</div>
+		    	</div>
+			</div>
 	<%@include file="footer.jsp" %>
 	</div>
 
@@ -224,20 +127,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
     <script type="text/javascript">
 	    $(document).ready(function(){
-	        map = new BMap.Map("r-map");    // 创建Map实例
-	    	map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);  // 初始化地图,设置中心点坐标和地图级别
-	    	map.addControl(new BMap.MapTypeControl());   //添加地图类型控件
-	    	map.setCurrentCity("北京");          // 设置地图显示的城市 此项是必须设置的
-	    	map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
-	    	
-	    	
+	    	initalMap();
 	    	map.addEventListener("click",addMarker);  
 	    	geoc = new BMap.Geocoder();    
 	    	map.addEventListener("click", function(e){        
 	    		var pt = e.point;
 	    		geoc.getLocation(pt, function(rs){
+	    			var marker = new BMap.Marker(pt);
 	    			var addComp = rs.addressComponents;
-	    			$("[name='CSAddr']").val(addComp.province +  addComp.city  + addComp.district  + addComp.street + addComp.streetNumber);
+	    			var addr = addComp.province +  addComp.city  + addComp.district  + addComp.street + addComp.streetNumber
+	    			$("[name='CSAddr']").val(addr);
+	    			var opts = {
+	    					  position : pt,    // 指定文本标注所在的地理位置
+	    					  offset   : new BMap.Size(-60, -50)    //设置文本偏移量
+	    					}
+	    			var label = new BMap.Label(addr, opts);  // 创建文本标注对象
+	    			label.setStyle({
+	    							 color : "red",
+	    							 fontSize : "12px",
+	    							 height : "20px",
+	    							 width:'auto',
+	    							 lineHeight : "20px",
+	    							 fontFamily:"微软雅黑"
+	    						 });
+	    			map.addOverlay(label); 
 	    		});        
 	    	});
 	    })
@@ -249,19 +162,42 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    			$("[name='CSAddr']").val(addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber);
 	    	});   
 	    } 
+	    
+	    function enableDragend(marker){
+	    	marker.addEventListener("dragend", function(e){   
+			    map.clearOverlays();
+			    var pt = e.point;
+	    		geoc.getLocation(pt, function(rs){
+	    			var marker = new BMap.Marker(pt);
+	    			var addComp = rs.addressComponents;
+	    			var addr = addComp.province +  addComp.city  + addComp.district  + addComp.street + addComp.streetNumber
+	    			$("[name='CSAddr']").val(addr);
+	    			var opts = {
+	    					  position : pt,    // 指定文本标注所在的地理位置
+	    					  offset   : new BMap.Size(-60, -50)   //设置文本偏移量
+	    					}
+	    			var label = new BMap.Label(addr, opts);  // 创建文本标注对象
+	    			label.setStyle({
+	    							 color : "red",
+	    							 fontSize : "12px",
+	    							 height : "20px",
+	    							 width:'auto',
+	    							 lineHeight : "20px",
+	    							 fontFamily:"微软雅黑"
+	    						 });
+	    			map.addOverlay(label); 
+	    			map.addOverlay(marker);
+	    			enableDragend(marker); 
+	    		}); 
+          });  	
+	    }
 	    function addMarker(e){
 	    	  map.clearOverlays();
 			  var point = new BMap.Point(e.point.lng, e.point.lat);
 			  var marker = new BMap.Marker(point);
 			  map.addOverlay(marker);
 			  marker.enableDragging();
-			  marker.addEventListener("dragend", function(e){   
-				  var pt = e.point;
-		    		geoc.getLocation(pt, function(rs){
-		    			var addComp = rs.addressComponents;
-		    			$("[name='CSAddr']").val(addComp.province +  addComp.city  + addComp.district  + addComp.street + addComp.streetNumber);
-		    		}); 
-              });  	
+			  enableDragend(marker); 	
 		}
     	$("#csInfSubmit").click(function(){
 			alert("信息提交成功!  非常感谢您对本站的支持，工作人员稍后会审核您提交的信息，恭喜您获得50金币！")

@@ -325,6 +325,14 @@ body {
 <script src="js/showInf.js" type="text/javascript"></script>
 <script src="js/jquery.raty.js" type="text/javascript"></script>
 <script>
+$(document).ready(function(){
+	initalMap();
+	productNum=0;
+	VehData = {};
+	tempPt=[];
+	$("#clearOverlays").bind("click",function(){map.clearOverlays;})
+})
+
 $(function(){
 	$("[name='start-date']").val(CurentDateTime(0));
 	$("[name='start-time']").val(CurentTime());

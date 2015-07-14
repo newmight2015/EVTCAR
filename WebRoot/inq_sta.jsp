@@ -111,12 +111,7 @@ body{
 </body>
 </html>
 <script type="text/javascript">
-
-				  var map = new BMap.Map("r-map");    // 创建Map实例
-				    map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);  // 初始化地图,设置中心点坐标和地图级别
-				    map.addControl(new BMap.MapTypeControl());   //添加地图类型控件
-				    map.setCurrentCity("北京");          // 设置地图显示的城市 此项是必须设置的
-				    map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
+				initalMap();
 				function myFun(result){
 				    var cityName = result.name;
 				    map.setCenter(cityName);   //关于setCenter()可参考API文档---”传送门“
@@ -144,10 +139,6 @@ body{
 					     	alert("请选择范围！");
 					     }
 				}  
-/*************输出查询后的充电站位置*******************/
-
-//注意：百度和谷歌的经纬度坐标顺序是相反的。
-			
 </script>
 <script language="javascript">
 
