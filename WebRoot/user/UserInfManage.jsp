@@ -43,7 +43,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 	<div class="contain back-color">
 <!--顶部导航栏开始 -->
-<%@include file="../head.jsp" %>
+<%@include file="head.jsp" %>
+<div class="nav-green nav-head" id="J_m_nav">
+	<div class="nav-content">
+		<div class="nav-btn"><a href="../index.html">首页</a></div>
+		<div class="nav-btn"><a href="../searchCS.jsp">我要充电</a></div>
+		<div class="nav-btn"><a href="../inq_sta.jsp">充电站分布</a></div>
+		<div class="nav-btn active"><a href="../userInf.jsp">用户管理</a></div>
+		<div class="nav-btn"><a href="#">关于我们</a></div>
+	</div>
+</div>
+</header>
 <!--顶部导航栏结束 -->
 		<div class="main">
 			<div class="newcontainer">
@@ -197,7 +207,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 		</div>
 		<!-- 更新个人资料主体部分 end-->
-		<%@include file="../footer.jsp" %>
+		<%@include file="footer.jsp" %>
 		
 	</div>
 

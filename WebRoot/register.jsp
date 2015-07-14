@@ -1,7 +1,7 @@
-<%@ page language="java" import="java.util.*,myBean.usInformation" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" import="java.util.*" import="myBean.usInformation" pageEncoding="utf-8"%>
 <%
 String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path;
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -14,14 +14,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="js/jquery-2.1.3.min.js"></script>
 <script type="text/javascript" src="js/register_121015.js"></script>
 <script type="text/javascript" src="js/UserCheck.js"></script>
-<script type="text/javascript">
-	<%
-		HttpSession sess = request.getSession();
-		usInformation usInf = (usInformation)sess.getAttribute("usInf");
-	%>
-	window.MAINURL = "<%=basePath%>";
-	STATICINFO.USERINFO.URL = "<%=basePath%>";
-	STATICINFO.USERINFO.name = "<%= usInf==null ? "" : usInf.getUsId()%>";
+<script src="js/staticinfo.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		<%
+			HttpSession sess = request.getSession();
+			usInformation usInf = (usInformation)sess.getAttribute("usInf");
+		%>
+		window.MAINURL = "<%=basePath%>";
+		STATICINFO.USERINFO.URL = "<%=basePath%>";
+		STATICINFO.USERINFO.name = "<%= usInf==null ? "" : usInf.getUsId()%>";
 	</script>
 <style>
 	.important{ 
@@ -40,8 +41,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </style>
 </head>
 
-<body><!--顶部导航栏开始 -->
+<body>
+<!--顶部导航栏开始 -->
 <%@include file="head.jsp" %>
+<!--下面是中部导航栏的代码-->
+<div class="nav-green nav-head" id="J_m_nav">
+	<div class="nav-content">
+		<div class="nav-btn"><a href="index.jsp">首页</a></div>
+		<div class="nav-btn"><a href="searchCS.jsp">我要充电</a></div>
+		<div class="nav-btn"><a href="inq_sta.jsp">充电站分布</a></div>
+		<div class="nav-btn"><a href="userInf.jsp">用户管理</a></div>
+		<div class="nav-btn"><a href="#">关于我们</a></div>
+	</div>
+</div>
+</header>
 <!--顶部导航栏结束 -->
 
 <div id="bd">
@@ -144,9 +157,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                     <span id="spn_vcode_wrong" class="cue" style="display: none;"></span>
                                     <div class="v_box">
                                         <a href="javascript:show_vcode('imgVcode')" name="change_code_img" tabindex="5">
-                                            <img alt="code..." name="randImage" id="randImage" src="image.jsp" onclick="reload()"></a>看不清?<a href="javascript:reload()" name="change_code_link" tabindex="6">换张图</a>
+                                            <img alt="code..." name="randImage" id="randImage" src="image.jsp" onclick="reload()"></a>看不清?<a href="javascript:reload()" class="changepic" tabindex="6">换张图</a>
                                     </div>
-
+									 <script>
+							          	$("#randImage").click(function(){
+						        			$(this).attr("src","image.jsp");
+						        		})
+						          		$(".changepic").click(function(){
+						          			$("#randImage").attr("src","image.jsp");
+						          		})	
+						          </script>
                                 </td>
                             </tr>
                             <tr>
@@ -174,8 +194,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 </div>
 
-  
- <%@include file="footer.jsp" %>
+  <%@include file="footer.jsp" %>
 </body>
 
 <script type="text/javascript">

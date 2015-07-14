@@ -3,7 +3,7 @@
 <div class="top">
 	<div class="wp">
 		<div class="logo">
-			<a href="/" class="icon_img_logo"></a>
+			<a href="index.jsp" class="icon_img_logo"></a>
 		</div>
 		<div class="menu">
 			<div class="xl">
@@ -23,7 +23,7 @@
               </form>
             <%}else{ %>
 			
-				<a href="register.html" class="btn btn-success btn-lg"><span>注册</span></a>
+				<a href="register.jsp" class="btn btn-success btn-lg"><span>注册</span></a>
 				<a href="login.jsp" class="btn btn-success btn-lg"><span>登录</span></a>
 			
 			<% } %>

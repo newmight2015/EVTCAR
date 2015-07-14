@@ -253,7 +253,7 @@ body {
 		<li class="select-list">
 			<dl id="select1" data-csOperator="none">
 				<dt>服务商：</dt>
-				<dd class="select-all selected" data-value="all"><a href="#">全部</a></dd>
+				<dd class="select-all selected" data-value="none"><a href="#">全部</a></dd>
 				<dd data-value="001"><a href="#">国家电网</a></dd>
 				<dd data-value="002"><a href="#">普天</a></dd>
 				<dd data-value="003"><a href="#">特锐德</a></dd>
@@ -274,7 +274,7 @@ body {
 		<li class="select-list">
 			<dl id="select3" data-csParkFee="none">
 				<dt>停车费：</dt>
-				<dd class="select-all selected" data-value="all"><a href="#">全部</a></dd>
+				<dd class="select-all selected" data-value="none"><a href="#">全部</a></dd>
 				<dd data-value="0"><a href="#">免费</a></dd>
 				<dd data-value="5"><a href="#">0~5元/h</a></dd>
 				<dd data-value="10"><a href="#">0~10元/h</a></dd>
