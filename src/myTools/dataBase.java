@@ -32,7 +32,7 @@ public class dataBase {
    /* 
     * 获取数据库连接 
     */  
-   public Connection getConnection() {  
+   public Connection getConnection() {
        Connection conn = null;  
      //  logger.debug("开始连接数据库"); 
        System.out.println("开始连接数据库");

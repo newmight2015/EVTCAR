@@ -619,6 +619,37 @@ public class dealMessage extends HttpServlet {
 				else data.put("CSPhone", "暂无信息");
 				if(rs.getString(24)!=null) data.put("CSNotes", rs.getString(24).trim());
 				else data.put("CSNotes", "暂无消息");
+				//增加每个充电站的图标信息srcpic---ZW
+				int cspub=(int)(rs.getFloat(20));
+				int csstate=(int)(rs.getFloat(21));
+				if(cspub==1){//公用
+					if(csstate==1){//运营中
+						data.put("srcpic", "pic/g_green.png");
+					}else if(csstate==2){//未运营
+						data.put("srcpic", "pic/g_red.png");
+					}else if(csstate==3){//未知
+						data.put("srcpic", "pic/g_red.png");
+					}
+				}else if(cspub==2){//专用
+					if(csstate==1){//运营中
+						data.put("srcpic", "pic/z_green.png");
+					}else if(csstate==2){//未运营
+						data.put("srcpic", "pic/z_red.png");
+					}else if(csstate==3){//未知
+						data.put("srcpic", "pic/z_red.png");
+					}
+				}else if(cspub==3){//未知
+					if(csstate==1){//运营中
+						data.put("srcpic", "pic/s_green.png");
+					}else if(csstate==2){//未运营
+						data.put("srcpic", "pic/s_red.png");
+					}else if(csstate==3){//未知
+						data.put("srcpic", "pic/s_red.png");
+					}
+				}else{
+					data.put("srcpic", "pic/s_red.png");
+				}
+				//end--ZW
 			//	data.put("CSFeeDay", rs.getFloat(24));
 				csInf.put(data);
 			}

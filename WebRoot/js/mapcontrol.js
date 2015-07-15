@@ -406,8 +406,9 @@ function eachAllCs(srcpic,point,marker,info,searchInfoWindow,hasOpoint){//输出
                                 point[i] = new window.BMap.Point(CsAllData[i].CSLongValue,CsAllData[i].CSLatiValue); //循环生成新的地图点
                                 //marker[i] = new window.BMap.Marker(point[i]); //按照地图点坐标生成标记
                                 //marker[i].disableMassClear();
-                                var myIcon_charger = new BMap.Icon(srcpic, new BMap.Size(20, 32), {//是引用图标的名字以及大小，注意大小要一样
-                                                anchor: new BMap.Size(20, 32)});//这句表示图片相对于所加的点的位置;
+                                var srcpic1=CsAllData[i].srcpic;
+                                var myIcon_charger = new BMap.Icon(srcpic1, new BMap.Size(35, 45), {//是引用图标的名字以及大小，注意大小要一样
+                                                anchor: new BMap.Size(35, 45)});//这句表示图片相对于所加的点的位置;
                                 marker[i] = new BMap.Marker(point[i],{icon:myIcon_charger});  // 创建标注
                                 //添加标注
                                 map.addOverlay(marker[i]);

@@ -142,12 +142,14 @@
                        // data: {VehData:JSON.stringify(VehData)},
                         success: function (data) {
                                 CsAllData = JSON.parse(data);//存放推荐充电站的数组
+                                //alert(CsAllData);
                                 var point = new Array(); //存放标注点经纬信息的数组
                                 marker = new Array(); //存放标注点对象的数组
                                 var info = new Array(); //存放提示信息窗口对象的数组
                                 searchInfoWindow =new Array();//存放检索信息窗口对象的数组
                                 var srcpic = "pic/icon_charger.png";
                                 eachAllCs(srcpic,point,marker,info,searchInfoWindow,true);
+                                //eachAllCs(point,marker,info,searchInfoWindow,true);
                                 map.centerAndZoom(opoint, 11);
                                 new showRecommend();
                               //  new enableOrderButton();

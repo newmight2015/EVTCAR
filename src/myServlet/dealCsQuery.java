@@ -91,7 +91,9 @@ public class dealCsQuery extends HttpServlet {
 		String condition ;
 		ArrayList<String> temp = new ArrayList<String>();
 		StringBuffer tempCondition = new StringBuffer();
-		condition ="Select * from CS_BasicInformation cs,CS_ParkOperatorInformation cp where cs.CSPub = 1 and cs.CSState = 1 ";
+		//condition ="Select * from CS_BasicInformation cs,CS_ParkOperatorInformation cp where cs.CSPub = 1 and cs.CSState = 1 ";
+		//查询所有充电站（包括公用私用运营未运营等充电站）zw
+		condition ="Select * from CS_BasicInformation cs,CS_ParkOperatorInformation cp where cs.CSProvince='北京' ";
 		if(!csOperator.equals("none")){
 			temp.add(" cs.OperatorID= '"+csOperator+"'");
 		}
@@ -99,7 +101,9 @@ public class dealCsQuery extends HttpServlet {
 			temp.add(" cs.CSID IN (select CSID from [CS_ParkOperatorInformation] cp where cp.ParkFeeDay <="+csParkFee +")");
 		}
 		
-		if(temp.isEmpty()) condition ="Select * from CS_BasicInformation cs,CS_ParkOperatorInformation cp where cs.CSID = cp.CSID and cs.CSPub = 1 and cs.CSState = 1 ";
+		//if(temp.isEmpty()) condition ="Select * from CS_BasicInformation cs,CS_ParkOperatorInformation cp where cs.CSID = cp.CSID and cs.CSPub = 1 and cs.CSState = 1 ";
+		//查询所有充电站（包括公用私用运营未运营等充电站）zw
+		if(temp.isEmpty()) condition ="Select * from CS_BasicInformation cs,CS_ParkOperatorInformation cp where cs.CSID = cp.CSID and cs.CSProvince='北京'";
 		else {
 			Iterator i = temp.iterator();
 			while(i.hasNext()){
@@ -111,7 +115,7 @@ public class dealCsQuery extends HttpServlet {
 			}
 			condition +=tempCondition.toString();
 		}
-		//System.out.println(condition);
+		System.out.println(condition);
 		PreparedStatement sql;
 		try {
 		sql = con.prepareStatement(condition);
@@ -153,6 +157,37 @@ public class dealCsQuery extends HttpServlet {
 			if(rs.getString(24)!=null) data.put("CSNotes", rs.getString(24).trim());
 			else data.put("CSNotes", "暂无消息");
 			data.put("CSFeeDay", rs.getFloat(28));
+			//增加每个充电站的图标信息srcpic---ZW
+			int cspub=(int)(rs.getFloat(20));
+			int csstate=(int)(rs.getFloat(21));
+			if(cspub==1){//公用
+				if(csstate==1){//运营中
+					data.put("srcpic", "pic/g_green.png");
+				}else if(csstate==2){//未运营
+					data.put("srcpic", "pic/g_red.png");
+				}else if(csstate==3){//未知
+					data.put("srcpic", "pic/g_red.png");
+				}
+			}else if(cspub==2){//专用
+				if(csstate==1){//运营中
+					data.put("srcpic", "pic/z_green.png");
+				}else if(csstate==2){//未运营
+					data.put("srcpic", "pic/z_red.png");
+				}else if(csstate==3){//未知
+					data.put("srcpic", "pic/z_red.png");
+				}
+			}else if(cspub==3){//未知
+				if(csstate==1){//运营中
+					data.put("srcpic", "pic/s_green.png");
+				}else if(csstate==2){//未运营
+					data.put("srcpic", "pic/s_red.png");
+				}else if(csstate==3){//未知
+					data.put("srcpic", "pic/s_red.png");
+				}
+			}else{
+				data.put("srcpic", "pic/s_red.png");
+			}
+			//end--ZW
 			csInf.put(data);
 			i++;
 		}
