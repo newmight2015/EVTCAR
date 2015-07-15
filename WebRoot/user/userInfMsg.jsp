@@ -230,7 +230,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						              	"</strong>&nbsp;&nbsp;&nbsp;<strong>提示:</strong><span class='content'>"+data[i].msgValue+
 						                "</span><button type='button' class='close' id='close' aria-label='Close'><span aria-hidden='true' onclick='deleteOldMsg("+j+");' >×</span></button></div>"
 						        $("#oldMsgContent").append(msg);
-						                j++;
+						        j++;
 							})
 						}else{ 
 							alert("false")

@@ -53,7 +53,6 @@ public class dealMessage extends HttpServlet {
 		super.destroy(); // Just puts "destroy" string in log
 		// Put your code here
 	}
-
 	/**
 	 * The doGet method of the servlet. <br>
 	 *
@@ -151,8 +150,6 @@ public class dealMessage extends HttpServlet {
 			}
 			System.out.println(Msg);
 			out.println(Msg);
-			out.flush();
-			out.close();
 			
 		}
 		
@@ -207,11 +204,6 @@ public class dealMessage extends HttpServlet {
 			}
 			System.out.println(analysisCmInf);
 			out.println(analysisCmInf);
-			out.flush();
-			out.close();
-
-
-			
 		}
 		
 		/*
@@ -258,8 +250,6 @@ public class dealMessage extends HttpServlet {
 			}
 			System.out.println(commentInf);
 			out.println(commentInf);
-			out.flush();
-			out.close();
 		}
 		
 		
@@ -418,47 +408,7 @@ public class dealMessage extends HttpServlet {
 //			  String dateStop = request.getParameter("dateStop");
 			  boolean isError = false;
 			  System.out.println(usId+CSId+CSName+CSAddr+CSDate+CSMode+CSFast+CSlow+Operator+ParkFee+CSPub+CSState+CSPhone+CSNotes);
-			  
-//			  if(java.sql.Date.valueOf(dateBegin).after(java.sql.Date.valueOf(dateStop))){ 
-//			   
-//				  try {
-//					ms.append("isSuccess", false);
-//					ms.append("message", "充电结束时间小于预约时间 ,请重新输入");
-//					isError = true;
-//				} catch (JSONException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//				  
-//			  } 
-//			  StringBuffer timeBegin = new StringBuffer(); 
-//			  StringBuffer timeStop   = new StringBuffer(); 
-			  
-//			  timeBegin.append(request.getParameter("timeBegin")); 
-//			  timeStop.append(request.getParameter("timeStop")); 
-//			  System.out.println(timeBegin.toString()+" "+timeStop.toString());
-//			  if(java.sql.Date.valueOf(dateBegin).equals(java.sql.Date.valueOf(dateStop))){  //��ʼ���ڵ��ڽ������� 
-//				   if(java.sql.Time.valueOf(timeBegin.toString()).equals(java.sql.Time.valueOf(timeStop.toString()))){ //����ʱ����ͬ
-//					   try {
-//						ms.append("isSuccess", false);
-//						ms.append("message", "两次输入时间相等，请重新输入");
-//						isError = true;
-//						} catch (JSONException e) {
-//							// TODO Auto-generated catch block
-//							e.printStackTrace();
-//						}
-//				   }
-//				   else if(java.sql.Time.valueOf(timeBegin.toString()).after(java.sql.Time.valueOf(timeStop.toString()))){
-//					   try {
-//							ms.append("isSuccess", false);
-//							ms.append("message", "充电结束时间小于预约时间 ,请重新输入");
-//							isError = true;
-//							} catch (JSONException e) {
-//								// TODO Auto-generated catch block
-//								e.printStackTrace();
-//							}
-//				   }
-//			  }
+			 
 			  if(!isError){
 //				  try {	
 						String sql="insert into CS_correction(CSID,CSName,CSAddr,CSDate,CSMode,CSFast,CSlow,Operator,ParkFee,CSPub,CSState,CSPhone,CSNotes,USID) "
