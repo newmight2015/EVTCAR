@@ -9,12 +9,6 @@ import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
-import java.util.Map.Entry;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -22,29 +16,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.servlet.http.HttpSessionBindingEvent;
+
+import myBean.usInformation;
+import myBean.usOrder;
+import myTools.dataBase;
 
 import org.apache.log4j.Logger;
-import org.apache.log4j.PropertyConfigurator;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import myBean.ApplicationConstants;
-import myBean.dbEntity;
-import myBean.messageAlert;
-import myBean.usInformation;
-import myBean.usOrder;
-import myTools.dataBase;
-import myTools.sort;
-import myTools.utils;
-
-public class dealMessage extends HttpServlet {
-	private static  final transient Logger log = Logger.getLogger(dealMessage.class);
+public class dealPhoneMessage extends HttpServlet {
+	private static  final transient Logger log = Logger.getLogger(dealPhoneMessage.class);
 	/**
 	 * Constructor of the object.
 	 */
-	public dealMessage() {
+	public dealPhoneMessage() {
 		super();
 	}
 
@@ -55,6 +42,7 @@ public class dealMessage extends HttpServlet {
 		super.destroy(); // Just puts "destroy" string in log
 		// Put your code here
 	}
+
 	/**
 	 * The doGet method of the servlet. <br>
 	 *
@@ -65,9 +53,9 @@ public class dealMessage extends HttpServlet {
 	 * @throws ServletException if an error occurred
 	 * @throws IOException if an error occurred
 	 */
-	@SuppressWarnings("deprecation")
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		PrintWriter out = response.getWriter();
@@ -629,37 +617,6 @@ public class dealMessage extends HttpServlet {
 				else data.put("CSPhone", "暂无信息");
 				if(rs.getString(24)!=null) data.put("CSNotes", rs.getString(24).trim());
 				else data.put("CSNotes", "暂无消息");
-				//增加每个充电站的图标信息srcpic---ZW
-				int cspub=(int)(rs.getFloat(20));
-				int csstate=(int)(rs.getFloat(21));
-				if(cspub==1){//公用
-					if(csstate==1){//运营中
-						data.put("srcpic", "pic/g_green.png");
-					}else if(csstate==2){//未运营
-						data.put("srcpic", "pic/g_red.png");
-					}else if(csstate==3){//未知
-						data.put("srcpic", "pic/g_red.png");
-					}
-				}else if(cspub==2){//专用
-					if(csstate==1){//运营中
-						data.put("srcpic", "pic/z_green.png");
-					}else if(csstate==2){//未运营
-						data.put("srcpic", "pic/z_red.png");
-					}else if(csstate==3){//未知
-						data.put("srcpic", "pic/z_red.png");
-					}
-				}else if(cspub==3){//未知
-					if(csstate==1){//运营中
-						data.put("srcpic", "pic/s_green.png");
-					}else if(csstate==2){//未运营
-						data.put("srcpic", "pic/s_red.png");
-					}else if(csstate==3){//未知
-						data.put("srcpic", "pic/s_red.png");
-					}
-				}else{
-					data.put("srcpic", "pic/s_red.png");
-				}
-				//end--ZW
 			//	data.put("CSFeeDay", rs.getFloat(24));
 				csInf.put(data);
 			}
@@ -827,7 +784,6 @@ public class dealMessage extends HttpServlet {
 		out.flush();
 		out.close();
 	}
-
 	/**
 	 * The doPost method of the servlet. <br>
 	 *
@@ -840,7 +796,20 @@ public class dealMessage extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		this.doGet(request, response);
+
+		response.setContentType("text/html");
+		PrintWriter out = response.getWriter();
+		out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">");
+		out.println("<HTML>");
+		out.println("  <HEAD><TITLE>A Servlet</TITLE></HEAD>");
+		out.println("  <BODY>");
+		out.print("    This is ");
+		out.print(this.getClass());
+		out.println(", using the POST method");
+		out.println("  </BODY>");
+		out.println("</HTML>");
+		out.flush();
+		out.close();
 	}
 
 	/**

@@ -17,6 +17,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
+
 import myBean.usInformation;
 import myBean.wrongMessage;
 import myTools.dataBase;
@@ -31,7 +34,7 @@ public class dealLogin extends HttpServlet {
 		super.destroy(); // Just puts "destroy" string in log
 		// Put your code here
 	}
-
+	
 	/**
 	 * The doGet method of the servlet. <br>
 	 *
@@ -60,7 +63,12 @@ public class dealLogin extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		  Logger logger = Logger.getLogger(dealLogin.class.getName());
+		   //如果指定logger名字，则是把日志，输出到pay-log 指定的日志文件中去
+		 // Logger logger = Logger.getLogger("pay-log");
+		  //MyLog4j.getSomething();
+		  
+		  
 		String username=request.getParameter("username").trim();
 		String password=request.getParameter("password").trim();
 		String checkcode=request.getParameter("checkcode").trim();

@@ -17,6 +17,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -40,7 +42,7 @@ public class dealPhoneLogin extends HttpServlet {
 			throws ServletException, IOException {
 			this.doPost(request, response);
 	}
-
+	private static  final transient Logger log = Logger.getLogger(dealLogin.class);
 	/**
 	 * The doPost method of the servlet. <br>
 	 *
@@ -53,10 +55,12 @@ public class dealPhoneLogin extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		
+        request.setCharacterEncoding("utf-8");
+        response.setCharacterEncoding("utf-8");
 		String username=request.getParameter("username").trim();
 		String password=request.getParameter("password").trim();
-		
+		System.out.println("____phonelogin:"+username);
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
 		String sql = null;
@@ -71,7 +75,7 @@ public class dealPhoneLogin extends HttpServlet {
 			JSONObject jo = new JSONObject();
 			if (rs.next()){
 					String usid = rs.getString("USid");
-					String usphone = rs.getString("USMail");
+					String usphone = rs.getString("USPhoneNum");
 					String usmail = rs.getString("USMail");
 					String coin = rs.getString("USCoin");
 					JSONObject usinf = new JSONObject();//存放用户信息
@@ -79,10 +83,22 @@ public class dealPhoneLogin extends HttpServlet {
 					usinf.put("USPhone", usphone);
 					usinf.put("USMail", usmail);
 					usinf.put("USCoin", coin);
+					
+					HttpSession ss = request.getSession();
+					usInformation usInf = new usInformation();
+					usInf.setUsId(usid);
+					usInf.setUsPhoneNum(usphone);
+					usInf.setUsMail(usmail);
+					ss.setAttribute("usInf", usInf);
+					
+					ss.setAttribute("usSessId", ss.getId());
+					
+					log.info("____phoneloginsession:"+ss.getId());
 					jo.put("isSuccess",true);//登录成功标志
 					jo.put("message",usinf);
 			}else {
 					jo.put("isSuccess",false);//登录失败
+					jo.put("message","登录失败");
 			}
 			mc.close(rs, pstm, conn);
 			try{
