@@ -475,7 +475,7 @@ function eachAllCs(srcpic,point,marker,info,searchInfoWindow,hasOpoint){//输出
                                         // js 闭包
                                         return function(){
                                             //将被点击marker置为中心
-                                            map.centerAndZoom(point[k], 15);
+                                            map.centerAndZoom(point[k], 13);
                                             //在marker上打开检索信息窗口
                                             searchInfoWindow[k].open(marker[k]);
                                             

@@ -36,6 +36,7 @@ import myBean.messageAlert;
 import myBean.usInformation;
 import myBean.usOrder;
 import myTools.dataBase;
+import myTools.dbUtil;
 import myTools.sort;
 import myTools.utils;
 
@@ -85,63 +86,43 @@ public class dealMessage extends HttpServlet {
 			System.out.println("进入servlet："+act);
 			String UsId=usInf.getUsId();
 			String csname,csfast,cslow,operator,cspub,csstate,parkfee,csphone,csnotes,cslng,cslat;
-			csname=new String( request.getParameter("csname").getBytes("iso8859-1"), "utf-8");
-			cslng=new String( request.getParameter("cslng").getBytes("iso8859-1"), "utf-8");
-			cslat=new String( request.getParameter("cslat").getBytes("iso8859-1"), "utf-8");
-			csfast=new String( request.getParameter("csfast").getBytes("iso8859-1"), "utf-8");
-			cslow=new String( request.getParameter("cslow").getBytes("iso8859-1"), "utf-8");
-			operator=new String( request.getParameter("operator").getBytes("iso8859-1"), "utf-8");
-			cspub=new String( request.getParameter("cspub").getBytes("iso8859-1"), "utf-8");
-			csstate=new String( request.getParameter("csstate").getBytes("iso8859-1"), "utf-8");
-			parkfee=new String( request.getParameter("parkfee").getBytes("iso8859-1"), "utf-8");
-			csphone=new String( request.getParameter("csphone").getBytes("iso8859-1"), "utf-8");
-			csnotes=new String( request.getParameter("csnotes").getBytes("iso8859-1"), "utf-8");
-			response.setContentType("text/html");
+			csname=new String( request.getParameter("csname"));
+			cslng=new String( request.getParameter("cslng"));
+			cslat=new String( request.getParameter("cslat"));
+			csfast=new String( request.getParameter("csfast"));
+			cslow=new String( request.getParameter("cslow"));
+			operator=new String( request.getParameter("operator"));
+			cspub=new String( request.getParameter("cspub"));
+			csstate=new String( request.getParameter("csstate"));
+			parkfee=new String( request.getParameter("parkfee"));
+			csphone=new String( request.getParameter("csphone"));
+			csnotes=new String( request.getParameter("csnotes"));
 			JSONArray Msg = new JSONArray();
-			dataBase db=new dataBase();
-			Connection con =db.getConnection();
+			dbUtil db = new dbUtil();
 			String sql="insert into CS_Share(SCSName,SCSLat,SCSLng,SCSFast,SCSLow,SOperator,SCSPub,SCSState,SParkFee,SCSPhone,SCSNotes,USId) "
 					+ "values (?,?,?,?,?,?,?,?,?,?,?,?)";
-			PreparedStatement ps;
+			String pras[] = new String[]{csname,cslat,cslng,csfast,cslow,operator,cspub,csstate,parkfee,csphone,csnotes,UsId};
+			db.update(sql, pras);
 			try {
-		           ps= con.prepareStatement(sql);
-		                ps.setString(1, csname);
-		                ps.setString(2, cslat);
-			       		ps.setString(3, cslng);
-			       		ps.setString(4, csfast);
-			       		ps.setString(5, cslow);
-			       		ps.setString(6, operator);
-			       		ps.setString(7, cspub);
-			       		ps.setString(8, csstate);
-			       		ps.setString(9, parkfee);
-			       		ps.setString(10, csphone);
-			       		ps.setString(11, csnotes);
-			       		ps.setString(12, UsId);
-			       int m= ps.executeUpdate();
-			       System.out.print(sql);
-			       if(m!=0)  
+			       if(db.getResu()!=0)  
 			       {
-			    	    System.out.println("提交信息成功");
+			    	    log.info("分享信息提交成功");
 			    	    JSONObject data = new JSONObject();
 						data.put("isSucess", "true");
-						ms.append("message", "提交信息成功");
+						data.append("message", "提交信息成功");
 						Msg.put(data);
 			       }else{
-			    	    System.out.println("提交信息失败");
+			    	    log.info("分享信息提交失败");
 			    	   	JSONObject data = new JSONObject();
-					    ms.append("isSuccess", "false");
-						ms.append("message", "提交信息失败");
+					    data.append("isSuccess", "false");
+						data.append("message", "提交信息失败");
 			       }    		  
 		           //con.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			System.out.println(Msg);
+			//System.out.println(Msg);
 			out.println(Msg);
 			out.flush();
 			out.close();
