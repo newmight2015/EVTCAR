@@ -25,7 +25,7 @@
 				<a href="register.jsp" class="btn btn-success btn-lg"><span>注册</span></a>
 				<a href="login.jsp" class="btn btn-success btn-lg"><span>登录</span></a>
 			<% } %>
-			</div>	
+			</div>
 		</div>
 	</div>
 </div>

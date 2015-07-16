@@ -72,6 +72,10 @@
     <display-name>This is the display name of my J2EE component</display-name>
     <servlet-name>dealPhoneMessage</servlet-name>
     <servlet-class>myServlet.dealPhoneMessage</servlet-class>
+    <init-param>
+	   <param-name>appVersion</param-name>
+	   <param-value>1.0</param-value>
+	</init-param>
   </servlet>
 
 

@@ -14,23 +14,23 @@ import org.apache.log4j.PropertyConfigurator;
  */
 public class Log4jInit extends HttpServlet {
 
-public void destroy() {
-super.destroy(); 
-}
-public void doGet(HttpServletRequest request, HttpServletResponse response)
-throws ServletException, IOException {}
-
-
-public void doPost(HttpServletRequest request, HttpServletResponse response)
-throws ServletException, IOException {}
-
-public void init() throws ServletException {
-	String prefix = getServletContext().getRealPath("/");
-	String file = getServletConfig().getInitParameter("log4j"); //是web.xml中的参数
-	if (file != null) {
-	PropertyConfigurator.configure(prefix + file);
+	public void destroy() {
+	super.destroy(); 
 	}
-	Logger log = Logger.getLogger(Log4jInit.class);
-	log.info("Logg4j日志已经初始化。");
+	public void doGet(HttpServletRequest request, HttpServletResponse response)
+	throws ServletException, IOException {}
+	
+	
+	public void doPost(HttpServletRequest request, HttpServletResponse response)
+	throws ServletException, IOException {}
+	
+	public void init() throws ServletException {
+		String prefix = getServletContext().getRealPath("/");
+		String file = getServletConfig().getInitParameter("log4j"); //是web.xml中的参数
+		if (file != null) {
+			PropertyConfigurator.configure(prefix + file);
+		}
+		Logger log = Logger.getLogger(Log4jInit.class);
+		log.info("Logg4j日志已经初始化。");
 	}
 }
