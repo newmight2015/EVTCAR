@@ -27,11 +27,11 @@ var USERCheck = {
             dataType:"json",
             data:{act:'checkLogin'},
             success:function(data){
-            	alert("已登录");
+            	
                 return _this._callback(callback,data.isSuccess,data.message,data)
             },
             error:function(data){ 
-            	alert("未登录");
+            	
                 console.log(data);
                 return _this._callback(callback,false,"连接服务器失败，请稍后再试",data);
             }
