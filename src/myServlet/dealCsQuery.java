@@ -130,7 +130,7 @@ public class dealCsQuery extends HttpServlet {
 				csInf.put(data);
 				//System.out.println("无查询结果");
 		}
-		//int i=0;
+		int i=0;
 		while (rs.next()) {
 			JSONObject data = new JSONObject();
 			data.put("CSId", rs.getString(1));
