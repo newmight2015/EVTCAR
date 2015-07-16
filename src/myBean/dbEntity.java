@@ -19,7 +19,7 @@ public class dbEntity {
 		return db.getResu();
 	}
 	public ResultSet getResultSet(){
-		return db.getResultSet();
+		return db.getRS();
 	}
 	/**
 	 * 保存预约订单
@@ -94,7 +94,7 @@ public class dbEntity {
 		 String checkConditon = "SELECT USOrdId from UserOrderInf where CSID = ? and USid = ? and USOrdDate = ?";
 		 try {
 			 db.query(checkConditon, pras);
-				if(db.getResultSet().next()) { 
+				if(db.getRS().next()) { 
 					return true;
 				}
 				else {
@@ -118,7 +118,7 @@ public class dbEntity {
 		 String checkConditon = "SELECT TELEPHONE FROM ((SELECT TELEPHONE FROM teacher) UNION (SELECT TELEPHONE FROM student)) AS NEWPHONE WHERE TELEPHONE = ? ";
 		 try {
 			 db.query(checkConditon, pras);
-				if(db.getResultSet().next()) { //����������
+				if(db.getRS().next()) { //����������
 					return true;
 				}
 				else {
@@ -135,7 +135,7 @@ public class dbEntity {
 		 String checkConditon = "SELECT EMAIL FROM ((SELECT EMAIL FROM teacher) UNION (SELECT EMAIL FROM student)) AS NEWEMAIL WHERE EMAIL = ? ";
 		 try {
 	        	db.query(checkConditon, pras);
-				if(db.getResultSet().next()) { //����������
+				if(db.getRS().next()) { //����������
 					return true;
 				}
 				else {
@@ -167,13 +167,13 @@ public class dbEntity {
 	public ResultSet findIdByAll(){ 
 		String checkConditon = "select * from UniqueId";
 		db.query(checkConditon);
-		return db.getResultSet();
+		return db.getRS();
 	}
 	
 	public ResultSet findIdByName(String name){
 		String checkConditon = "select * from UniqueId where unique_id_name = ?";
 		db.query(checkConditon, name);
-		return db.getResultSet();
+		return db.getRS();
 	}
 
 	

@@ -69,7 +69,7 @@ public class dealCorrect extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		response.setContentType("text/html");
+		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		PrintWriter out = response.getWriter();
 		JSONObject ms = new JSONObject();
@@ -79,21 +79,21 @@ public class dealCorrect extends HttpServlet {
 		
 		String  CSId,CSName,CSAddr,CSDate,CSMode,CSFast,CSlow,Operator,ParkFee,CSPub,CSState,CSPhone,CSNotes;
 		System.out.println("进入dealCorrect");
-		CSId=new String( request.getParameter("changedata0").getBytes("iso8859-1"), "utf-8");		
-		CSName=new String( request.getParameter("changedata1").getBytes("iso8859-1"), "utf-8");
-		CSAddr=new String( request.getParameter("changedata2").getBytes("iso8859-1"), "utf-8");
-		CSDate=new String( request.getParameter("changedata3").getBytes("iso8859-1"), "utf-8");
-		CSMode=new String( request.getParameter("changedata4").getBytes("iso8859-1"), "utf-8");
-		CSFast=new String( request.getParameter("changedata5").getBytes("iso8859-1"), "utf-8");
-		CSlow=new String( request.getParameter("changedata6").getBytes("iso8859-1"), "utf-8");
-		Operator=new String( request.getParameter("changedata7").getBytes("iso8859-1"), "utf-8");
-		ParkFee=new String( request.getParameter("changedata8").getBytes("iso8859-1"), "utf-8");
-		CSPub=new String( request.getParameter("changedata9").getBytes("iso8859-1"), "utf-8");
-		CSState=new String( request.getParameter("changedata10").getBytes("iso8859-1"), "utf-8");
-		CSPhone=new String( request.getParameter("changedata11").getBytes("iso8859-1"), "utf-8");
-		CSNotes=new String( request.getParameter("changedata12").getBytes("iso8859-1"), "utf-8");
+		CSId=new String( request.getParameter("CSId"));		
+		CSName=new String( request.getParameter("CSName"));
+		CSAddr=new String( request.getParameter("CSAddr"));
+		CSDate=new String( request.getParameter("CSDate"));
+		CSMode=new String( request.getParameter("CSMode"));
+		CSFast=new String( request.getParameter("CSFast"));
+		CSlow=new String( request.getParameter("CSlow"));
+		Operator=new String( request.getParameter("Operator"));
+		ParkFee=new String( request.getParameter("ParkFee"));
+		CSPub=new String( request.getParameter("CSPub"));
+		CSState=new String( request.getParameter("CSState"));
+		CSPhone=new String( request.getParameter("CSPhone"));
+		CSNotes=new String( request.getParameter("CSNotes"));
 		String usId = usInf.getUsId();
-		System.out.println(CSId+CSName+CSAddr+CSDate+CSMode+CSFast+CSlow+Operator+ParkFee+CSPub+CSState+CSPhone+CSNotes);
+		//System.out.println(CSId+CSName+CSAddr+CSDate+CSMode+CSFast+CSlow+Operator+ParkFee+CSPub+CSState+CSPhone+CSNotes);
 		  
 		  boolean isError = false;
 		  

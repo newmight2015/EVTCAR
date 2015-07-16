@@ -76,7 +76,7 @@ public class dealMessage extends HttpServlet {
 
 		HttpSession ss = request.getSession();
 		usInformation usInf = (usInformation)ss.getAttribute("usInf");
-		log.info(ss.getId());
+		//log.info(ss.getId());
 		log.info("---------act:______"+act);
 		/*
 		 * 功能：分享充电站
@@ -384,13 +384,15 @@ public class dealMessage extends HttpServlet {
 		 */
 		if(act.equals("checkLogin")){
 			log.info("进入登录检测");
+			
 			//log.info(ss.getId());
-			boolean isLogin =  ss.getId().equals((String)ss.getAttribute("usSessId"));
-			log.info("isLogin:"+isLogin);
-			if(isLogin){
+			//boolean isLogin =  ss.getId().equals((String)ss.getAttribute("usSessId"));
+			//log.info("isLogin:"+isLogin);
+			if(usInf!=null){
 				try {
 					ms.append("isSuccess", true);
 					ms.append("message", "已经登录");
+					log.info("已经登录");
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -399,6 +401,7 @@ public class dealMessage extends HttpServlet {
 				try {
 					ms.append("isSuccess", false);
 					ms.append("message", "用户未登录");
+					log.info("用户未登录");
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
