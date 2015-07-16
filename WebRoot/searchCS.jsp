@@ -294,7 +294,7 @@ body {
 		<li class="search-input clearfix">
 			<dl>
 				<dt>您的位置：</dt>
-				<dd><input type="text" placeholder="请输入您的位置" id="suggestId"></dd>
+				<dd><input type="text" placeholder="请输入您的位置" id="suggestId"><input id="cityname" type="text" style="display:none;" ></dd>
 				<div class="search btn btn-default" id="search"><a href="#">查询</a></div>
 			</dl>
 		</li>
@@ -327,6 +327,17 @@ body {
 <script>
 $(document).ready(function(){
 	initalMap();
+	function myFun(result){
+	    var cityName = result.name;
+	    //alert(""+cityName);
+	    $("#cityname").val(cityName);
+	    map.setCenter(cityName);   //关于setCenter()可参考API文档---”传送门“
+	    map.setCurrentCity(cityName);          // 设置地图显示的城市 此项是必须设置的
+	    //alert(cityName);
+	    //change_city_val(cityName);
+	}
+	var myCity = new BMap.LocalCity();
+	myCity.get(myFun);  
 	productNum=0;
 	VehData = {};
 	tempPt=[];

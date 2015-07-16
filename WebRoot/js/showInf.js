@@ -133,8 +133,10 @@
             var csOperator = $("#select1").data("csoperator");
             var csRange = $("#select2").data("csrange");
             var csParkFee = $("#select3").data("csparkfee");
+            var cityName=$("#cityname").val();
             var AjaxURL="dealCsQuery.do?lng="+sendPos.lng+"&lat="+sendPos.lat+"&csOperator="+csOperator
-            +"&csRange="+csRange+"&csParkFee="+csParkFee;
+            +"&csRange="+csRange+"&csParkFee="+csParkFee+"&cityName="+cityName;
+            alert(AjaxURL);
             $.ajax({
                         type: "GET",
                         dataType: "html",
