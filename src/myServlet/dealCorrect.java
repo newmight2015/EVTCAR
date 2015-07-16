@@ -79,7 +79,7 @@ public class dealCorrect extends HttpServlet {
 		
 		String  CSId,CSName,CSAddr,CSDate,CSMode,CSFast,CSlow,Operator,ParkFee,CSPub,CSState,CSPhone,CSNotes;
 		System.out.println("进入dealCorrect");
-		CSId=new String( request.getParameter("CSId"));		
+		CSId=new String( request.getParameter("CSId"));
 		CSName=new String( request.getParameter("CSName"));
 		CSAddr=new String( request.getParameter("CSAddr"));
 		CSDate=new String( request.getParameter("CSDate"));

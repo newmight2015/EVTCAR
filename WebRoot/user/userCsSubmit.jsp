@@ -210,34 +210,41 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			//alert("信息提交成功!  非常感谢您对本站的支持，工作人员稍后会审核您提交的信息，恭喜您获得50金币！")
 			//提交分享的地址
 			//csname,csfast,cslow,operator,cspub,csstate,parkfee,csphone,csnotes,act
-			var csname=$("#csname").val();
-			var cslng=$("#cslng").val();
-			var cslat=$("#cslat").val();
-			var csfast=$("#csfast").val();
-			var cslow=$("#csfast").val();
-			var operator=$("#operator").find("option:selected").text();
-			var cspub=$("#cspub").find("option:selected").text();
-			var csstate=$("#csstate").find("option:selected").text();
-			var parkfee=$("#parkfee").val();
-			var csphone=$("#parkfee").val();
-			var csnotes=$("#csnotes").val();
-			var act="csshare";
-            var AjaxURL=window.MAINURL+"dealMessage?csname="+csname+"&cslng="+cslng+"&cslat="+cslat+"&csfast="+csfast+"&cslow="+cslow+"&operator="+operator
-            +"&cspub="+cspub+"&csstate="+csstate+"&parkfee="+parkfee+"&csphone="+csphone+"&csnotes="+csnotes+"&act="+act;
-            alert(AjaxURL);
-            $.ajax({
-                        type: "GET",
-                        dataType: "html",
-                        url: AjaxURL,
-                       // data: {VehData:JSON.stringify(VehData)},
-                        success: function (data) {
-                                data = JSON.parse(data);//存放推荐充电站的数组
-                                alert("分享地址成功");
-                        },
-                        error: function(data) {
-                            alert("error!");
-                         }
-                    });  
+			USERCheck.checkOldOrder(function(isok,error){ 
+				if(isok){ 
+					var csname=$("#csname").val();
+					var cslng=$("#cslng").val();
+					var cslat=$("#cslat").val();
+					var csfast=$("#csfast").val();
+					var cslow=$("#csfast").val();
+					var operator=$("#operator").find("option:selected").text();
+					var cspub=$("#cspub").find("option:selected").text();
+					var csstate=$("#csstate").find("option:selected").text();
+					var parkfee=$("#parkfee").val();
+					var csphone=$("#parkfee").val();
+					var csnotes=$("#csnotes").val();
+					var act="csshare";
+		            var AjaxURL=window.MAINURL+"dealMessage?csname="+csname+"&cslng="+cslng+"&cslat="+cslat+"&csfast="+csfast+"&cslow="+cslow+"&operator="+operator
+		            +"&cspub="+cspub+"&csstate="+csstate+"&parkfee="+parkfee+"&csphone="+csphone+"&csnotes="+csnotes+"&act="+act;
+		            //alert(AjaxURL);
+		            $.ajax({
+		                        type: "GET",
+		                        dataType: "html",
+		                        url: AjaxURL,
+		                       // data: {VehData:JSON.stringify(VehData)},
+		                        success: function (data) {
+		                                data = JSON.parse(data);//存放推荐充电站的数组
+		                                alert("分享地址成功");
+		                        },
+		                        error: function(data) {
+		                            alert("error!");
+		                         }
+		                    }); 
+				}else{ 
+					alert("false");
+				}
+
+			},window.MAINURL);
 		});
 		
 		
