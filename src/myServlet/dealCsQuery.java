@@ -139,9 +139,15 @@ public class dealCsQuery extends HttpServlet {
 			data.put("CSLatiValue", rs.getFloat(8));
 			data.put("CSLongValue", rs.getFloat(9));
 			data.put("CSMode",rs.getFloat(10));
-			data.put("CSFast", rs.getFloat(11));
-			data.put("CSSlow", rs.getFloat(12));
-			data.put("CSSum", rs.getFloat(13));
+			if(rs.getFloat(11)<0||rs.getFloat(12)<0){
+				data.put("CSFast", "未知");
+				data.put("CSSlow", "未知");
+				data.put("CSSum", "未知");
+			}else{
+				data.put("CSFast", rs.getFloat(11));
+				data.put("CSSlow", rs.getFloat(12));
+				data.put("CSSum", rs.getFloat(13));
+			}
 			data.put("OperatorID",rs.getString(14));
 			data.put("CSIsOrder",rs.getFloat(15));
 			data.put("ParkID",rs.getString(16));

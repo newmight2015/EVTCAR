@@ -79,6 +79,75 @@ public class dealMessage extends HttpServlet {
 		log.info(ss.getId());
 		log.info("---------act:______"+act);
 		/*
+		 * 功能：分享充电站
+		 */
+		if(act.equals("csshare")){
+			System.out.println("进入servlet："+act);
+			String UsId=usInf.getUsId();
+			String csname,csfast,cslow,operator,cspub,csstate,parkfee,csphone,csnotes,cslng,cslat;
+			csname=new String( request.getParameter("csname").getBytes("iso8859-1"), "utf-8");
+			cslng=new String( request.getParameter("cslng").getBytes("iso8859-1"), "utf-8");
+			cslat=new String( request.getParameter("cslat").getBytes("iso8859-1"), "utf-8");
+			csfast=new String( request.getParameter("csfast").getBytes("iso8859-1"), "utf-8");
+			cslow=new String( request.getParameter("cslow").getBytes("iso8859-1"), "utf-8");
+			operator=new String( request.getParameter("operator").getBytes("iso8859-1"), "utf-8");
+			cspub=new String( request.getParameter("cspub").getBytes("iso8859-1"), "utf-8");
+			csstate=new String( request.getParameter("csstate").getBytes("iso8859-1"), "utf-8");
+			parkfee=new String( request.getParameter("parkfee").getBytes("iso8859-1"), "utf-8");
+			csphone=new String( request.getParameter("csphone").getBytes("iso8859-1"), "utf-8");
+			csnotes=new String( request.getParameter("csnotes").getBytes("iso8859-1"), "utf-8");
+			response.setContentType("text/html");
+			JSONArray Msg = new JSONArray();
+			dataBase db=new dataBase();
+			Connection con =db.getConnection();
+			String sql="insert into CS_Share(SCSName,SCSLat,SCSLng,SCSFast,SCSLow,SOperator,SCSPub,SCSState,SParkFee,SCSPhone,SCSNotes,USId) "
+					+ "values (?,?,?,?,?,?,?,?,?,?,?,?)";
+			PreparedStatement ps;
+			try {
+		           ps= con.prepareStatement(sql);
+		                ps.setString(1, csname);
+		                ps.setString(2, cslat);
+			       		ps.setString(3, cslng);
+			       		ps.setString(4, csfast);
+			       		ps.setString(5, cslow);
+			       		ps.setString(6, operator);
+			       		ps.setString(7, cspub);
+			       		ps.setString(8, csstate);
+			       		ps.setString(9, parkfee);
+			       		ps.setString(10, csphone);
+			       		ps.setString(11, csnotes);
+			       		ps.setString(12, UsId);
+			       int m= ps.executeUpdate();
+			       System.out.print(sql);
+			       if(m!=0)  
+			       {
+			    	    System.out.println("提交信息成功");
+			    	    JSONObject data = new JSONObject();
+						data.put("isSucess", "true");
+						ms.append("message", "提交信息成功");
+						Msg.put(data);
+			       }else{
+			    	    System.out.println("提交信息失败");
+			    	   	JSONObject data = new JSONObject();
+					    ms.append("isSuccess", "false");
+						ms.append("message", "提交信息失败");
+			       }    		  
+		           //con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println(Msg);
+			out.println(Msg);
+			out.flush();
+			out.close();
+
+		}
+		/*
 		 * 功能：删除消息提醒的最新消息，放入历史消息中
 		 */
 		if(act.equals("deleteOldMsg")){
@@ -606,7 +675,7 @@ public class dealMessage extends HttpServlet {
 				data.put("CSLatiValue", rs.getFloat(8));
 				data.put("CSLongValue", rs.getFloat(9));
 				data.put("CSMode",rs.getFloat(10));
-				if(rs.getFloat(11)<0){
+				if(rs.getFloat(11)<0||rs.getFloat(12)<0){
 					data.put("CSFast", "未知");
 					data.put("CSSlow", "未知");
 					data.put("CSSum", "未知");
