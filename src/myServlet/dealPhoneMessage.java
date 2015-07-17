@@ -133,8 +133,8 @@ public class dealPhoneMessage extends HttpServlet {
 		
 		String username = request.getParameter("username");
 		//usInformation usInf = (usInformation)ss.getAttribute("usInf");
-		//String usSessId = (String) request.getAttribute("usSessId");
-		String sql ="SELECT * from UserMessageInf where MsgType = 'createOrd' and USid = ? and MsgState= ?";
+		//String MsgType = (String) request.getAttribute("MsgType");
+		String sql ="SELECT * from UserMessageInf where USid = ? and MsgState= ?";
 		String pras[] = new String[]{username,String.valueOf(MsgState)};
 		dbUtil db = new dbUtil();
 		ResultSet rs = db.query(sql, pras);
@@ -144,6 +144,7 @@ public class dealPhoneMessage extends HttpServlet {
 				JSONObject data = new JSONObject();
 				try {
 					data.put("msgid", rs.getString(1));
+					data.put("msgType", rs.getString(2));
 					data.put("msgCreatTime",rs.getString(4));
 					data.put("msgValue", rs.getString(3));
 				} catch (JSONException e) {
