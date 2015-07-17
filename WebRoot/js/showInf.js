@@ -102,7 +102,7 @@
 
                 USERCheck.correctCsInf(CSId,CSName,CSAddr,CSDate,CSMode,CSFast,CSlow,Operator,ParkFee,CSPub,CSState,CSPhone,CSNotes,function(isok,error){ 
                 	if(isok=="false"){ 
-                		alert(""+error+"");
+                		alert(error);
                 		//$("#csorder .errormsg").html(error);
                 	}else { 
                 		alert("提交纠错信息成功!");

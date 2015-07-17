@@ -70,7 +70,7 @@ function showcsintro(i){
         else CSMode="快慢充";	
 
         if(CsAllData[i].CSFeeDay==undefined) CSFeeDay = "未核实";
-        if(window.location.href =="http://localhost:8080/EVTcar/inq_sta.jsp"){ 
+        if(window.location.href =="http://test.ezchong.com/inq_sta.jsp"){ 
         	$("#csintro .modal-body .info").html("<form id='change' name='changecsinf'  method='post' action='dealCorrect' ><table data-id='"+i+"'><tbody><tr style='display: none;'><th>ID：</th><td>"+CsAllData[i].CSId+
                 	"</td></tr><tr><th>名称：</th><td>"+CsAllData[i].CSName+
         			"</td></tr><tr><th>地址：</th><td>"+CsAllData[i].CSAddr+
