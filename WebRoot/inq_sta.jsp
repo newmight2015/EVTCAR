@@ -119,7 +119,7 @@ body{
 				    change_city_val(cityName);
 				}
 				var myCity = new BMap.LocalCity();
-				myCity.get(myFun);   
+				myCity.get(myFun);
 				//创建一个LocalCity对象myCity，然后调用其get()方法，就得到了用户IP对应的城市。该城市结果会以参数形式传递给回调函数myFun。接下来就是myFun(结果城市result)来执行了----即上文红色代码。
 
 				function G(id) {

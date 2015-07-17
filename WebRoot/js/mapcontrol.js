@@ -206,97 +206,51 @@ function changeCsInf(i){
 
 //处理纠错信息的方法
 function dealCorrect(i){
-	
-	USERCheck.isLogin(function(isok,error){
-        if(isok != 'false'){
-        	//var id = $("#csorder table").data("id");
-        	var CSId=$("#changedata0").val();
-        	var CSName=$("#changedata1").val();
-        	var CSAddr=$("#changedata2").val();
-        	var CSDate=$("#changedata3").val();
-        	var CSMode=$("#changedata4").val();
-        	var CSFast=$("#changedata5").val();
-        	var CSlow=$("#changedata6").val();
-        	var Operator=$("#changedata7").val();
-        	var ParkFee=$("#changedata8").val();
-        	var CSPub=$("#changedata9").val();
-        	var CSState=$("#changedata10").val();
-        	var CSPhone=$("#changedata11").val();
-        	var CSNotes=$("#changedata12").val();
-        	var AjaxURL="dealCorrect?CSId="+CSId+"&CSName="+CSName+"&CSAddr="+CSAddr+"&CSDate="+CSDate+"&CSMode="+CSMode+"&CSFast="+CSFast+"&CSlow="+CSlow+"&Operator="+Operator+"&ParkFee="+ParkFee+"&CSPub="+CSPub+"&CSState="+CSState+"&CSPhone="+CSPhone+"&CSNotes="+CSNotes;
-        	//var url="localhost:8080/EVTcar2";
-        	$.ajax({
-                type: "POST",
-                dataType: "html",
-                url: AjaxURL,
-               // data: {VehData:JSON.stringify(VehData)},
-                success: function (data) {
-                	if(data.isSuccess=="false"){
-	            		alert("提交信息失败，请重新提交!");
-	            		//$("#csorder .errormsg").html(error);
-                	}else { 
-	            		alert("提交纠错信息成功!");
-	            		//$("#csorder .errormsg").html("您的预约请求已提交，请到用户管理中查看订单详情。");
-	            		//window.location.href = 'userInf.html';
-                	}
-                },
-                error: function(data) {
-                    alert("error:"+data.message);
-                 }
-            });
-//        	$.ajax({
-//                url:url+"/dealMessage",
-//                type:"POST",
-//                dataType:"json",
-//                data:{
-//                	act:'correctCsInf',
-//                	CSId:CSId,
-//                	CSName:CSName,
-//                	CSAddr:CSAddr,
-//                	CSDate:CSDate,
-//                	CSMode:CSMode,
-//                	CSFast:CSFast,
-//                	CSlow:CSlow,
-//                	Operator:Operator,
-//                	ParkFee:ParkFee,
-//                	CSPub:CSPub,
-//                	CSState:CSState,
-//                	CSPhone:CSPhone,
-//                	CSNotes:CSNotes,
-//                },
-//                success:function(data){
-//                	if(data.isSuccess=="false"){
-//	            		alert(""+data.message+"");
-//	            		//$("#csorder .errormsg").html(error);
-//            	    }else { 
-//	            		alert("提交纠错信息成功!"+data.message);
-//	            		//$("#csorder .errormsg").html("您的预约请求已提交，请到用户管理中查看订单详情。");
-//	            		//window.location.href = 'userInf.html';
-//            	    }
-////                  return _this._callback(callback,data.isSuccess,data.message,data)
-//                },
-//                error:function(data){ 
-//                    console.log(data);
-//                    return _this._callback(callback,false,"连接服务器失败，请稍后再试",data);
-//                }
-//        	});
-//            USERCheck.correctCsInf(CSId,CSName,CSAddr,CSDate,CSMode,CSFast,CSlow,Operator,ParkFee,CSPub,CSState,CSPhone,CSNotes,function(isok,error){ 
-//            	if(isok=="false"){ 
-//            		alert(""+error+"");
-//            		//$("#csorder .errormsg").html(error);
-//            	}else { 
-//            		alert("提交纠错信息成功!");
-//            		//$("#csorder .errormsg").html("您的预约请求已提交，请到用户管理中查看订单详情。");
-//            		//window.location.href = 'userInf.html';
-//            	}
-//            },window.MAINURL);
-            
-            
-        }else { 
-        	alert("您好，请先登录！登录后才能预约");
-            window.location.href = "login.jsp";
-        }
-    },window.MAINURL)
+	var r=confirm("是否确认提交纠错信息！");
+	if(r==true){
+		USERCheck.isLogin(function(isok,error){
+	        if(isok != 'false'){
+	        	//var id = $("#csorder table").data("id");
+	        	var CSId=$("#changedata0").val();
+	        	var CSName=$("#changedata1").val();
+	        	var CSAddr=$("#changedata2").val();
+	        	var CSDate=$("#changedata3").val();
+	        	var CSMode=$("#changedata4").val();
+	        	var CSFast=$("#changedata5").val();
+	        	var CSlow=$("#changedata6").val();
+	        	var Operator=$("#changedata7").val();
+	        	var ParkFee=$("#changedata8").val();
+	        	var CSPub=$("#changedata9").val();
+	        	var CSState=$("#changedata10").val();
+	        	var CSPhone=$("#changedata11").val();
+	        	var CSNotes=$("#changedata12").val();
+	        	var AjaxURL="dealCorrect?CSId="+CSId+"&CSName="+CSName+"&CSAddr="+CSAddr+"&CSDate="+CSDate+"&CSMode="+CSMode+"&CSFast="+CSFast+"&CSlow="+CSlow+"&Operator="+Operator+"&ParkFee="+ParkFee+"&CSPub="+CSPub+"&CSState="+CSState+"&CSPhone="+CSPhone+"&CSNotes="+CSNotes;
+	        	//var url="localhost:8080/EVTcar2";
+	        	$.ajax({
+	                type: "POST",
+	                dataType: "html",
+	                url: AjaxURL,
+	               // data: {VehData:JSON.stringify(VehData)},
+	                success: function (data) {
+	                	if(data.isSuccess=="false"){
+		            		alert("提交信息失败，请重新提交!");
+		            		//$("#csorder .errormsg").html(error);
+	                	}else { 
+		            		alert("提交纠错信息成功!");
+		            		//$("#csorder .errormsg").html("您的预约请求已提交，请到用户管理中查看订单详情。");
+		            		//window.location.href = 'userInf.html';
+	                	} 
+	                },
+	                error: function(data) {
+	                    alert("error:"+data.message);
+	                 }
+	            }); 
+	        }else { 
+	        	alert("您好，请先登录！登录后才能预约");
+	            window.location.href = "login.jsp";
+	        }
+	    },window.MAINURL);
+	}
 	
 	
 }
