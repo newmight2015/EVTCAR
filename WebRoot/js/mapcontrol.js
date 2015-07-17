@@ -70,8 +70,8 @@ function showcsintro(i){
         else CSMode="快慢充";	
 
         if(CsAllData[i].CSFeeDay==undefined) CSFeeDay = "未核实";
-        if(window.location.href =="http://test.ezchong.com/inq_sta.jsp"){ 
-        	$("#csintro .modal-body .info").html("<form id='change' name='changecsinf'  method='post' action='dealCorrect' ><table data-id='"+i+"'><tbody><tr style='display: none;'><th>ID：</th><td>"+CsAllData[i].CSId+
+        
+        $("#csintro .modal-body .info").html("<form id='change' name='changecsinf'  method='post' action='dealCorrect' ><table data-id='"+i+"'><tbody><tr style='display: none;'><th>ID：</th><td>"+CsAllData[i].CSId+
                 	"</td></tr><tr><th>名称：</th><td>"+CsAllData[i].CSName+
         			"</td></tr><tr><th>地址：</th><td>"+CsAllData[i].CSAddr+
         			"</td></tr><tr><th>充电桩建设日期：</th><td>"+CsAllData[i].Datetime+
@@ -86,23 +86,6 @@ function showcsintro(i){
         			"</td></tr><tr><th>备注:</th><td>"+CsAllData[i].CSNotes+
         			"</td></tr></tbody></table>"+
         			"<div style='float:right;font-size:14px;' id='subchange'>信息有误？<a class='btn btn-danger btn-sm' onclick='changeCsInf("+i+")'>>>>点我纠错</a><div></form></hr>");
-        }else{
-        	$("#csintro .modal-body .info").html("<form id='change' name='changecsinf'  method='post' action='dealCorrect' ><table data-id='"+i+"'><tbody><tr style='display: none;'><th>ID：</th><td>"+CsAllData[i].CSId+
-                	"</td></tr><tr><th>名称：</th><td>"+CsAllData[i].CSName+
-        			"</td></tr><tr><th>地址：</th><td>"+CsAllData[i].CSAddr+
-        			"</td></tr><tr><th>充电桩建设日期：</th><td>"+CsAllData[i].Datetime+
-        			"</td></tr><tr><th>充电模式：</th><td>"+CSMode+
-        			"</td></tr><tr><th>快充数量：</th><td>"+CsAllData[i].CSFast+
-        			"</td></tr><tr><th>慢充数量：</th><td>"+CsAllData[i].CSSlow+
-        			"</td></tr><tr><th>运营商：</th><td>"+Operator+
-        			"</td></tr><tr><th>停车费用：</th><td>"+CsAllData[i].CSFeeDay+"元/小时"+
-        			"</td></tr><tr><th>对外状态：</th><td>"+CSPub+
-        			"</td></tr><tr><th>运营状态：</th><td>"+CSState+
-        			"</td></tr><tr><th>电话:</th><td>"+CsAllData[i].CSPhone+
-        			"</td></tr><tr><th>备注:</th><td>"+CsAllData[i].CSNotes+
-        			"</td></tr></tbody></table>"+
-        			"<div style='float:right;font-size:14px;' id='subchange'>信息有误？<a class='btn btn-danger btn-sm' onclick='changeCsInf("+i+")'>>>>点我纠错</a><div></form></hr>");
-        }
         
             //查询充电站评价信息     
             var CSId=CsAllData[i].CSId;
