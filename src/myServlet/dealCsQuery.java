@@ -166,7 +166,8 @@ public class dealCsQuery extends HttpServlet {
 			else data.put("CSPhone", "暂无信息");
 			if(rs.getString(24)!=null) data.put("CSNotes", rs.getString(24).trim());
 			else data.put("CSNotes", "暂无消息");
-			data.put("CSFeeDay", rs.getFloat(28));
+			if(rs.getString(28)!=null) data.put("CSFeeDay", rs.getFloat(28));
+			else  data.put("CSFeeDay", "暂无数据");
 			//增加每个充电站的图标信息srcpic---ZW
 			int cspub=(int)(rs.getFloat(20));
 			int csstate=(int)(rs.getFloat(21));

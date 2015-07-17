@@ -102,7 +102,7 @@
 
                 USERCheck.correctCsInf(CSId,CSName,CSAddr,CSDate,CSMode,CSFast,CSlow,Operator,ParkFee,CSPub,CSState,CSPhone,CSNotes,function(isok,error){ 
                 	if(isok=="false"){ 
-                		alert(""+error+"");
+                		alert(error);
                 		//$("#csorder .errormsg").html(error);
                 	}else { 
                 		alert("提交纠错信息成功!");
@@ -136,7 +136,7 @@
             var cityName=$("#cityname").val();
             var AjaxURL="dealCsQuery.do?lng="+sendPos.lng+"&lat="+sendPos.lat+"&csOperator="+csOperator
             +"&csRange="+csRange+"&csParkFee="+csParkFee+"&cityName="+cityName;
-            alert(AjaxURL);
+            //alert(AjaxURL);
             $.ajax({
                         type: "GET",
                         dataType: "html",
