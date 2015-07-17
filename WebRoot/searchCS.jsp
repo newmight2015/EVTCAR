@@ -350,11 +350,16 @@ $(function(){
 	$("[name='stop-date']").val(CurentDateTime(1));
 	$("[name='stop-time']").val(CurentTime());
 	//$("#csid").val(CsAllData[i].CSId);
-	$("#starcomment").raty();
+	$("#starcomment").raty({
+		  score: function() {
+			    return 5;//使显示的评星默认为5星；
+			  }
+			});
 	$(".commentbtn a").click(function(){ 
 		$(".commentcontent").show();
 	});
 	$("#starcomment").click(function(){
+		//confirm("评价");
 		var starsum=$('#starcomment').raty('getScore');
 		$("#starsum").val(starsum);
 		//alert(CsAllData[i].CSId);
@@ -377,6 +382,8 @@ function CurentDateTime(i)
 }
 //点击提交评价信息----张伟增加
 $("#makeComment").click(function(){
+	var r=confirm("是否确认提交评价！");
+	if(r==true){
 	USERCheck.isLogin(function(isok,error){
         if(isok != 'false'){
         	
@@ -503,7 +510,8 @@ $("#makeComment").click(function(){
             window.location.href = "login.jsp";
         }
     },window.MAINURL);
-});
+    }
+	});
 function CurentTime()
 { 
     var now = new Date();

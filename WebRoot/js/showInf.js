@@ -136,7 +136,7 @@
             var cityName=$("#cityname").val();
             var AjaxURL="dealCsQuery.do?lng="+sendPos.lng+"&lat="+sendPos.lat+"&csOperator="+csOperator
             +"&csRange="+csRange+"&csParkFee="+csParkFee+"&cityName="+cityName;
-            alert(AjaxURL);
+            //alert(AjaxURL);
             $.ajax({
                         type: "GET",
                         dataType: "html",
