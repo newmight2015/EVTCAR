@@ -60,29 +60,58 @@ padding: 7px 10px;
 line-height: 18px;
 outline: 0 none;
 }
+.register_box .half-text {
+border: 1px solid #7f9db9;
+float: left;
+width: 110px;
+margin-right: 10px;
+padding: 7px 10px;
+line-height: 18px;
+outline: 0 none;
+}
 .register_box .v {
 border: solid 1px #e2e2e2;
 vertical-align: middle;
 
 }
 .register_box .btn_login {
+float:left;
 display: inline-block;
 border: 0;
 width: 240px;
 height: 36px;
 cursor: pointer;
-  background: url(../pic/register_btn.png) no-repeat 0 -37px;
+ background: url(../pic/register_btn.png) no-repeat 0 -37px;
 }
 .register_box .cue, .register_box .prompt {
-border: solid 1px #ffb8b8;
-background: #fef2f2;
-color: #f40000;
-display: inline-block;
-float: left;
-line-height: 32px;
-padding: 0 4px;	
-margin-right: 5px;
-overflow: hidden;
+	border: solid 1px #f9dddd;
+	background: #fdeaea;
+	color: #666;
+	display: inline-block;
+	float: left;
+	line-height: 32px;
+	padding: 0 4px;	
+	margin-left: -10px;
+	margin-right: 5px;
+	overflow: hidden;
+	width:320px;
+}
+.checkimg{
+	color: rgb(126,194,21);
+	
+}
+.register_box .warn {
+	border: solid 1px #ddf3ff;
+	background: #eef9ff;
+	color: #666;
+	display: inline-block;
+	float: left;
+	line-height: 32px;
+	padding: 0 4px;	
+	margin-left: -10px;
+	margin-right: 5px;
+	overflow: hidden;
+	width:320px;
 }
 .register_box .v_box {
 display: block;

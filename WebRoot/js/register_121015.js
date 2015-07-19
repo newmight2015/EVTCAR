@@ -420,12 +420,13 @@ function password_check() {
         return false; 
         }
    }
-     
-    $('#txt_password').css("border-color","#7f9db9");
+   $('#txt_password').css("borderColor","green")
     $('#spn_password_wrong').hide();
     $('#spn_password_ok').hide();
     txtPassword_strong_check();
     checkpassword = true;
+    
+    
     return true;
 }
 
@@ -533,15 +534,18 @@ function repassword_check() {
         return false;
     }
     if (password_check()) {
-        $('#spn_repassword_ok').css({'display': ''});
+    	if($('#txt_repassword').siblings().hasClass("checkimg")==false){
+    		$('#txt_repassword').css("borderColor","green").after("<i class='fa fa-check-circle checkimg'></i>");
+	    	}
     } else {
         $('#spn_repassword_ok').hide();
     }
-    $('#txt_repassword').css("border-color","#7f9db9");
+   // $('#txt_repassword').css("border-color","#7f9db9");
     $('#spn_repassword_wrong').hide();
     $('#spn_repassword_ok').html('');
     $('#spn_repassword_ok').attr('class', 'icon_yes');
     checkRepassword = true;
+    
     return true;
 }
 
@@ -887,6 +891,7 @@ function pop_sms_vcode_check() {
     $('#txt_pop_sms_vcode').css('border-color', '')
     checkpop_sms_vcode = false;
     if ($.trim(pop_sms_vcode) == '') {
+    	
         return true;
     }
     if (pop_sms_vcode.length != 6) {
@@ -1026,29 +1031,31 @@ function pop_mobilephone_check() {
 
 function checkname(){
                 var div = $("#div1");
+                
                 var name1 = $("[name='username']").val();
                
                 if (name1 == "") {
                     div.html("用户名不能为空！").show();
-                    document.form1.username.focus();
                     return false;
                 }
                 if (name1.length>10) {
-                    div.html("请输入长度为10字以内的用户名！").show();
-                    document.form1.username.select();
+                	 div.html("请输入长度为10字以内的用户名！").show();
+                    
                     return false;
                 }
                 var charname1 = name1.toLowerCase();
                 for (var i = 0; i < name1.length; i++) {
                     var charname = charname1.charAt(i);
                     if (!(charname >= 0 && charname <= 9) && (!(charname >= 'a' && charname <= 'z')) && (charname != '_')) {
-                        div.html("用户名包含非法字母，只能包含字母，数字，和下划线！").show();
-                        document.form1.username.select();
+                         div.html("用户名包含非法字母，只能包含字母，数字，和下划线！").show();
                         return false;
                     }
                 }
 		    	div.hide();
-		    	$("[name='username']").css("borderColor","green");
+		    	div.siblings(".warn").hide();
+		    	if(div.siblings().hasClass("checkimg")==false){
+		    	$("[name='username']").css("borderColor","green").after("<i class='fa fa-check-circle checkimg'></i>");
+		    	}
                 return true;
                 
             }
@@ -1057,50 +1064,67 @@ function checkemail(){
 
 		    var div = $("#div2");
 		    var email = $("[name='email']").val();
+		    if(email==""){
+		    	div.html("邮箱不能为空").show();
+				return false;
+		    }
 			if (!/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/.test(email)) 
 			{
-				div.html("输入的邮箱格式不正确！").show();
+				 div.html("输入的邮箱格式不正确！").show();
 				return false;
 			}
-		    div.hide();
-		    $("[name='email']").css("borderColor","green");
+			div.hide();
+	    	div.siblings(".warn").hide();
+	    	if(div.siblings().hasClass("checkimg")==false){
+		    $("[name='email']").css("borderColor","green").after("<i class='fa fa-check-circle checkimg'></i>");}
 		    return true;
 }
  function checkPhoneNum(){
                 var div = $("#div3");
-                 var name1 = $("[name='tel']").val();
+                var name1 = $("[name='tel']").val();
                
                 if (name1 == "") {
-                	div.html("电话不能为空！").show();
-                    document.form1.tel.focus();
+                	 div.html("电话不能为空！").show();
+                    
                     return false;
                 }else if (name1.length != 11) {
-                	div.html("请输入11位手机号码").show();
-                    document.form1.tel.select();
+                	 div.html("请输入11位手机号码").show();
+                    
                     return false;
                 }
                 for (var i = 0; i < name1.length; i++) {
                     var charname = name1.charAt(i);
                     if (!(charname >= 0 && charname <= 9)) {
-                    	div.html("请输入数字").show();
-                        document.form1.tel.select();
+                    	 div.html("请输入数字").show();
+                        
                         return false;
                     }
                 }
-		    	div.hide();
-		    	$("[name='tel']").css("borderColor","green");
+                $("#vcodeArea").fadeIn();
+                $("#sms_vcode").focus();
+                div.hide();
+                div.siblings(".warn").hide();
+                if(div.siblings().hasClass("checkimg")==false){
+		    	$("[name='tel']").css("borderColor","green").after("<i class='fa fa-check-circle checkimg'></i>");
+                }
+                
+               
                 return true;
                 
             }        
 function checkcode(){ 
-	var code = $("[name='txt_vcode']").val();
+	var input =  $("[name='txt_vcode']");
+	var code = input.val();
 	var url = window.location.href;
 	var t = url.lastIndexOf("/");
 	var href = url.substring(0,t);
 	USERCheck.checkCode(code,function(isok,err,data){
 		if(isok=="true"){
 			$("#spn_vcode_wrong").hide();
-			$("[name='txt_vcode']").css("borderColor","green");
+			input.siblings(".warn").hide();
+            if(input.siblings().hasClass("checkimg")==false){
+            	input.css("borderColor","green").after("<i class='fa fa-check-circle checkimg'></i>");
+            }
 			return true;
 		}else {
 			$("#spn_vcode_wrong").html("您输入的验证码有误").show();
@@ -1110,23 +1134,82 @@ function checkcode(){
 	return true;
 }   
 
+/**手机验证码**/
+function checkVcode(){ 
+	var div = $("#div7");
+    var name1 = $(":input[name='vcode']").val();
+   
+    if (name1 == "") {
+    	 div.html("验证码不能为空！").show();
+        return false;
+    }else if (name1.length != 6) {
+    	div.html("请输入6位验证码！").show();
+        return false;
+    }
+    for (var i = 0; i < name1.length; i++) {
+        var charname = name1.charAt(i);
+        if (!(charname >= 0 && charname <= 9)) {
+        	 div.html("请输入数字！").show();
+            
+            return false;
+        }
+    }
+    
+    if(name1 == Vcode){
+	 	div.hide();
+	    div.siblings(".warn").hide();
+	    if(div.siblings().hasClass("checkimg")==false){
+	    	$("[name='vcode']").css("borderColor","green").after("<i class='fa fa-check-circle checkimg'></i>");
+	    }
+	    return true;
+    }else { 
+    	div.html("您输入的验证码有误！").show();
+        return false;
+    }
+   
+}   
+var STABLETIME = 60;
+var maxtime = STABLETIME;
+function sendVcode(){
+	setTimeout(function(){
+		if(maxtime>0){
+			if(maxtime==STABLETIME){
+				var phone = $.trim($(":input[name = tel]").val());
+				$.get("dealPhoneMessage?act=sendSMS&phone="+phone,function(data,status){
+						Vcode = data.message;		//获取的验证码
+				  });
+			}
+			maxtime--;
+			$("#sendSMS").attr('disabled',"true");
+			$("#sendSMS").html(maxtime+"s后重新获取");
+			sendVcode();
+		}else{
+			$("#sendSMS").removeAttr('disabled');
+			$("#sendSMS").html("获取验证码");
+			maxtime = STABLETIME;
+			return true;
+		}
+	},1000)
+}
+
+
 function check(){
-		if (checkname() && checkPhoneNum() && checkcode() && password_check()) {
+		if (checkname() && checkemail() && checkPhoneNum() && checkVcode() && checkcode() && password_check() && repassword_check() ) {
+					$("#spn_agreement_wrong").html("正在注册......").show();
                     var url = window.location.href;
 					var t = url.lastIndexOf("/");
 					var href = url.substring(0,t);
                     USERCheck.userRegister(function(isok,error){ 
                     	if(isok){ 
-                    		$("#spn_agreement_wrong").html("用户注册成功，正跳转至<a href='"+href+"/searchCS.jsp'>我要充电</a>界面。。。").show();
+                    		$("#spn_agreement_wrong").html("恭喜您注册成功，正跳转至<a href='"+href+"/searchCS.jsp'>我要充电</a>界面。。。").show();
                     		setTimeout(function(){window.location = href+'/searchCS.jsp'},2000)
                     	}else{ 
                     		$("#spn_agreement_wrong").html(error).show();
                     	}
                     },href);
                     return true;
-                }
-                else {
+                } else {
                     $("#spn_agreement_wrong").html("请按照提示输入信息").show();
                     return false;
                 }
-            }
+ }

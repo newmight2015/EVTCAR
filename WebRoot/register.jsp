@@ -11,6 +11,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link href="css/register.css" rel="stylesheet" type="text/css" />
 <link href="css/evtcar.css" rel="stylesheet" type="text/css" />
 <link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="font-awesome-4.3.0/css/font-awesome.min.css" rel="stylesheet"/>
 <script type="text/javascript" src="js/jquery-2.1.3.min.js"></script>
 <script type="text/javascript" src="js/register_121015.js"></script>
 <script type="text/javascript" src="js/UserCheck.js"></script>
@@ -34,9 +35,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		float:right;
 		color:gray;
 	}
-	.warn{
-	 	color:gray;
-	 }
 	  
 </style>
 </head>
@@ -77,16 +75,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 <td class="z_index2">
                                     <input type="text"  name="username" class="text" autocomplete="off" maxlength="12" tabindex="1" onblur="checkname();">
                                     <span style="display:none" class="warn">请填入您的用户名，此为登录名</span>
-                                    <span id="spn_username_ok" style="display: none;" class="icon_yes"></span>
-                                    <span id="spn_username_wrong" style="display: none;" class="warn"></span>
                                     <span id="div1" style="display: none;" class="cue"></span>
                                 </td>
-
-
                             </tr>
                             <tr>
                                 <td class="t">
-                                    邮箱：
+                                  <span class="important">*</span>邮箱：
                                 </td>
                                 <td class="z_index2">
                                     <input type="text"  name="email" class="text" autocomplete="off" maxlength="40"  tabindex="1" value="" style="border-color: rgb(127, 157, 185);" onblur="checkemail();">
@@ -104,14 +98,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                     <span id="div3" style="display: none;" class="cue"></span>
                                 </td>
                             </tr>
-                            <script type="text/javascript">
-                             		$(":input[type='text']").focus(function(){ 
-                             			$(this).siblings(".warn").show();
-                             		})
-                             		$(":input[type='text']").blur(function(){ 
-                             			$(this).siblings(".warn").hide();
-                             		})
-                            </script>
+                            
+                            
+                            <!--ko if:type()=='phone'-->
+							<tr id="vcodeArea" style="display:none;">
+                                <td class="t">
+                                    	验证码：
+                                </td>
+                                <td class="z_index2">
+                                    <input id="sms_vcode" type="text" name="vcode" class="half-text" maxlength="10" style="width:80px;margin-right:25px;"  onBlur="checkVcode();">
+                                	<a id="sendSMS" class="btn btn-default btn-md half-text" onClick="sendVcode();">获取验证码</a>
+                                	<span  style="display:none" class="warn">请输入手机接收到的验证码</span>
+                                    <span id="div7" style="display: none;" class="cue"></span>
+                                </td>
+                                
+                            </tr>
+							<!--/ko-->
+							
                             <tr>
                                 <td class="t">
                                     <span class="important">*</span>登录密码：
@@ -141,7 +144,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                     
                                     <input type="text" id="hid_txt_repassword" name="hid_txt_repassword" class="text" onfocus="check_repassword_focus()" onblur="repassword_check()" onkeyup="repassword_session_check()" onkeydown="CheckdoSubmit(event)" onpaste="return false" style="display:none" tabindex="3">
                                     
-                                    <span id="spn_repassword_ok" class="warn" style="display: none;"></span>
+                                    <span id="spn_repassword_ok" class="warn" style="display: none;"></i></span>
                                     <span id="spn_repassword_wrong" style="display: none;" class="cue"></span>
                                     <span style="display: none;" class="warn"></span>
                                     <span id="div5" style="display: none;" class="cue"></span>
@@ -153,38 +156,45 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 </td>
                                 <td>
                                     <input type="text" name="txt_vcode" class="text" autocomplete="off" maxlength="4" tabindex="4" onblur="checkcode()">
-                                    <span id="spn_vcode_ok" class="warn"></span>
+                                    <span id="spn_vcode_ok" class="warn" style="display: none;">请输入下图中的验证码</span>
                                     <span id="spn_vcode_wrong" class="cue" style="display: none;"></span>
                                     <div class="v_box">
                                         <a href="javascript:show_vcode('imgVcode')" name="change_code_img" tabindex="5">
                                             <img alt="code..." name="randImage" id="randImage" src="image.jsp" onclick="reload()"></a>看不清?<a href="javascript:reload()" class="changepic" tabindex="6">换张图</a>
                                     </div>
-									 <script>
+									
+                                </td>
+                            </tr>
+                            
+							<script>
 							          	$("#randImage").click(function(){
 						        			$(this).attr("src","image.jsp");
 						        		})
 						          		$(".changepic").click(function(){
 						          			$("#randImage").attr("src","image.jsp");
 						          		})	
-						          </script>
-                                </td>
-                            </tr>
+						          		
+	                             		$(":input[type='text']").focus(function(){ 
+	                             			$(this).siblings(".cue").hide();
+	                             			if($(this).siblings().hasClass("checkimg")==false){
+	                             			$(this).siblings(".warn").show();
+	                             			}else $(this).siblings(".warn").hide();
+	                             		})
+	                             		$(":input[type='text']").blur(function(){ 
+	                             			$(this).siblings(".warn").hide();
+	                             			if($(this).siblings().hasClass("checkimg")==false){
+	                                 			$(this).siblings(".cue").show();
+	                                 		}else $(this).siblings(".cue").hide();
+	                             		})
+						     </script>
                             <tr>
                                 <td class="t">
                                     &nbsp;
                                 </td>
                                 <td>
+                                	
                                     <a id="register" name="register" class="btn_login"  tabindex="7" onclick="check();"></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="t">
-                                    &nbsp;
-                                </td>
-                                <td class="clause">
-                                    <span id="spn_agreement_wrong" class="cue" style="display:none">
-											
-                                    </span>
+                                    <span id="spn_agreement_wrong" class="cue" style="display:none;margin-left:2px"></span>
                                 </td>
                             </tr>
                         </tbody>
