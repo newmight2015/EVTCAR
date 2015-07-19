@@ -80,23 +80,100 @@ public class dealMessage extends HttpServlet {
 		//log.info(ss.getId());
 		log.info("---------act:______"+act);
 		/*
+		 * 功能：修改密码
+		 */
+		if(act.equals("changepassword")){
+			System.out.println("进入servlet"+act);
+			String UsId=usInf.getUsId();
+			String uspassword=new String( request.getParameter("uspassword1").getBytes("iso8859-1"), "utf-8");
+			JSONArray Msg = new JSONArray();
+			dbUtil db = new dbUtil();
+			String sql="update UserPerInf set USPassWd=? where Usid=?";
+			String pras[] = new String[]{uspassword,UsId};
+			db.update(sql,pras);
+			try {
+			       if(db.getResu()!=0)  
+			       {
+			    	    log.info("修改密码成功");
+			    	    JSONObject data = new JSONObject();
+						data.put("isSucess", "true");
+						data.append("message", "修改密码成功");
+						Msg.put(data);
+			       }else{
+			    	    log.info("修改密码失败");
+			    	   	JSONObject data = new JSONObject();
+					    data.append("isSuccess", "false");
+						data.append("message", "修改密码失败");
+			       }    		  
+		           //con.close();
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			//System.out.println(Msg);
+			out.println(Msg);
+			out.flush();
+			out.close();
+		}
+		/*
+		 * 功能：修改个人信息
+		 */
+		if(act.equals("saveusinf")){
+			System.out.println("进入servlet"+act);
+			String UsId=usInf.getUsId();
+			String usname,usemail,usphone,uscity,usnotes;
+			usname=new String( request.getParameter("usname").getBytes("iso8859-1"), "utf-8");
+			usemail=new String( request.getParameter("usemail").getBytes("iso8859-1"), "utf-8");
+			usphone=new String( request.getParameter("usphone").getBytes("iso8859-1"), "utf-8");
+			uscity=new String( request.getParameter("uscity").getBytes("iso8859-1"), "utf-8");
+			usnotes=new String( request.getParameter("usnotes").getBytes("iso8859-1"), "utf-8");
+			JSONArray Msg = new JSONArray();
+			dbUtil db = new dbUtil();
+			String sql="update UserPerInf set USMail=?,USPhoneNum=?,USName=?,USCity=?,USIntroduction=? where Usid=?";
+			String pras[] = new String[]{usemail,usphone,usname,uscity,usnotes,UsId};
+			db.update(sql,pras);
+			try {
+			       if(db.getResu()!=0)  
+			       {
+			    	    log.info("修改个人资料成功");
+			    	    JSONObject data = new JSONObject();
+						data.put("isSucess", "true");
+						data.append("message", "修改个人资料成功");
+						Msg.put(data);
+			       }else{
+			    	    log.info("修改个人资料失败");
+			    	   	JSONObject data = new JSONObject();
+					    data.append("isSuccess", "false");
+						data.append("message", "修改个人资料失败");
+			       }    		  
+		           //con.close();
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			//System.out.println(Msg);
+			out.println(Msg);
+			out.flush();
+			out.close();
+		}
+		/*
 		 * 功能：分享充电站
 		 */
 		if(act.equals("csshare")){
 			System.out.println("进入servlet："+act);
 			String UsId=usInf.getUsId();
 			String csname,csfast,cslow,operator,cspub,csstate,parkfee,csphone,csnotes,cslng,cslat;
-			csname=new String( request.getParameter("csname"));
-			cslng=new String( request.getParameter("cslng"));
-			cslat=new String( request.getParameter("cslat"));
-			csfast=new String( request.getParameter("csfast"));
-			cslow=new String( request.getParameter("cslow"));
-			operator=new String( request.getParameter("operator"));
-			cspub=new String( request.getParameter("cspub"));
-			csstate=new String( request.getParameter("csstate"));
-			parkfee=new String( request.getParameter("parkfee"));
-			csphone=new String( request.getParameter("csphone"));
-			csnotes=new String( request.getParameter("csnotes"));
+			csname=new String( request.getParameter("csname").getBytes("iso8859-1"), "utf-8");
+			cslng=new String( request.getParameter("cslng").getBytes("iso8859-1"), "utf-8");
+			cslat=new String( request.getParameter("cslat").getBytes("iso8859-1"), "utf-8");
+			csfast=new String( request.getParameter("csfast").getBytes("iso8859-1"), "utf-8");
+			cslow=new String( request.getParameter("cslow").getBytes("iso8859-1"), "utf-8");
+			operator=new String( request.getParameter("operator").getBytes("iso8859-1"), "utf-8");
+			cspub=new String( request.getParameter("cspub").getBytes("iso8859-1"), "utf-8");
+			csstate=new String( request.getParameter("csstate").getBytes("iso8859-1"), "utf-8");
+			parkfee=new String( request.getParameter("parkfee").getBytes("iso8859-1"), "utf-8");
+			csphone=new String( request.getParameter("csphone").getBytes("iso8859-1"), "utf-8");
+			csnotes=new String( request.getParameter("csnotes").getBytes("iso8859-1"), "utf-8");
 			JSONArray Msg = new JSONArray();
 			dbUtil db = new dbUtil();
 			String sql="insert into CS_Share(SCSName,SCSLat,SCSLng,SCSFast,SCSLow,SOperator,SCSPub,SCSState,SParkFee,SCSPhone,SCSNotes,USId) "
