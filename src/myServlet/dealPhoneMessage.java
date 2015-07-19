@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import myBean.messageAlert;
 import myBean.usInformation;
 import myBean.usOrder;
 import myTools.dataBase;
@@ -132,8 +133,8 @@ public class dealPhoneMessage extends HttpServlet {
 		
 		String username = request.getParameter("username");
 		//usInformation usInf = (usInformation)ss.getAttribute("usInf");
-		//String usSessId = (String) request.getAttribute("usSessId");
-		String sql ="SELECT * from UserMessageInf where MsgType = 'createOrd' and USid = ? and MsgState= ?";
+		//String MsgType = (String) request.getAttribute("MsgType");
+		String sql ="SELECT * from UserMessageInf where USid = ? and MsgState= ?";
 		String pras[] = new String[]{username,String.valueOf(MsgState)};
 		dbUtil db = new dbUtil();
 		ResultSet rs = db.query(sql, pras);
@@ -143,6 +144,7 @@ public class dealPhoneMessage extends HttpServlet {
 				JSONObject data = new JSONObject();
 				try {
 					data.put("msgid", rs.getString(1));
+					data.put("msgType", rs.getString(2));
 					data.put("msgCreatTime",rs.getString(4));
 					data.put("msgValue", rs.getString(3));
 				} catch (JSONException e) {
@@ -208,6 +210,7 @@ public class dealPhoneMessage extends HttpServlet {
 		       if(db.getResu()!=0)  
 		       {
 		    	   // System.out.println("提交信息成功");
+		    	    new messageAlert("creatcor","您对"+CSName+"的纠错正在审核中，感谢您对本站的支持",username).SaveMsg();
 				    ms.append("isSuccess", true);
 					ms.append("message", "提交信息成功");
 					isError = false;
@@ -302,16 +305,17 @@ public class dealPhoneMessage extends HttpServlet {
 		       if(db.getResu()!=0)  
 		       {
 		    	   // System.out.println("提交信息成功");
-		    	   log.info("提交信息成功");
+		    	    new messageAlert("creatcom","您提交了一条"+Star+"星评论，感谢您对本站的支持",USId).SaveMsg();
+		    	    log.info("提交信息成功");
 				    ms.append("isSuccess", true);
-					ms.append("message", "提交信息成功");
+					ms.append("message", "提交评价信息成功");
 					//request.setAttribute("message", "true");
 		       }else{
 					//request.setAttribute("message", "false");
 		    	   // System.out.println("提交信息失败");
 		    	   log.info("提交信息失败");
 		    	   ms.append("isSuccess", false);
-		    	   ms.append("message", "提交信息失败");
+		    	   ms.append("message", "提交评价信息失败");
 		       } 
 		       db.closeAll();
 			}catch (JSONException e) {
@@ -753,6 +757,7 @@ public class dealPhoneMessage extends HttpServlet {
 		       if(db.getResu()!=0)  
 		       {
 		    	    log.info("分享信息提交成功");
+		    	    new messageAlert("creatsha","您分享了一条位于"+csname+"的充电站，工作人员会尽快审核信息，感谢您对本站的支持",UsId).SaveMsg();
 		    	    JSONObject data = new JSONObject();
 					data.put("isSucess", "true");
 					data.append("message", "提交信息成功");

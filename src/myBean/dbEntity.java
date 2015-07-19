@@ -61,10 +61,10 @@ public class dbEntity {
 	/**
 	 * 查询订单消息
 	 * @param 
-	 * @param pras "createOrd" 查询生成的订单消息
+	 * @param pras "createOrd" 查询生成的订单消息;createcom：评论；coreatcor:纠错；createsha: 分享；
 	 * @return
 	 */
-	public List<messageAlert> checkOrdMsg(String... pras){
+	public List<messageAlert> checkMsg(String... pras){
 		 String checkConditon = "SELECT * from UserMessageInf where MsgType = ? and USid = ?";
 		 List<messageAlert> msgList = null;
 		 try {

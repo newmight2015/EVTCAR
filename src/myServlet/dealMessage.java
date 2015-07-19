@@ -415,6 +415,7 @@ public class dealMessage extends HttpServlet {
 				       if(m!=0)  
 				       {
 				    	    System.out.println("提交信息成功");
+				    	    new messageAlert("creatcom","您提交了一条"+starsum+"星评论，感谢您对本站的支持",UsId).SaveMsg();
 						    ms.append("isSuccess", true);
 							ms.append("message", "提交信息成功");
 							request.setAttribute("message", "true");
