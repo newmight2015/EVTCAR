@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -20,6 +21,7 @@ import javax.servlet.http.HttpSession;
 import myBean.messageAlert;
 import myBean.usInformation;
 import myBean.usOrder;
+import myTools.SDKSendSMS;
 import myTools.dataBase;
 import myTools.dbUtil;
 
@@ -759,7 +761,7 @@ public class dealPhoneMessage extends HttpServlet {
 		    	    log.info("分享信息提交成功");
 		    	    new messageAlert("creatsha","您分享了一条位于"+csname+"的充电站，工作人员会尽快审核信息，感谢您对本站的支持",UsId).SaveMsg();
 		    	    JSONObject data = new JSONObject();
-					data.put("isSucess", "true");
+					data.append("isSucess", "true");
 					data.append("message", "提交信息成功");
 					Msg.put(data);
 		       }else{
@@ -778,13 +780,45 @@ public class dealPhoneMessage extends HttpServlet {
 		out.flush();
 		out.close();
 	}
+	/**
+	 * 发送手机验证码
+	 * @param request phone;
+	 * @param response
+	 * @throws IOException
+	 */
+	private void sendSMS(HttpServletRequest request, HttpServletResponse response)throws IOException{
+		PrintWriter out = response.getWriter();
+		response.setContentType("json");
+		
+		Random rd = new Random();
+        int result =rd.nextInt(899999)+100000;
+        log.info("生成随机验证码："+result);
+        HttpSession ss = request.getSession();
+		ss.setAttribute("vcode", result);
+		
+		String Phone = request.getParameter("phone").trim();
+		SDKSendSMS.sendSMS(Phone, String.valueOf(result));
+        JSONObject data = new JSONObject();
+        try {
+		    	    log.info("验证码发送成功");
+					data.put("isSucess", "true");
+					data.put("message", result);
+	           //con.close();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        out.println(data);
+		out.flush();
+		out.close();
+	}
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		PrintWriter out = response.getWriter();
-		String act = request.getParameter("act");
+		String act = request.getParameter("act").trim();
 		JSONObject ms = new JSONObject();
 
 		HttpSession ss = request.getSession();
@@ -793,6 +827,8 @@ public class dealPhoneMessage extends HttpServlet {
 		log.info("---------act:______"+act);
 		
 		switch(act){
+			case "sendSMS"		: this.sendSMS(request, response);break;//生成手机验证码
+			
 			case "checkLogin"	: this.checkLogin(request, response);break;//检测登录
 			case "userLogout"	: this.userLogout(request, response);break;//用户退出登录
 			case "csCorrect" 	: this.csCorrect(request, response); break;//纠错

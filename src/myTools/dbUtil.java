@@ -53,12 +53,11 @@ public class dbUtil {
 	           logger.error("****数据库连接失败！***");
 	           //System.out.println("****数据库连接失败！***");
 	       }  
-	       logger.info("****数据库连接成功！****");
 	       //System.out.println("****数据库连接成功！****");
 	       return conn;  
 	   }  
 	 /**
-	  * 噶U牛逼数据库
+	  * 关闭数据库
 	  */
 	   public void closeAll() {  
 	       if(rs!=null){  

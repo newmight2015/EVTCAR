@@ -5,7 +5,7 @@ import java.util.Set;
 
 import com.cloopen.rest.sdk.CCPRestSmsSDK;
 
-public class SDKTestSendTemplateSMS{
+public class SDKSendSMS{
 
 	/**
 	 * @param args
@@ -64,6 +64,7 @@ public class SDKTestSendTemplateSMS{
 				Object object = data.get(key);
 				System.out.println(key +" = "+object);
 			}
+			
 		}else{
 			//异常返回输出错误码和错误信息
 			System.out.println("错误码=" + result.get("statusCode") +" 错误信息= "+result.get("statusMsg"));

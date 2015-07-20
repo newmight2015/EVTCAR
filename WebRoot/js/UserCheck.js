@@ -79,7 +79,7 @@ var USERCheck = {
                 return _this._callback(callback,data.isSuccess,data.message,data)
             },
             error:function(data){ 
-                return _this._callback(callback,false,data.message,data);
+                return _this._callback(callback,false,"服务器无法连接，请稍后再试",data);
             }
         })
     },
