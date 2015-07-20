@@ -69,7 +69,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			
 			<div style="float:left;width:20%; background: #f7f7f7; height:500px">
 				<ul >
-					<li id="la" style=" background-color:#fff;height: 39px;  font-size: 20px;padding-left: 70px;"><a id="a">基本资料</a></li>
+					<li id="la" style=" background-color:#fff;height: 39px;  font-size: 20px;padding-left: 70px;"><a id="a" >基本资料</a></li>
 					<li style="  border-top: solid 1px #dde3e9;"></li>
 					<li id="lb" style="height: 39px;  font-size: 20px;padding-left: 70px;"><a id="b">修改密码</a></li>
 					<li style="  border-top: solid 1px #dde3e9;"></li>
@@ -108,7 +108,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				                                    &nbsp;
 				                                </td>
 				                                <td>
-				                                	<button id="saveusinf" style="background: -webkit-linear-gradient(#75abda,#6698c9);width: 68px;  height: 34px;color: #fff;">保存信息</button>
+				                                	<input type="submit" id="saveusinf" style="background: -webkit-linear-gradient(#75abda,#6698c9);width: 68px;  height: 34px;color: #fff;" value="保存信息"></input>
 				                                	<span  id="SaveOkMsg" style="display: none;"> 你的资料保存成功！ </span>
 				                                </td>
 				                            </tr>
@@ -134,7 +134,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				                                    &nbsp;
 				                                </td>
 				                                <td>
-				                                	<button id="changepassword" style="background: -webkit-linear-gradient(#75abda,#6698c9);width: 68px;  height: 34px;color: #fff;">修改密码</button>
+				                                	<input type="submit" id="changepassword" style="background: -webkit-linear-gradient(#75abda,#6698c9);width: 68px;  height: 34px;color: #fff;" value="修改密码"></input>
 				                                	<span  id="ChangeMsg" style="display: none;"> 你的密码修改成功！ </span>
 				                                </td>
 				                            </tr>
@@ -156,13 +156,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <script src="../js/bootstrap.min.js"></script>
 
     <script type="text/javascript">
-    $("#a").click(function (e) {
+    $("#la").click(function (e) {
     	$("#la").css("background-color","#fff");
     	$("#lb").css("background-color","#f7f7f7");
     	$("#form2").hide();
     	$("#form1").show();
     });
-    $("#b").click(function (e) {
+    $("#lb").click(function (e) {
     	$("#lb").css("background-color","#fff");
     	$("#la").css("background-color","#f7f7f7");
     	$("#form1").hide();
@@ -218,22 +218,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	            var AjaxURL=window.MAINURL+"dealMessage?uspassword1="+uspassword1+"&act="+act;
 	            //alert(AjaxURL);
 	            var a=confirm("是否确认修改密码？");
-            if(a==true){
-	            $.ajax({
-	                        type: "POST",
-	                        dataType: "html",
-	                        url: AjaxURL,
-	                        success: function (data) {
-	                        	//alert("修改信息成功！");
-	                        	$("#ChangeMsg").show();
-	                        },
-	                        error: function(data) {
-	                            alert("error!");
-	                         }
-	                    });
-            }
+	            if(a==true){
+		            $.ajax({
+		                        type: "POST",
+		                        dataType: "html",
+		                        url: AjaxURL,
+		                        success: function (data) {
+		                        	//alert("修改信息成功！");
+		                        	$("#ChangeMsg").show();
+		                        },
+		                        error: function(data) {
+		                            alert("error!");
+		                         }
+		                    });
+	            }
+	            $("#alertinf").html("");
 			}else{
-				
+				$("#alertinf").html("<h6>两次输入的密码不同</h6>");
 			}
 		});
 		

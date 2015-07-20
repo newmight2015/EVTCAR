@@ -96,7 +96,7 @@ public class dealMessage extends HttpServlet {
 			       {
 			    	    log.info("修改密码成功");
 			    	    JSONObject data = new JSONObject();
-						data.put("isSucess", "true");
+						data.put("isSuccess", "true");
 						data.append("message", "修改密码成功");
 						Msg.put(data);
 			       }else{
@@ -133,11 +133,11 @@ public class dealMessage extends HttpServlet {
 			String pras[] = new String[]{usemail,usphone,usname,uscity,usnotes,UsId};
 			db.update(sql,pras);
 			try {
-			       if(db.getResu()!=0)  
+			       if(db.getResu()!=0)
 			       {
 			    	    log.info("修改个人资料成功");
 			    	    JSONObject data = new JSONObject();
-						data.put("isSucess", "true");
+						data.put("isSuccess", "true");
 						data.append("message", "修改个人资料成功");
 						Msg.put(data);
 			       }else{
@@ -185,7 +185,7 @@ public class dealMessage extends HttpServlet {
 			       {
 			    	    log.info("分享信息提交成功");
 			    	    JSONObject data = new JSONObject();
-						data.put("isSucess", "true");
+						data.put("isSuccess", "true");
 						data.append("message", "提交信息成功");
 						Msg.put(data);
 			       }else{
@@ -225,7 +225,7 @@ public class dealMessage extends HttpServlet {
 				int rs = ps.executeUpdate();
 				if(rs!=0) {
 					JSONObject data = new JSONObject();
-					data.put("isSucess", "true");
+					data.put("isSuccess", "true");
 					Msg.put(data);
 				}
 				//rs.close();
@@ -265,7 +265,7 @@ public class dealMessage extends HttpServlet {
 				int rs = ps.executeUpdate();
 				if(rs!=0) {
 					JSONObject data = new JSONObject();
-					data.put("isSucess", "true");
+					data.put("isSuccess", "true");
 					Msg.put(data);
 				}
 				//rs.close();
