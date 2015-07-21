@@ -69,7 +69,7 @@ function showcsintro(i){
         else if(CsAllData[i].CSMode=='2') CSMode="慢充";
         else CSMode="快慢充";	
 
-        if(CsAllData[i].CSFeeDay==undefined) CSFeeDay = "未核实";
+        if(CsAllData[i].CSFeeDay=='-1') CSFeeDay = "未核实";
         
         $("#csintro .modal-body .info").html("<form id='change' name='changecsinf'  method='post' action='dealCorrect' ><table data-id='"+i+"'><tbody><tr style='display: none;'><th>ID：</th><td>"+CsAllData[i].CSId+
                 	"</td></tr><tr><th>名称：</th><td>"+CsAllData[i].CSName+

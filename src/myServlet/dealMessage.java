@@ -97,13 +97,13 @@ public class dealMessage extends HttpServlet {
 			    	    log.info("修改密码成功");
 			    	    JSONObject data = new JSONObject();
 						data.put("isSucess", "true");
-						data.append("message", "修改密码成功");
+						data.put("message", "修改密码成功");
 						Msg.put(data);
 			       }else{
 			    	    log.info("修改密码失败");
 			    	   	JSONObject data = new JSONObject();
-					    data.append("isSuccess", "false");
-						data.append("message", "修改密码失败");
+					    data.put("isSuccess", "false");
+						data.put("message", "修改密码失败");
 			       }    		  
 		           //con.close();
 			} catch (JSONException e) {
@@ -138,13 +138,13 @@ public class dealMessage extends HttpServlet {
 			    	    log.info("修改个人资料成功");
 			    	    JSONObject data = new JSONObject();
 						data.put("isSucess", "true");
-						data.append("message", "修改个人资料成功");
+						data.put("message", "修改个人资料成功");
 						Msg.put(data);
 			       }else{
 			    	    log.info("修改个人资料失败");
 			    	   	JSONObject data = new JSONObject();
-					    data.append("isSuccess", "false");
-						data.append("message", "修改个人资料失败");
+					    data.put("isSuccess", "false");
+						data.put("message", "修改个人资料失败");
 			       }    		  
 		           //con.close();
 			} catch (JSONException e) {
@@ -186,13 +186,13 @@ public class dealMessage extends HttpServlet {
 			    	    log.info("分享信息提交成功");
 			    	    JSONObject data = new JSONObject();
 						data.put("isSucess", "true");
-						data.append("message", "提交信息成功");
+						data.put("message", "提交信息成功");
 						Msg.put(data);
 			       }else{
 			    	    log.info("分享信息提交失败");
 			    	   	JSONObject data = new JSONObject();
-					    data.append("isSuccess", "false");
-						data.append("message", "提交信息失败");
+					    data.put("isSuccess", "false");
+						data.put("message", "提交信息失败");
 			       }    		  
 		           //con.close();
 			} catch (JSONException e) {
@@ -416,14 +416,14 @@ public class dealMessage extends HttpServlet {
 				       {
 				    	    System.out.println("提交信息成功");
 				    	    new messageAlert("creatcom","您提交了一条"+starsum+"星评论，感谢您对本站的支持",UsId).SaveMsg();
-						    ms.append("isSuccess", true);
-							ms.append("message", "提交信息成功");
+						    ms.put("isSuccess", true);
+							ms.put("message", "提交信息成功");
 							request.setAttribute("message", "true");
 				       }else{
 							request.setAttribute("message", "false");
 				    	    System.out.println("提交信息失败");
-						    ms.append("isSuccess", false);
-							ms.append("message", "提交信息失败");
+						    ms.put("isSuccess", false);
+							ms.put("message", "提交信息失败");
 				       } 
 				       con.close();
 					}catch (SQLException e) {
@@ -449,8 +449,8 @@ public class dealMessage extends HttpServlet {
 			//log.info("isLogin:"+isLogin);
 			if(usInf!=null){
 				try {
-					ms.append("isSuccess", true);
-					ms.append("message", "已经登录");
+					ms.put("isSuccess", true);
+					ms.put("message", "已经登录");
 					log.info("已经登录");
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
@@ -458,8 +458,8 @@ public class dealMessage extends HttpServlet {
 				}
 			}else {
 				try {
-					ms.append("isSuccess", false);
-					ms.append("message", "用户未登录");
+					ms.put("isSuccess", false);
+					ms.put("message", "用户未登录");
 					log.info("用户未登录");
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
@@ -477,16 +477,16 @@ public class dealMessage extends HttpServlet {
 			if(usInf != null){
 				ss.removeAttribute("usInf");
 				try {
-					ms.append("isSuccess", true);
-					ms.append("message", "成功退出");
+					ms.put("isSuccess", true);
+					ms.put("message", "成功退出");
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}else {
 				try {
-					ms.append("isSuccess", false);
-					ms.append("message", "退出失败");
+					ms.put("isSuccess", false);
+					ms.put("message", "退出失败");
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -505,16 +505,16 @@ public class dealMessage extends HttpServlet {
 			String ccode = (String)request.getParameter("code");
 			if(code.equals(ccode)){
 				try {
-					ms.append("isSuccess", true);
-					ms.append("message", "success");
+					ms.put("isSuccess", true);
+					ms.put("message", "success");
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}else{
 				try {
-					ms.append("isSuccess", false);
-					ms.append("message", "fail");
+					ms.put("isSuccess", false);
+					ms.put("message", "fail");
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -578,13 +578,13 @@ public class dealMessage extends HttpServlet {
 						       if(m!=0)  
 						       {
 						    	    System.out.println("提交信息成功");
-								    ms.append("isSuccess", true);
-									ms.append("message", "提交信息成功");
+								    ms.put("isSuccess", true);
+									ms.put("message", "提交信息成功");
 									isError = false;
 									//request.setAttribute("message", "true");
 						       }else{
-								    ms.append("isSuccess", false);
-									ms.append("message", "提交信息失败");
+								    ms.put("isSuccess", false);
+									ms.put("message", "提交信息失败");
 									isError = true;
 									//request.setAttribute("message", "false");
 						       }    		  
@@ -633,8 +633,8 @@ public class dealMessage extends HttpServlet {
 			  if(java.sql.Date.valueOf(dateBegin).after(java.sql.Date.valueOf(dateStop))){ 
 			   
 				  try {
-					ms.append("isSuccess", false);
-					ms.append("message", "充电结束时间小于预约时间 ,请重新输入");
+					ms.put("isSuccess", false);
+					ms.put("message", "充电结束时间小于预约时间 ,请重新输入");
 					isError = true;
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
@@ -651,8 +651,8 @@ public class dealMessage extends HttpServlet {
 			  if(java.sql.Date.valueOf(dateBegin).equals(java.sql.Date.valueOf(dateStop))){  //��ʼ���ڵ��ڽ������� 
 				   if(java.sql.Time.valueOf(timeBegin.toString()).equals(java.sql.Time.valueOf(timeStop.toString()))){ //����ʱ����ͬ
 					   try {
-						ms.append("isSuccess", false);
-						ms.append("message", "两次输入时间相等，请重新输入");
+						ms.put("isSuccess", false);
+						ms.put("message", "两次输入时间相等，请重新输入");
 						isError = true;
 						} catch (JSONException e) {
 							// TODO Auto-generated catch block
@@ -661,8 +661,8 @@ public class dealMessage extends HttpServlet {
 				   }
 				   else if(java.sql.Time.valueOf(timeBegin.toString()).after(java.sql.Time.valueOf(timeStop.toString()))){
 					   try {
-							ms.append("isSuccess", false);
-							ms.append("message", "充电结束时间小于预约时间 ,请重新输入");
+							ms.put("isSuccess", false);
+							ms.put("message", "充电结束时间小于预约时间 ,请重新输入");
 							isError = true;
 							} catch (JSONException e) {
 								// TODO Auto-generated catch block
@@ -686,12 +686,12 @@ public class dealMessage extends HttpServlet {
 				  if(usord.saveOrder())
 					  {
 					  	usord.saveMsg();//保存订单信息
-					    ms.append("isSuccess", true);
-						ms.append("message", "订单生成成功");
+					    ms.put("isSuccess", true);
+						ms.put("message", "订单生成成功");
 						isError = false;
 				  }else{
-					    ms.append("isSuccess", false);
-						ms.append("message", "订单生成失败");
+					    ms.put("isSuccess", false);
+						ms.put("message", "订单生成失败");
 						isError = true;
 				  };
 				//  dbEntity db = new dbEntity();
@@ -720,7 +720,7 @@ public class dealMessage extends HttpServlet {
 			if(cityname.equals("全国")){ 
 				condition ="Select * from CS_BasicInformation ";
 			}
-			else condition ="Select * from CS_BasicInformation where CSCity LIKE '"+cityname+"%'";
+			else condition ="Select * from CS_BasicInformation cs,CS_ParkOperatorInformation cp where cs.CSID = cp.CSID and cs.CSCity LIKE '"+cityname+"%'";
 			PreparedStatement sql;
 			try {
 			sql = con.prepareStatement(condition);
@@ -792,6 +792,8 @@ public class dealMessage extends HttpServlet {
 				}
 				//end--ZW
 			//	data.put("CSFeeDay", rs.getFloat(24));
+				if(rs.getFloat(28)!=-1) data.put("CSFeeDay", rs.getFloat(28));
+				else  data.put("CSFeeDay", "暂无数据");
 				csInf.put(data);
 			}
 			db.close(rs, sql, con);

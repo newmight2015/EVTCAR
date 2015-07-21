@@ -54,7 +54,7 @@ position: relative;
 border: 1px solid #7f9db9;
 
 float: left;
-width: 216px;
+width: 230px;
 margin-right: 10px;
 padding: 7px 10px;
 line-height: 18px;
@@ -63,7 +63,7 @@ outline: 0 none;
 .register_box .half-text {
 border: 1px solid #7f9db9;
 float: left;
-width: 110px;
+width: 127px;
 margin-right: 10px;
 padding: 7px 10px;
 line-height: 18px;
@@ -94,7 +94,7 @@ cursor: pointer;
 	margin-left: -10px;
 	margin-right: 5px;
 	overflow: hidden;
-	width:320px;
+	width:360px;
 }
 .checkimg{
 	color: rgb(126,194,21);
@@ -111,7 +111,7 @@ cursor: pointer;
 	margin-left: -10px;
 	margin-right: 5px;
 	overflow: hidden;
-	width:320px;
+	width:360px;
 }
 .register_box .v_box {
 display: block;

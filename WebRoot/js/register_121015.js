@@ -1030,6 +1030,7 @@ function pop_mobilephone_check() {
 }
 
 function checkname(){
+				var isSub = false;
                 var div = $("#div1");
                 
                 var name1 = $("[name='username']").val();
@@ -1051,13 +1052,23 @@ function checkname(){
                         return false;
                     }
                 }
-		    	div.hide();
-		    	div.siblings(".warn").hide();
-		    	if(div.siblings().hasClass("checkimg")==false){
-		    	$("[name='username']").css("borderColor","green").after("<i class='fa fa-check-circle checkimg'></i>");
-		    	}
-                return true;
                 
+                USERCheck.checkIsReg(name1,function(isOk,message){
+	                	if(isOk){
+	                		div.hide();
+	        		    	div.siblings(".warn").hide();
+	        		    	if(div.siblings().hasClass("checkimg")==false){
+	        		    	$("[name='username']").css("borderColor","green").after("<i class='fa fa-check-circle checkimg'></i>");
+	        		    	}
+	        		    	isSub = false;
+	                	}else{
+	                		div.html(message).show();
+	                		isSub = true;
+	                	}
+	             },window.MAINURL);
+                if(isSub){
+                	return false;
+                }else return true;
             }
           
 function checkemail(){

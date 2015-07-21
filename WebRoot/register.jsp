@@ -73,7 +73,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                     <span class="important">*</span>用户名：
                                 </td>
                                 <td class="z_index2">
-                                    <input type="text"  name="username" class="text" autocomplete="off" maxlength="12" tabindex="1" onblur="checkname();">
+                                    <input type="text"  name="username" class="text" autocomplete="off" maxlength="12" tabindex="1" onblur="checkname();" onchange="checkname();">
                                     <span style="display:none" class="warn">请填入您的用户名，此为登录名</span>
                                     <span id="div1" style="display: none;" class="cue"></span>
                                 </td>
@@ -84,7 +84,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 </td>
                                 <td class="z_index2">
                                     <input type="text"  name="email" class="text" autocomplete="off" maxlength="40"  tabindex="1" value="" style="border-color: rgb(127, 157, 185);" onblur="checkemail();">
-                                    <span style="display:none" class="warn">邮箱用于接收信息，选填</span>
+                                    <span style="display:none" class="warn">邮箱用于接收信息</span>
                                     <span id="div2" style="display: none;" class="cue"></span>
                                 </td>
                             </tr>

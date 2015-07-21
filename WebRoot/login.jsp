@@ -92,11 +92,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					}
 				%>
 	        </div>
-	        <p id="div4"><a href="">忘记密码？</a></p>
+	        <p id="div4"><a href="find_password.jsp">忘记密码？</a></p>
 	        <div class="button" id="button">
 	        	<input type="submit"  value="登陆"/>
 	        </div>
-	       <div class="regist"> <span>还没有账号？<a href="register.html" class="btn btn-default btn-xs">点击我注册</a></span>		
+	       <div class="regist"> <span>还没有账号？<a href="register.jsp" class="btn btn-default btn-xs">点击我注册</a></span>		
 	       </div>
       </div>
       <div class="ad"><img src="pic/sssd.png" /></div>

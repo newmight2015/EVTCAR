@@ -68,7 +68,6 @@ public class dealPhoneRegister extends HttpServlet {
         String insertCondition ="INSERT into UserPerInf(USid,USPassWd,USMail,USPhoneNum) VALUES(?,?,?,?)";             
         String insertPras[] = new String[]{usId,usPassWd,usMail,usPhoneNum};
         JSONObject jo = new JSONObject();
-        
         try {
         	dbUtil db = new dbUtil();
             db.query(checkCondition);

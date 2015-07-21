@@ -37,6 +37,24 @@ var USERCheck = {
             }
         })
     },
+    //功能：验证用户名是否已经存在
+    //参数：要检验的用户名(usId)、验证成功后的回调函数（callback)、向服务器发送的地址（url)
+    //返回：验证是否成功的信息，成功：已经登录，失败：请先登录
+    checkIsReg:function(usId, callback,url){ 
+        var _this = this;
+        $.ajax({ 
+            url:url+"/dealPhoneMessage",
+            type:"GET",
+            dataType:"json",
+            data:{act:'checkIsReg',usId:usId},
+            success:function(data){
+                return _this._callback(callback,data.isSuccess,data.message,data)
+            },
+            error:function(data){ 
+                return _this._callback(callback,false,"连接服务器失败，请稍后再试",data);
+            }
+        })
+    },
     //功能：校验验证码
     //参数：验证成功后的回调函数（callback)、向服务器发送的地址（url)
     //返回：验证是否成功的信息，成功：已经登录，失败：请先登录

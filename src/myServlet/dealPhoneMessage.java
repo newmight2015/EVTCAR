@@ -350,9 +350,9 @@ public class dealPhoneMessage extends HttpServlet {
 		Connection con =db.getConnection();
 		String condition ;
 		if(cityname.equals("全国")){ 
-			condition ="Select * from CS_BasicInformation ";
+			condition ="Select * from CS_BasicInformation cs,CS_ParkOperatorInformation cp where cs.CSID = cp.CSID";
 		}
-		else condition ="Select * from CS_BasicInformation where CSCity LIKE '"+cityname+"%'";
+		else condition ="Select * from CS_BasicInformation cs,CS_ParkOperatorInformation cp where cs.CSID = cp.CSID and cs.CSCity LIKE '"+cityname+"%'";
 		PreparedStatement sql;
 		try {
 		sql = con.prepareStatement(condition);
@@ -395,6 +395,8 @@ public class dealPhoneMessage extends HttpServlet {
 			if(rs.getString(24)!=null) data.put("CSNotes", rs.getString(24).trim());
 			else data.put("CSNotes", "暂无消息");
 		//	data.put("CSFeeDay", rs.getFloat(24));
+			if(rs.getFloat(28)!=-1) data.put("CSFeeDay", rs.getFloat(28));
+			else  data.put("CSFeeDay", "暂无数据");
 			csInf.put(data);
 		}
 		db.close(rs, sql, con);
@@ -421,7 +423,7 @@ public class dealPhoneMessage extends HttpServlet {
 	 */
 	private static void checkAPPUpdate(HttpServletRequest request, HttpServletResponse response)throws IOException{
 		
-		
+		response.setContentType("json");
 		PrintWriter out = response.getWriter();
 		JSONObject ms = new JSONObject();
 		String appNowVision = request.getParameter("version");
@@ -429,7 +431,7 @@ public class dealPhoneMessage extends HttpServlet {
 			 try {
 			    	    log.info("app版本不一致，需要更新。版本号："+appNowVision);
 					    ms.append("isSuccess", true);
-						ms.append("message", "http://test.ezchong.com/app/EVTCAR.apk");//APP下载地址
+						ms.append("message", "http://www.ezchong.com/download/ezchong.apk");//APP下载地址
 				}catch (JSONException e) {
 					e.printStackTrace();
 				}
@@ -442,7 +444,7 @@ public class dealPhoneMessage extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-
+		 //log.info(ms.toString());
 		 out.println(ms);
 		 out.flush();
 		 out.close();
@@ -473,13 +475,13 @@ public class dealPhoneMessage extends HttpServlet {
 			int rs = ps.executeUpdate();
 			if(rs!=0) {
 				JSONObject data = new JSONObject();
-				data.put("isSucess", "true");
+				data.put("isSuccess", "true");
 				data.put("message", "删除信息成功：msgid="+msgid);
 				Msg.put(data);
 				log.info("删除信息成功：msgid="+msgid);
 			}else{ 
 				JSONObject data = new JSONObject();
-				data.put("isSucess", "false");
+				data.put("isSuccess", "false");
 				data.put("message", "删除信息失败");
 				Msg.put(data);
 				log.info("删除信息失败");
@@ -761,7 +763,7 @@ public class dealPhoneMessage extends HttpServlet {
 		    	    log.info("分享信息提交成功");
 		    	    new messageAlert("creatsha","您分享了一条位于"+csname+"的充电站，工作人员会尽快审核信息，感谢您对本站的支持",UsId).SaveMsg();
 		    	    JSONObject data = new JSONObject();
-					data.append("isSucess", "true");
+					data.append("isSuccess", "true");
 					data.append("message", "提交信息成功");
 					Msg.put(data);
 		       }else{
@@ -801,13 +803,47 @@ public class dealPhoneMessage extends HttpServlet {
         JSONObject data = new JSONObject();
         try {
 		    	    log.info("验证码发送成功");
-					data.put("isSucess", "true");
+					data.put("isSuccess", true);
 					data.put("message", result);
 	           //con.close();
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+        out.println(data);
+		out.flush();
+		out.close();
+	}
+	
+	private void checkIsReg(HttpServletRequest request, HttpServletResponse response)throws IOException{
+		PrintWriter out = response.getWriter();
+		response.setContentType("json");
+		
+		String usId = request.getParameter("usId");
+		String checkCondition = "Select USid from UserPerInf where USid = '"+ usId +"'";     
+                
+		JSONObject data = new JSONObject();
+		dbUtil db = new dbUtil();
+        try {
+            db.query(checkCondition);
+				if(!db.getRS().next()){
+				    log.info(usId+":用户名可以使用");
+					data.put("isSuccess", true);
+					data.put("message", "该用户名可注册");
+				}else{
+					log.info(usId+":用户名不可使用");
+					data.put("isSuccess", false);
+					data.put("message", "该用户名已被注册");
+				}
+			}catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally{
+				db.closeAll();
+			}
         out.println(data);
 		out.flush();
 		out.close();
@@ -828,7 +864,7 @@ public class dealPhoneMessage extends HttpServlet {
 		
 		switch(act){
 			case "sendSMS"		: this.sendSMS(request, response);break;//生成手机验证码
-			
+			case "checkIsReg"	: this.checkIsReg(request, response);break;//检验是否注册
 			case "checkLogin"	: this.checkLogin(request, response);break;//检测登录
 			case "userLogout"	: this.userLogout(request, response);break;//用户退出登录
 			case "csCorrect" 	: this.csCorrect(request, response); break;//纠错
