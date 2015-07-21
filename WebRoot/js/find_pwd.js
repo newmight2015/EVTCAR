@@ -1053,7 +1053,7 @@ function checkname(){
                     }
                 }
                 
-                USERCheck.checkIsReg(name1,function(isOk,message){
+                USERCheck.checkIsReg(name1,function(isOk,message,data){
 	                	if(isOk){
 	                		if(div.siblings().hasClass("checkimg")==true){
 	        		    		$(".checkimg").remove();
@@ -1061,8 +1061,15 @@ function checkname(){
 	                		div.html("该用户名尚未注册").show();
 	                		isSub = false;
 	                	}else{
+	                		phoneNum = data.phoneNum;	//注册手机号
+	                		var temp1 = phoneNum.substring(0,4);
+	                		var temp2 = phoneNum.substring(8,11);
+	                		var	phone = temp1+"****"+temp2;
+	                		$("[name='tel']").val(phone);
+	                		$("#vcodeArea").show();		//加载手机验证码输入框
 	                		div.hide();
 	        		    	div.siblings(".warn").hide();
+	        		    	$("#randImage2").attr("href","image.jsp");
 	        		    	if(div.siblings().hasClass("checkimg")==false){
 	        		    		$("[name='username']").css("borderColor","green").after("<i class='fa fa-check-circle checkimg'></i>");
 	        		    	}
@@ -1110,18 +1117,19 @@ function checkemail(){
                     var charname = name1.charAt(i);
                     if (!(charname >= 0 && charname <= 9)) {
                     	 div.html("请输入数字").show();
-                        
                         return false;
                     }
                 }
-                $("#vcodeArea").fadeIn();
-                $("#sms_vcode").focus();
-                div.hide();
-                div.siblings(".warn").hide();
-                if(div.siblings().hasClass("checkimg")==false){
-		    	$("[name='tel']").css("borderColor","green").after("<i class='fa fa-check-circle checkimg'></i>");
-                }
-                return true;
+                
+                	$("#vcodeArea").fadeIn();
+                    $("#sms_vcode").focus();
+                    div.hide();
+                    div.siblings(".warn").hide();
+                    if(div.siblings().hasClass("checkimg")==false){
+    		    	$("[name='tel']").css("borderColor","green").after("<i class='fa fa-check-circle checkimg'></i>");
+                    }
+                    return true;
+                
             }        
 function checkcode(){ 
 	var input =  $("[name='txt_vcode']");
@@ -1130,15 +1138,15 @@ function checkcode(){
 	var t = url.lastIndexOf("/");
 	var href = url.substring(0,t);
 	USERCheck.checkCode(code,function(isok,err,data){
-		if(isok=="true"){
-			$("#spn_vcode_wrong").hide();
+		if(isok==true){
+			input.siblings(".cue").hide();
 			input.siblings(".warn").hide();
             if(input.siblings().hasClass("checkimg")==false){
             	input.css("borderColor","green").after("<i class='fa fa-check-circle checkimg'></i>");
             }
 			return true;
 		}else {
-			$("#spn_vcode_wrong").html("您输入的验证码有误").show();
+			input.siblings(".cue").html("您输入的验证码有误").show();
 			return false;
 		}
 	},href)
@@ -1182,7 +1190,7 @@ function sendVcode(){
 	setTimeout(function(){
 		if(maxtime>0){
 			if(maxtime==STABLETIME){
-				var phone = $.trim($(":input[name = tel]").val());
+				var phone = $.trim(phoneNum);
 				$.get("dealPhoneMessage?act=sendSMS&phone="+phone,function(data,status){
 						Vcode = data.message;		//获取的验证码
 				  });
@@ -1200,24 +1208,3 @@ function sendVcode(){
 	},1000)
 }
 
-
-function check(){
-		if (checkname() && checkemail() && checkPhoneNum() && checkVcode() && checkcode() && password_check() && repassword_check() ) {
-					$("#spn_agreement_wrong").html("正在注册......").show();
-                    var url = window.location.href;
-					var t = url.lastIndexOf("/");
-					var href = url.substring(0,t);
-                    USERCheck.userRegister(function(isok,error){ 
-                    	if(isok){ 
-                    		$("#spn_agreement_wrong").html("恭喜您注册成功，正跳转至<a href='"+href+"/searchCS.jsp'>我要充电</a>界面。。。").show();
-                    		setTimeout(function(){window.location = href+'/searchCS.jsp'},2000)
-                    	}else{ 
-                    		$("#spn_agreement_wrong").html(error).show();
-                    	}
-                    },href);
-                    return true;
-                } else {
-                    $("#spn_agreement_wrong").html("请按照提示输入信息").show();
-                    return false;
-                }
- }

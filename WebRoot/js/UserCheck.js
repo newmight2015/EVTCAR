@@ -61,7 +61,7 @@ var USERCheck = {
     checkCode:function(code,callback,url){ 
         var _this = this;
         $.ajax({ 
-            url:url+"/dealMessage",
+            url:url+"/dealPhoneMessage",
             type:"GET",
             dataType:"json",
             data:{act:'checkCode',code:code},

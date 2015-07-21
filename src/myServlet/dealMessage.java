@@ -96,13 +96,8 @@ public class dealMessage extends HttpServlet {
 			       {
 			    	    log.info("修改密码成功");
 			    	    JSONObject data = new JSONObject();
-<<<<<<< HEAD
 						data.put("isSucess", "true");
 						data.put("message", "修改密码成功");
-=======
-						data.put("isSuccess", "true");
-						data.append("message", "修改密码成功");
->>>>>>> 1c63a57b8219d0d75c880f39c00824f620343c7d
 						Msg.put(data);
 			       }else{
 			    	    log.info("修改密码失败");
@@ -142,13 +137,8 @@ public class dealMessage extends HttpServlet {
 			       {
 			    	    log.info("修改个人资料成功");
 			    	    JSONObject data = new JSONObject();
-<<<<<<< HEAD
 						data.put("isSucess", "true");
 						data.put("message", "修改个人资料成功");
-=======
-						data.put("isSuccess", "true");
-						data.append("message", "修改个人资料成功");
->>>>>>> 1c63a57b8219d0d75c880f39c00824f620343c7d
 						Msg.put(data);
 			       }else{
 			    	    log.info("修改个人资料失败");
@@ -195,13 +185,8 @@ public class dealMessage extends HttpServlet {
 			       {
 			    	    log.info("分享信息提交成功");
 			    	    JSONObject data = new JSONObject();
-<<<<<<< HEAD
 						data.put("isSucess", "true");
 						data.put("message", "提交信息成功");
-=======
-						data.put("isSuccess", "true");
-						data.append("message", "提交信息成功");
->>>>>>> 1c63a57b8219d0d75c880f39c00824f620343c7d
 						Msg.put(data);
 			       }else{
 			    	    log.info("分享信息提交失败");
@@ -488,7 +473,7 @@ public class dealMessage extends HttpServlet {
 		 * 用户退出登录
 		 */
 		if(act.equals("userLogout")){
-			String username = (String) request.getAttribute("username");
+			String username = (String) request.getParameter("username");
 			if(usInf != null){
 				ss.removeAttribute("usInf");
 				try {

@@ -49,7 +49,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         	<div class="title">登录车快充</div>
 	        <div class="input-group user">
 			  <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
-			  <input class="form-control" name="username" type="text" placeholder="邮箱/用户名/手机">
+			  <input class="form-control" name="username" type="text" placeholder="用户名">
 			</div>	
 			 <p id="div1"><span>请输入邮箱地址/昵称/手机号码</span></p>
          	<div class="input-group password">

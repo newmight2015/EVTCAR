@@ -84,7 +84,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                     <span class="important">*</span>手机：
                                 </td>
                                 <td class="z_index2">
-                                    <input type="text" name="tel" class="text" autocomplete="off" maxlength="11" tabindex="1" value="" style="border-color: rgb(127, 157, 185);" onblur="checkPhoneNum();">
+                                    <input type="text" name="tel" class="text" autocomplete="off" maxlength="11" tabindex="1" disabled="true" style="border-color: rgb(127, 157, 185);" onblur="checkPhoneNum();">
                                     <span  style="display:none" class="warn">请输入注册时使用的手机号</span>
                                     <span id="div3" style="display: none;" class="cue"></span>
                                 </td>
@@ -111,7 +111,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                     <span class="important">*</span>图形验证码：
                                 </td>
                                 <td>
-                                    <input type="text" name="txt_vcode" class="text" autocomplete="off" maxlength="4" tabindex="4" onblur="checkcode()">
+                                    <input type="text" name="txt_vcode" class="text" autocomplete="off" maxlength="4" tabindex="4" onblur="checkcode();" onChange="checkcode();">
                                     <span id="spn_vcode_ok" class="warn" style="display: none;">请输入下图中的验证码</span>
                                     <span id="spn_vcode_wrong" class="cue" style="display: none;"></span>
                                     <div class="v_box">
@@ -121,27 +121,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 </td>
                             </tr>
                             
-							<script>
-							          	$("#randImage").click(function(){
-						        			$(this).attr("src","image.jsp");
-						        		})
-						          		$(".changepic").click(function(){
-						          			$("#randImage").attr("src","image.jsp");
-						          		})	
-						          		
-	                             		$(":input[type='text']").focus(function(){ 
-	                             			$(this).siblings(".cue").hide();
-	                             			if($(this).siblings().hasClass("checkimg")==false){
-	                             			$(this).siblings(".warn").show();
-	                             			}else $(this).siblings(".warn").hide();
-	                             		})
-	                             		$(":input[type='text']").blur(function(){ 
-	                             			$(this).siblings(".warn").hide();
-	                             			if($(this).siblings().hasClass("checkimg")==false){
-	                                 			$(this).siblings(".cue").show();
-	                                 		}else $(this).siblings(".cue").hide();
-	                             		})
-						     </script>
                             <tr>
                                 <td class="t">
                                     &nbsp;
@@ -203,11 +182,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 </td>
                                 <td>
                                     <input type="text" name="txt_vcode" class="text" autocomplete="off" maxlength="4" tabindex="4" onblur="checkcode()">
-                                    <span id="spn_vcode_ok" class="warn" style="display: none;">请输入下图中的验证码</span>
-                                    <span id="spn_vcode_wrong" class="cue" style="display: none;"></span>
+                                    <span  class="warn" style="display: none;">请输入下图中的验证码</span>
+                                    <span  class="cue" style="display: none;"></span>
                                     <div class="v_box">
                                         <a href="javascript:show_vcode('imgVcode')" name="change_code_img" tabindex="5">
-                                            <img alt="code..." name="randImage" id="randImage" src="image.jsp" onclick="reload()"></a>看不清?<a href="javascript:reload()" class="changepic" tabindex="6">换张图</a>
+                                            <img alt="code..." name="randImage" id="randImage2" src="image.jsp" onclick="reload()"></a>看不清?<a href="javascript:reload()" class="changepic" tabindex="6">换张图</a>
                                     </div>
                                 </td>
                             </tr>
@@ -269,8 +248,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript">
 	
 	$("#nextBtn").click(function(){
-		if (checkname() && checkPhoneNum() && checkVcode() && checkcode()) {
-			$("#table1").hide();
+		if (checkname() && checkVcode() && checkcode()) {
+			$("#table1").remove();
 			$("#table2").show();
 		}else {
             $("#spn_agreement_wrong").html("请按照提示输入信息").show();
@@ -294,7 +273,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		                        dataType: "html",
 		                        url: AjaxURL,
 		                        success: function (data) {
-		                        	$("#table2").hide();
+		                        	$("#table2").remove();
 		                			$("#table3").show();
 		                        },
 		                        error: function(data) {
