@@ -307,7 +307,7 @@ public class dealPhoneMessage extends HttpServlet {
 		       if(db.getResu()!=0)  
 		       {
 		    	   // System.out.println("提交信息成功");
-		    	    new messageAlert("creatcom","您提交了一条"+Star+"星评论，感谢您对本站的支持",USId).SaveMsg();
+		    	    new messageAlert("creatcom","您提交了一条"+Star+"星评论，评论内容为："+Content+"————感谢您对本站的支持!",USId).SaveMsg();
 		    	    log.info("提交信息成功");
 				    ms.put("isSuccess", true);
 					ms.put("message", "提交评价信息成功");
@@ -849,6 +849,43 @@ public class dealPhoneMessage extends HttpServlet {
 		out.flush();
 		out.close();
 	}
+	/**
+	 * 用户提交建议信息
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 */
+	private void userAdviceSub(HttpServletRequest request, HttpServletResponse response)throws IOException{
+		PrintWriter out = response.getWriter();
+		response.setContentType("json");
+		
+		String usId = request.getParameter("usId");
+		String content = request.getParameter("content");
+		String sql="update UserAdviceInf set USAdvice ='"+content+"' and USid='"+usId+"'";
+                
+		JSONObject data = new JSONObject();
+		dbUtil db = new dbUtil();
+        try {
+            db.update(sql);
+				if(db.getResu()!=0){
+				    log.info(usId+":该用户提交了一条建议信息");
+					data.put("isSuccess", true);
+					data.put("message", "提交建议信息成功");
+				}else{
+					log.info(usId+":该用户提交建议时发生了错误");
+					data.put("isSuccess", false);
+					data.put("message", "提交建议信息失败");
+				}
+			}catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally{
+				db.closeAll();
+			}
+        out.println(data);
+		out.flush();
+		out.close();
+	}
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -864,6 +901,7 @@ public class dealPhoneMessage extends HttpServlet {
 		log.info("---------act:______"+act);
 		
 		switch(act){
+			case "userAdviceSub": this.userAdviceSub(request, response);break;//手机用户提交建议信息
 			case "sendSMS"		: this.sendSMS(request, response);break;//生成手机验证码
 			case "checkIsReg"	: this.checkIsReg(request, response);break;//检验是否注册
 			case "checkLogin"	: this.checkLogin(request, response);break;//检测登录
