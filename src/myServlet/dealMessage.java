@@ -104,6 +104,7 @@ public class dealMessage extends HttpServlet {
 			    	   	JSONObject data = new JSONObject();
 					    data.put("isSuccess", "false");
 						data.put("message", "修改密码失败");
+						Msg.put(data);
 			       }    		  
 		           //con.close();
 			} catch (JSONException e) {
@@ -145,6 +146,7 @@ public class dealMessage extends HttpServlet {
 			    	   	JSONObject data = new JSONObject();
 					    data.put("isSuccess", "false");
 						data.put("message", "修改个人资料失败");
+						Msg.put(data);
 			       }    		  
 		           //con.close();
 			} catch (JSONException e) {
@@ -227,6 +229,10 @@ public class dealMessage extends HttpServlet {
 					JSONObject data = new JSONObject();
 					data.put("isSuccess", "true");
 					Msg.put(data);
+				}else{
+					JSONObject data = new JSONObject();
+					data.put("isSucess", "false");
+					Msg.put(data);
 				}
 				//rs.close();
 				
@@ -266,6 +272,10 @@ public class dealMessage extends HttpServlet {
 				if(rs!=0) {
 					JSONObject data = new JSONObject();
 					data.put("isSuccess", "true");
+					Msg.put(data);
+				}else{
+					JSONObject data = new JSONObject();
+					data.put("isSucess", "false");
 					Msg.put(data);
 				}
 				//rs.close();
@@ -349,8 +359,6 @@ public class dealMessage extends HttpServlet {
 			dataBase db=new dataBase();
 			Connection con =db.getConnection();
 			String condition ;
-			ArrayList<String> temp = new ArrayList<String>();
-			StringBuffer tempCondition = new StringBuffer();
 			condition ="Select USId,Time,Star,Content from CS_Comments  where CSID='"+CSId+"'";
 			PreparedStatement sql;
 			try {
@@ -599,12 +607,12 @@ public class dealMessage extends HttpServlet {
 //				  if(usord.saveOrder())
 //					  {
 //					  	usord.saveMsg();//保存订单信息
-//					    ms.append("isSuccess", true);
-//						ms.append("message", "订单生成成功");
+//					    ms.put("isSuccess", true);
+//						ms.put("message", "订单生成成功");
 //						isError = false;
 //				  }else{
-//					    ms.append("isSuccess", false);
-//						ms.append("message", "订单生成失败");
+//					    ms.put("isSuccess", false);
+//						ms.put("message", "订单生成失败");
 //						isError = true;
 //				  };
 //				//  dbEntity db = new dbEntity();

@@ -771,6 +771,7 @@ public class dealPhoneMessage extends HttpServlet {
 		    	   	JSONObject data = new JSONObject();
 				    data.put("isSuccess", "false");
 					data.put("message", "提交信息失败");
+					Msg.put(data);
 		       }    		  
 	           //con.close();
 		} catch (JSONException e) {
