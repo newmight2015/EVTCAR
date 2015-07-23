@@ -61,7 +61,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    </div>
 		</div>
 		<!-- 更新个人资料主体部分 start-->
-		<div class="newcontainer" style="margin-top: 10px;margin-bottom: 20px;">
+		<div class="container" style="margin-top: 10px;margin-bottom: 20px;margin-left: auto;margin-right: auto;">
 		  
 			<div class="register_box head"  style="background: -webkit-linear-gradient(#fff,#f2f2f2); margin-bottom: 0px;">
 					<h3 id="h" style="padding-left: 18px; margin-top: 15px;">修改信息</h3>
@@ -84,15 +84,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<table cellpadding="0" cellspacing="0" border="0" width="100%">
 				            <tbody>
 				            				<tr>
-				                                <td class="t" >昵称：</td>
+				                                <td class="t" ><span>*</span>昵称：</td>
 				                                <td><input type="text" id="usname" value="" autocomplete="off"></td>
 				                            </tr>
 				                            <tr>
-				                                <td class="t" >邮箱：</td>
+				                                <td class="t" ><span>*</span>邮箱：</td>
 				                                <td><input type="text" id="usemail" value="" autocomplete="off"></td>
 				                            </tr>
 				                            <tr>
-				                                <td class="t" >手机：</td>
+				                                <td class="t" ><span>*</span>手机：</td>
 				                                <td><input type="text" id="usphone" value="" autocomplete="off"></td>
 				                            </tr>
 				                            <tr>
