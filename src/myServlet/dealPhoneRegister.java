@@ -20,6 +20,7 @@ import javax.servlet.http.HttpSession;
 
 import myBean.usInformation;
 import myTools.dataBase;
+import myTools.dbUtil;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -54,9 +55,10 @@ public class dealPhoneRegister extends HttpServlet {
 	 * @throws IOException if an error occurred
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+			throws ServletException, IOException  {
 
 		response.setCharacterEncoding("utf-8");
+		response.setContentType("json");
 		PrintWriter out = response.getWriter();
 		String usId=request.getParameter("username").trim();
 		String usMail=request.getParameter("email").trim();
@@ -64,23 +66,14 @@ public class dealPhoneRegister extends HttpServlet {
 		String usPassWd=request.getParameter("password").trim();
 		String checkCondition = "Select USid from UserPerInf where USid = '"+ usId +"'";     
         String insertCondition ="INSERT into UserPerInf(USid,USPassWd,USMail,USPhoneNum) VALUES(?,?,?,?)";             
-        
+        String insertPras[] = new String[]{usId,usPassWd,usMail,usPhoneNum};
+        JSONObject jo = new JSONObject();
         try {
-     	   dataBase  db= new dataBase();
-           Connection con =db.getConnection(); 
-           
-           PreparedStatement sql = con.prepareStatement(checkCondition);
-           ResultSet rs = sql.executeQuery();
-
-	       JSONObject jo = new JSONObject();
-           if(!rs.next()){
-        	   sql = con.prepareStatement(insertCondition);
-        	   sql.setString(1, usId);
-    	       sql.setString(2, usPassWd);
-    	       sql.setString(3, usMail);
-    	       sql.setString(4, usPhoneNum);
-    	       int m= sql.executeUpdate();
-    	       if(m!=0)  
+        	dbUtil db = new dbUtil();
+            db.query(checkCondition);
+        	if(!db.getRS().next()){
+        	   db.update(insertCondition, insertPras);
+    	       if(db.getResu()!=0)  
     	       {	
     	    	   HttpSession sess = request.getSession();
     	    	   usInformation usinf = new usInformation();
@@ -89,45 +82,34 @@ public class dealPhoneRegister extends HttpServlet {
     	    	   usinf.setUsPhoneNum(usPhoneNum);
     	    	   usinf.setUsPassWd(usPassWd);
     	    	   sess.setAttribute("usInf", usinf);//注册成功后将用户信息放入session中。
-    				try {
-    					jo.put("isSuccess",true);//注册成功标志
-    					jo.put("message","注册成功");
-    				} catch (JSONException e1) {
-    					// TODO Auto-generated catch block
-    					e1.printStackTrace();
-    				}
-    	           
+    			   
+    	    	    jo.put("isSuccess",true);//注册成功标志
+    				jo.put("message","注册成功");
     	       }else{
-    	    	   try {
-    					jo.put("isSuccess",false);//注册成功标志
-    					jo.put("message","服务器无法连接，请稍后再试");
-    				} catch (JSONException e1) {
-    					// TODO Auto-generated catch block
-    					e1.printStackTrace();
-    				}
+					jo.put("isSuccess",false);//注册成功标志
+					jo.put("message","服务器无法连接，请稍后再试");
     	       }
            }else{
-        	   try {
 					jo.put("isSuccess",false);//注册成功标志
 					jo.put("message","该用户名已注册，请重新注册");
-				} catch (JSONException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
            }
-           try{
-	              out.write(jo.toString());  
-	              out.flush();  
-	              out.close();//�ر�   
-	              }catch(Exception e){  
-	               System.out.println(e);  
-	               e.printStackTrace();  
-	           }
-           db.close(rs, sql, con);
-		} catch (SQLException e) {
+        	db.closeAll();
+		}catch(JSONException e){
 			e.printStackTrace();
-		}
+		}catch (SQLException e) {
+			try {
+				jo.put("isSuccess",false);//注册成功标志
+				jo.put("message","服务器无法连接，请稍后再试");
+			} catch (JSONException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} 
         
+        out.println(jo);  
+        out.flush();  
+        out.close();//�ر�   
 	}
 
 }

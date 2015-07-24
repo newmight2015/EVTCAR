@@ -84,7 +84,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!--下面是中部导航栏的代码-->
 <div class="nav-green nav-head" id="J_m_nav">
 	<div class="nav-content">
-		<div class="nav-btn"><a href="../index.html">首页</a></div>
+		<div class="nav-btn"><a href="../index.jsp">首页</a></div>
 		<div class="nav-btn"><a href="../searchCS.jsp">我要充电</a></div>
 		<div class="nav-btn"><a href="../inq_sta.jsp">充电站分布</a></div>
 		<div class="nav-btn active"><a href="../userInf.jsp">用户管理</a></div>

@@ -37,7 +37,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</script>
 	<script type="text/javascript">
 		$(document).ready(function(){
-		  $(".panel-heading").click(function(){
+		  $("#oldmsg").click(function(){
 		  	  $("#oldMsgContent").toggle();
 		  });
 		});
@@ -52,7 +52,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!--下面是中部导航栏的代码-->
 <div class="nav-green nav-head" id="J_m_nav">
 	<div class="nav-content">
-		<div class="nav-btn"><a href="../index.html">首页</a></div>
+		<div class="nav-btn"><a href="../index.jsp">首页</a></div>
 		<div class="nav-btn"><a href="../searchCS.jsp">我要充电</a></div>
 		<div class="nav-btn"><a href="../inq_sta.jsp">充电站分布</a></div>
 		<div class="nav-btn active"><a href="../userInf.jsp">用户管理</a></div>
@@ -71,7 +71,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<div class="containbox">
 				            <div class="panel panel-primary"> 
 					            <!--panel面板的标题，下同-->
-					            <div class="panel-heading">
+					            <div class="panel-heading" id="msg">
 					              <h3 class="panel-title">最新提醒</h3>
 					            </div>
 					            <!--panel面板的内容，下同-->
@@ -84,7 +84,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<div class="containbox">
 				            <div class="panel panel-primary"> 
 					            <!--panel面板的标题，下同-->
-					            <div class="panel-heading">
+					            <div class="panel-heading" id="oldmsg">
 					              <h3 class="panel-title">历史提醒</h3>
 					            </div>
 					            <!--panel面板的内容，下同-->
@@ -172,17 +172,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         					data = JSON.parse(error);
         					var j=0;
         					$.each(data, function(i, content){
-        						var oldmsg = "<div class='alert alert-success alert-dismissible' role='alert'><input id='oldmsg"+j+"' style='display: none;' value='"+data[i].msgid+
+        						var msg = "<div class='alert alert-success alert-dismissible' role='alert'><input id='msg"+j+"' style='display: none;' value='"+data[i].msgid+
         								"'><strong>"+data[i].msgCreatTime+
         				              	"</strong>&nbsp;&nbsp;&nbsp;<strong>提示:</strong><span class='content'>"+data[i].msgValue+
-        				                "</span><button type='button' class='close' id='close' aria-label='Close'><span aria-hidden='true' onclick='deleteOldMsg("+j+");' >×</span></button></div>"
-        				        $("#msgContent").append(oldmsg);
+        				                "</span><button type='button' class='close' id='close' aria-label='Close'><span aria-hidden='true' onclick='deleteMsg("+j+");' >×</span></button></div>"
+        				        $("#msgContent").append(msg);
         				                j++;
         					})
         				}else{ 
         					alert("false")
         				}
-        			},window.MAINURL)
+        			},window.MAINURL);
         			USERCheck.checkOldMsg(function(isok,error){
 						if(isok){
 							data = JSON.parse(error);

@@ -80,6 +80,9 @@ public class dealCsQuery extends HttpServlet {
 		String csParkFee=request.getParameter("csParkFee").trim();
 		String lng=request.getParameter("lng").trim();
 		String lat=request.getParameter("lat").trim();
+		//String CSProvince=request.getParameter("cityName").trim();
+		String CSProvince=new String( request.getParameter("cityName").getBytes("iso8859-1"), "utf-8").substring(0,2);
+		//System.out.println(CSProvince);
 		/*System.out.println(lng);
 		System.out.println(lat);
 		System.out.println(csRange);
@@ -93,7 +96,8 @@ public class dealCsQuery extends HttpServlet {
 		StringBuffer tempCondition = new StringBuffer();
 		//condition ="Select * from CS_BasicInformation cs,CS_ParkOperatorInformation cp where cs.CSPub = 1 and cs.CSState = 1 ";
 		//查询所有充电站（包括公用私用运营未运营等充电站）zw
-		condition ="Select * from CS_BasicInformation cs,CS_ParkOperatorInformation cp where cs.CSProvince='北京' ";
+		condition ="Select * from CS_BasicInformation cs,CS_ParkOperatorInformation cp where cs.CSProvince='"+CSProvince+"'";
+		//System.out.println(condition);
 		if(!csOperator.equals("none")){
 			temp.add(" cs.OperatorID= '"+csOperator+"'");
 		}
@@ -103,7 +107,7 @@ public class dealCsQuery extends HttpServlet {
 		
 		//if(temp.isEmpty()) condition ="Select * from CS_BasicInformation cs,CS_ParkOperatorInformation cp where cs.CSID = cp.CSID and cs.CSPub = 1 and cs.CSState = 1 ";
 		//查询所有充电站（包括公用私用运营未运营等充电站）zw
-		if(temp.isEmpty()) condition ="Select * from CS_BasicInformation cs,CS_ParkOperatorInformation cp where cs.CSID = cp.CSID and cs.CSProvince='北京'";
+		if(temp.isEmpty()) condition ="Select * from CS_BasicInformation cs,CS_ParkOperatorInformation cp where cs.CSID = cp.CSID and cs.CSProvince='"+CSProvince+"'";
 		else {
 			Iterator i = temp.iterator();
 			while(i.hasNext()){
@@ -139,9 +143,15 @@ public class dealCsQuery extends HttpServlet {
 			data.put("CSLatiValue", rs.getFloat(8));
 			data.put("CSLongValue", rs.getFloat(9));
 			data.put("CSMode",rs.getFloat(10));
-			data.put("CSFast", rs.getFloat(11));
-			data.put("CSSlow", rs.getFloat(12));
-			data.put("CSSum", rs.getFloat(13));
+			if(rs.getFloat(11)<0||rs.getFloat(12)<0){
+				data.put("CSFast", "未知");
+				data.put("CSSlow", "未知");
+				data.put("CSSum", "未知");
+			}else{
+				data.put("CSFast", rs.getFloat(11));
+				data.put("CSSlow", rs.getFloat(12));
+				data.put("CSSum", rs.getFloat(13));
+			}
 			data.put("OperatorID",rs.getString(14));
 			data.put("CSIsOrder",rs.getFloat(15));
 			data.put("ParkID",rs.getString(16));
@@ -156,7 +166,9 @@ public class dealCsQuery extends HttpServlet {
 			else data.put("CSPhone", "暂无信息");
 			if(rs.getString(24)!=null) data.put("CSNotes", rs.getString(24).trim());
 			else data.put("CSNotes", "暂无消息");
-			data.put("CSFeeDay", rs.getFloat(28));
+			
+			if(rs.getString(28)!=null) data.put("CSFeeDay", rs.getFloat(28));
+			else  data.put("CSFeeDay", "暂无数据");
 			//增加每个充电站的图标信息srcpic---ZW
 			int cspub=(int)(rs.getFloat(20));
 			int csstate=(int)(rs.getFloat(21));

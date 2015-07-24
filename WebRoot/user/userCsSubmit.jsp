@@ -76,7 +76,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!--下面是中部导航栏的代码-->
 <div class="nav-green nav-head" id="J_m_nav">
 	<div class="nav-content">
-		<div class="nav-btn"><a href="../index.html">首页</a></div>
+		<div class="nav-btn"><a href="../index.jsp">首页</a></div>
 		<div class="nav-btn"><a href="../searchCS.jsp">我要充电</a></div>
 		<div class="nav-btn"><a href="../inq_sta.jsp">充电站分布</a></div>
 		<div class="nav-btn active"><a href="../userInf.jsp">用户管理</a></div>
@@ -99,15 +99,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<h3>第二步：请填入充电站详细信息</h3>
 							<div class="submitInfo">
 								<table>
-								<tbody><tr><th>地址：</th><td><input name="CSAddr" maxlength="50" placeholder="请填入充电站地址"></td><td><a><i class="icon-map-marker icon-small btn pickPositon" style="float:left;border:1px solid #000">重新拾取</a></td></tr>
-									<tr><th>快充数量：</th><td><input  name="CSFast" maxlength="50" placeholder="请填入数字"/></td></tr>
-									<tr><th>慢充数量：</th><td><input  name="CSSlow" maxlength="50" placeholder="请填入数字"/></td></tr>
-									<tr><th>运营商：</th><td><select value="" name="OperatorID"><option>普天</option><option>国家电网</option><option>特斯拉</option><option>特锐德</option><option>富电科技</option><option>比亚迪</option><option>其他</option></select> </td></tr>
-									<tr><th>对外状态：</th><td><select value="" name="CSPub"><option>公用</option><option>专用</option><option>待核实</option></select></td></tr>
-									<tr><th>运营状态：</th><td><select value="" name="CSState"><option>运营中</option><option>未运营</option><option>待核实</option></select></td></tr>
-									<tr><th>停车费用：</th><td><input name="ParkFeeDay" maxlength="50" placeholder="请填入数字"/></td></tr>
-									<tr><th>电话:</th><td><input  name="CSPhone" maxlength="50" placeholder="请填入充电站联系电话"/></td></tr>
-									<tr><th>备注:</th><td><input  name="CSNotes" maxlength="50" placeholder="请填入其他充电站相关信息"/></td></tr>
+								<tbody><tr><th>地址：</th><td><input id="csname" name="CSAddr" maxlength="50" placeholder="请填入充电站地址"></td><td><a><i class="icon-map-marker icon-small btn pickPositon" style="float:left;border:1px solid #000">重新拾取</a></td></tr>
+									<tr style="display: none;"><th>lng：</th><td><input id="cslng" name="CSLng" maxlength="50"  /></td></tr>
+									<tr style="display: none;"><th>lat：</th><td><input id="cslat" name="CSLat" maxlength="50"  /></td></tr>
+									<tr><th>快充数量：</th><td><input id="csfast" name="CSFast" maxlength="50" placeholder="请填入数字"/></td></tr>
+									<tr><th>慢充数量：</th><td><input id="cslow" name="CSSlow" maxlength="50" placeholder="请填入数字"/></td></tr>
+									<tr><th>运营商：</th><td><select id="operator" value="" name="OperatorID"><option>普天</option><option>国家电网</option><option>特斯拉</option><option>特锐德</option><option>富电科技</option><option>比亚迪</option><option>其他</option></select> </td></tr>
+									<tr><th>对外状态：</th><td><select id="cspub" value="" name="CSPub"><option>公用</option><option>专用</option><option>待核实</option></select></td></tr>
+									<tr><th>运营状态：</th><td><select id="csstate" value="" name="CSState"><option>运营中</option><option>未运营</option><option>待核实</option></select></td></tr>
+									<tr><th>停车费用：</th><td><input id="parkfee" name="ParkFeeDay" maxlength="50" placeholder="请填入数字"/></td></tr>
+									<tr><th>电话:</th><td><input id="csphone" name="CSPhone" maxlength="50" placeholder="请填入充电站联系电话"/></td></tr>
+									<tr><th>备注:</th><td><input id="csnotes" name="CSNotes" maxlength="50" placeholder="请填入其他充电站相关信息"/></td></tr>
 									<tr><td></td><td><a class="btn btn-success btn-sm" id="csInfSubmit" style="width:200px">提交</a></td></tr>
 									</tbody>
 								</table>
@@ -135,8 +137,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    		geoc.getLocation(pt, function(rs){
 	    			var marker = new BMap.Marker(pt);
 	    			var addComp = rs.addressComponents;
+	    			var lng=pt.lng;
+	    			var lat=pt.lat;
+	    			//alert(""+lng+lat);
 	    			var addr = addComp.province +  addComp.city  + addComp.district  + addComp.street + addComp.streetNumber
 	    			$("[name='CSAddr']").val(addr);
+	    			$("#cslng").val(lng);
+	    			$("#cslat").val(lat);
 	    			var opts = {
 	    					  position : pt,    // 指定文本标注所在的地理位置
 	    					  offset   : new BMap.Size(-60, -50)    //设置文本偏移量
@@ -200,8 +207,45 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			  enableDragend(marker); 	
 		}
     	$("#csInfSubmit").click(function(){
-			alert("信息提交成功!  非常感谢您对本站的支持，工作人员稍后会审核您提交的信息，恭喜您获得50金币！")
-		})
+			//alert("信息提交成功!  非常感谢您对本站的支持，工作人员稍后会审核您提交的信息，恭喜您获得50金币！")
+			//提交分享的地址
+			//csname,csfast,cslow,operator,cspub,csstate,parkfee,csphone,csnotes,act
+			USERCheck.checkOldOrder(function(isok,error){ 
+				if(isok){ 
+					var csname=$("#csname").val();
+					var cslng=$("#cslng").val();
+					var cslat=$("#cslat").val();
+					var csfast=$("#csfast").val();
+					var cslow=$("#csfast").val();
+					var operator=$("#operator").find("option:selected").text();
+					var cspub=$("#cspub").find("option:selected").text();
+					var csstate=$("#csstate").find("option:selected").text();
+					var parkfee=$("#parkfee").val();
+					var csphone=$("#parkfee").val();
+					var csnotes=$("#csnotes").val();
+					var act="csshare";
+		            var AjaxURL=window.MAINURL+"dealMessage?csname="+csname+"&cslng="+cslng+"&cslat="+cslat+"&csfast="+csfast+"&cslow="+cslow+"&operator="+operator
+		            +"&cspub="+cspub+"&csstate="+csstate+"&parkfee="+parkfee+"&csphone="+csphone+"&csnotes="+csnotes+"&act="+act;
+		            //alert(AjaxURL);
+		            $.ajax({
+		                        type: "GET",
+		                        dataType: "html",
+		                        url: AjaxURL,
+		                       // data: {VehData:JSON.stringify(VehData)},
+		                        success: function (data) {
+		                                data = JSON.parse(data);//存放推荐充电站的数组
+		                                alert("分享地址成功");
+		                        },
+		                        error: function(data) {
+		                            alert("error!");
+		                         }
+		                    }); 
+				}else{ 
+					alert("false");
+				}
+
+			},window.MAINURL);
+		});
 		
 		
 		$(".stopPick").click(function(){
@@ -212,6 +256,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			e.preventDefault()
 			$(this).tab('show')
 		})
+		
 		
 	</script>
 </body>
