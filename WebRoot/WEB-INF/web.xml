@@ -134,7 +134,7 @@
   </servlet-mapping>
 
 
-<!-- <listener>
+ <listener>
   <listener-class>myListener.MyContextListener</listener-class>
 </listener>
 
@@ -144,7 +144,7 @@
 
 <listener>
   <listener-class>myListener.MySessionListener</listener-class>
-</listener> -->
+</listener> 
 
  
 </web-app>
