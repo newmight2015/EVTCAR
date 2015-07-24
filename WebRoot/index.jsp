@@ -118,7 +118,7 @@ body{
 			</div>
 		</div>
 	</div>
-	
+	<br><br><br><br><br>
 <%@include file="footer.jsp" %>
 
 <!--下面是左侧导航栏的代码-->

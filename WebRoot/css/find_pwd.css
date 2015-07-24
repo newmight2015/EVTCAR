@@ -1,0 +1,70 @@
+/* reset */
+html { font-size: 12px; color: #404040; font-family: 宋体; }
+body, button, ul, li, p, dl, dd, h1, h2, h3, h4, h5, h6, img, iframe, input, form, textarea, td, tr, table { margin: 0; padding: 0; list-style-type: none; border: 0; }
+#bd, #hd, #nav .link { width: 1004px; margin: 0 auto; }
+ul:after, .abox:after, li:after, .tab a:after { content: "."; height: 0; display: block; clear: both; visibility: hidden; }
+ul, .abox, li, .tab a { zoom: 1; }
+.fr { float: right; _display: inline; }
+a { color: #1a66b3; text-decoration: none; }
+a:hover { text-decoration: underline; }
+.clearfix:after { clear: both; content: " "; display: block; font-size: 0; height: 0; visibility: hidden; }
+.clearfix { zoom: 1; }
+
+.find_wrap { margin: 30px auto 0; width: 960px; }
+.find_wrap .ws2 {word-spacing:2px;}
+.find_wrap .ws23 {word-spacing:23px;}
+.find_wrap .e9 {color:#878787;*display:inline-block;*line-height:25px;}
+.find_wrap .title { background: url(../images/bg_findmsg.png) repeat-x 0 0; border: 1px solid; border-color: #e9e9e9 #e9e9e9 #eaeaea; color: #878787; display: block; height: 38px; line-height: 40px; overflow: hidden; }
+.find_wrap .title .bold { color: #343434; display: block; float: left; font: 18px Microsoft Yahei,宋体; margin: 6px 17px 0;_margin-top:10px;_display:inline; }
+.find_wrap .title .fr { margin-right: 17px; }
+.find_wrap .content { border:1px solid #dcdddd; border-width: 0 1px 1px 1px; padding-top: 37px;width:958px;background-color:#fff;}
+.register_box .content .progress { background: url(../pic/progress_bar.png) no-repeat; display: block; height: 32px;margin-left:141px; width: 656px; }
+.register_box .content .p_1 { background-position: 0 0; }
+.register_box .content .p_2 { background-position: 0 -33px; }
+.register_box .content .p_3 { background-position: 0 -66px; }
+.find_wrap .content form { color: #404040; margin: 57px 0 0 141px; }
+.find_wrap form div { margin-bottom: 23px;}
+.find_wrap form .line {height:25px;line-height:25px;overflow:hidden;width:100%;}
+.find_wrap form .line label {vertical-align:top;*position:relative;*top:-1px;}
+.find_wrap form .text { height: 23px; line-height: 23px; border: 1px solid #7f9db9;font-size:14px; padding-left: 5px; width: 173px;outline:none;}
+.find_wrap form .tit { display: inline-block; width: 123px; text-align: right; font: 14px Microsoft Yahei,宋体;margin-right:14px; }
+.find_wrap form .s_tit {*position:relative;*top:-3px;}
+.find_wrap form label { margin-right: 6px;}
+.find_wrap form img { vertical-align: middle; margin-right: 6px; border:1px solid #E2E2E2;height:50px;width:178px;}
+.find_wrap form label {vertical-align:middle;display:inline-block;height:25px;width:317px;}
+.register_box table .butn {background:url(../pic/bg_findmsg.png) no-repeat;cursor:pointer;display:inline-block;height:36px;margin:7px 0 31px ;overflow:hidden;width:146px;}
+.register_box table .btn_next {background-position:0 -40px;}
+.register_box table .btn_tj {background-position:0 -120px;}
+.register_box table .btn_loginnow {background-position:0 -200px;margin:0 4px 0 6px;vertical-align:middle;}
+.register_box table a.btn_loginnow:hover {background-position:0 -240px;}
+.find_wrap .infor {font:14px Arial;margin-right:20px;}
+.find_wrap .ft {border-top:1px solid #e9e9e9;color:#878787;padding:11px 0 15px 30px;}
+.find_wrap .ft h4 {color:#636363;font: 14px Microsoft Yahei,宋体;margin-bottom:7px;}
+.find_wrap .icon {background:url(../images/bg_findmsg.png) no-repeat;display:block;float:left;}
+.register_box .success {font:20px Microsoft Yahei,宋体;height:52px;margin:55px 0 50px 307px;_line-height:32px; }
+.find_wrap .i_success {background-position:-40px -280px;height:52px;margin-right:25px;width:32px;}
+.register_box .todo {color:#878787;margin:25px 0 56px 324px;}
+.find_wrap .get_yzm {background:url(../images/bg_getyzm.png) repeat-x;border:1px solid #c3c3c3;border-radius:3px;color:#666; display:inline-block;height:19px;line-height:19px;padding:0 7px;margin-right:7px;}
+.find_wrap .gray { color:#9e9e9e;}
+.find_wrap a.get_yzm:hover {color:#1a66b3;text-decoration:none;}
+.find_wrap .sent {color:#878787;margin-right:7px;}
+.find_wrap form .wrong {border-color:#ff3939;}
+.find_wrap .wrong_box {background-color:#fef2f2;border:1px solid #ffb8b8;color:#f40000; display:inline-block;height:23px;line-height:23px;padding:0 6px;_padding-top:3px;_height:20px;}
+.find_wrap .ml6 {margin-left:-6px;}
+.find_wrap .wrong_box i {background:url(../images/bg_findmsg.png) no-repeat 0 -280px;display:inline-block;height:17px;margin-right:5px;vertical-align:middle;width:17px;position:relative;top:-1px;top:-1px\0;*top:0;_top:-2px; }
+.find_wrap .msg_level {display:inline-block;margin:0 15px 0 -7px;overflow:hidden;width:130px;vertical-align:middle;*display:inline;position:relative;top:-1px;}
+.find_wrap .msg_level span {background-color:#b9b9b9;color:#fff; display:inline-block;height:13px;line-height:13px;margin-left:1px;text-align:center;width:42px;_height:12px;_padding-top:1px;_overflow:hidden; }
+.find_wrap .msg_level .s1 {background-color:#ffc6a0;}
+.find_wrap .msg_level .s2 {background-color:#ffa568;}
+.find_wrap .msg_level .s3 {background-color:#ff8e42;}
+.find_wrap .tip_yes {background:url(../images/bg_findmsg.png) no-repeat -20px -280px;display:inline-block;height:16px;vertical-align:middle;margin-top:4px;width:16px;*margin-top:4px;}
+
+/*登录和忘记密码输入框新增用户提示框（输入的手机号可能是昵称也可能是手机号时出现）*/
+.find_wrap form .winerror{ position:relative; overflow:visible;z-index:10000;}
+.find_wrap .winerror .error{position:absolute;display:block;width:180px;height:53px;background:url(https://login.dangdang.com/style/../images/winlogin_sprites.png) no-repeat -230px -106px;padding:13px 0 0 0;color:#404040;overflow:hidden;left:137px;top:21px;}
+.find_wrap .winerror .error input{border:none;float:left;width:auto;height:auto;padding:0;margin:-4px 3px 0 11px;*margin:-7px -1px 3px 6px;_display:inline;}
+.find_wrap .winerror .error b{display:block;padding:0 0 6px 11px;}
+.find_wrap .winerror .error span{float:left;margin-top: -8px;}
+.find_wrap .winerror .error span.error_name{margin-right:33px;}
+.find_wrap .winlogin_replacetype01 {display: inline-block;margin-left: 20px; padding:4px 0 0 18px;background:url(../images/winlogin_sprites.png) no-repeat -226px -174px;}
+.find_wrap .winlogin_replacetype02 {display: inline-block;;margin-left: 20px;padding:4px 0 0 18px;background:url(../images/winlogin_sprites.png) no-repeat -226px -174px; background-position:-341px -175px;}

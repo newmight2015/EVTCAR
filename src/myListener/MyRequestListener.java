@@ -5,6 +5,8 @@ import javax.servlet.ServletRequestListener;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import myBean.ApplicationConstants;
+
 public class MyRequestListener implements ServletRequestListener {
 
 	@Override
@@ -18,12 +20,15 @@ public class MyRequestListener implements ServletRequestListener {
 		// TODO Auto-generated method stub
 		HttpServletRequest request = (HttpServletRequest)event.getServletRequest();
 		HttpSession session = request.getSession(true);
-		session.setAttribute("ip", request.getRemoteAddr());//¼ÇÂ¼IPµØÖ·
+		session.setAttribute("ip", request.getRemoteAddr());//ï¿½ï¿½Â¼IPï¿½ï¿½Ö·
 		String uri = request.getRequestURI();
-		String[] suffix={".html",".jsp",".do"};
-		//Ö¸¶¨ºó×º
+		String[] suffix={".html",".jsp",".do",".apk"};
+		//Ö¸ï¿½ï¿½ï¿½ï¿½×º
 		for(int i=0;i<suffix.length;i++){
 			if(uri.endsWith(suffix[i])){
+				if(i==3){
+					ApplicationConstants.TOTAL_APPDOWNLOAD_COUNT++;
+				}
 				break;
 			}
 			if(i==suffix.length-1){
@@ -34,7 +39,7 @@ public class MyRequestListener implements ServletRequestListener {
 		if(activeTimes==null){
 			activeTimes = 0;
 		}
-		session.setAttribute("activeTimes", activeTimes+1);//¸üÐÂ·ÃÎÊ´ÎÊý
+		session.setAttribute("activeTimes", activeTimes+1);//ï¿½ï¿½ï¿½Â·ï¿½ï¿½Ê´ï¿½ï¿½ï¿½
 	}
 
 }

@@ -52,7 +52,7 @@
 									<a href="userCsSubmit.jsp" class="btn">
 											<div class="img"><i class="fa fa-comments fa-3x"></i></div>充电站分享
 									</a>
-									<a href="" class="btn without-side">
+									<a href="../user/UserInfManage.jsp" class="btn without-side">
 											<div class="img"><i class="fa fa-info-circle fa-3x"></i></div>更新个人资料
 									</a>
 							</div>

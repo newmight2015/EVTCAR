@@ -1,25 +1,54 @@
 package myListener;
 
+import java.io.IOException;
+import java.text.DateFormat;
 import java.util.Date;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
 import myBean.ApplicationConstants;
+import myTools.fileUtil;
+import myTools.myTime;
 
 public class MyContextListener implements ServletContextListener {
 
 	@Override
 	public void contextDestroyed(ServletContextEvent arg0) {
-		// TODO ·şÎñÆ÷¹Ø±ÕÊ±µ÷ÓÃ
+		String path="c:/webdata/"+myTime.getTime("yyyyMMdd")+".txt";
+		fileUtil.NewFile(path);
+		StringBuffer temp = new StringBuffer();
+		temp.append("\r\n");
+		temp.append("\r\n");
+		temp.append("\r\n");
+		temp.append("//**************************åˆ†å‰²çº¿å¼€å§‹**********************************//");
+		temp.append("\r\n");
+		temp.append(myTime.getTime("yyyy-MM-dd HH:mm:ss"));
+		temp.append("\r\n");
+		temp.append(" 	æœåŠ¡å™¨å¯åŠ¨æ—¶é—´ï¼š");temp.append(DateFormat.getDateTimeInstance().format(ApplicationConstants.START_DATE));
+		temp.append("\r\n");
+		temp.append("	ç´¯è®¡å…±æ¥å¾…è¿‡:");temp.append(ApplicationConstants.TOTAL_HISTORY_COUNT);temp.append("ä½è®¿å®¢");
+		temp.append("\r\n");
+		temp.append("	APPä¸‹è½½æ€»æ•°:");temp.append(ApplicationConstants.TOTAL_APPDOWNLOAD_COUNT);
+		temp.append("\r\n");
+		temp.append("	æœ€é«˜åœ¨çº¿äººæ•°:");temp.append(ApplicationConstants.MAX_ONLINE_COUNT);temp.append("ã€‚å‘ç”Ÿåœ¨:");temp.append(ApplicationConstants.MAX_ONLINE_COUNT_DATE);
+		temp.append("\r\n");
+		temp.append("//**************************åˆ†å‰²çº¿ç»“æŸ**********************************//");
+		temp.append("\r\n");
+		try {
+			fileUtil.ForOPSWriter(temp.toString(), path);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		ApplicationConstants.START_DATE=null;
 		ApplicationConstants.MAX_ONLINE_COUNT_DATE=null;
 	}
 
 	@Override
 	public void contextInitialized(ServletContextEvent arg0) {
-		// TODO ·şÎñÆ÷Æô¶¯Ê±µ÷ÓÃ
-		ApplicationConstants.START_DATE=new Date();//¼ÇÂ¼·şÎñÆ÷Æô¶¯Ê±¼ä
+		// TODO ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½
+		ApplicationConstants.START_DATE=new Date();//ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
 	}
 
 }

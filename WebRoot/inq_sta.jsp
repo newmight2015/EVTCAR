@@ -91,7 +91,7 @@ body{
 				<input class="text" id="hid_real_city_name" name="real_index_city" style="display:none">
 				<!--热门城市下拉-->
 				<div class="pop search-citys-pop click" style="display:none;z-index:9999" id="cityarea">
-					<a href="javascript:void(0)" class="pop-close" ></a>
+					<a href="javascript:void(0)" id="pop-close" class="pop-close" ></a>
 					<div class="search-citys-tit click">热门城市(可直接输入中文名/拼音/三字码)</div>
 					<div class="search-citys-tt click">
 						<a class="current click" onClick="tabCutover(this,'s-citys1')" href="javascript:void(0)">热门<span></span></a>
@@ -119,7 +119,7 @@ body{
 				    change_city_val(cityName);
 				}
 				var myCity = new BMap.LocalCity();
-				myCity.get(myFun);   
+				myCity.get(myFun);
 				//创建一个LocalCity对象myCity，然后调用其get()方法，就得到了用户IP对应的城市。该城市结果会以参数形式传递给回调函数myFun。接下来就是myFun(结果城市result)来执行了----即上文红色代码。
 
 				function G(id) {
@@ -162,6 +162,10 @@ $(function(){
  });
  
 })
+//点击X选择城市框消失
+$("#pop-close").click(function (e) {
+	$("#cityarea").hide();
+});
 $(function() {
 	$('#city_name').autocomplete(cities, {
 	max: 12, //列表里的条目数
