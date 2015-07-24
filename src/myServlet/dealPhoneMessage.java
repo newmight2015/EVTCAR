@@ -862,12 +862,12 @@ public class dealPhoneMessage extends HttpServlet {
 		
 		String usId = request.getParameter("usId");
 		String content = request.getParameter("content");
-		String sql="update UserAdviceInf set USAdvice ='"+content+"' and USid='"+usId+"'";
-                
+		String sql= "INSERT INTO UserAdviceInf (USAdviceContent, USid , USAdviceStatue) VALUES (?,?,?)";
+		String pars[] = new String[]{content,usId,"1"};
 		JSONObject data = new JSONObject();
 		dbUtil db = new dbUtil();
         try {
-            db.update(sql);
+            db.update(sql,pars);
 				if(db.getResu()!=0){
 				    log.info(usId+":该用户提交了一条建议信息");
 					data.put("isSuccess", true);
