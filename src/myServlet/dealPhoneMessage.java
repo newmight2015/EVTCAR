@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -17,8 +18,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import myBean.messageAlert;
 import myBean.usInformation;
 import myBean.usOrder;
+import myTools.SDKSendSMS;
 import myTools.dataBase;
 import myTools.dbUtil;
 
@@ -65,16 +68,16 @@ public class dealPhoneMessage extends HttpServlet {
 		log.info("isLogin:"+isLogin);
 		if(isLogin){
 			try {
-				ms.append("isSuccess", true);
-				ms.append("message", "已经登录");
+				ms.put("isSuccess", true);
+				ms.put("message", "已经登录");
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}else {
 			try {
-				ms.append("isSuccess", false);
-				ms.append("message", "用户未登录");
+				ms.put("isSuccess", false);
+				ms.put("message", "用户未登录");
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -99,16 +102,16 @@ public class dealPhoneMessage extends HttpServlet {
 		if(usSessId != null){
 			ss.removeAttribute("usSessId");
 			try {
-				ms.append("isSuccess", true);
-				ms.append("message", "成功退出");
+				ms.put("isSuccess", true);
+				ms.put("message", "成功退出");
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}else {
 			try {
-				ms.append("isSuccess", false);
-				ms.append("message", "用户未登录，退出失败");
+				ms.put("isSuccess", false);
+				ms.put("message", "用户未登录，退出失败");
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -130,10 +133,10 @@ public class dealPhoneMessage extends HttpServlet {
 		HttpSession ss = request.getSession();
 		JSONObject ms = new JSONObject();
 		
-		String username = (String)request.getAttribute("username");
+		String username = request.getParameter("username");
 		//usInformation usInf = (usInformation)ss.getAttribute("usInf");
-		//String usSessId = (String) request.getAttribute("usSessId");
-		String sql ="SELECT * from UserMessageInf where MsgType = 'createOrd' and USid = ? and MsgState= ?";
+		//String MsgType = (String) request.getAttribute("MsgType");
+		String sql ="SELECT * from UserMessageInf where USid = ? and MsgState= ?";
 		String pras[] = new String[]{username,String.valueOf(MsgState)};
 		dbUtil db = new dbUtil();
 		ResultSet rs = db.query(sql, pras);
@@ -143,6 +146,7 @@ public class dealPhoneMessage extends HttpServlet {
 				JSONObject data = new JSONObject();
 				try {
 					data.put("msgid", rs.getString(1));
+					data.put("msgType", rs.getString(2));
 					data.put("msgCreatTime",rs.getString(4));
 					data.put("msgValue", rs.getString(3));
 				} catch (JSONException e) {
@@ -169,34 +173,34 @@ public class dealPhoneMessage extends HttpServlet {
 	
 	private static void csCorrect(HttpServletRequest request, HttpServletResponse response)throws IOException{
 		
-		
+		response.setContentType("json");
 		PrintWriter out = response.getWriter();
 		HttpSession ss = request.getSession();
 		JSONObject ms = new JSONObject();
 		
-		String username = (String)request.getAttribute("username");
+		String username = new String(request.getParameter("username"));
 		//usInformation usInf = (usInformation)ss.getAttribute("usInf");
 		//String usSessId = (String) request.getAttribute("usSessId");
-		
+		log.info("用户名："+username);
 		
 		String  CSId,CSName,CSAddr,CSDate,CSMode,CSFast,CSlow,Operator,ParkFee,CSPub,CSState,CSPhone,CSNotes;
 		//System.out.println("进入dealCorrect");
 		
-		CSId=new String( request.getParameter("changedata0"));		
-		CSName=new String( request.getParameter("changedata1"));
-		CSAddr=new String( request.getParameter("changedata2"));
-		CSDate=new String( request.getParameter("changedata3"));
-		CSMode=new String( request.getParameter("changedata4"));
-		CSFast=new String( request.getParameter("changedata5"));
-		CSlow=new String( request.getParameter("changedata6"));
-		Operator=new String( request.getParameter("changedata7"));
-		ParkFee=new String( request.getParameter("changedata8"));
-		CSPub=new String( request.getParameter("changedata9"));
-		CSState=new String( request.getParameter("changedata10"));
-		CSPhone=new String( request.getParameter("changedata11"));
-		CSNotes=new String( request.getParameter("changedata12"));
+		CSId=new String( request.getParameter("CSId"));		
+		CSName=new String( request.getParameter("CSName"));
+		CSAddr=new String( request.getParameter("CSAddr"));
+		CSDate=new String( request.getParameter("CSDate"));
+		CSMode=new String( request.getParameter("CSMode"));
+		CSFast=new String( request.getParameter("CSFast"));
+		CSlow=new String( request.getParameter("CSlow"));
+		Operator=new String( request.getParameter("Operator"));
+		ParkFee=new String( request.getParameter("ParkFee"));
+		CSPub=new String( request.getParameter("CSPub"));
+		CSState=new String( request.getParameter("CSState"));
+		CSPhone=new String( request.getParameter("CSPhone"));
+		CSNotes=new String( request.getParameter("CSNotes"));
 		//String usId = new String( request.getParameter("username"));
-		//System.out.println(CSId+CSName+CSAddr+CSDate+CSMode+CSFast+CSlow+Operator+ParkFee+CSPub+CSState+CSPhone+CSNotes);
+		System.out.println(CSId+CSName+CSAddr+CSDate+CSMode+CSFast+CSlow+Operator+ParkFee+CSPub+CSState+CSPhone+CSNotes);
 		boolean isError = false;
 		String sql="insert into CS_correction(CSID,CSName,CSAddr,CSDate,CSMode,CSFast,CSlow,Operator,ParkFee,CSPub,CSState,CSPhone,CSNotes,USID) "
 				+ "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -208,13 +212,14 @@ public class dealPhoneMessage extends HttpServlet {
 		       if(db.getResu()!=0)  
 		       {
 		    	   // System.out.println("提交信息成功");
-				    ms.append("isSuccess", true);
-					ms.append("message", "提交信息成功");
+		    	    new messageAlert("creatcor","您对"+CSName+"的纠错正在审核中，感谢您对本站的支持",username).SaveMsg();
+				    ms.put("isSuccess", true);
+					ms.put("message", "提交信息成功");
 					isError = false;
 					//request.setAttribute("message", "true");
 		       }else{
-				    ms.append("isSuccess", false);
-					ms.append("message", "提交信息失败");
+				    ms.put("isSuccess", false);
+					ms.put("message", "提交信息失败");
 					isError = true;
 					//request.setAttribute("message", "false");
 		       }
@@ -224,7 +229,7 @@ public class dealPhoneMessage extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		out.println(ms.toString());
+		out.println(ms);
 		out.flush();
 		out.close();
 	}
@@ -302,16 +307,17 @@ public class dealPhoneMessage extends HttpServlet {
 		       if(db.getResu()!=0)  
 		       {
 		    	   // System.out.println("提交信息成功");
-		    	   log.info("提交信息成功");
-				    ms.append("isSuccess", true);
-					ms.append("message", "提交信息成功");
+		    	    new messageAlert("creatcom","您提交了一条"+Star+"星评论，评论内容为："+Content+"————感谢您对本站的支持!",USId).SaveMsg();
+		    	    log.info("提交信息成功");
+				    ms.put("isSuccess", true);
+					ms.put("message", "提交评价信息成功");
 					//request.setAttribute("message", "true");
 		       }else{
 					//request.setAttribute("message", "false");
 		    	   // System.out.println("提交信息失败");
 		    	   log.info("提交信息失败");
-		    	   ms.append("isSuccess", false);
-		    	   ms.append("message", "提交信息失败");
+		    	   ms.put("isSuccess", false);
+		    	   ms.put("message", "提交评价信息失败");
 		       } 
 		       db.closeAll();
 			}catch (JSONException e) {
@@ -344,9 +350,9 @@ public class dealPhoneMessage extends HttpServlet {
 		Connection con =db.getConnection();
 		String condition ;
 		if(cityname.equals("全国")){ 
-			condition ="Select * from CS_BasicInformation ";
+			condition ="Select * from CS_BasicInformation cs,CS_ParkOperatorInformation cp where cs.CSID = cp.CSID";
 		}
-		else condition ="Select * from CS_BasicInformation where CSCity LIKE '"+cityname+"%'";
+		else condition ="Select * from CS_BasicInformation cs,CS_ParkOperatorInformation cp where cs.CSID = cp.CSID and cs.CSCity LIKE '"+cityname+"%'";
 		PreparedStatement sql;
 		try {
 		sql = con.prepareStatement(condition);
@@ -358,7 +364,9 @@ public class dealPhoneMessage extends HttpServlet {
 			data.put("CSAddr", rs.getString(3).trim());
 			data.put("CSProvince", rs.getString(4).trim());
 			data.put("CSCity", rs.getString(5).trim());
-			data.put("CSArea", rs.getString(6).trim());
+			if(rs.getString(6)!=null) 
+				 data.put("CSArea", rs.getString(6).trim());
+			else data.put("CSArea","");
 			data.put("Datetime",rs.getDate(7));
 			data.put("CSLatiValue", rs.getFloat(8));
 			data.put("CSLongValue", rs.getFloat(9));
@@ -387,6 +395,8 @@ public class dealPhoneMessage extends HttpServlet {
 			if(rs.getString(24)!=null) data.put("CSNotes", rs.getString(24).trim());
 			else data.put("CSNotes", "暂无消息");
 		//	data.put("CSFeeDay", rs.getFloat(24));
+			if(rs.getFloat(28)!=-1) data.put("CSFeeDay", rs.getFloat(28));
+			else  data.put("CSFeeDay", "暂无数据");
 			csInf.put(data);
 		}
 		db.close(rs, sql, con);
@@ -413,28 +423,28 @@ public class dealPhoneMessage extends HttpServlet {
 	 */
 	private static void checkAPPUpdate(HttpServletRequest request, HttpServletResponse response)throws IOException{
 		
-		
+		response.setContentType("json");
 		PrintWriter out = response.getWriter();
 		JSONObject ms = new JSONObject();
 		String appNowVision = request.getParameter("version");
 		if(!appNowVision.equals(appVersion)){
 			 try {
 			    	    log.info("app版本不一致，需要更新。版本号："+appNowVision);
-					    ms.append("isSuccess", true);
-						ms.append("message", "http://test.ezchong.com/app/EVTCAR.apk");//APP下载地址
+					    ms.put("isSuccess", true);
+						ms.put("message", "http://www.ezchong.com/download/ezchong.apk");//APP下载地址
 				}catch (JSONException e) {
 					e.printStackTrace();
 				}
 		}else {
 			try {
 	    	    log.info("app版本不需要更新。版本号："+appNowVision);
-			    ms.append("isSuccess", false);
-				ms.append("message", "版本一致");//APP下载地址
+			    ms.put("isSuccess", false);
+				ms.put("message", "版本一致");//APP下载地址
 			}catch (JSONException e) {
 				e.printStackTrace();
 			}
 		}
-
+		 //log.info(ms.toString());
 		 out.println(ms);
 		 out.flush();
 		 out.close();
@@ -452,13 +462,12 @@ public class dealPhoneMessage extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		
 		String UsId= request.getParameter("username");
-		String CSId=new String( request.getParameter("msgid"));
-		response.setContentType("text/html");
+		String msgid=new String( request.getParameter("msgid"));
 		JSONArray Msg = new JSONArray();
 		dataBase db=new dataBase();
 		Connection con =db.getConnection();
 		String sql;
-		sql="update UserMessageInf set MsgState='"+MsgState+"' where USid='"+UsId+"' and id='"+CSId+"'";
+		sql="update UserMessageInf set MsgState='"+MsgState+"' where USid='"+UsId+"' and id='"+msgid+"'";
 		PreparedStatement ps;
 		try {
 			//System.out.println(sql);
@@ -466,8 +475,16 @@ public class dealPhoneMessage extends HttpServlet {
 			int rs = ps.executeUpdate();
 			if(rs!=0) {
 				JSONObject data = new JSONObject();
-				data.put("isSucess", "true");
+				data.put("isSuccess", "true");
+				data.put("message", "删除信息成功：msgid="+msgid);
 				Msg.put(data);
+				log.info("删除信息成功：msgid="+msgid);
+			}else{ 
+				JSONObject data = new JSONObject();
+				data.put("isSuccess", "false");
+				data.put("message", "删除信息失败");
+				Msg.put(data);
+				log.info("删除信息失败");
 			}
 			//rs.close();
 			
@@ -555,22 +572,22 @@ public class dealPhoneMessage extends HttpServlet {
 		String ccode = (String)request.getParameter("code");
 		if(code.equals(ccode)){
 			try {
-				ms.append("isSuccess", true);
-				ms.append("message", "success");
+				ms.put("isSuccess", true);
+				ms.put("message", "success");
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}else{
 			try {
-				ms.append("isSuccess", false);
-				ms.append("message", "fail");
+				ms.put("isSuccess", false);
+				ms.put("message", "fail");
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		out.println(ms.toString());
+		out.println(ms);
 		out.flush();
 		out.close();
 	}
@@ -593,8 +610,8 @@ public class dealPhoneMessage extends HttpServlet {
 		  if(java.sql.Date.valueOf(dateBegin).after(java.sql.Date.valueOf(dateStop))){ 
 		   
 			  try {
-				ms.append("isSuccess", false);
-				ms.append("message", "充电结束时间小于预约时间 ,请重新输入");
+				ms.put("isSuccess", false);
+				ms.put("message", "充电结束时间小于预约时间 ,请重新输入");
 				isError = true;
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
@@ -611,8 +628,8 @@ public class dealPhoneMessage extends HttpServlet {
 		  if(java.sql.Date.valueOf(dateBegin).equals(java.sql.Date.valueOf(dateStop))){  //��ʼ���ڵ��ڽ������� 
 			   if(java.sql.Time.valueOf(timeBegin.toString()).equals(java.sql.Time.valueOf(timeStop.toString()))){ //����ʱ����ͬ
 				   try {
-					ms.append("isSuccess", false);
-					ms.append("message", "两次输入时间相等，请重新输入");
+					ms.put("isSuccess", false);
+					ms.put("message", "两次输入时间相等，请重新输入");
 					isError = true;
 					} catch (JSONException e) {
 						// TODO Auto-generated catch block
@@ -621,8 +638,8 @@ public class dealPhoneMessage extends HttpServlet {
 			   }
 			   else if(java.sql.Time.valueOf(timeBegin.toString()).after(java.sql.Time.valueOf(timeStop.toString()))){
 				   try {
-						ms.append("isSuccess", false);
-						ms.append("message", "充电结束时间小于预约时间 ,请重新输入");
+						ms.put("isSuccess", false);
+						ms.put("message", "充电结束时间小于预约时间 ,请重新输入");
 						isError = true;
 						} catch (JSONException e) {
 							// TODO Auto-generated catch block
@@ -646,12 +663,12 @@ public class dealPhoneMessage extends HttpServlet {
 			  if(usord.saveOrder())
 				  {
 				  	usord.saveMsg();//保存订单信息
-				    ms.append("isSuccess", true);
-					ms.append("message", "订单生成成功");
+				    ms.put("isSuccess", true);
+					ms.put("message", "订单生成成功");
 					isError = false;
 			  }else{
-				    ms.append("isSuccess", false);
-					ms.append("message", "订单生成失败");
+				    ms.put("isSuccess", false);
+					ms.put("message", "订单生成失败");
 					isError = true;
 			  };
 			//  dbEntity db = new dbEntity();
@@ -712,13 +729,171 @@ public class dealPhoneMessage extends HttpServlet {
 		out.flush();
 		out.close();
 	}
+	
+	/**
+	 * 充电站分享
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 */
+	private static void userCsSubmit(HttpServletRequest request, HttpServletResponse response)throws IOException{
+		PrintWriter out = response.getWriter();
+		String UsId= request.getParameter("username");
+		String csname,csfast,cslow,operator,cspub,csstate,parkfee,csphone,csnotes,cslng,cslat;
+		csname=new String( request.getParameter("CSAddr"));
+		cslng=new String( request.getParameter("lng"));
+		cslat=new String( request.getParameter("lat"));
+		csfast=new String( request.getParameter("CSFast"));
+		cslow=new String( request.getParameter("CSSlow"));
+		operator=new String( request.getParameter("Operator"));
+		cspub=new String( request.getParameter("CSPub"));
+		csstate=new String( request.getParameter("CSState"));
+		parkfee=new String( request.getParameter("ParkFeeDay"));
+		csphone=new String( request.getParameter("CSPhone"));
+		csnotes=new String( request.getParameter("CSNotes"));
+		JSONArray Msg = new JSONArray();
+		dbUtil db = new dbUtil();
+		String sql="insert into CS_Share(SCSName,SCSLat,SCSLng,SCSFast,SCSLow,SOperator,SCSPub,SCSState,SParkFee,SCSPhone,SCSNotes,USId) "
+				+ "values (?,?,?,?,?,?,?,?,?,?,?,?)";
+		String pras[] = new String[]{csname,cslat,cslng,csfast,cslow,operator,cspub,csstate,parkfee,csphone,csnotes,UsId};
+		db.update(sql, pras);
+		try {
+		       if(db.getResu()!=0)  
+		       {
+		    	    log.info("分享信息提交成功");
+		    	    new messageAlert("creatsha","您分享了一条位于"+csname+"的充电站，工作人员会尽快审核信息，感谢您对本站的支持",UsId).SaveMsg();
+		    	    JSONObject data = new JSONObject();
+					data.put("isSuccess", "true");
+					data.put("message", "提交信息成功");
+					Msg.put(data);
+		       }else{
+		    	    log.info("分享信息提交失败");
+		    	   	JSONObject data = new JSONObject();
+				    data.put("isSuccess", "false");
+					data.put("message", "提交信息失败");
+					Msg.put(data);
+		       }    		  
+	           //con.close();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//System.out.println(Msg);
+		out.println(Msg);
+		out.flush();
+		out.close();
+	}
+	/**
+	 * 发送手机验证码
+	 * @param request phone;
+	 * @param response
+	 * @throws IOException
+	 */
+	private void sendSMS(HttpServletRequest request, HttpServletResponse response)throws IOException{
+		PrintWriter out = response.getWriter();
+		response.setContentType("json");
+		
+		Random rd = new Random();
+        int result =rd.nextInt(899999)+100000;
+        log.info("生成随机验证码："+result);
+        HttpSession ss = request.getSession();
+		ss.setAttribute("vcode", result);
+		
+		String Phone = request.getParameter("phone").trim();
+		SDKSendSMS.sendSMS(Phone, String.valueOf(result));
+        JSONObject data = new JSONObject();
+        try {
+		    	    log.info("验证码发送成功");
+					data.put("isSuccess", true);
+					data.put("message", result);
+	           //con.close();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        out.println(data);
+		out.flush();
+		out.close();
+	}
+	
+	private void checkIsReg(HttpServletRequest request, HttpServletResponse response)throws IOException{
+		PrintWriter out = response.getWriter();
+		response.setContentType("json");
+		
+		String usId = request.getParameter("usId");
+		String checkCondition = "Select USid,USPhoneNum from UserPerInf where USid = '"+ usId +"'";     
+                
+		JSONObject data = new JSONObject();
+		dbUtil db = new dbUtil();
+        try {
+            db.query(checkCondition);
+				if(!db.getRS().next()){
+				    log.info(usId+":用户名可以使用");
+					data.put("isSuccess", true);
+					data.put("message", "该用户名可注册");
+				}else{
+					log.info(usId+":用户名不可使用");
+					data.put("isSuccess", false);
+					data.put("message", "该用户名已被注册");
+					data.put("phoneNum", db.getRS().getString(2));
+				}
+			}catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally{
+				db.closeAll();
+			}
+        out.println(data);
+		out.flush();
+		out.close();
+	}
+	/**
+	 * 用户提交建议信息
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 */
+	private void userAdviceSub(HttpServletRequest request, HttpServletResponse response)throws IOException{
+		PrintWriter out = response.getWriter();
+		response.setContentType("json");
+		
+		String usId = request.getParameter("usId");
+		String content = request.getParameter("content");
+		String sql="update UserAdviceInf set USAdvice ='"+content+"' and USid='"+usId+"'";
+                
+		JSONObject data = new JSONObject();
+		dbUtil db = new dbUtil();
+        try {
+            db.update(sql);
+				if(db.getResu()!=0){
+				    log.info(usId+":该用户提交了一条建议信息");
+					data.put("isSuccess", true);
+					data.put("message", "提交建议信息成功");
+				}else{
+					log.info(usId+":该用户提交建议时发生了错误");
+					data.put("isSuccess", false);
+					data.put("message", "提交建议信息失败");
+				}
+			}catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally{
+				db.closeAll();
+			}
+        out.println(data);
+		out.flush();
+		out.close();
+	}
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		PrintWriter out = response.getWriter();
-		String act = request.getParameter("act");
+		String act = request.getParameter("act").trim();
 		JSONObject ms = new JSONObject();
 
 		HttpSession ss = request.getSession();
@@ -727,25 +902,31 @@ public class dealPhoneMessage extends HttpServlet {
 		log.info("---------act:______"+act);
 		
 		switch(act){
-			case "checkLogin"	: this.checkLogin(request, response);//检测登录
-			case "userLogout"	: this.userLogout(request, response);//用户退出登录
-			case "csCorrect" 	: this.csCorrect(request, response); //纠错
-			case "checkMsg"	 	: this.checkMsg(request, response, 1);//查询最新消息
-			case "checkOldMsg"	: this.checkMsg(request, response, 2);//查询历史消息
-			case "commentinfo"	: this.checkCommentinfo(request, response);//查询评价信息
-			case "comment"		: this.comment(request, response);//提交评价信息
-			case "searchCityCS" : this.searchCityCS(request, response);// 查询全国充电站信息
-			case "checkAPPUpdate":this.checkAPPUpdate(request, response);//app版本检测
+			case "userAdviceSub": this.userAdviceSub(request, response);break;//手机用户提交建议信息
+			case "sendSMS"		: this.sendSMS(request, response);break;//生成手机验证码
+			case "checkIsReg"	: this.checkIsReg(request, response);break;//检验是否注册
+			case "checkLogin"	: this.checkLogin(request, response);break;//检测登录
+			case "userLogout"	: this.userLogout(request, response);break;//用户退出登录
+			case "csCorrect" 	: this.csCorrect(request, response); break;//纠错
+			case "checkMsg"	 	: this.checkMsg(request, response, 1);break;//查询最新消息
+			case "checkOldMsg"	: this.checkMsg(request, response, 2);break;//查询历史消息
+			case "commentinfo"	: this.checkCommentinfo(request, response);break;//查询评价信息
+			case "comment"		: this.comment(request, response);break;//提交评价信息
+			case "searchCityCS" : this.searchCityCS(request, response);break;// 查询全国充电站信息
+			case "checkAPPUpdate":this.checkAPPUpdate(request, response);break;//app版本检测
 		
 			/****以下仍需修改***/
-			case "deleteMsg"	: this.deleteMsg(request, response, 2);//删除消息提醒的最新消息，放入历史消息中
-			case "deleteOldMsg"	: this.deleteMsg(request, response,3);//删除消息提醒的最新消息，放入历史消息中
-			case "analysiscminfo":this.analysiscminfo(request, response);//统计评星信息
-			case "checkCode"	: this.checkCode(request, response);//统计评星信息
-			case "produceOrder" : this.produceOrder(request, response);//生产订单信息
-			case "checkNewOrder" : this.checkOrder(request, response,1);//查询最新订单信息
-			case "checkOldOrder" : this.checkOrder(request, response,2);//查询历史订单信息
-			default : break;
+			case "deleteMsg"	: this.deleteMsg(request, response, 2);break;//删除消息提醒的最新消息，放入历史消息中
+			case "deleteOldMsg"	: this.deleteMsg(request, response,3);break;//删除消息提醒的最新消息，放入历史消息中
+			case "analysiscminfo":this.analysiscminfo(request, response);break;//统计评星信息
+			case "checkCode"	: this.checkCode(request, response);break;//检验验证码
+			case "produceOrder" : this.produceOrder(request, response);break;//生产订单信息
+			case "checkNewOrder": this.checkOrder(request, response,1);break;//查询最新订单信息
+			case "checkOldOrder": this.checkOrder(request, response,2);break;//查询历史订单信息
+			case "userCsSubmit" : this.userCsSubmit(request, response);break;//分享充电站信息
+			default :  
+				log.error("暂无此功能:"+act);
+				break;
 		}
 	}
 	/**

@@ -294,7 +294,7 @@ body {
 		<li class="search-input clearfix">
 			<dl>
 				<dt>您的位置：</dt>
-				<dd><input type="text" placeholder="请输入您的位置" id="suggestId"></dd>
+				<dd><input type="text" placeholder="请输入您的位置" id="suggestId"><input id="cityname" type="text" style="display:none;" ></dd>
 				<div class="search btn btn-default" id="search"><a href="#">查询</a></div>
 			</dl>
 		</li>
@@ -327,6 +327,17 @@ body {
 <script>
 $(document).ready(function(){
 	initalMap();
+	function myFun(result){
+	    var cityName = result.name;
+	    //alert(""+cityName);
+	    $("#cityname").val(cityName);
+	    map.setCenter(cityName);   //关于setCenter()可参考API文档---”传送门“
+	    map.setCurrentCity(cityName);          // 设置地图显示的城市 此项是必须设置的
+	    //alert(cityName);
+	    //change_city_val(cityName);
+	}
+	var myCity = new BMap.LocalCity();
+	myCity.get(myFun);  
 	productNum=0;
 	VehData = {};
 	tempPt=[];
@@ -339,11 +350,16 @@ $(function(){
 	$("[name='stop-date']").val(CurentDateTime(1));
 	$("[name='stop-time']").val(CurentTime());
 	//$("#csid").val(CsAllData[i].CSId);
-	$("#starcomment").raty();
+	$("#starcomment").raty({
+		  score: function() {
+			    return 5;//使显示的评星默认为5星；
+			  }
+			});
 	$(".commentbtn a").click(function(){ 
 		$(".commentcontent").show();
 	});
 	$("#starcomment").click(function(){
+		//confirm("评价");
 		var starsum=$('#starcomment').raty('getScore');
 		$("#starsum").val(starsum);
 		//alert(CsAllData[i].CSId);
@@ -366,6 +382,8 @@ function CurentDateTime(i)
 }
 //点击提交评价信息----张伟增加
 $("#makeComment").click(function(){
+	var r=confirm("是否确认提交评价！");
+	if(r==true){
 	USERCheck.isLogin(function(isok,error){
         if(isok != 'false'){
         	
@@ -492,7 +510,8 @@ $("#makeComment").click(function(){
             window.location.href = "login.jsp";
         }
     },window.MAINURL);
-});
+    }
+	});
 function CurentTime()
 { 
     var now = new Date();

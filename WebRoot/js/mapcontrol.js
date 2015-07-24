@@ -69,9 +69,9 @@ function showcsintro(i){
         else if(CsAllData[i].CSMode=='2') CSMode="慢充";
         else CSMode="快慢充";	
 
-        if(CsAllData[i].CSFeeDay==undefined) CSFeeDay = "未核实";
-        if(window.location.href =="http://localhost:8080/EVTcar/inq_sta.jsp"){ 
-        	$("#csintro .modal-body .info").html("<form id='change' name='changecsinf'  method='post' action='dealCorrect' ><table data-id='"+i+"'><tbody><tr style='display: none;'><th>ID：</th><td>"+CsAllData[i].CSId+
+        if(CsAllData[i].CSFeeDay=='-1') CSFeeDay = "未核实";
+        
+        $("#csintro .modal-body .info").html("<form id='change' name='changecsinf'  method='post' action='dealCorrect' ><table data-id='"+i+"'><tbody><tr style='display: none;'><th>ID：</th><td>"+CsAllData[i].CSId+
                 	"</td></tr><tr><th>名称：</th><td>"+CsAllData[i].CSName+
         			"</td></tr><tr><th>地址：</th><td>"+CsAllData[i].CSAddr+
         			"</td></tr><tr><th>充电桩建设日期：</th><td>"+CsAllData[i].Datetime+
@@ -86,23 +86,6 @@ function showcsintro(i){
         			"</td></tr><tr><th>备注:</th><td>"+CsAllData[i].CSNotes+
         			"</td></tr></tbody></table>"+
         			"<div style='float:right;font-size:14px;' id='subchange'>信息有误？<a class='btn btn-danger btn-sm' onclick='changeCsInf("+i+")'>>>>点我纠错</a><div></form></hr>");
-        }else{
-        	$("#csintro .modal-body .info").html("<form id='change' name='changecsinf'  method='post' action='dealCorrect' ><table data-id='"+i+"'><tbody><tr style='display: none;'><th>ID：</th><td>"+CsAllData[i].CSId+
-                	"</td></tr><tr><th>名称：</th><td>"+CsAllData[i].CSName+
-        			"</td></tr><tr><th>地址：</th><td>"+CsAllData[i].CSAddr+
-        			"</td></tr><tr><th>充电桩建设日期：</th><td>"+CsAllData[i].Datetime+
-        			"</td></tr><tr><th>充电模式：</th><td>"+CSMode+
-        			"</td></tr><tr><th>快充数量：</th><td>"+CsAllData[i].CSFast+
-        			"</td></tr><tr><th>慢充数量：</th><td>"+CsAllData[i].CSSlow+
-        			"</td></tr><tr><th>运营商：</th><td>"+Operator+
-        			"</td></tr><tr><th>停车费用：</th><td>"+CsAllData[i].CSFeeDay+"元/小时"+
-        			"</td></tr><tr><th>对外状态：</th><td>"+CSPub+
-        			"</td></tr><tr><th>运营状态：</th><td>"+CSState+
-        			"</td></tr><tr><th>电话:</th><td>"+CsAllData[i].CSPhone+
-        			"</td></tr><tr><th>备注:</th><td>"+CsAllData[i].CSNotes+
-        			"</td></tr></tbody></table>"+
-        			"<div style='float:right;font-size:14px;' id='subchange'>信息有误？<a class='btn btn-danger btn-sm' onclick='changeCsInf("+i+")'>>>>点我纠错</a><div></form></hr>");
-        }
         
             //查询充电站评价信息     
             var CSId=CsAllData[i].CSId;
@@ -223,97 +206,51 @@ function changeCsInf(i){
 
 //处理纠错信息的方法
 function dealCorrect(i){
-	
-	USERCheck.isLogin(function(isok,error){
-        if(isok != 'false'){
-        	//var id = $("#csorder table").data("id");
-        	var CSId=$("#changedata0").val();
-        	var CSName=$("#changedata1").val();
-        	var CSAddr=$("#changedata2").val();
-        	var CSDate=$("#changedata3").val();
-        	var CSMode=$("#changedata4").val();
-        	var CSFast=$("#changedata5").val();
-        	var CSlow=$("#changedata6").val();
-        	var Operator=$("#changedata7").val();
-        	var ParkFee=$("#changedata8").val();
-        	var CSPub=$("#changedata9").val();
-        	var CSState=$("#changedata10").val();
-        	var CSPhone=$("#changedata11").val();
-        	var CSNotes=$("#changedata12").val();
-        	var AjaxURL="dealCorrect?CSId="+CSId+"&CSName="+CSName+"&CSAddr="+CSAddr+"&CSDate="+CSDate+"&CSMode="+CSMode+"&CSFast="+CSFast+"&CSlow="+CSlow+"&Operator="+Operator+"&ParkFee="+ParkFee+"&CSPub="+CSPub+"&CSState="+CSState+"&CSPhone="+CSPhone+"&CSNotes="+CSNotes;
-        	//var url="localhost:8080/EVTcar2";
-        	$.ajax({
-                type: "POST",
-                dataType: "html",
-                url: AjaxURL,
-               // data: {VehData:JSON.stringify(VehData)},
-                success: function (data) {
-                	if(data.isSuccess=="false"){
-	            		alert("提交信息失败，请重新提交!");
-	            		//$("#csorder .errormsg").html(error);
-                	}else { 
-	            		alert("提交纠错信息成功!");
-	            		//$("#csorder .errormsg").html("您的预约请求已提交，请到用户管理中查看订单详情。");
-	            		//window.location.href = 'userInf.html';
-                	}
-                },
-                error: function(data) {
-                    alert("error:"+data.message);
-                 }
-            });
-//        	$.ajax({
-//                url:url+"/dealMessage",
-//                type:"POST",
-//                dataType:"json",
-//                data:{
-//                	act:'correctCsInf',
-//                	CSId:CSId,
-//                	CSName:CSName,
-//                	CSAddr:CSAddr,
-//                	CSDate:CSDate,
-//                	CSMode:CSMode,
-//                	CSFast:CSFast,
-//                	CSlow:CSlow,
-//                	Operator:Operator,
-//                	ParkFee:ParkFee,
-//                	CSPub:CSPub,
-//                	CSState:CSState,
-//                	CSPhone:CSPhone,
-//                	CSNotes:CSNotes,
-//                },
-//                success:function(data){
-//                	if(data.isSuccess=="false"){
-//	            		alert(""+data.message+"");
-//	            		//$("#csorder .errormsg").html(error);
-//            	    }else { 
-//	            		alert("提交纠错信息成功!"+data.message);
-//	            		//$("#csorder .errormsg").html("您的预约请求已提交，请到用户管理中查看订单详情。");
-//	            		//window.location.href = 'userInf.html';
-//            	    }
-////                  return _this._callback(callback,data.isSuccess,data.message,data)
-//                },
-//                error:function(data){ 
-//                    console.log(data);
-//                    return _this._callback(callback,false,"连接服务器失败，请稍后再试",data);
-//                }
-//        	});
-//            USERCheck.correctCsInf(CSId,CSName,CSAddr,CSDate,CSMode,CSFast,CSlow,Operator,ParkFee,CSPub,CSState,CSPhone,CSNotes,function(isok,error){ 
-//            	if(isok=="false"){ 
-//            		alert(""+error+"");
-//            		//$("#csorder .errormsg").html(error);
-//            	}else { 
-//            		alert("提交纠错信息成功!");
-//            		//$("#csorder .errormsg").html("您的预约请求已提交，请到用户管理中查看订单详情。");
-//            		//window.location.href = 'userInf.html';
-//            	}
-//            },window.MAINURL);
-            
-            
-        }else { 
-        	alert("您好，请先登录！登录后才能预约");
-            window.location.href = "login.jsp";
-        }
-    },window.MAINURL)
+	var r=confirm("是否确认提交纠错信息！");
+	if(r==true){
+		USERCheck.isLogin(function(isok,error){
+	        if(isok != 'false'){
+	        	//var id = $("#csorder table").data("id");
+	        	var CSId=$("#changedata0").val();
+	        	var CSName=$("#changedata1").val();
+	        	var CSAddr=$("#changedata2").val();
+	        	var CSDate=$("#changedata3").val();
+	        	var CSMode=$("#changedata4").val();
+	        	var CSFast=$("#changedata5").val();
+	        	var CSlow=$("#changedata6").val();
+	        	var Operator=$("#changedata7").val();
+	        	var ParkFee=$("#changedata8").val();
+	        	var CSPub=$("#changedata9").val();
+	        	var CSState=$("#changedata10").val();
+	        	var CSPhone=$("#changedata11").val();
+	        	var CSNotes=$("#changedata12").val();
+	        	var AjaxURL="dealCorrect?CSId="+CSId+"&CSName="+CSName+"&CSAddr="+CSAddr+"&CSDate="+CSDate+"&CSMode="+CSMode+"&CSFast="+CSFast+"&CSlow="+CSlow+"&Operator="+Operator+"&ParkFee="+ParkFee+"&CSPub="+CSPub+"&CSState="+CSState+"&CSPhone="+CSPhone+"&CSNotes="+CSNotes;
+	        	//var url="localhost:8080/EVTcar2";
+	        	$.ajax({
+	                type: "POST",
+	                dataType: "html",
+	                url: AjaxURL,
+	               // data: {VehData:JSON.stringify(VehData)},
+	                success: function (data) {
+	                	if(data.isSuccess=="false"){
+		            		alert("提交信息失败，请重新提交!");
+		            		//$("#csorder .errormsg").html(error);
+	                	}else { 
+		            		alert("提交纠错信息成功!");
+		            		//$("#csorder .errormsg").html("您的预约请求已提交，请到用户管理中查看订单详情。");
+		            		//window.location.href = 'userInf.html';
+	                	} 
+	                },
+	                error: function(data) {
+	                    alert("error:"+data.message);
+	                 }
+	            }); 
+	        }else { 
+	        	alert("您好，请先登录！登录后才能预约");
+	            window.location.href = "login.jsp";
+	        }
+	    },window.MAINURL);
+	}
 	
 	
 }
@@ -407,8 +344,8 @@ function eachAllCs(srcpic,point,marker,info,searchInfoWindow,hasOpoint){//输出
                                 //marker[i] = new window.BMap.Marker(point[i]); //按照地图点坐标生成标记
                                 //marker[i].disableMassClear();
                                 var srcpic1=CsAllData[i].srcpic;
-                                var myIcon_charger = new BMap.Icon(srcpic1, new BMap.Size(35, 45), {//是引用图标的名字以及大小，注意大小要一样
-                                                anchor: new BMap.Size(35, 45)});//这句表示图片相对于所加的点的位置;
+                                var myIcon_charger = new BMap.Icon(srcpic1, new BMap.Size(35, 48), {//是引用图标的名字以及大小，注意大小要一样
+                                                anchor: new BMap.Size(35, 48)});//这句表示图片相对于所加的点的位置;
                                 marker[i] = new BMap.Marker(point[i],{icon:myIcon_charger});  // 创建标注
                                 //添加标注
                                 map.addOverlay(marker[i]);
@@ -475,7 +412,7 @@ function eachAllCs(srcpic,point,marker,info,searchInfoWindow,hasOpoint){//输出
                                         // js 闭包
                                         return function(){
                                             //将被点击marker置为中心
-                                            map.centerAndZoom(point[k], 15);
+                                            map.centerAndZoom(point[k], 13);
                                             //在marker上打开检索信息窗口
                                             searchInfoWindow[k].open(marker[k]);
                                             

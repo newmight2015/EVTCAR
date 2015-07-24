@@ -10,6 +10,9 @@ body{
 ul li, .xl li {
 list-style: none;
 }
+.maingreen{
+	color:rgb(126,194,21);
+}
 .r{ 
 	float: right;
 }
@@ -188,13 +191,13 @@ padding:15px 0px;
 }
 .company-footer{
 	width:100%;
-	height:200px;
+	height:120px;
 	overflow:hidden;
 }
 .footer-content{
 	height:100%;
 	width:800px;
-	margin:80px auto;
+	margin:40px auto;
 }
 .footer-content-text{
 	padding:15px 4px;

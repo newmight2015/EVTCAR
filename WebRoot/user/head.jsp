@@ -14,11 +14,11 @@
 			</div>
 			<div class="loader">
 			<% if(usInf!=null){ %>
-			  <form  name="form1" method="post" action="dealExit.do"  >
+			  <form  name="form1" method="post" action="../dealExit.do"  >
                 <div class="xl" name="logininf">
                   <a>欢迎您:<%=usInf.getUsId() %></a>
                   <input class="btn btn-sm btn-default" type="submit" value="退出登陆" >
-                  <a class="btn btn-sm btn-default" href="register.html" ><span>注册</span></a>
+                  <a class="btn btn-sm btn-default" href="../register.jsp" ><span>注册</span></a>
                 </div>
               </form>
             <%}else{ %>
