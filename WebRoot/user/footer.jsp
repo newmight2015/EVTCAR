@@ -5,10 +5,11 @@
   <body>
    <div class="company-footer nav-green">
 	<div class="footer-content">
-		
-		<p class="copyright"> &nbsp;&nbsp;© 2015 京ICP备15002253号
-	&nbsp;&nbsp;|&nbsp;&nbsp;北京交通大学交通运输学院系统工程与控制研究所&nbsp;&nbsp;|&nbsp;&nbsp;未经允许不得复制、镜像</p>
-	<p class="copyright" style="margin:0 auto;">意见及建议请联系毕先生&nbsp;&nbsp;|&nbsp;&nbsp; Mail:bilinghc@163.com</p>
+			
+		<p class="copyright"> &nbsp;&nbsp;© 2015 京ICP备15002253号 &nbsp;&nbsp;|&nbsp;&nbsp;北京智优能网络科技有限公司
+	&nbsp;&nbsp;|&nbsp;&nbsp;北京交通大学系统工程与控制研究所提供技术支持</p>
+		<p class="copyright" style="margin:0 auto;">未经允许不得复制、镜像&nbsp;&nbsp;|&nbsp;&nbsp;
+		意见及建议请联系毕先生&nbsp;&nbsp;|&nbsp;&nbsp; Mail:bilinghc@163.com</p>
 		</div>
 	</div>
   </body>
