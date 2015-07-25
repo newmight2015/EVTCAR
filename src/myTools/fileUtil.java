@@ -3,7 +3,7 @@ package myTools;
 import java.io.*;
 
 public class fileUtil {
-
+	
 	public static void NewFile(String pathString) {
 	    File file = new File(pathString);
 	    if (!file.exists()) {
@@ -65,7 +65,7 @@ public class fileUtil {
 		     BufferedWriter bw = new BufferedWriter(osw);
 		     bw.write(string);
 		     bw.newLine();
-		     
+		     System.out.println("写入成功");
 		     bw.flush();
 		     bw.close();
 		     osw.close();

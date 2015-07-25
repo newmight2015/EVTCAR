@@ -1,5 +1,26 @@
 <%@  page language="java" import="java.util.*" import="myBean.usInformation" pageEncoding="UTF-8" %>
 <header>
+<div class="modal fade" id="showDownload" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">APP下载</h4>
+      </div>
+      <div class="modal-body" style="text-align:center;"> 
+      		
+      		<img src="pic/andriodapp.png"/>
+      		<p>扫描二维码下载app</p>
+      		<p>建议Android4.0以上版本</p>
+      		<p><a href="http://www.ezchong.com/download/ezchong.apk" class="btn btn-success">点此下载到电脑</a></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="top">
 	<div class="wp">
 		<div class="logo">
