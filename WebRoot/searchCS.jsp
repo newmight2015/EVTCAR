@@ -420,6 +420,8 @@ $("#makeComment").click(function(){
 			                                  //将评论信息显示在面板上
 			                        	      function coo(){
 			                        	    	  $("#csintro .modal-body .commentinfo .cminfo li").remove();
+			                        	    	  var CmInfoLen=CommentInfo.length;
+			                        	    	  
 				                                  for(var j=0;j<CommentInfo.length;j++){
 				                              		$("#csintro .modal-body .commentinfo .cminfo").append(
 				                              				"<li><div class='comment-body'><span class='star-rating1'><span class='syellowstar50 star-icon'></span></span><span class='name'>"+CommentInfo[j].USId+"</span>&nbsp;&nbsp;<div class='Star' data-starnum='"+CommentInfo[j].Star+"'></div>"+
