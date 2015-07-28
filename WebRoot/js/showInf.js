@@ -121,6 +121,7 @@
 
     //点击“搜索”，搜索周围充电站
     $("#search").on("click",function(){
+    	
     	$(".select-section").slideUp();
     	$(".search-toggle a").html("展开");
     	STATICINFO.USERPOSITION.name = $("#suggestId").val();
@@ -129,6 +130,7 @@
             $(".map-messagebox").show(1000,function(){setTimeout(function(){$(".map-messagebox").hide(1000)},2000) });
         }else {
         	map.clearOverlays();
+        	$(".search-head span").html($("#suggestId").val());
         	opoint = new BMap.Point(sendPos.lng, sendPos.lat);
             var csOperator = $("#select1").data("csoperator");
             var csRange = $("#select2").data("csrange");
@@ -204,7 +206,9 @@
 //    });
 
     $("#makeOrder").on("click",function(){
-        USERCheck.isLogin(function(isok,error){
+    	alert("此功能正在开发中，敬请期待！")
+        /*
+    	USERCheck.isLogin(function(isok,error){
             if(isok != 'false'){
             	var id = $("#csorder table").data("id");
                 var dateBegin =	 $("#csorder [name='start-date']").val();
@@ -233,6 +237,7 @@
                 window.location.href = "login.jsp";
             }
         },window.MAINURL)
+        */
     })
 
 	

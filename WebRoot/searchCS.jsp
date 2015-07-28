@@ -306,7 +306,8 @@ body {
 
 <div id="searchResultPanel">
 	<div class="search-box">
-		<div class="search-head">您的位置：<span>北京交通大学</span></br>
+		<div style="display: inline-block;position: absolute;top: 15px;left: 20px;">您的位置：</div>
+		<div class="search-head"><span style="display: inline-block;margin-left: 70px;">北京交通大学</span></br>
 			<div class="search-tip">我们为您推荐的充电站:</div>
 		</div>
 		<!--以下显示推荐充电桩-->
@@ -342,10 +343,13 @@ $(document).ready(function(){
 	productNum=0;
 	VehData = {};
 	tempPt=[];
+	$(".orderUnuse").bind("click",function(){alert("此功能正在开发中，敬请期待！")})
 	$("#clearOverlays").bind("click",function(){map.clearOverlays;})
 })
 
 $(function(){
+	
+	
 	$("[name='start-date']").val(CurentDateTime(0));
 	$("[name='start-time']").val(CurentTime());
 	$("[name='stop-date']").val(CurentDateTime(1));

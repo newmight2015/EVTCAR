@@ -38,7 +38,10 @@ function createJson(prop, val) {
     }
 }
 
-
+function showMessage(msg){
+	$(".map-messagebox .message").html(msg);
+    $(".map-messagebox").show(1000,function(){setTimeout(function(){$(".map-messagebox").hide(1000)},2000) });
+}
 
 function drive(i){
 	var p2 = new window.BMap.Point(CsAllData[i].CSLongValue,CsAllData[i].CSLatiValue);
@@ -380,7 +383,8 @@ function eachAllCs(srcpic,point,marker,info,searchInfoWindow,hasOpoint){//输出
                                             '</br>对外状态： '+CSPub+
                                             '</br>停车费用： '+CsAllData[i].CSFeeDay+'元/h'+
                                             '<p style="margin-top:10px"><a class="btn btn-success btn-sm" onclick="showcsintro('+i+')">详情</a>'+
-                                            '<a class="btn btn-success btn-sm" onclick="javascript:drive('+i+')">导航</a><a class="btn btn-success btn-sm" onclick="dealOrder('+i+')">预约</a></p>';
+                                            '<a class="btn btn-success btn-sm" onclick="javascript:drive('+i+')">导航</a><a class="btn btn-default btn-sm orderUnuse" disabled="ture"  alt="此功能正在开发中，敬请期待！">预约</a></p>';
+                                           // '<a class="btn btn-success btn-sm" onclick="javascript:drive('+i+')">导航</a><a class="btn btn-success btn-sm" onclick="dealOrder('+i+')">预约</a></p>';
                                }else{ 
                                info[i] =  '<img src="pic/charge-stick.gif" alt="" style="float:right;zoom:1;overflow:hidden;width:100px;height:100px;margin-left:3px;"/>'+
                                             '</br>地址： '+CsAllData[i].CSAddr+
