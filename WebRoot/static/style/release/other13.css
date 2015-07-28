@@ -10,7 +10,7 @@
 .shortcut select{float:left;width:auto;height:22px;margin:0 7px 0 0;font-size:14px;}
 .hot-cities input.button{float:left;width:60px;height:22px;line-height:22px;line-height:25px\9;_line-height:22px;border:none;cursor:pointer;background-position:0 -68px;font-size:12px;color:#FFF;text-shadow:1px 1px 1px #7186b1;overflow:hidden;}
 .hot-cities input.button-dis{background-position:-60px -68px;text-shadow:1px 1px 1px #AAA;}
-.hot-cities input.text{width:379px;line-height:16px;border:1px solid #cfcfcf;float:left;margin-right:8px;font-size:12px;padding:2px 0 2px 5px;}
+.hot-cities input.text{color:#b7b7b7;width:379px;line-height:16px;border:1px solid #cfcfcf;float:left;margin-right:8px;font-size:12px;padding:2px 0 2px 5px;}
 .hot-citys{border-bottom:1px solid #dcdcdc;padding:20px;font-size:14px;}
 .hot-citys a{font-weight:bold;color:#506eaa;margin:0 8px;}
 .select-py{font-size:14px;padding:20px;}

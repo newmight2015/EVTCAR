@@ -7,7 +7,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html lang="zh-cn">
 <head>
 <meta charset="utf-8">
-<meta name="renderer" content="webkit">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>充电导航</title>
@@ -235,7 +234,7 @@ body {
 		<div class="nav-btn active"><a href="searchCS.jsp">我要充电</a></div>
 		<div class="nav-btn"><a href="inq_sta.jsp">充电站分布</a></div>
 		<div class="nav-btn "><a href="userInf.jsp">用户管理</a></div>
-		<div class="nav-btn"><a href="aboutUs.jsp">关于我们</a></div>
+		<div class="nav-btn"><a href="#">关于我们</a></div>
 	</div>
 </div>
 </header>
@@ -306,8 +305,7 @@ body {
 
 <div id="searchResultPanel">
 	<div class="search-box">
-		<div style="display: inline-block;position: absolute;top: 15px;left: 20px;">您的位置：</div>
-		<div class="search-head"><span style="display: inline-block;margin-left: 70px;">北京交通大学</span></br>
+		<div class="search-head">您的位置：<span>北京交通大学</span></br>
 			<div class="search-tip">我们为您推荐的充电站:</div>
 		</div>
 		<!--以下显示推荐充电桩-->
@@ -328,7 +326,7 @@ body {
 <script src="js/jquery.raty.js" type="text/javascript"></script>
 <script>
 $(document).ready(function(){
-	
+	initalMap();
 	function myFun(result){
 	    var cityName = result.name;
 	    //alert(""+cityName);
@@ -343,13 +341,10 @@ $(document).ready(function(){
 	productNum=0;
 	VehData = {};
 	tempPt=[];
-	$(".orderUnuse").bind("click",function(){alert("此功能正在开发中，敬请期待！")})
 	$("#clearOverlays").bind("click",function(){map.clearOverlays;})
 })
 
 $(function(){
-	
-	
 	$("[name='start-date']").val(CurentDateTime(0));
 	$("[name='start-time']").val(CurentTime());
 	$("[name='stop-date']").val(CurentDateTime(1));
@@ -391,6 +386,7 @@ $("#makeComment").click(function(){
 	if(r==true){
 	USERCheck.isLogin(function(isok,error){
         if(isok != 'false'){
+        	
         	var act=$("#act").val();
         	var starsum=$("#starsum").val();
         	var comment=$("#comment").val();

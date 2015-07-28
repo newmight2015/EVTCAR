@@ -1,6 +1,7 @@
 eclipse.preferences.version=1
 encoding//WebRoot/css/evtcar.css=UTF-8
 encoding//WebRoot/head.jsp=UTF-8
+encoding//WebRoot/help.jsp=UTF-8
 encoding//WebRoot/image.jsp=UTF-8
 encoding//WebRoot/index.jsp=UTF-8
 encoding//WebRoot/inq_sta.jsp=UTF-8
@@ -11,6 +12,8 @@ encoding//WebRoot/js/search.js=UTF-8
 encoding//WebRoot/js/showInf.js=UTF-8
 encoding//WebRoot/register.jsp=UTF-8
 encoding//WebRoot/searchCS.jsp=UTF-8
+encoding//WebRoot/test.jsp=UTF-8
+encoding//WebRoot/user-man.jsp=UTF-8
 encoding//src/myServlet/dealCsQuery.java=UTF-8
 encoding//src/myTools/Scheduler.java=UTF-8
 encoding//src/myTools/dataBase.java=UTF-8

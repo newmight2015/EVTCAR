@@ -7,7 +7,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
 <head>
     <meta charset="utf-8">
-    <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
@@ -51,7 +50,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="nav-btn "><a href="searchCS.jsp">我要充电</a></div>
 		<div class="nav-btn"><a href="inq_sta.jsp">充电站分布</a></div>
 		<div class="nav-btn active"><a href="userInf.jsp">用户管理</a></div>
-		<div class="nav-btn"><a href="aboutUs.jsp">关于我们</a></div>
+		<div class="nav-btn"><a href="#">关于我们</a></div>
 	</div>
 </div>
 </header>

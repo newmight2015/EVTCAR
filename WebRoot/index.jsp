@@ -9,7 +9,7 @@ response.setCharacterEncoding("UTF-8");
 <html lang="zh-cn">
 <head>
 <meta charset="utf-8">
-<meta name="keywords" content="电动汽车充电 充电导航 充电站  车快充 电动汽车服务  去哪充电  充电站分布  北京市充电站查询 充电站位置  充电站地址   北京市充电桩查询  充电桩位置  充电桩地址    ">
+<meta name="keywords" content="电动汽车充电 充电导航 充电站  电动汽车服务  去哪充电  充电站分布  北京市充电站查询 充电站位置  充电站地址   北京市充电桩查询  充电桩位置  充电桩地址    ">
 <meta name="description" content="
 为你打造最优质的电动汽车充电服务，享受绿色出行,
 去哪充电？为您提供贴心的智能充电导航服务,
@@ -50,6 +50,23 @@ body{
 </head>
 
 <body>
+<!-- Modal test-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body"> </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!--顶部导航栏开始 -->
 <%@include file="head.jsp" %>
 <!--下面是中部导航栏的代码-->
@@ -59,7 +76,7 @@ body{
 		<div class="nav-btn "><a href="searchCS.jsp">我要充电</a></div>
 		<div class="nav-btn"><a href="inq_sta.jsp">充电站分布</a></div>
 		<div class="nav-btn"><a href="userInf.jsp">用户管理</a></div>
-		<div class="nav-btn"><a href="aboutUs.jsp">关于我们</a></div>
+		<div class="nav-btn"><a href="#">关于我们</a></div>
 	</div>
 </div>
 </header>
@@ -73,8 +90,8 @@ body{
 							<img src="pic/functionpic2.png">
 						</div>
 						<div class="function-content">
-							<div class="tittle">全国主要城市的充电站详细信息查询</div>
-							<div class="content">用户能查询到充电站位置、快/慢充桩的数量、空闲充电桩数量、充电桩运营状况、运营时间、充电费用以及充电停车费用等充电服务信息。
+							<div class="tittle">方便用户查询北京区域充电站的位置	</div>
+							<div class="content">点击充电站信息查询，随时随地掌握一手北京市充电站分布信息，让你智行天下。
 							</div>
 						</div>
 					</div>
@@ -83,8 +100,8 @@ body{
 							<img src="pic/functionpic1.png">
 						</div>
 						<div class="function-content">
-							<div class="tittle">智能化主动式充电服务</div>
-							<div class="content">平台根据用户车辆的位置、剩余电量、出行路线以及充电站的动静态数据等信息，调用充电调度模型，智能计算出最佳充电服务方案并提供充电预约的服务。
+							<div class="tittle">为您自动推送三条最近的充电路线</div>
+							<div class="content">用户也可在WEB浏览器相应网页上输入地点名称，网页也会为用户推送相对于所输地点最合适的3个可用充电站。用户可随意选择任一充电站作为目的地，平台为用户规划起点到所选充电站的最优路径。
 							</div>
 						</div>
 					</div>
@@ -93,8 +110,8 @@ body{
 						<img src="pic/functionpic3.png">
 						</div>
 						<div class="function-content">
-							<div class="tittle">众包式的充电站信息采集</div>
-							<div class="content">激励每个用户主动提供新建充电站的位置、充电桩数量、名称、运营状况等信息，利于平台及时更新数据，实现最大化充电服务的覆盖。
+							<div class="tittle">手机APP语音导航带您去最近充电站	</div>
+							<div class="content">用户可通过手机终端发出充电请求，平台主动为用户提供在续驶里程范围内的3个满足用户需求的可用充电站，避免或者减少用户在充电站的排队。
 							</div>
 						</div>
 					</div>

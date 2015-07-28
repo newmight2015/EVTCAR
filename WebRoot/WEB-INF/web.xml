@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
+<web-app version="3.0"
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
   <servlet>
     <display-name>jsonSevlet</display-name>
     <servlet-name>dealQuery</servlet-name>
@@ -25,7 +28,7 @@
     <servlet-name>dealLogin</servlet-name>
     <servlet-class>myServlet.dealLogin</servlet-class>
   </servlet>
-  <servlet>
+ <servlet>
     <display-name>dealExit</display-name>
     <servlet-name>dealExit</servlet-name>
     <servlet-class>myServlet.dealExit</servlet-class>
@@ -52,15 +55,17 @@
     <servlet-name>dealCorrect</servlet-name>
     <servlet-class>myServlet.dealCorrect</servlet-class>
   </servlet>
+  
   <servlet>
     <description>This is the description of my J2EE component</description>
     <display-name>This is the display name of my J2EE component</display-name>
     <servlet-name>Log4jInit</servlet-name>
     <servlet-class>myServlet.Log4jInit</servlet-class>
-    <init-param>
-      <param-name>log4j</param-name>
-      <param-value>/WEB-INF/classes/log4j.properties</param-value>
-    </init-param>
+  	<init-param>
+	   <param-name>log4j</param-name>
+	   <param-value>/WEB-INF/classes/log4j.properties</param-value>
+	</init-param>
+	
   </servlet>
   <servlet>
     <description>This is the description of my J2EE component</description>
@@ -68,10 +73,17 @@
     <servlet-name>dealPhoneMessage</servlet-name>
     <servlet-class>myServlet.dealPhoneMessage</servlet-class>
     <init-param>
-      <param-name>appVersion</param-name>
-      <param-value>1.0.1</param-value>
-    </init-param>
+	   <param-name>appVersion</param-name>
+	   <param-value>1.0.1</param-value>
+	</init-param>
   </servlet>
+
+
+
+
+
+  
+
   <servlet-mapping>
     <servlet-name>dealQuery</servlet-name>
     <url-pattern>/dealQuery.do</url-pattern>
@@ -92,7 +104,7 @@
     <servlet-name>dealLogin</servlet-name>
     <url-pattern>/dealLogin.do</url-pattern>
   </servlet-mapping>
-  <servlet-mapping>
+   <servlet-mapping>
     <servlet-name>dealExit</servlet-name>
     <url-pattern>/dealExit.do</url-pattern>
   </servlet-mapping>
@@ -120,13 +132,19 @@
     <servlet-name>dealPhoneMessage</servlet-name>
     <url-pattern>/dealPhoneMessage</url-pattern>
   </servlet-mapping>
-  <listener>
-    <listener-class>myListener.MyContextListener</listener-class>
-  </listener>
-  <listener>
-    <listener-class>myListener.MyRequestListener</listener-class>
-  </listener>
-  <listener>
-    <listener-class>myListener.MySessionListener</listener-class>
-  </listener>
+
+
+<!-- <listener>
+  <listener-class>myListener.MyContextListener</listener-class>
+</listener>
+
+<listener>
+  <listener-class>myListener.MyRequestListener</listener-class>
+</listener>
+
+<listener>
+  <listener-class>myListener.MySessionListener</listener-class>
+</listener> -->
+
+ 
 </web-app>

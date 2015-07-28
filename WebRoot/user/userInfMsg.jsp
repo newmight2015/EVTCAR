@@ -56,7 +56,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="nav-btn"><a href="../searchCS.jsp">我要充电</a></div>
 		<div class="nav-btn"><a href="../inq_sta.jsp">充电站分布</a></div>
 		<div class="nav-btn active"><a href="../userInf.jsp">用户管理</a></div>
-		<div class="nav-btn"><a href="../aboutUs.jsp">关于我们</a></div>
+		<div class="nav-btn"><a href="#">关于我们</a></div>
 	</div>
 </div>
 </header>

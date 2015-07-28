@@ -21,7 +21,7 @@ public class SDKSendSMS{
 		//*沙盒环境（用于应用开发调试）：restAPI.init("sandboxapp.cloopen.com", "8883");*
 		//*生产环境（用户应用上线使用）：restAPI.init("app.cloopen.com", "8883");       *
 		//*******************************************************************************
-		restAPI.init("app.cloopen.com", "8883"); 
+		restAPI.init("sandboxapp.cloopen.com", "8883");
 		
 		//******************************注释*********************************************
 		//*初始化主帐号和主帐号令牌,对应官网开发者主账号下的ACCOUNT SID和AUTH TOKEN     *
