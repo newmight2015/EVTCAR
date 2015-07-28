@@ -71,6 +71,7 @@ public class dealMessage extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
+		//ServletActionContext.getResponse().setHeader("Access-Control-Allow-Origin", "*");
 		PrintWriter out = response.getWriter();
 		String act = request.getParameter("act");
 		JSONObject ms = new JSONObject();
@@ -88,7 +89,7 @@ public class dealMessage extends HttpServlet {
 			String uspassword=new String( request.getParameter("uspassword1").getBytes("iso8859-1"), "utf-8");
 			JSONArray Msg = new JSONArray();
 			dbUtil db = new dbUtil();
-			String sql="update UserPerInf set USPassWd=? where Usid=?";
+			String sql="update UserPerInf set USPassWd=? where 	Usid=?";
 			String pras[] = new String[]{uspassword,UsId};
 			db.update(sql,pras);
 			try {
@@ -726,7 +727,7 @@ public class dealMessage extends HttpServlet {
 			Connection con =db.getConnection();
 			String condition ;
 			if(cityname.equals("全国")){ 
-				condition ="Select * from CS_BasicInformation ";
+				condition ="Select * from CS_BasicInformation cs,CS_ParkOperatorInformation cp where cs.CSID = cp.CSID";
 			}
 			else condition ="Select * from CS_BasicInformation cs,CS_ParkOperatorInformation cp where cs.CSID = cp.CSID and cs.CSCity LIKE '"+cityname+"%'";
 			PreparedStatement sql;

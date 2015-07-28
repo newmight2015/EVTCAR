@@ -1,4 +1,5 @@
 <%@  page language="java" import="java.util.*" import="myBean.usInformation" pageEncoding="UTF-8" %>
+<script src="js/respond.js" type="text/javascript"></script>
 <header>
 
 

@@ -135,7 +135,7 @@
             var csParkFee = $("#select3").data("csparkfee");
             var cityName=$("#cityname").val();
             var AjaxURL="dealCsQuery.do?lng="+sendPos.lng+"&lat="+sendPos.lat+"&csOperator="+csOperator
-            +"&csRange="+csRange+"&csParkFee="+csParkFee+"&cityName="+cityName;
+            +"&csRange="+csRange+"&csParkFee="+csParkFee+"&cityName="+cityName+"&isphone=false";
             //alert(AjaxURL);
             $.ajax({
                         type: "GET",

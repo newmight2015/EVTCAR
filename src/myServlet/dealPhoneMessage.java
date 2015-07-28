@@ -341,7 +341,7 @@ public class dealPhoneMessage extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		JSONObject ms = new JSONObject();
 		
-		
+		//String isphone = request.getParameter("isphone");
 		String cityname = request.getParameter("cityname");
 		log.info("要查询的城市名："+ cityname);
 		//System.out.println(cityname);
@@ -387,8 +387,14 @@ public class dealPhoneMessage extends HttpServlet {
 			data.put("ServiceFee", rs.getFloat(18));
 			if(rs.getString(19)!=null) data.put("Feenotes", rs.getString(19).trim());
 			else data.put("Feenotes", "暂无信息");
+			/*
 			data.put("CSPub", rs.getFloat(20));
 			data.put("CSState", rs.getFloat(21));
+			*/
+				data.put("CSPub", rs.getFloat(21));
+				data.put("CSState", rs.getFloat(20));
+			
+			
 			data.put("CSTime", rs.getString(22));
 			if(rs.getString(23)!=null) data.put("CSPhone", rs.getString(23).trim());
 			else data.put("CSPhone", "暂无信息");
