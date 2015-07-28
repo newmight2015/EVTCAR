@@ -74,7 +74,7 @@
     <servlet-class>myServlet.dealPhoneMessage</servlet-class>
     <init-param>
 	   <param-name>appVersion</param-name>
-	   <param-value>1.0.0</param-value>
+	   <param-value>1.0.1</param-value>
 	</init-param>
   </servlet>
 
@@ -134,7 +134,7 @@
   </servlet-mapping>
 
 
-<!-- <listener>
+ <listener>
   <listener-class>myListener.MyContextListener</listener-class>
 </listener>
 
@@ -144,7 +144,7 @@
 
 <listener>
   <listener-class>myListener.MySessionListener</listener-class>
-</listener> -->
+</listener> 
 
  
 </web-app>

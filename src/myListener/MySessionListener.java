@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
 import myBean.ApplicationConstants;
+import myTools.myTime;
 
 public class MySessionListener implements HttpSessionListener,HttpSessionAttributeListener {
 
@@ -17,10 +18,10 @@ public class MySessionListener implements HttpSessionListener,HttpSessionAttribu
 		// TODO Auto-generated method stub
 		HttpSession session = se.getSession();
 		ApplicationConstants.SESSION_MAP.put(session.getId(), session);
-		ApplicationConstants.TOTAL_HISTORY_COUNT++;//¸üĞÂ×ÜÈËÊı
+		ApplicationConstants.TOTAL_HISTORY_COUNT++;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if(ApplicationConstants.SESSION_MAP.size()>ApplicationConstants.MAX_ONLINE_COUNT){
-			ApplicationConstants.MAX_ONLINE_COUNT=ApplicationConstants.SESSION_MAP.size();//¸üĞÂ×î´óÔÚÏßÈËÊı
-			ApplicationConstants.MAX_ONLINE_COUNT_DATE=new Date();//¸üĞÂÊ±¼ä
+			ApplicationConstants.MAX_ONLINE_COUNT=ApplicationConstants.SESSION_MAP.size();//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			ApplicationConstants.MAX_ONLINE_COUNT_DATE=new Date();//ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
 		}
 	}
 
@@ -60,9 +61,9 @@ public class MySessionListener implements HttpSessionListener,HttpSessionAttribu
 		// TODO Auto-generated method stub
 		if(event.getClass().equals("usInf")){
 			HttpSession session=event.getSession();
-			//ÖØĞÂµÇÂ¼session
+			//ï¿½ï¿½ï¿½Âµï¿½Â¼session
 			for(HttpSession sess : ApplicationConstants.SESSION_MAP.values()){
-				//Èç¹ûÕËºÅÔÚÆäËû»úÆ÷ÉÏµÇÂ¼¹ı£¬ÔòÒÔÇ°µÄÊ¹µÇÂ¼Ê§Ğ§
+				//ï¿½ï¿½ï¿½ï¿½Ëºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½Ê¹ï¿½ï¿½Â¼Ê§Ğ§
 				if(event.getValue().equals(sess.getAttribute("usInf"))
 						&&session.getId() != sess.getId()){
 					System.out.println("@__________event sessionReplaced Ê§Ğ§---->"+sess.getId());
