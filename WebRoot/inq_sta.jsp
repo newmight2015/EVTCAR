@@ -5,14 +5,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 request.setCharacterEncoding("UTF-8");
 response.setCharacterEncoding("UTF-8");
 %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
 <head>
 <meta name="renderer" content="webkit">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-
 <title>查询充电站信息</title>
 
 
@@ -110,7 +108,7 @@ body{
 				<input type="text" id="city" autocomplete="off" value="上海" name="s_cities" onclick="this.value='';GetCityList(this);" onkeyup="selCity(event)" class="inputbox text ac_input" />
 				-->
 			
-				<input type="text" class="text ac_input"  value="" size="15"  id="homecity_name" name="homecity_name" mod="address|notice" mod_address_source="hotel" mod_address_suggest="@Beijing|北京|53@Shanghai|上海|321@Shenzhen|深圳|91@Guangzhou|广州|80@Qingdao|青岛|292@Chengdu|成都|324@Hangzhou|杭州|383@Wuhan|武汉|192@Tianjin|天津|343@Dalian|大连|248@Xiamen|厦门|61@Chongqing|重庆|394@" mod_address_reference="cityid" mod_notice_tip="中文/拼音" />
+				<input type="text" class="text ac_input"  value="" size="15"  id="homecity_name" onchange="searchCityCs()" name="homecity_name" mod="address|notice" mod_address_source="hotel" mod_address_suggest="@Beijing|北京|53@Shanghai|上海|321@Shenzhen|深圳|91@Guangzhou|广州|80@Qingdao|青岛|292@Chengdu|成都|324@Hangzhou|杭州|383@Wuhan|武汉|192@Tianjin|天津|343@Dalian|大连|248@Xiamen|厦门|61@Chongqing|重庆|394@" mod_address_reference="cityid" mod_notice_tip="中文/拼音" />
 				<input id="cityid" name="cityid" type="hidden" value="{$cityid}" />	
 				<a class="btn btn-xs btn-default" id="city_search">查询</a>
 		</div>
@@ -127,8 +125,8 @@ body{
 </body>
 </html>
 
-					<script type="text/javascript" src="js/fixdiv.js"></script>
-					<script type="text/javascript" src="js/address.js"></script>
+<script type="text/javascript" src="js/fixdiv.js"></script>
+<script type="text/javascript" src="js/address.js"></script>
 <script type="text/javascript">
 				initalMap();
 				function myFun(result){
@@ -137,6 +135,11 @@ body{
 				    //alert(cityName);
 				    change_city_val(cityName);
 				}
+				function searchCityCs(){
+					var	city = $('#homecity_name').val();
+					change_city_val(city);
+				}
+					
 				var myCity = new BMap.LocalCity();
 				myCity.get(myFun);
 				//创建一个LocalCity对象myCity，然后调用其get()方法，就得到了用户IP对应的城市。该城市结果会以参数形式传递给回调函数myFun。接下来就是myFun(结果城市result)来执行了----即上文红色代码。
@@ -156,12 +159,12 @@ body{
 					 map.clearOverlays();
 				     $.ajax({
 				                        type: "POST",
-				                        dataType: "html",
+				                        dataType: "json",
 				                        crossDomain: true, 
 				                        url: "dealMessage",
 				                        data: {cityname:city,act:"searchCityCS"},
 				                        success: function (data) {
-				                                CsAllData = JSON.parse(data);
+				                                CsAllData = data;
 				                                var point = new Array(); //存放标注点经纬信息的数组
 				                                marker = new Array(); //存放标注点对象的数组
 				                                var info = new Array(); //存放提示信息窗口对象的数组

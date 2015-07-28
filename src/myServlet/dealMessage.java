@@ -718,22 +718,15 @@ public class dealMessage extends HttpServlet {
 		 * 按城市搜索充电站
 		 */
 		if(act.equals("searchCityCS")){ 
-			//String cityname=new String( request.getParameter("cityname").getBytes("iso8859-1"), "utf-8");
-			String cityname = request.getParameter("cityname");
-			log.info(cityname);
-			//System.out.println(cityname);
+			String cityname = request.getParameter("cityname").trim();
 			JSONArray csInf = new JSONArray();
-			dataBase db=new dataBase();
-			Connection con =db.getConnection();
-			String condition ;
-			if(cityname.equals("全国")){ 
-				condition ="Select * from CS_BasicInformation cs,CS_ParkOperatorInformation cp where cs.CSID = cp.CSID";
-			}
-			else condition ="Select * from CS_BasicInformation cs,CS_ParkOperatorInformation cp where cs.CSID = cp.CSID and cs.CSCity LIKE '"+cityname+"%'";
-			PreparedStatement sql;
+			dbUtil db =new dbUtil();
+			
+			String aa ="Select * from CS_BasicInformation cs,CS_ParkOperatorInformation cp where cs.CSID = cp.CSID  and  (cs.CSProvince LIKE '"+cityname+"%' or cs.CSCity LIKE '"+cityname+"%')";
+			System.out.println(aa);
+			db.update(aa);
+			ResultSet rs =  db.getRS();
 			try {
-			sql = con.prepareStatement(condition);
-			ResultSet rs = sql.executeQuery();
 			while (rs.next()) {
 				JSONObject data = new JSONObject();
 				data.put("CSId", rs.getString(1));
@@ -800,12 +793,10 @@ public class dealMessage extends HttpServlet {
 					data.put("srcpic", "pic/s_red.png");
 				}
 				//end--ZW
-			//	data.put("CSFeeDay", rs.getFloat(24));
 				if(rs.getFloat(28)!=-1) data.put("CSFeeDay", rs.getFloat(28));
 				else  data.put("CSFeeDay", "暂无数据");
 				csInf.put(data);
 			}
-			db.close(rs, sql, con);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -814,8 +805,12 @@ public class dealMessage extends HttpServlet {
 			catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			}finally{
+				db.closeAll();
 			}
 			out.println(csInf);
+			out.flush();
+			out.close();
 		}
 		/*
 		 * 功能：查询历史消息提醒

@@ -313,6 +313,7 @@ body {
 		<!--以下显示推荐充电桩-->
 			<div class="resultAll">
 			</div>
+			
 		</div>
 	</div>
 </div>
@@ -348,8 +349,6 @@ $(document).ready(function(){
 })
 
 $(function(){
-	
-	
 	$("[name='start-date']").val(CurentDateTime(0));
 	$("[name='start-time']").val(CurentTime());
 	$("[name='stop-date']").val(CurentDateTime(1));
@@ -385,137 +384,7 @@ function CurentDateTime(i)
     clock += day;
     return(clock); 
 }
-//点击提交评价信息----张伟增加
-$("#makeComment").click(function(){
-	var r=confirm("是否确认提交评价！");
-	if(r==true){
-	USERCheck.isLogin(function(isok,error){
-        if(isok != 'false'){
-        	var act=$("#act").val();
-        	var starsum=$("#starsum").val();
-        	var comment=$("#comment").val();
-        	var csid=$("#csidv").val();
-        	var usordid="1";
-        	var AjaxURL="dealMessage?act="+act+"&starsum="+starsum+"&comment="+comment+"&csid="+csid+"&usordid="+usordid;
-        	$.ajax({
-                type: "POST",
-                dataType: "html",
-                url: AjaxURL,
-                success: function (data) {
-                	
-                	if(data.isSuccess=="false"){
-	            		alert("提交评价失败，请重新提交!");
-	            		//$("#csorder .errormsg").html(error);
-	            			          
-                	}else { 
-	            		alert("提交评价成功!");
-	            		$("#comment").val("");
-			            var AjaxURL="dealMessage?CSId="+csid;
-			            $.ajax({
-			                        type: "GET",
-			                        dataType: "html",
-			                        url: AjaxURL,
-			                        data:{act:'commentinfo'},
-			                       // data: {VehData:JSON.stringify(VehData)},
-			                        success: function (data) {
-			                                  var CommentInfo = JSON.parse(data);//存放评价信息的数组
-	            							 
-			                                  coo();
-			                                  //将评论信息显示在面板上
-			                        	      function coo(){
-			                        	    	  $("#csintro .modal-body .commentinfo .cminfo li").remove();
-				                                  for(var j=0;j<CommentInfo.length;j++){
-				                              		$("#csintro .modal-body .commentinfo .cminfo").append(
-				                              				"<li><div class='comment-body'><span class='star-rating1'><span class='syellowstar50 star-icon'></span></span><span class='name'>"+CommentInfo[j].USId+"</span>&nbsp;&nbsp;<div class='Star' data-starnum='"+CommentInfo[j].Star+"'></div>"+
-				                                  			"<span class='date'>"+CommentInfo[j].Time+
-				                                  			"</span><div class='commentdetail'>"+CommentInfo[j].Content+
-				                                  			"</div></div></li>");
-				                              		
-				                              	   }
-				                                   $("#csidv").attr("value",csid);
-					                                $(".Star").each(function(){
-					                              		var num = $(this).data("starnum");
-					                              		$(this).raty({readOnly:true,score:num}); 
-					                              	});
-				                                  //统计评星并显示
-				                                  $.ajax({
-				                                      type: "GET",
-				                                      dataType: "html",
-				                                      url: AjaxURL,
-				                                      data:{act:'analysiscminfo'},
-				                                     // data: {VehData:JSON.stringify(VehData)},
-				                                      success: function (data) {
-				                                                var AnalysisCmInfo = JSON.parse(data);//存放评价信息的数组
-				                                                
-				                                                //alert(AnalysisCmInfo);
-				                                                analysis();
-				                                                //将评星信息显示在面板上
-				                                      	      	function analysis(){
-				                                      	    	   $(".c-total").empty();	                                      	    	   
-				                                      	    	   $(".star-rating").raty({readOnly:true,score:0});
-				                                      	    	   $(".c-total").empty();
-				                                      	    	   $(".c-num").empty();
-				                                                    for(var j=0;j<AnalysisCmInfo.length;j++){
-				                                                    	var avg = AnalysisCmInfo[j].StarAvg;
-					                                                    //alert(avg);
-					                                                	$(".star-rating").raty({readOnly:true,score:avg});
-				                                                		$(".c-total").html("<P>"+AnalysisCmInfo[j].StarAvg+"</p>");
-				                                                		$(".c-num").html("<P>共有"+AnalysisCmInfo[j].ussum+"人评价</p>");
-				                                                		$("#p5").html("<p>"+AnalysisCmInfo[j].Star5+"人</p>");
-				                                                		$("#p4").html("<p>"+AnalysisCmInfo[j].Star4+"人</p>");
-				                                                		$("#p3").html("<p>"+AnalysisCmInfo[j].Star3+"人</p>");
-				                                                		$("#p2").html("<p>"+AnalysisCmInfo[j].Star2+"人</p>");
-				                                                		$("#p1").html("<p>"+AnalysisCmInfo[j].Star1+"人</p>");
-				                                                		if(AnalysisCmInfo[j].ussum!=0){
-					                                                		var p5=(AnalysisCmInfo[j].Star5/AnalysisCmInfo[j].ussum)*100;
-					                                                		var p4=(AnalysisCmInfo[j].Star4/AnalysisCmInfo[j].ussum)*100;
-					                                                		var p3=(AnalysisCmInfo[j].Star3/AnalysisCmInfo[j].ussum)*100;
-					                                                		var p2=(AnalysisCmInfo[j].Star2/AnalysisCmInfo[j].ussum)*100;
-					                                                		var p1=(AnalysisCmInfo[j].Star1/AnalysisCmInfo[j].ussum)*100;
-				                                                		}else{
-				                                                			var p5=0;
-					                                                		var p4=0;
-					                                                		var p3=0;
-					                                                		var p2=0;
-					                                                		var p1=0;
-				                                                		}
-				                                                		$("#p5-bg").width(""+p5+"px");
-				                                                		$("#p4-bg").width(""+p4+"px");
-				                                                		$("#p3-bg").width(""+p3+"px");
-				                                                		$("#p2-bg").width(""+p2+"px");
-				                                                		$("#p1-bg").width(""+p1+"px");
-				                                                		
-				                                                		
-				                                                	}                   		
-				                                              }
-				                                                
-				                                      },
-				                                      error: function(data) {
-				                                          alert("查询评价信息失败");
-				                                      }
-				                                  }); 
-			                        	    }
-			                                  
-			                        },
-			                        error: function(data) {
-			                            alert("查询评价信息失败");
-			                        }
-			                    });
-				            		//$("#csorder .errormsg").html("您的预约请求已提交，请到用户管理中查看订单详情。");
-				            		//window.location.href = 'userInf.html';
-			                	}
-			                },
-			                error: function(data) {
-			                    alert("error:"+data.message);
-			                 }
-			            });
-        }else { 
-        	alert("您好，请先登录！登录后才能预约");
-            window.location.href = "login.jsp";
-        }
-    },window.MAINURL);
-    }
-	});
+
 function CurentTime()
 { 
     var now = new Date();

@@ -11,18 +11,18 @@ import java.util.TreeMap;
 public class sort {
 	public List<Entry<String, Double>> mapSortAsce(Map<String,Double> map){
 		List<Map.Entry<String,Double>> mappingList = null; 
-		  //Í¨¹ýArrayList¹¹Ôìº¯Êý°Ñmap.entrySet()×ª»»³Élist 
+		  //Í¨ï¿½ï¿½ArrayListï¿½ï¿½ï¿½ìº¯ï¿½ï¿½ï¿½ï¿½map.entrySet()×ªï¿½ï¿½ï¿½ï¿½list 
 		  mappingList = new ArrayList<Map.Entry<String,Double>>(map.entrySet()); 
-		  //Í¨¹ý±È½ÏÆ÷ÊµÏÖ±È½ÏÅÅÐò 
+		  //Í¨ï¿½ï¿½ï¿½È½ï¿½ï¿½ï¿½Êµï¿½Ö±È½ï¿½ï¿½ï¿½ï¿½ï¿½ 
 		  Collections.sort(mappingList, new Comparator<Map.Entry<String,Double>>(){ 
 		   public int compare(Map.Entry<String,Double> mapping1,Map.Entry<String,Double> mapping2){ 
 		    return mapping1.getValue().compareTo(mapping2.getValue()); 
 		   } 
 		  }); 
 		  
-		  for(Map.Entry<String,Double> mapping:mappingList){ 
-		   System.out.println(mapping.getKey()+":"+mapping.getValue()); 
-		  } 
+//		  for(Map.Entry<String,Double> mapping:mappingList){ 
+//		   System.out.println(mapping.getKey()+":"+mapping.getValue()); 
+//		  } 
 		  return mappingList;
 	}
 	

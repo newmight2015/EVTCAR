@@ -353,6 +353,7 @@ public class dealPhoneMessage extends HttpServlet {
 			condition ="Select * from CS_BasicInformation cs,CS_ParkOperatorInformation cp where cs.CSID = cp.CSID";
 		}
 		else condition ="Select * from CS_BasicInformation cs,CS_ParkOperatorInformation cp where cs.CSID = cp.CSID and (cs.CSProvince LIKE '"+cityname+"%' or cs.CSCity LIKE '"+cityname+"%' )";
+		log.info(condition);
 		PreparedStatement sql;
 		try {
 		sql = con.prepareStatement(condition);

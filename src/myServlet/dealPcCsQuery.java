@@ -55,9 +55,9 @@ public class dealPcCsQuery extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		response.setContentType("text/html");
+		request.setCharacterEncoding("urf-8");
 		response.setCharacterEncoding("utf-8");
+		response.setContentType("json");
 		PrintWriter out = response.getWriter();
 		JSONArray csInf = new JSONArray();
 		JSONArray dataAsec = new JSONArray();
@@ -92,7 +92,7 @@ public class dealPcCsQuery extends HttpServlet {
 			temp.add(" cs.OperatorID= '"+csOperator+"'");
 		}
 		if(!csParkFee.equals("none")){
-			temp.add(" cs.CSID IN (select CSID from [CS_ParkOperatorInformation] cp where cp.ParkFeeDay <="+csParkFee +")");
+			temp.add(" cs.CSID IN (select CSID from CS_ParkOperatorInformation cp where cp.ParkFeeDay <="+csParkFee +")");
 		}
 		
 		//if(temp.isEmpty()) condition ="Select * from CS_BasicInformation cs,CS_ParkOperatorInformation cp where cs.CSID = cp.CSID and cs.CSPub = 1 and cs.CSState = 1 ";
@@ -128,7 +128,7 @@ public class dealPcCsQuery extends HttpServlet {
 			data.put("CSAddr", rs.getString(3).trim());
 			data.put("CSProvince", rs.getString(4).trim());
 			data.put("CSCity", rs.getString(5).trim());
-			data.put("CSArea", rs.getString(6).trim());
+			if(rs.getString(6).trim()!=null) data.put("CSArea", rs.getString(6).trim());
 			data.put("Datetime",rs.getDate(7));
 			data.put("CSLatiValue", rs.getFloat(8));
 			data.put("CSLongValue", rs.getFloat(9));
@@ -195,11 +195,12 @@ public class dealPcCsQuery extends HttpServlet {
 				data.put("srcpic", "pic/s_red.png");
 			}
 			//end--ZW
+			System.out.println(data.toString());
 			csInf.put(data);
 			i++;
 		}
 		//System.out.println("共"+i+"条结果");
-		rs.close();
+		db.close(rs, sql, con);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -208,7 +209,8 @@ public class dealPcCsQuery extends HttpServlet {
 		catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}finally{
+		}
+			
 			Map<String,Double> map= new TreeMap<String,Double>();
 			for(int i=0;i<csInf.length();i++){
 				JSONObject data = new JSONObject();
@@ -244,7 +246,7 @@ public class dealPcCsQuery extends HttpServlet {
 					e.printStackTrace();
 				}
 			} 
-		}
+		
 		
 		out.println(dataAsec);
 		out.flush();
