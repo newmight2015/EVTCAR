@@ -38,7 +38,10 @@ function createJson(prop, val) {
     }
 }
 
-
+function showMessage(msg){
+	$(".map-messagebox .message").html(msg);
+    $(".map-messagebox").show(1000,function(){setTimeout(function(){$(".map-messagebox").hide(1000)},2000) });
+}
 
 function drive(i){
 	var p2 = new window.BMap.Point(CsAllData[i].CSLongValue,CsAllData[i].CSLatiValue);
@@ -49,7 +52,7 @@ function drive(i){
 function showcsintro(i){
 	$('#csintro').modal();
 	$("#csid").value=CsAllData[i].CSId;
-     var Operator,CSPub,CSState,CSFeeDay;
+     var Operator,CSPub,CSState,CSFeeDay,CSMode;
         if(CsAllData[i].OperatorID=='001') Operator="国家电网";
         else if(CsAllData[i].OperatorID=='002') Operator="普天";
         else if(CsAllData[i].OperatorID=='003') Operator="特锐德";
@@ -307,7 +310,7 @@ function showPostition(i){
 function showRecommend(){
 	$("#searchResultPanel").show();
 	$("#searchResultPanel .resultAll").empty();
-	for(i=0;i<3;i++){
+	for(var i=0;i<3;i++){
 		$("#searchResultPanel .resultAll").append(
 				"<div class='search-content' onclick='showPostition("+i+")'><i class='resultpic result-pic"+(i+1)+
 				"'></i><div class='result-content'><p>名称："+CsAllData[i].CSAddr+
@@ -320,7 +323,7 @@ function showRecommend(){
 
 }
 function enableOrderButton(){ 
-	for(i=0;i<CsAllData.length;i++){ 
+	for(var i=0;i<CsAllData.length;i++){ 
 		 if(CsAllData[i].CSIsOrder=='0'){ 
 		 	if($('"#dealOrder'+i+'"')!=undefined){ 
 	           $('"#dealOrder'+i+'"').attr("disabled", true);
@@ -380,7 +383,8 @@ function eachAllCs(srcpic,point,marker,info,searchInfoWindow,hasOpoint){//输出
                                             '</br>对外状态： '+CSPub+
                                             '</br>停车费用： '+CsAllData[i].CSFeeDay+'元/h'+
                                             '<p style="margin-top:10px"><a class="btn btn-success btn-sm" onclick="showcsintro('+i+')">详情</a>'+
-                                            '<a class="btn btn-success btn-sm" onclick="javascript:drive('+i+')">导航</a><a class="btn btn-success btn-sm" onclick="dealOrder('+i+')">预约</a></p>';
+                                            '<a class="btn btn-success btn-sm" onclick="javascript:drive('+i+')">导航</a><a class="btn btn-default btn-sm orderUnuse" disabled="ture"  alt="此功能正在开发中，敬请期待！">预约</a></p>';
+                                           // '<a class="btn btn-success btn-sm" onclick="javascript:drive('+i+')">导航</a><a class="btn btn-success btn-sm" onclick="dealOrder('+i+')">预约</a></p>';
                                }else{ 
                                info[i] =  '<img src="pic/charge-stick.gif" alt="" style="float:right;zoom:1;overflow:hidden;width:100px;height:100px;margin-left:3px;"/>'+
                                             '</br>地址： '+CsAllData[i].CSAddr+

@@ -8,6 +8,6 @@ var STATICINFO = {
 		lat:"",
 	},
 	URL:{ 
-		MAINURL:"",
+		MAINURL:"www.ezchong.com",
 	}
 }

@@ -10,12 +10,13 @@
         return document.getElementById(id);
     }
     //绘制地图
-    var map = new BMap.Map("r-map");    // 创建Map实例
+/*    var map = new BMap.Map("r-map");    // 创建Map实例
     map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);  // 初始化地图,设置中心点坐标和地图级别
     map.addControl(new BMap.MapTypeControl());   //添加地图类型控件
     map.setCurrentCity("北京");          // 设置地图显示的城市 此项是必须设置的
     map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
-    //定义经纬度变量；
+*/   //定义经纬度变量；
+    initalMap();
     sendPos=new Object();
     sendPos.lng="";
     sendPos.lat="";
@@ -86,7 +87,7 @@
             	var CSName=$("#changedata [name='changedata1']").val();
             	var CSAddr=$("#changedata [name='changedata2']").val();
             	var CSDate=$("#changedata [name='changedata3']").val();
-            	varCSMode=$("#changedata [name='changedata4']").val();
+            	var varCSMode=$("#changedata [name='changedata4']").val();
             	var CSFast=$("#changedata [name='changedata5']").val();
             	var CSlow=$("#changedata [name='changedata6']").val();
             	var Operator=$("#changedata [name='changedata7']").val();
@@ -121,6 +122,7 @@
 
     //点击“搜索”，搜索周围充电站
     $("#search").on("click",function(){
+    	
     	$(".select-section").slideUp();
     	$(".search-toggle a").html("展开");
     	STATICINFO.USERPOSITION.name = $("#suggestId").val();
@@ -129,16 +131,23 @@
             $(".map-messagebox").show(1000,function(){setTimeout(function(){$(".map-messagebox").hide(1000)},2000) });
         }else {
         	map.clearOverlays();
+        	$(".search-head span").html($("#suggestId").val());
         	opoint = new BMap.Point(sendPos.lng, sendPos.lat);
+        	var geoc = new BMap.Geocoder();
+        	geoc.getLocation(opoint, function(rs){
+    			var addComp = rs.addressComponents;
+    			$("#cityname").val(addComp.province);
+    			//alert(addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber);
+    		});        
             var csOperator = $("#select1").data("csoperator");
             var csRange = $("#select2").data("csrange");
             var csParkFee = $("#select3").data("csparkfee");
             var cityName=$("#cityname").val();
-            var AjaxURL="dealCsQuery.do?lng="+sendPos.lng+"&lat="+sendPos.lat+"&csOperator="+csOperator
-            +"&csRange="+csRange+"&csParkFee="+csParkFee+"&cityName="+cityName;
+            var AjaxURL="dealPcCsQuery.do?lng="+sendPos.lng+"&lat="+sendPos.lat+"&csOperator="+csOperator
+            +"&csRange="+csRange+"&csParkFee="+csParkFee+"&cityName="+cityName+"&isphone=false";
             //alert(AjaxURL);
             $.ajax({
-                        type: "GET",
+                        type: "POST",
                         dataType: "html",
                         url: AjaxURL,
                        // data: {VehData:JSON.stringify(VehData)},
@@ -204,7 +213,9 @@
 //    });
 
     $("#makeOrder").on("click",function(){
-        USERCheck.isLogin(function(isok,error){
+    	alert("此功能正在开发中，敬请期待！")
+        /*
+    	USERCheck.isLogin(function(isok,error){
             if(isok != 'false'){
             	var id = $("#csorder table").data("id");
                 var dateBegin =	 $("#csorder [name='start-date']").val();
@@ -233,6 +244,7 @@
                 window.location.href = "login.jsp";
             }
         },window.MAINURL)
+        */
     })
 
 	

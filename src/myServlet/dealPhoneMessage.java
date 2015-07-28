@@ -341,7 +341,7 @@ public class dealPhoneMessage extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		JSONObject ms = new JSONObject();
 		
-		
+		//String isphone = request.getParameter("isphone");
 		String cityname = request.getParameter("cityname");
 		log.info("要查询的城市名："+ cityname);
 		//System.out.println(cityname);
@@ -352,7 +352,7 @@ public class dealPhoneMessage extends HttpServlet {
 		if(cityname.equals("全国")){ 
 			condition ="Select * from CS_BasicInformation cs,CS_ParkOperatorInformation cp where cs.CSID = cp.CSID";
 		}
-		else condition ="Select * from CS_BasicInformation cs,CS_ParkOperatorInformation cp where cs.CSID = cp.CSID and cs.CSCity LIKE '"+cityname+"%'";
+		else condition ="Select * from CS_BasicInformation cs,CS_ParkOperatorInformation cp where cs.CSID = cp.CSID and (cs.CSProvince LIKE '"+cityname+"%' or cs.CSCity LIKE '"+cityname+"%' )";
 		PreparedStatement sql;
 		try {
 		sql = con.prepareStatement(condition);
@@ -387,8 +387,14 @@ public class dealPhoneMessage extends HttpServlet {
 			data.put("ServiceFee", rs.getFloat(18));
 			if(rs.getString(19)!=null) data.put("Feenotes", rs.getString(19).trim());
 			else data.put("Feenotes", "暂无信息");
+			/*
 			data.put("CSPub", rs.getFloat(20));
 			data.put("CSState", rs.getFloat(21));
+			*/
+				data.put("CSPub", rs.getFloat(21));
+				data.put("CSState", rs.getFloat(20));
+			
+			
 			data.put("CSTime", rs.getString(22));
 			if(rs.getString(23)!=null) data.put("CSPhone", rs.getString(23).trim());
 			else data.put("CSPhone", "暂无信息");
@@ -862,12 +868,12 @@ public class dealPhoneMessage extends HttpServlet {
 		
 		String usId = request.getParameter("usId");
 		String content = request.getParameter("content");
-		String sql="update UserAdviceInf set USAdvice ='"+content+"' and USid='"+usId+"'";
-                
+		String sql= "INSERT INTO UserAdviceInf (USAdviceContent, USid , USAdviceStatue) VALUES (?,?,?)";
+		String pars[] = new String[]{content,usId,"1"};
 		JSONObject data = new JSONObject();
 		dbUtil db = new dbUtil();
         try {
-            db.update(sql);
+            db.update(sql,pars);
 				if(db.getResu()!=0){
 				    log.info(usId+":该用户提交了一条建议信息");
 					data.put("isSuccess", true);

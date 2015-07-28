@@ -50,55 +50,49 @@ body{
 </head>
 
 <body>
+<!-- Modal test-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body"> </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!--顶部导航栏开始 -->
 <%@include file="head.jsp" %>
 <!--下面是中部导航栏的代码-->
 <div class="nav-green nav-head" id="J_m_nav">
 	<div class="nav-content">
-		<div class="nav-btn active"><a href="index.jsp">首页</a></div>
+		<div class="nav-btn"><a href="index.jsp">首页</a></div>
 		<div class="nav-btn "><a href="searchCS.jsp">我要充电</a></div>
 		<div class="nav-btn"><a href="inq_sta.jsp">充电站分布</a></div>
 		<div class="nav-btn"><a href="userInf.jsp">用户管理</a></div>
-		<div class="nav-btn"><a href="aboutUs.jsp">关于我们</a></div>
+		<div class="nav-btn  active"><a href="aboutUs.jsp">关于我们</a></div>
 	</div>
 </div>
 </header>
 <!--顶部导航栏结束 -->
 <div class="company-function">
-		<h1><b>我们的服务</b></h1>
-		<div class="container function">
-			<div class="rows">
-					<div class="col-xs-4">
-						<div class="function-pic">
-							<img src="pic/functionpic2.png">
-						</div>
-						<div class="function-content">
-							<div class="tittle">全国主要城市的充电站详细信息查询</div>
-							<div class="content">用户能查询到充电站位置、快/慢充桩的数量、空闲充电桩数量、充电桩运营状况、运营时间、充电费用以及充电停车费用等充电服务信息。
-							</div>
-						</div>
-					</div>
-					<div class="col-xs-4">
-						<div class="function-pic">
-							<img src="pic/functionpic1.png">
-						</div>
-						<div class="function-content">
-							<div class="tittle">智能化主动式充电服务</div>
-							<div class="content">平台根据用户车辆的位置、剩余电量、出行路线以及充电站的动静态数据等信息，调用充电调度模型，智能计算出最佳充电服务方案并提供充电预约的服务。
-							</div>
-						</div>
-					</div>
-					<div class="col-xs-4">
-						<div class="function-pic">
-						<img src="pic/functionpic3.png">
-						</div>
-						<div class="function-content">
-							<div class="tittle">众包式的充电站信息采集</div>
-							<div class="content">激励每个用户主动提供新建充电站的位置、充电桩数量、名称、运营状况等信息，利于平台及时更新数据，实现最大化充电服务的覆盖。
-							</div>
-						</div>
-					</div>
+		<div class="aboutall_bg">
+			<div class="footer_bg">
+				<div class="footer_aboutus_bg">
+				</div>
 			</div>
+		</div>
+		
+		<div class="content function">
+				<p>亲爱的用户，您好！</p>
+				<p>自第一代产品“电动汽车智能充电服务平台”和“电动汽车充电无忧APP”上线8个月以来，收到了大量用户对产品的反馈意见。在此基础上，我们于2015年5月正式对第一版产品进行更新换代，于2015年7月打造出我们的第二代产品“车快充”平台和“车快充”APP。第二代产品数据更加齐全，功能更完善，更贴近用户的需求。但我们深知，好的产品离不开用户的支持和反馈，因此您在使用我们的产品中有何建议，请发送至bilinghc@163.com。我们会认真考虑您的建议，努力进一步打造出满足您要求的产品。</p>
+				<h4 class="r">感谢用户您的支持和帮助！</h4>
 		</div>
 	</div>
 	<br><br><br><br><br>
