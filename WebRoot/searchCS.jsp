@@ -328,7 +328,7 @@ body {
 <script src="js/jquery.raty.js" type="text/javascript"></script>
 <script>
 $(document).ready(function(){
-	initalMap();
+	
 	function myFun(result){
 	    var cityName = result.name;
 	    //alert(""+cityName);

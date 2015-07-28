@@ -52,7 +52,7 @@ function drive(i){
 function showcsintro(i){
 	$('#csintro').modal();
 	$("#csid").value=CsAllData[i].CSId;
-     var Operator,CSPub,CSState,CSFeeDay;
+     var Operator,CSPub,CSState,CSFeeDay,CSMode;
         if(CsAllData[i].OperatorID=='001') Operator="国家电网";
         else if(CsAllData[i].OperatorID=='002') Operator="普天";
         else if(CsAllData[i].OperatorID=='003') Operator="特锐德";
@@ -310,7 +310,7 @@ function showPostition(i){
 function showRecommend(){
 	$("#searchResultPanel").show();
 	$("#searchResultPanel .resultAll").empty();
-	for(i=0;i<3;i++){
+	for(var i=0;i<3;i++){
 		$("#searchResultPanel .resultAll").append(
 				"<div class='search-content' onclick='showPostition("+i+")'><i class='resultpic result-pic"+(i+1)+
 				"'></i><div class='result-content'><p>名称："+CsAllData[i].CSAddr+
@@ -323,7 +323,7 @@ function showRecommend(){
 
 }
 function enableOrderButton(){ 
-	for(i=0;i<CsAllData.length;i++){ 
+	for(var i=0;i<CsAllData.length;i++){ 
 		 if(CsAllData[i].CSIsOrder=='0'){ 
 		 	if($('"#dealOrder'+i+'"')!=undefined){ 
 	           $('"#dealOrder'+i+'"').attr("disabled", true);

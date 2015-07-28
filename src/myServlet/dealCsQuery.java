@@ -82,6 +82,10 @@ public class dealCsQuery extends HttpServlet {
 		String lat=request.getParameter("lat").trim();
 		//String CSProvince=request.getParameter("cityName").trim();
 		String CSProvince=new String( request.getParameter("cityName").getBytes("iso8859-1"), "utf-8").substring(0,2);
+		if(CSProvince.lastIndexOf("省")>0){
+			CSProvince =CSProvince.substring(0,CSProvince.lastIndexOf("省"));
+			System.out.println(CSProvince);
+		}
 		//System.out.println(CSProvince);
 		/*System.out.println(lng);
 		System.out.println(lat);
@@ -94,6 +98,7 @@ public class dealCsQuery extends HttpServlet {
 		String condition ;
 		ArrayList<String> temp = new ArrayList<String>();
 		StringBuffer tempCondition = new StringBuffer();
+		
 		//condition ="Select * from CS_BasicInformation cs,CS_ParkOperatorInformation cp where cs.CSPub = 1 and cs.CSState = 1 ";
 		//查询所有充电站（包括公用私用运营未运营等充电站）zw
 		condition ="Select * from CS_BasicInformation cs,CS_ParkOperatorInformation cp where cs.CSProvince='"+CSProvince+"'";
@@ -107,7 +112,7 @@ public class dealCsQuery extends HttpServlet {
 		
 		//if(temp.isEmpty()) condition ="Select * from CS_BasicInformation cs,CS_ParkOperatorInformation cp where cs.CSID = cp.CSID and cs.CSPub = 1 and cs.CSState = 1 ";
 		//查询所有充电站（包括公用私用运营未运营等充电站）zw
-		if(temp.isEmpty()) condition ="Select * from CS_BasicInformation cs,CS_ParkOperatorInformation cp where cs.CSID = cp.CSID and cs.CSProvince='"+CSProvince+"'";
+		if(temp.isEmpty()) condition ="Select * from CS_BasicInformation cs,CS_ParkOperatorInformation cp where cs.CSID = cp.CSID and cs.CSProvince LIKE '"+CSProvince+"'";
 		else {
 			Iterator i = temp.iterator();
 			while(i.hasNext()){
