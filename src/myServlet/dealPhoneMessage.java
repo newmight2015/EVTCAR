@@ -352,7 +352,7 @@ public class dealPhoneMessage extends HttpServlet {
 		if(cityname.equals("全国")){ 
 			condition ="Select * from CS_BasicInformation cs,CS_ParkOperatorInformation cp where cs.CSID = cp.CSID";
 		}
-		else condition ="Select * from CS_BasicInformation cs,CS_ParkOperatorInformation cp where cs.CSID = cp.CSID and cs.CSCity LIKE '"+cityname+"%'";
+		else condition ="Select * from CS_BasicInformation cs,CS_ParkOperatorInformation cp where cs.CSID = cp.CSID and (cs.CSProvince LIKE '"+cityname+"%' or cs.CSCity LIKE '"+cityname+"%' )";
 		PreparedStatement sql;
 		try {
 		sql = con.prepareStatement(condition);

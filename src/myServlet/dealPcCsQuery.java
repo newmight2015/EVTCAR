@@ -86,7 +86,7 @@ public class dealPcCsQuery extends HttpServlet {
 		StringBuffer tempCondition = new StringBuffer();
 		//condition ="Select * from CS_BasicInformation cs,CS_ParkOperatorInformation cp where cs.CSPub = 1 and cs.CSState = 1 ";
 		//查询所有充电站（包括公用私用运营未运营等充电站）zw
-		condition ="Select * from CS_BasicInformation cs,CS_ParkOperatorInformation cp where cs.CSProvince='"+CSProvince+"'";
+		condition ="Select * from CS_BasicInformation cs,CS_ParkOperatorInformation cp where (cs.CSProvince LIKE '"+CSProvince+"%' or cs.CSCity LIKE '"+CSProvince+"%' )";
 		//System.out.println(condition);
 		if(!csOperator.equals("none")){
 			temp.add(" cs.OperatorID= '"+csOperator+"'");
@@ -97,7 +97,7 @@ public class dealPcCsQuery extends HttpServlet {
 		
 		//if(temp.isEmpty()) condition ="Select * from CS_BasicInformation cs,CS_ParkOperatorInformation cp where cs.CSID = cp.CSID and cs.CSPub = 1 and cs.CSState = 1 ";
 		//查询所有充电站（包括公用私用运营未运营等充电站）zw
-		if(temp.isEmpty()) condition ="Select * from CS_BasicInformation cs,CS_ParkOperatorInformation cp where cs.CSID = cp.CSID and cs.CSProvince='"+CSProvince+"'";
+		if(temp.isEmpty()) condition ="Select * from CS_BasicInformation cs,CS_ParkOperatorInformation cp where cs.CSID = cp.CSID and (cs.CSProvince LIKE '"+CSProvince+"%' or cs.CSCity LIKE '"+CSProvince+"%')";
 		else {
 			Iterator i = temp.iterator();
 			while(i.hasNext()){
