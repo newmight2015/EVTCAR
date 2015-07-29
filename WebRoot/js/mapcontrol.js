@@ -209,10 +209,11 @@ function changeCsInf(i){
 
 //处理纠错信息的方法
 function dealCorrect(i){
-	var r=confirm("是否确认提交纠错信息！");
-	if(r==true){
+	
 		USERCheck.isLogin(function(isok,error){
 	        if(isok != 'false'){
+	        	var r=confirm("是否确认提交纠错信息！");
+	        	if(r==true){
 	        	//var id = $("#csorder table").data("id");
 	        	var CSId=$("#changedata0").val();
 	        	var CSName=$("#changedata1").val();
@@ -248,12 +249,13 @@ function dealCorrect(i){
 	                    alert("error:"+data.message);
 	                 }
 	            }); 
+	        	}
 	        }else { 
 	        	alert("您好，请先登录！登录后才能预约");
 	            window.location.href = "login.jsp";
 	        }
 	    },window.MAINURL);
-	}
+	
 	
 	
 }
