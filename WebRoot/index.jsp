@@ -83,7 +83,7 @@ body{
 							<img src="pic/functionpic1.png">
 						</div>
 						<div class="function-content">
-							<div class="tittle">智能化主动式充电服务满足用户定制化的充电需求</div>
+							<div class="tittle">智能化主动式充电服务</div>
 							<div class="content">平台根据用户车辆的位置、剩余电量、出行路线以及充电站的动静态数据等信息，调用充电调度模型，智能计算出最佳充电服务方案并提供充电预约的服务。
 							</div>
 						</div>

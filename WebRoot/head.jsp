@@ -1,7 +1,6 @@
 <%@  page language="java" import="java.util.*" import="myBean.usInformation" pageEncoding="UTF-8" %>
 <header>
-
-
+<link rel="stylesheet" type="text/css" href="font-awesome-4.3.0/css/font-awesome.min.css">
 <div class="modal fade" id="showDownload" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -31,7 +30,7 @@
 		<div class="menu">
 			<div class="xl">
 				<ul>
-					<li><a id="download">客户端下载</a></li>
+					<li><a id="download"><i class="fa fa-download"></i>客户端下载</a></li>
 					<li><a>运营商加盟</a></li>
 				</ul>
 			</div>
