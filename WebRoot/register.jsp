@@ -103,6 +103,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             
                             
                             <!--ko if:type()=='phone'-->
+                             <tr  id="imgCodeArea" style="display:none;">
+                                <td class="t">
+                                    <span class="important">*</span>图形验证码：
+                                </td>
+                                <td>
+                                    <input type="text" name="txt_vcode" class="text" autocomplete="off" maxlength="4" tabindex="4" onblur="checkcode()">
+                                    <span id="spn_vcode_ok" class="warn" style="display: none;">请输入下图中的验证码</span>
+                                    <span id="spn_vcode_wrong" class="cue" style="display: none;"></span>
+                                    <div class="v_box">
+                                        <a href="javascript:show_vcode('imgVcode')" name="change_code_img" tabindex="5">
+                                            <img alt="code..." name="randImage" id="randImage" src="image.jsp" onclick="reload()"></a>看不清?<a href="javascript:reload()" class="changepic" tabindex="6">换张图</a>
+                                    </div>
+									
+                                </td>
+                            </tr>
+                            
 							<tr id="vcodeArea" style="display:none;">
                                 <td class="t">
                                     	验证码：
@@ -152,21 +168,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                     <span id="div5" style="display: none;" class="cue"></span>
                                 </td>
                             </tr>
-                            <tr >
-                                <td class="t">
-                                    <span class="important">*</span>图形验证码：
-                                </td>
-                                <td>
-                                    <input type="text" name="txt_vcode" class="text" autocomplete="off" maxlength="4" tabindex="4" onblur="checkcode()">
-                                    <span id="spn_vcode_ok" class="warn" style="display: none;">请输入下图中的验证码</span>
-                                    <span id="spn_vcode_wrong" class="cue" style="display: none;"></span>
-                                    <div class="v_box">
-                                        <a href="javascript:show_vcode('imgVcode')" name="change_code_img" tabindex="5">
-                                            <img alt="code..." name="randImage" id="randImage" src="image.jsp" onclick="reload()"></a>看不清?<a href="javascript:reload()" class="changepic" tabindex="6">换张图</a>
-                                    </div>
-									
-                                </td>
-                            </tr>
+                           
                             
 							<script>
 							          	$("#randImage").click(function(){

@@ -62,7 +62,8 @@ var USERCheck = {
         var _this = this;
         $.ajax({ 
             url:url+"/dealPhoneMessage",
-            type:"GET",
+            type:"POST",
+            async:false,
             dataType:"json",
             data:{act:'checkCode',code:code},
             success:function(data){

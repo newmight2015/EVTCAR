@@ -577,6 +577,7 @@ public class dealPhoneMessage extends HttpServlet {
 		HttpSession sess = request.getSession();
 		String code = (String)sess.getAttribute("rand");
 		String ccode = (String)request.getParameter("code");
+		log.info(ccode);
 		if(code.equals(ccode)){
 			try {
 				ms.put("isSuccess", true);
@@ -593,6 +594,12 @@ public class dealPhoneMessage extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		}
+		try {
+			log.info(ms.get("message"));
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		out.println(ms);
 		out.flush();
@@ -893,6 +900,10 @@ public class dealPhoneMessage extends HttpServlet {
         out.println(data);
 		out.flush();
 		out.close();
+	}
+	
+	private static void getCityJson(HttpServletRequest request, HttpServletResponse response)throws IOException{
+		
 	}
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

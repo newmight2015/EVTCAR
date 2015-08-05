@@ -271,8 +271,7 @@ function dealOrder(i){
         
         if(CsAllData[i].CSPub=='1') CSPub="公用";
              else if(CsAllData[i].CSPub=='2') CSPub="专用";
-             else if(CsAllData[i].CSPub=='3') CSPub="私用";
-             else if(CsAllData[i].CSPub=='4') CSPub="其他";
+             else if(CsAllData[i].CSPub=='3') CSPub="未知";
              else CSPub="未核实";
         if(CsAllData[i].CSState=='1') CSState="运营中";
              else if(CsAllData[i].CSState=='2') CSState="未运营";
