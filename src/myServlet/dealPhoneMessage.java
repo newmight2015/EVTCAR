@@ -814,7 +814,7 @@ public class dealPhoneMessage extends HttpServlet {
 		ss.setAttribute("vcode", result);
 		
 		String Phone = request.getParameter("phone").trim();
-		SDKSendSMS.sendSMS(Phone, String.valueOf(result));
+		SDKSendSMS.sendSMS(Phone, String.valueOf(result),"29063");
         JSONObject data = new JSONObject();
         try {
 		    	    log.info("验证码发送成功");

@@ -422,6 +422,61 @@ padding:15px 0px;
 	float: left;
 	margin-top: 20px;
 }
+#csorder .appoint .iconarea{
+	overflow:scroll;
+	float: left;
+	margin-top: 20px;
+	display:inline-block;
+}
+#csorder .appoint .iconarea div{
+	background:white;
+	height:40px;
+	width:60px;
+
+}
+#csorder .appoint .box{
+	width: 80%;
+	margin-right: 80px;
+	float: left;
+	margin-top: 20px;
+}
+.green-charge-icon{
+	position:relative;
+	height:40px;
+	width:60px;
+	background:green;
+	margin:5px 7px;
+	display:inline-block;
+
+}
+.green-charge-icon:before{
+	content:"";
+	position:absolute;
+	top:50%;
+	right:-10px;
+	height:15px;
+	width:10px;
+	margin-top:-7px;
+	background:green;
+}
+.red-charge-icon{
+	position:relative;
+	height:40px;
+	width:60px;
+	background:red;
+	margin:5px 7px;
+	display:inline-block;
+}
+.red-charge-icon:before{
+	content:"";
+	position:absolute;
+	top:50%;
+	right:-10px;
+	height:15px;
+	width:10px;
+	margin-top:-7px;
+	background:red;
+}
 #csorder .appoint .box .text{
 	float: left;
 	font-family: 'Microsoft Yahei';

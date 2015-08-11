@@ -1052,8 +1052,6 @@ function checkname(){
                         return false;
                     }
                 }
-                $("#imgCodeArea").show();
-        		$("#vcodeArea").show();		//加载手机验证码输入框
                 USERCheck.checkIsReg(name1,function(isOk,message,data){
 	                	if(isOk){
 	                		if(div.siblings().hasClass("checkimg")==true){

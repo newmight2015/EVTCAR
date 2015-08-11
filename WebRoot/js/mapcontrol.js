@@ -1,4 +1,4 @@
-//targetJson 目标JSON，packJson 被组装JSON
+﻿//targetJson 目标JSON，packJson 被组装JSON
 
 function addGroupJson(targetJson, packJson){
 
@@ -72,7 +72,7 @@ function showcsintro(i){
         else if(CsAllData[i].CSMode=='2') CSMode="慢充";
         else CSMode="快慢充";	
 
-        if(CsAllData[i].CSFeeDay=='-1') CSFeeDay = "未核实";
+       var csFee = CsAllData[i].CSFeeDay=='-1'?"未核实":CsAllData[i].CSFeeDay+'元/h'	
         
         $("#csintro .modal-body .info").html("<form id='change' name='changecsinf'  method='post' action='dealCorrect' ><table data-id='"+i+"'><tbody><tr style='display: none;'><th>ID：</th><td>"+CsAllData[i].CSId+
                 	"</td></tr><tr><th>名称：</th><td>"+CsAllData[i].CSName+
@@ -82,7 +82,7 @@ function showcsintro(i){
         			"</td></tr><tr><th>快充数量：</th><td>"+CsAllData[i].CSFast+
         			"</td></tr><tr><th>慢充数量：</th><td>"+CsAllData[i].CSSlow+
         			"</td></tr><tr><th>运营商：</th><td>"+Operator+
-        			"</td></tr><tr><th>停车费用：</th><td>"+CsAllData[i].CSFeeDay+"元/小时"+
+        			"</td></tr><tr><th>停车费用：</th><td>"+csFee +
         			"</td></tr><tr><th>对外状态：</th><td>"+CSPub+
         			"</td></tr><tr><th>运营状态：</th><td>"+CSState+
         			"</td></tr><tr><th>电话:</th><td>"+CsAllData[i].CSPhone+
@@ -309,6 +309,9 @@ function showPostition(i){
 function showRecommend(){
 	$("#searchResultPanel").show();
 	$("#searchResultPanel .resultAll").empty();
+	if(CsAllData.length==0){
+		$("#searchResultPanel .resultAll").append("<img src='pic/nomessage.png' alt='暂无信息'></img>")
+	}
 	for(var i=0;i<3;i++){
 		$("#searchResultPanel .resultAll").append(
 				"<div class='search-content' onclick='showPostition("+i+")'><i class='resultpic result-pic"+(i+1)+
@@ -362,16 +365,16 @@ function eachAllCs(srcpic,point,marker,info,searchInfoWindow,hasOpoint){//输出
                                 else Operator="未知"
                                 
                                 if(CsAllData[i].CSPub=='1') CSPub="公用";
-                                     else if(CsAllData[i].CSPub=='2') CSPub="公交专用";
-                                     else if(CsAllData[i].CSPub=='3') CSPub="私用";
-                                     else if(CsAllData[i].CSPub=='4') CSPub="其他";
+                                     else if(CsAllData[i].CSPub=='2') CSPub="专用";
+                                     else if(CsAllData[i].CSPub=='4') CSPub="未知";
                                      else CSPub="未知";
                                 if(CsAllData[i].CSState=='1') CSState="运营中";
 						             else if(CsAllData[i].CSState=='2') CSState="未运营";
 						             else CSState="未核实"; 
 
-
-						             
+				// if(CsAllData[i].CSFeeDay=='-1') CSFeeDay = "未核实";
+				
+                                var csFee = CsAllData[i].CSFeeDay=='-1'?"未核实":CsAllData[i].CSFeeDay+'元/h'		             
                                 if(hasOpoint==true){
                                 info[i] =  '<img src="pic/charge-stick.gif" alt="" style="float:right;zoom:1;overflow:hidden;width:100px;height:100px;margin-left:3px;"/>'+
                                             '</br>地址： '+CsAllData[i].CSAddr+
@@ -380,7 +383,7 @@ function eachAllCs(srcpic,point,marker,info,searchInfoWindow,hasOpoint){//输出
                                             '</br>慢充个数： '+CsAllData[i].CSSlow+
                                             '</br>运营商： '+Operator+
                                             '</br>对外状态： '+CSPub+
-                                            '</br>停车费用： '+CsAllData[i].CSFeeDay+'元/h'+
+                                            '</br>停车费用： '+csFee+
                                             '<p style="margin-top:10px"><a class="btn btn-success btn-sm" onclick="showcsintro('+i+')">详情</a>'+
                                             '<a class="btn btn-success btn-sm" onclick="javascript:drive('+i+')">导航</a><a class="btn btn-default btn-sm orderUnuse" disabled="ture"  alt="此功能正在开发中，敬请期待！">预约</a></p>';
                                            // '<a class="btn btn-success btn-sm" onclick="javascript:drive('+i+')">导航</a><a class="btn btn-success btn-sm" onclick="dealOrder('+i+')">预约</a></p>';

@@ -42,7 +42,127 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	STATICINFO.USERINFO.name = "<%= usInf==null ? "" : usInf.getUsId()%>";
 	
 </script>
-
+<script type="text/javascript">
+  var cpInf = [
+               {
+                   "CSID": "1000001", 
+                   "CPID": "1", 
+                   "CPType": 1,			//1为快充，2为慢充 
+                   "CPState": 0, 
+                   "CPChargeStartTime": "2015-12-11 11:00:01", 
+                   "CPChargeEndTime": "2015-12-11 11:00:01", 
+                   "CPChargeValue": "0.5"
+               },
+               {
+                   "CSID": "1000001", 
+                   "CPID": "2", 
+                   "CPType": 1,			//1为快充，2为慢充 
+                   "CPState": 1, 
+                   "CPChargeStartTime": "2015-12-11 11:00:01", 
+                   "CPChargeEndTime": "2015-12-11 11:00:01", 
+                   "CPChargeValue": "0.3"
+               },
+               {
+                   "CSID": "1000001", 
+                   "CPID": "3", 
+                   "CPType": 1,			//0为快充，1为慢充 
+                   "CPState": 0, 
+                   "CPChargeStartTime": "2015-12-11 11:00:01", 
+                   "CPChargeEndTime": "2015-12-11 11:00:01", 
+                   "CPChargeValue": "0.8"
+               },
+               {
+                   "CSID": "1000001", 
+                   "CPID": "4", 
+                   "CPType": 1,			//1为快充，2为慢充 
+                   "CPState": 0, 
+                   "CPChargeStartTime": "2015-12-11 11:00:01", 
+                   "CPChargeEndTime": "2015-12-11 11:00:01", 
+                   "CPChargeValue": "0.4"
+               },
+               {
+                   "CSID": "1000001", 
+                   "CPID": "4", 
+                   "CPType": 1,			//1为快充，2为慢充 
+                   "CPState": 1, 
+                   "CPChargeStartTime": "2015-12-11 11:00:01", 
+                   "CPChargeEndTime": "2015-12-11 11:00:01", 
+                   "CPChargeValue": "0.4"
+               },
+               {
+                   "CSID": "1000001", 
+                   "CPID": "4", 
+                   "CPType": 1,			//1为快充，2为慢充 
+                   "CPState": 0, 
+                   "CPChargeStartTime": "2015-12-11 11:00:01", 
+                   "CPChargeEndTime": "2015-12-11 11:00:01", 
+                   "CPChargeValue": "0.4"
+               },
+               {
+                   "CSID": "1000001", 
+                   "CPID": "4", 
+                   "CPType": 1,			//1为快充，2为慢充 
+                   "CPState": 1, 
+                   "CPChargeStartTime": "2015-12-11 11:00:01", 
+                   "CPChargeEndTime": "2015-12-11 11:00:01", 
+                   "CPChargeValue": "0.4"
+               },
+               {
+                   "CSID": "1000001", 
+                   "CPID": "4", 
+                   "CPType": 1,			//1为快充，2为慢充 
+                   "CPState": 0, 
+                   "CPChargeStartTime": "2015-12-11 11:00:01", 
+                   "CPChargeEndTime": "2015-12-11 11:00:01", 
+                   "CPChargeValue": "0.4"
+               },
+               {
+                   "CSID": "1000001", 
+                   "CPID": "4", 
+                   "CPType": 1,			//1为快充，2为慢充 
+                   "CPState": 1, 
+                   "CPChargeStartTime": "2015-12-11 11:00:01", 
+                   "CPChargeEndTime": "2015-12-11 11:00:01", 
+                   "CPChargeValue": "0.4"
+               },
+               {
+                   "CSID": "1000001", 
+                   "CPID": "4", 
+                   "CPType": 1,			//1为快充，2为慢充 
+                   "CPState": 0, 
+                   "CPChargeStartTime": "2015-12-11 11:00:01", 
+                   "CPChargeEndTime": "2015-12-11 11:00:01", 
+                   "CPChargeValue": "0.4"
+               },
+               {
+                   "CSID": "1000001", 
+                   "CPID": "4", 
+                   "CPType": 1,			//1为快充，2为慢充 
+                   "CPState": 1, 
+                   "CPChargeStartTime": "2015-12-11 11:00:01", 
+                   "CPChargeEndTime": "2015-12-11 11:00:01", 
+                   "CPChargeValue": "0.4"
+               },
+               {
+                   "CSID": "1000001", 
+                   "CPID": "4", 
+                   "CPType": 1,			//1为快充，2为慢充 
+                   "CPState": 0, 
+                   "CPChargeStartTime": "2015-12-11 11:00:01", 
+                   "CPChargeEndTime": "2015-12-11 11:00:01", 
+                   "CPChargeValue": "0.4"
+               },
+               {
+                   "CSID": "1000001", 
+                   "CPID": "4", 
+                   "CPType": 1,			//1为快充，2为慢充 
+                   "CPState": 1, 
+                   "CPChargeStartTime": "2015-12-11 11:00:01", 
+                   "CPChargeEndTime": "2015-12-11 11:00:01", 
+                   "CPChargeValue": "0.4"
+               },
+           ]
+</script>
 <style>
 body {
 	font-size: 14px;
@@ -187,9 +307,13 @@ body {
         <h4 class="modal-title text"><strong>用户充电预约</strong></h4>
       </div>
       <div class="modal-body">
-      	 <div  class="info">
-      	 	
-      	 </div>
+      <!-- 充电站基本信息 -->
+      	 <div  class="info"></div>
+      <!-- 充电桩基本信息 -->
+      	 <div class=" iconarea">
+        		
+        	</div>
+
         <div class="appoint">
         	<div class="errormsg"></div>
         	<div class="box">
@@ -260,6 +384,10 @@ body {
 				<dd data-value="003"><a href="#">特锐德</a></dd>
 				<dd data-value="004"><a href="#">富电科技</a></dd>
 				<dd data-value="005"><a href="#">特斯拉</a></dd>
+				<dd data-value="006"><a href="#">比亚迪</a></dd>
+				<dd data-value="007"><a href="#">埃士</a></dd>
+				<dd data-value="008"><a href="#">腾势</a></dd>
+				<dd data-value="009"><a href="#">宝马</a></dd>
 			</dl>
 		</li>
 		<li class="select-list">
@@ -346,6 +474,22 @@ $(document).ready(function(){
 	tempPt=[];
 	$(".orderUnuse").bind("click",function(){alert("此功能正在开发中，敬请期待！")})
 	$("#clearOverlays").bind("click",function(){map.clearOverlays;})
+
+
+	for(var i=0;i<cpInf.length;i++){
+		var width = cpInf[i].CPChargeValue*100+"%";
+		if(cpInf[i].CPState==0){
+				if(cpInf[i].CPType ==0 ) 
+					$(".iconarea").append(" <span class='red-charge-icon fast' style='width:"+width+"'></span>");
+				else {$(".iconarea").append(" <span class='red-charge-icon slow' style='width:"+width+"'></span>");}
+					
+			}else if(cpInf[i].CPState==1){
+				if(cpInf[i].CPType ==0 ) 
+					$(".iconarea").append(" <span class='green-charge-icon fast' style='width:"+width+"'></span>");
+				else{$(".iconarea").append(" <span class='green-charge-icon slow' style='width:"+width+"'></span>");} 
+					
+			}
+	}
 })
 
 $(function(){
