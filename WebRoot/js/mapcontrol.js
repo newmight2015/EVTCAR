@@ -258,6 +258,32 @@ function dealCorrect(i){
 	
 }
 
+function showCpInf(id){
+	USERCheck.checkCpMsgById(id,function(isok,Msg){
+		if(isok){
+			var cpInf = Msg;
+			for(var i=0;i<cpInf.length;i++){
+				var width = cpInf[i].CPChargeValue*100+"%";
+				var inf ="编号:"+cpInf[i].CPID+"&nbsp;&nbsp;&nbsp;已充:"+width;
+				if(cpInf[i].CPState==0){//0：在充
+						if(cpInf[i].CPType ==0 ) 
+							$(".iconarea").append("<div class='mesh borderred' data-toggle='tooltip' data-placement='right' title="+inf+"><span class='red-charge-icon fast' style='width:"+width+"' ></span></div>");
+						else {
+							$(".iconarea").append(" <div class='mesh borderred' data-toggle='tooltip' data-placement='right' title="+inf+"><span class='red-charge-icon slow' style='width:"+width+"' ></span></div>");
+						}
+					}else if(cpInf[i].CPState==1){//1：空闲
+						if(cpInf[i].CPType ==0 ) 
+							$(".iconarea").append(" <div class='mesh bordergreen' data-toggle='tooltip' data-placement='right' title="+inf+"><span class='green-charge-icon fast' style='width:"+width+"' ></span></div>");
+						else{
+							$(".iconarea").append(" <div class='mesh bordergreen' data-toggle='tooltip' data-placement='right' title="+inf+"><span class='green-charge-icon slow' style='width:"+width+"' ></span></div>");
+						}
+					}
+			}
+		}else $("#csorder .errormsg").append(error);
+			
+	},window.MAINURL)
+}
+
 function dealOrder(i){ 
 	$('#csorder').modal();
 	$('#csorder .appoint .errormsg').empty();
@@ -276,6 +302,9 @@ function dealOrder(i){
         if(CsAllData[i].CSState=='1') CSState="运营中";
              else if(CsAllData[i].CSState=='2') CSState="未运营";
              else CSState="未核实";
+        
+        showCpInf(CsAllData[i].CSId);
+        
         $("#csorder .modal-body .info").html("<table data-id='"+i+"'><tbody>"+
         	"<tr><th>用户名：</th><td>"+STATICINFO.USERINFO.name+
         	"<tr><th>您的位置：</th><td>"+STATICINFO.USERPOSITION.name+
@@ -385,8 +414,8 @@ function eachAllCs(srcpic,point,marker,info,searchInfoWindow,hasOpoint){//输出
                                             '</br>对外状态： '+CSPub+
                                             '</br>停车费用： '+csFee+
                                             '<p style="margin-top:10px"><a class="btn btn-success btn-sm" onclick="showcsintro('+i+')">详情</a>'+
-                                            '<a class="btn btn-success btn-sm" onclick="javascript:drive('+i+')">导航</a><a class="btn btn-default btn-sm orderUnuse" disabled="ture"  alt="此功能正在开发中，敬请期待！">预约</a></p>';
-                                           // '<a class="btn btn-success btn-sm" onclick="javascript:drive('+i+')">导航</a><a class="btn btn-success btn-sm" onclick="dealOrder('+i+')">预约</a></p>';
+                                           // '<a class="btn btn-success btn-sm" onclick="javascript:drive('+i+')">导航</a><a class="btn btn-default btn-sm orderUnuse" disabled="ture"  alt="此功能正在开发中，敬请期待！">预约</a></p>';
+                                            '<a class="btn btn-success btn-sm" onclick="javascript:drive('+i+')">导航</a><a class="btn btn-success btn-sm" onclick="dealOrder('+i+')">预约</a></p>';
                                }else{ 
                                info[i] =  '<img src="pic/charge-stick.gif" alt="" style="float:right;zoom:1;overflow:hidden;width:100px;height:100px;margin-left:3px;"/>'+
                                             '</br>地址： '+CsAllData[i].CSAddr+

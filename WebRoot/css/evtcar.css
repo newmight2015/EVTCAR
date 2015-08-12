@@ -411,6 +411,13 @@ padding:15px 0px;
 	font-weight: 700;
 	font-size: 19px;
 }
+.bordergreen{
+	border:5px solid green;
+}
+.borderred{
+	border:5px solid red;
+}
+
 #csorder .appoint{
 	margin-top: 30px;
 	border-top:3px solid rgb(126,194,21);
@@ -428,11 +435,46 @@ padding:15px 0px;
 	margin-top: 20px;
 	display:inline-block;
 }
-#csorder .appoint .iconarea div{
+#csorder .iconarea .mesh{
+	position:relative;
 	background:white;
-	height:40px;
-	width:60px;
-
+	height:50px;
+	width:70px;
+	padding:3px;
+	display:inline-block;
+	margin:7px;
+}
+#csorder .iconarea .bordergreen:before{
+	content:"";
+	position:absolute;
+	top:50%;
+	right:-10px;
+	height:20px;
+	width:7px;
+	margin-top:-10px;
+	background:green;
+}
+#csorder .iconarea .borderred:before{
+	content:"";
+	position:absolute;
+	top:50%;
+	right:-10px;
+	height:20px;
+	width:7px;
+	margin-top:-10px;
+	background:red;
+}
+.green-charge-icon{
+	height:34px;
+	width:54px;
+	background:green;
+	display:inline-block;
+}
+.red-charge-icon{
+	height:34px;
+	width:54px;
+	background:red;
+	display:inline-block;
 }
 #csorder .appoint .box{
 	width: 80%;
@@ -440,43 +482,8 @@ padding:15px 0px;
 	float: left;
 	margin-top: 20px;
 }
-.green-charge-icon{
-	position:relative;
-	height:40px;
-	width:60px;
-	background:green;
-	margin:5px 7px;
-	display:inline-block;
 
-}
-.green-charge-icon:before{
-	content:"";
-	position:absolute;
-	top:50%;
-	right:-10px;
-	height:15px;
-	width:10px;
-	margin-top:-7px;
-	background:green;
-}
-.red-charge-icon{
-	position:relative;
-	height:40px;
-	width:60px;
-	background:red;
-	margin:5px 7px;
-	display:inline-block;
-}
-.red-charge-icon:before{
-	content:"";
-	position:absolute;
-	top:50%;
-	right:-10px;
-	height:15px;
-	width:10px;
-	margin-top:-7px;
-	background:red;
-}
+
 #csorder .appoint .box .text{
 	float: left;
 	font-family: 'Microsoft Yahei';

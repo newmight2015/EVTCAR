@@ -249,7 +249,26 @@ var USERCheck = {
             }
         })
     },
-
+    
+    checkCpMsgById:function(id,callback,url){
+    	var _this = this;
+        $.ajax({ 
+            url:url+"dealPhoneMessage",
+            type:"GET",
+            dataType:"json",
+            data:{
+            	act:'checkCpMsgById',
+            	csId:id,
+            },
+            success:function(data){
+                return _this._callback(callback,true,data,data);
+            },
+            error:function(data){ 
+                console.log(data);
+                return _this._callback(callback,false,"连接服务器失败，请稍后再试",data);
+            }
+        })
+    },
 
 
 

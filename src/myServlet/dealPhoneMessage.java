@@ -901,9 +901,46 @@ public class dealPhoneMessage extends HttpServlet {
 		out.flush();
 		out.close();
 	}
-	
-	private static void getCityJson(HttpServletRequest request, HttpServletResponse response)throws IOException{
+	/**
+	 * 获取某个充电站所有充电桩信息
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 * @throws SQLException
+	 */
+	private static void checkCPMsgById(HttpServletRequest request, HttpServletResponse response)throws IOException{
+		PrintWriter out = response.getWriter();
+		response.setContentType("json");
 		
+		String csId = request.getParameter("csId");
+		String sql= "select * from CP_DynamicInformation where CSID = '"+csId+"'";
+		
+		JSONArray cpInf = new JSONArray();
+		dbUtil db = new dbUtil();
+        try {
+            	ResultSet rs = db.query(sql);
+            	while(rs.next()){
+            		JSONObject data = new JSONObject();
+            		data.put("CPID", rs.getString(3));
+            		data.put("CPType", rs.getInt(4));
+            		data.put("CPState", rs.getInt(5));
+            		data.put("CPChargeStartTime", rs.getString(6));
+            		data.put("CPChargeEndTime", rs.getString(7));
+            		data.put("CPChargeValue", rs.getFloat(8));
+            		cpInf.put(data);
+            	}
+			}catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally{
+				db.closeAll();
+			}
+        out.println(cpInf);
+		out.flush();
+		out.close();
 	}
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -932,7 +969,7 @@ public class dealPhoneMessage extends HttpServlet {
 			case "comment"		: this.comment(request, response);break;//提交评价信息
 			case "searchCityCS" : this.searchCityCS(request, response);break;// 查询全国充电站信息
 			case "checkAPPUpdate":this.checkAPPUpdate(request, response);break;//app版本检测
-		
+			case "checkCPMsgById"	:this.checkCPMsgById(request, response);break;//获取充电站信息 8-12
 			/****以下仍需修改***/
 			case "deleteMsg"	: this.deleteMsg(request, response, 2);break;//删除消息提醒的最新消息，放入历史消息中
 			case "deleteOldMsg"	: this.deleteMsg(request, response,3);break;//删除消息提醒的最新消息，放入历史消息中

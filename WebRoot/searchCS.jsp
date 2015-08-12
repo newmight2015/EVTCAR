@@ -43,7 +43,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 </script>
 <script type="text/javascript">
-  var cpInf = [
+  var dddd = [
                {
                    "CSID": "1000001", 
                    "CPID": "1", 
@@ -311,8 +311,11 @@ body {
       	 <div  class="info"></div>
       <!-- 充电桩基本信息 -->
       	 <div class=" iconarea">
-        		
-        	</div>
+      	 		
+      	 		
+      	 		<div class="mesh bordergreen"><span class='green-charge-icon fast' onMouseOver="$(this).tooltip('show')" data-toggle='tooltip' data-placement='bottom' title='Tooltip on top'></span></div>
+        		<div class="mesh borderred	"><span class='red-charge-icon fast' onMouseOver="$(this).tooltip('show')" data-toggle='tooltip' data-placement='bottom' title='Tooltip on top'></span></div>
+         </div>
 
         <div class="appoint">
         	<div class="errormsg"></div>
@@ -431,6 +434,13 @@ body {
 	</ul>
 </div>
 
+<!-- Generated markup by the plugin -->
+<div class="tooltip top" role="tooltip" id="tooltip">
+  <div class="tooltip-arrow"></div>
+  <div class="tooltip-inner">
+    Some tooltip text!
+  </div>
+</div>
 
 <div id="searchResultPanel">
 	<div class="search-box">
@@ -450,7 +460,7 @@ body {
 <%@include file="footer.jsp" %>
 
 <!--下面是左侧导航栏的代码-->
-<script src="js/bootstrap.min.js"></script>
+<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script src="js/mapcontrol.js" type="text/javascript"></script>
 <script src="js/search.js"></script> 
 <script src="js/showInf.js" type="text/javascript"></script>
@@ -462,7 +472,7 @@ $(document).ready(function(){
 	    var cityName = result.name;
 	    //alert(""+cityName);
 	    $("#cityname").val(cityName);
-	    map.setCenter(cityName);   //关于setCenter()可参考API文档---”传送门“
+	    map.setCenter(cityName);   			
 	    map.setCurrentCity(cityName);          // 设置地图显示的城市 此项是必须设置的
 	    //alert(cityName);
 	    //change_city_val(cityName);
@@ -475,24 +485,14 @@ $(document).ready(function(){
 	$(".orderUnuse").bind("click",function(){alert("此功能正在开发中，敬请期待！")})
 	$("#clearOverlays").bind("click",function(){map.clearOverlays;})
 
-
-	for(var i=0;i<cpInf.length;i++){
-		var width = cpInf[i].CPChargeValue*100+"%";
-		if(cpInf[i].CPState==0){
-				if(cpInf[i].CPType ==0 ) 
-					$(".iconarea").append(" <span class='red-charge-icon fast' style='width:"+width+"'></span>");
-				else {$(".iconarea").append(" <span class='red-charge-icon slow' style='width:"+width+"'></span>");}
-					
-			}else if(cpInf[i].CPState==1){
-				if(cpInf[i].CPType ==0 ) 
-					$(".iconarea").append(" <span class='green-charge-icon fast' style='width:"+width+"'></span>");
-				else{$(".iconarea").append(" <span class='green-charge-icon slow' style='width:"+width+"'></span>");} 
-					
-			}
-	}
+	
 })
 
 $(function(){
+	$(".iconarea .mesh span").mouseover(function(){
+			$(this).tooltip('show')
+	});
+	 $('[data-toggle="tooltip"]').tooltip()
 	$("[name='start-date']").val(CurentDateTime(0));
 	$("[name='start-time']").val(CurentTime());
 	$("[name='stop-date']").val(CurentDateTime(1));
