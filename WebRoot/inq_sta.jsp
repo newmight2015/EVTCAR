@@ -155,6 +155,7 @@ body{
 					//$('#hid_city_name').val(pinyin_city);
 					//$("#hid_real_city_name").val(city);
 					//$('#cityarea').hide();
+					 var cityName = city.substring(0,2);
 					 map.centerAndZoom(city,11);
 					 map.clearOverlays();
 				     $.ajax({

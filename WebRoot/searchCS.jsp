@@ -484,14 +484,14 @@ $(document).ready(function(){
 	tempPt=[];
 	$(".orderUnuse").bind("click",function(){alert("此功能正在开发中，敬请期待！")})
 	$("#clearOverlays").bind("click",function(){map.clearOverlays;})
-
+	$(".iconarea .mesh span").bind("mouseover",function(){
+		$(this).tooltip('show')
+	});
 	
 })
 
 $(function(){
-	$(".iconarea .mesh span").mouseover(function(){
-			$(this).tooltip('show')
-	});
+	
 	 $('[data-toggle="tooltip"]').tooltip()
 	$("[name='start-date']").val(CurentDateTime(0));
 	$("[name='start-time']").val(CurentTime());

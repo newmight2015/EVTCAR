@@ -253,11 +253,11 @@ var USERCheck = {
     checkCpMsgById:function(id,callback,url){
     	var _this = this;
         $.ajax({ 
-            url:url+"dealPhoneMessage",
+            url:url+"/dealPhoneMessage",
             type:"GET",
             dataType:"json",
             data:{
-            	act:'checkCpMsgById',
+            	act:'checkCPMsgById',
             	csId:id,
             },
             success:function(data){

@@ -719,6 +719,7 @@ public class dealMessage extends HttpServlet {
 		 */
 		if(act.equals("searchCityCS")){ 
 			String cityname = request.getParameter("cityname").trim();
+			cityname=cityname.substring(0,2);
 			JSONArray csInf = new JSONArray();
 			dbUtil db =new dbUtil();
 			
@@ -783,11 +784,11 @@ public class dealMessage extends HttpServlet {
 					}
 				}else if(cspub==3){//未知
 					if(csstate==1){//运营中
-						data.put("srcpic", "pic/s_green.png");
+						data.put("srcpic", "pic/t_green.png");
 					}else if(csstate==2){//未运营
-						data.put("srcpic", "pic/s_red.png");
+						data.put("srcpic", "pic/t_red.png");
 					}else if(csstate==3){//未知
-						data.put("srcpic", "pic/s_red.png");
+						data.put("srcpic", "pic/t_red.png");
 					}
 				}else{
 					data.put("srcpic", "pic/s_red.png");

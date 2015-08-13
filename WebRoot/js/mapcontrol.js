@@ -259,6 +259,7 @@ function dealCorrect(i){
 }
 
 function showCpInf(id){
+	$(".iconarea").empty();
 	USERCheck.checkCpMsgById(id,function(isok,Msg){
 		if(isok){
 			var cpInf = Msg;
@@ -279,7 +280,11 @@ function showCpInf(id){
 						}
 					}
 			}
-		}else $("#csorder .errormsg").append(error);
+			$(".iconarea .mesh span").mouseover(function(){
+				$(this).tooltip('show')
+			});
+		}else 
+			$("#csorder .errormsg").append("暂无充电桩信息");
 			
 	},window.MAINURL)
 }
