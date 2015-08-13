@@ -2,7 +2,7 @@
 //
 
 var USERCheck = { 
-    MAINURL: "localhost:8080/EVTcar2",
+   // MAINURL: "localhost:8080/EVTcar2",
     _trim:function(str){ 
         return $.trim(str);
     },
