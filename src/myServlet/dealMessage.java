@@ -537,7 +537,7 @@ public class dealMessage extends HttpServlet {
 		if(act.equals("correctCsInf")){	
               
 			String  CSId,CSName,CSAddr,CSDate,CSMode,CSFast,CSlow,Operator,ParkFee,CSPub,CSState,CSPhone,CSNotes;
-			System.out.println("进入produceOrder");
+			//System.out.println("进入produceOrder");
 			CSId=new String( request.getParameter("changedata0").getBytes("iso8859-1"), "utf-8");		
 			CSName=new String( request.getParameter("changedata1").getBytes("iso8859-1"), "utf-8");
 			CSAddr=new String( request.getParameter("changedata2").getBytes("iso8859-1"), "utf-8");
@@ -700,7 +700,7 @@ public class dealMessage extends HttpServlet {
 						isError = false;
 				  }else{
 					    ms.put("isSuccess", false);
-						ms.put("message", "订单生成失败");
+						ms.put("message", "订单生成失败,暂无可用充电桩");
 						isError = true;
 				  };
 				//  dbEntity db = new dbEntity();
@@ -708,9 +708,14 @@ public class dealMessage extends HttpServlet {
 				  } catch (JSONException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
-					}
+					} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			  }
 			  out.println(ms.toString());
+			  out.flush();
+			  out.close();
 		}
 		
 		
@@ -719,13 +724,13 @@ public class dealMessage extends HttpServlet {
 		 */
 		if(act.equals("searchCityCS")){ 
 			String cityname = request.getParameter("cityname").trim();
-			cityname=cityname.substring(0,2);
+			//cityname=cityname.substring(0,2);
 			JSONArray csInf = new JSONArray();
 			dbUtil db =new dbUtil();
 			
 			String aa ="Select * from CS_BasicInformation cs,CS_ParkOperatorInformation cp where cs.CSID = cp.CSID  and  (cs.CSProvince LIKE '"+cityname+"%' or cs.CSCity LIKE '"+cityname+"%')";
 			System.out.println(aa);
-			db.update(aa);
+			db.query(aa);
 			ResultSet rs =  db.getRS();
 			try {
 			while (rs.next()) {

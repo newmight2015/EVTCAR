@@ -311,20 +311,17 @@ body {
       	 <div  class="info"></div>
       <!-- 充电桩基本信息 -->
       	 <div class=" iconarea">
-      	 		
-      	 		
-      	 		<div class="mesh bordergreen"><span class='green-charge-icon fast' onMouseOver="$(this).tooltip('show')" data-toggle='tooltip' data-placement='bottom' title='Tooltip on top'></span></div>
-        		<div class="mesh borderred	"><span class='red-charge-icon fast' onMouseOver="$(this).tooltip('show')" data-toggle='tooltip' data-placement='bottom' title='Tooltip on top'></span></div>
-         </div>
+      	 		<div class="unuse"></div>
+      	 		<div class="use"></div>		
+      	 </div>
 
         <div class="appoint">
         	<div class="errormsg"></div>
         	<div class="box">
         		<div class="text">充电桩类型</div>
         		<div class="cptype clearfix">
-        			<input type="checkbox" name="cp" value="快充" /><span>快充</span>
-	        		<input type="checkbox" name="cp" value="慢充" /><span>慢充</span>
-	        		<input type="checkbox" name="cp" value="快慢充" /><span>快慢充</span>
+        			<input type="checkbox" name="cp" value="1" /><span>快充</span>
+	        		<input type="checkbox" name="cp" value="2" /><span>慢充</span>
         		</div>
         		
         	</div>

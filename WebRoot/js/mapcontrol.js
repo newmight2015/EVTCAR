@@ -259,24 +259,30 @@ function dealCorrect(i){
 }
 
 function showCpInf(id){
-	$(".iconarea").empty();
+	$(".iconarea .use").empty();
+	$(".iconarea .unuse").empty();
 	USERCheck.checkCpMsgById(id,function(isok,Msg){
 		if(isok){
 			var cpInf = Msg;
 			for(var i=0;i<cpInf.length;i++){
-				var width = cpInf[i].CPChargeValue*100+"%";
-				var inf ="编号:"+cpInf[i].CPID+"&nbsp;&nbsp;&nbsp;已充:"+width;
+				var inf;
+				var width = cpInf[i].CPChargeValue.toFixed(2)*100+"%";
+				if(cpInf[i].CPType ==1 ){
+					inf="[编号:"+cpInf[i].CPID+"]&nbsp;&nbsp;&nbsp;[类型：快充]"+"&nbsp;&nbsp;&nbsp;[已充:"+width+"]";
+				}else{
+					inf="[编号:"+cpInf[i].CPID+"]&nbsp;&nbsp;&nbsp;[类型：慢充]"+"&nbsp;&nbsp;&nbsp;[已充:"+width+"]";
+				}
 				if(cpInf[i].CPState==0){//0：在充
-						if(cpInf[i].CPType ==0 ) 
-							$(".iconarea").append("<div class='mesh borderred' data-toggle='tooltip' data-placement='right' title="+inf+"><span class='red-charge-icon fast' style='width:"+width+"' ></span></div>");
+						if(cpInf[i].CPType ==1 ) 
+							$(".iconarea .unuse").append("<div class='mesh borderred'  data-toggle='tooltip' data-placement='right' title="+inf+"><span class='red-charge-icon fast' style='width:"+width+"' ></span></div>");
 						else {
-							$(".iconarea").append(" <div class='mesh borderred' data-toggle='tooltip' data-placement='right' title="+inf+"><span class='red-charge-icon slow' style='width:"+width+"' ></span></div>");
+							$(".iconarea .unuse").append(" <div class='mesh borderred'  data-toggle='tooltip' data-placement='right' title="+inf+"><span class='red-charge-icon slow' style='width:"+width+"' ></span></div>");
 						}
 					}else if(cpInf[i].CPState==1){//1：空闲
-						if(cpInf[i].CPType ==0 ) 
-							$(".iconarea").append(" <div class='mesh bordergreen' data-toggle='tooltip' data-placement='right' title="+inf+"><span class='green-charge-icon fast' style='width:"+width+"' ></span></div>");
+						if(cpInf[i].CPType ==1 ) 
+							$(".iconarea .use").append(" <div class='mesh bordergreen'  data-toggle='tooltip' data-placement='right' title="+inf+"><span class='green-charge-icon fast' style='width:"+width+"' ></span></div>");
 						else{
-							$(".iconarea").append(" <div class='mesh bordergreen' data-toggle='tooltip' data-placement='right' title="+inf+"><span class='green-charge-icon slow' style='width:"+width+"' ></span></div>");
+							$(".iconarea .use").append(" <div class='mesh bordergreen'  data-toggle='tooltip' data-placement='right' title="+inf+"><span class='green-charge-icon slow' style='width:"+width+"' ></span></div>");
 						}
 					}
 			}
@@ -288,7 +294,7 @@ function showCpInf(id){
 			
 	},window.MAINURL)
 }
-
+//预约订单
 function dealOrder(i){ 
 	$('#csorder').modal();
 	$('#csorder .appoint .errormsg').empty();

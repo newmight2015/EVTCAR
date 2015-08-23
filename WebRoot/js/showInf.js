@@ -342,10 +342,10 @@
 //    });
 
     $("#makeOrder").on("click",function(){
-    	alert("此功能正在开发中，敬请期待！")
-        /*
+    	//alert("此功能正在开发中，敬请期待！")
+       
     	USERCheck.isLogin(function(isok,error){
-            if(isok != 'false'){
+            if(isok != false){
             	var id = $("#csorder table").data("id");
                 var dateBegin =	 $("#csorder [name='start-date']").val();
                 var timeBegin = $("#csorder [name='start-time']").val();
@@ -361,7 +361,7 @@
                 }
 
                 USERCheck.produceOrder(csId,dateBegin,timeBegin,dateStop,timeStop,csType,csName,csAddr,function(isok,error){ 
-                	if(isok=="false"){ 
+                	if(isok==false){
                 		$("#csorder .errormsg").html(error);
                 	}else { 
                 		$("#csorder .errormsg").html("您的预约请求已提交，请到用户管理中查看订单详情。");
@@ -373,7 +373,7 @@
                 window.location.href = "login.jsp";
             }
         },window.MAINURL)
-        */
+        
     })
 
 	

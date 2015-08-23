@@ -22,12 +22,61 @@ public class dbEntity {
 		return db.getRS();
 	}
 	/**
+	 * 查询充电站中空闲的充电桩
+	 * @param pras CPType,CSID
+	 * @return 返回第一个查询结果
+	 * @throws SQLException 
+	 */
+	public String findFreeCpNum(String...pras){
+		String checkConditon = "select CPID from CP_DynamicInformation where CPType=? and CSID = ? and CPState = 1";
+		System.out.println(checkConditon);
+		db.query(checkConditon, pras);
+		ResultSet rs = this.getResultSet();
+		try {
+			if(rs.next()) { //�������ɹ�
+				System.out.println("yes");
+				String cpnum = rs.getString(1);
+				return cpnum;
+			}
+			else {
+				return "fail";
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "fail";
+		} finally {
+			db.closeAll();
+		}
+		
+	}
+	
+	/**
+	 * 
+	 */
+	public boolean changeCpState(String...pras){
+		String checkConditon = "UPDATE CP_DynamicInformation SET CPState=0,CPChargeStartTime=?,CPChargeEndTime=? where CSID=? and CPID=?";
+		System.out.println(checkConditon);
+		db.update(checkConditon, pras);
+		try {
+			if(db.getResu()!=0) { //�������ɹ�
+				System.out.println("changeCpState-success");
+				return true;
+			}
+			else {
+				return false;
+			}
+		} finally {
+			db.closeAll();
+		}
+	}
+	/**
 	 * 保存预约订单
 	 * @param pras CSID,USid,USOrdDate,USOrdStartTime,USOrdEndTime,USOrdStatue,USOrdType,USOrdCsName,USOrdCsAddr
 	 * @return
 	 */
 	public boolean SaveOrder(String...pras){
-		String checkConditon = "INSERT INTO UserOrderInf(CSID,USid,USOrdDate,USOrdStartTime,USOrdEndTime,USOrdStatue,USOrdType,USOrdCsName,USOrdCsAddr) VALUES(?,?,?,?,?,?,?,?,?)";
+		String checkConditon = "INSERT INTO UserOrderInf(CSID,USid,USOrdDate,USOrdStartTime,USOrdEndTime,USOrdStatue,USOrdType,USOrdCsName,USOrdCsAddr,USOrdCpId) VALUES(?,?,?,?,?,?,?,?,?,?)";
 		db.update(checkConditon, pras);
 		if(this.dbResu()!=0) { //�������ɹ�
 			System.out.println("---------SaveOrder:保存订单成功");
