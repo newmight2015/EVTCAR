@@ -610,8 +610,9 @@ public class dealPhoneMessage extends HttpServlet {
 	 * @param request
 	 * @param response
 	 * @throws IOException
+	 * @throws SQLException 
 	 */
-	private static void produceOrder(HttpServletRequest request, HttpServletResponse response)throws IOException{
+	private static void produceOrder(HttpServletRequest request, HttpServletResponse response)throws IOException, SQLException{
 		PrintWriter out = response.getWriter();
 		JSONObject ms = new JSONObject();
 		DateFormat fmt = new SimpleDateFormat("yyyy-MM-dd"); 
@@ -975,7 +976,12 @@ public class dealPhoneMessage extends HttpServlet {
 			case "deleteOldMsg"	: this.deleteMsg(request, response,3);break;//删除消息提醒的最新消息，放入历史消息中
 			case "analysiscminfo":this.analysiscminfo(request, response);break;//统计评星信息
 			case "checkCode"	: this.checkCode(request, response);break;//检验验证码
-			case "produceOrder" : this.produceOrder(request, response);break;//生产订单信息
+			case "produceOrder" : try {
+				this.produceOrder(request, response);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}break;//生产订单信息
 			case "checkNewOrder": this.checkOrder(request, response,1);break;//查询最新订单信息
 			case "checkOldOrder": this.checkOrder(request, response,2);break;//查询历史订单信息
 			case "userCsSubmit" : this.userCsSubmit(request, response);break;//分享充电站信息

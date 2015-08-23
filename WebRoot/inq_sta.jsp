@@ -119,7 +119,10 @@ body{
 					    <div id="tuna_jmpinfo" style="visibility:hidden;position:absolute;z-index:120;"></div>
 	</div>
 <!--城市选择下拉结束-->
+	<div class="map-container">
 	<div class="map" id="r-map"></div>
+	<div class="tishi"><img alt="图标说明" src="pic/tishi.png"></div>
+	</div>
 </div>
 <%@include file="footer.jsp" %>
 </body>

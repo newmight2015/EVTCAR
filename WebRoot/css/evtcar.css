@@ -692,4 +692,12 @@ position: relative;
 .yellowstar45{background-position:0 -684px}
 .yellowstar50{background-position:0 -576px}
 
-
+.tishi{ 
+	position: absolute;
+	right: 0px;
+	bottom: 0px;
+	width: 160px;
+	height: 289px;
+	background: rgb(221, 233, 212);
+	z-index: 999999;
+}

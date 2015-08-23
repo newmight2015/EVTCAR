@@ -174,6 +174,7 @@ body {
 	width:100%;
 	height:500px;
 }
+
 </style>
 
 </head>
@@ -367,6 +368,7 @@ body {
 <div class="map-container">
 <div class="map" id="r-map" style="min-width:1024px;height:600px;">
 </div>
+<div class="tishi"><img alt="图标说明" src="pic/tishi.png"></div>
 <div class="map-messagebox" style="display:none">
 	<div class="message">
 		请输入您的详细位置
