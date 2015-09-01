@@ -191,7 +191,7 @@ function showcsintro(i){
 //点击详情界面“点我纠错”按钮的事件，把各项充电站信息变成可编辑状态。	//张伟：修改此方法
 function changeCsInf(i){
   USERCheck.isLogin(function(isok,error){
-	if(isok != 'false'){
+	if(isok != false){
 		var j=0;
 		$("#csintro .modal-body .info tr").children("td").each(function(){ 
 			$(this).replaceWith("<input type='text' style='width:400px;'  id='changedata"+j+"' name='changedata"+j+"' value='"+$(this).html()+"'/>");
@@ -211,7 +211,7 @@ function changeCsInf(i){
 function dealCorrect(i){
 	
 		USERCheck.isLogin(function(isok,error){
-	        if(isok != 'false'){
+	        if(isok != false){
 	        	var r=confirm("是否确认提交纠错信息！");
 	        	if(r==true){
 	        	//var id = $("#csorder table").data("id");

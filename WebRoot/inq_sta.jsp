@@ -32,6 +32,7 @@ response.setCharacterEncoding("UTF-8");
 <script src="js/bootstrap.min.js"></script>
 
 <script src="js/mapcontrol.js" type="text/javascript"></script>
+<script src="js/UserCheck.js" type="text/javascript"></script>
 	<script src="js/staticinfo.js" type="text/javascript"></script>
 <script type="text/javascript">
 	<%
