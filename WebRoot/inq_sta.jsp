@@ -5,10 +5,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 request.setCharacterEncoding("UTF-8");
 response.setCharacterEncoding("UTF-8");
 %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
 <head>
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>查询充电站信息</title>
 
 
@@ -24,11 +26,11 @@ response.setCharacterEncoding("UTF-8");
 <link rel="stylesheet" href="http://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.css" /> 
 <link href="static/style/release/other13.css" rel="stylesheet" type="text/css" />
 <script src="static/js/release/cities08.js"  type="text/javascript"></script>
-<script src="static/js/release/jquery.autocomplete.js" type="text/javascript"></script>
-
+<script src="static/js/release/autocomplete.js" type="text/javascript"></script>
 <script type="text/javascript" src="http://api.map.baidu.com/library/TextIconOverlay/1.2/src/TextIconOverlay_min.js"></script>
 <script type="text/javascript" src="http://api.map.baidu.com/library/MarkerClusterer/1.2/src/MarkerClusterer_min.js"></script>
 <script src="js/bootstrap.min.js"></script>
+
 <script src="js/mapcontrol.js" type="text/javascript"></script>
 	<script src="js/staticinfo.js" type="text/javascript"></script>
 <script type="text/javascript">
@@ -37,7 +39,6 @@ response.setCharacterEncoding("UTF-8");
 		usInformation usInf = (usInformation)sess.getAttribute("usInf");
 	%>
 	window.MAINURL = "<%=basePath%>";
-	STATICINFO.USERINFO.URL = "<%=basePath%>";
 	STATICINFO.USERINFO.name = "<%= usInf==null ? "" : usInf.getUsId()%>";
 	</script>
 <style>
@@ -86,10 +87,11 @@ body{
 	<div class="hot-cities">
 	<div class="search-citys">
 				<span>当前城市：</span>
-				<input class="text ac_input" id="city_name" type="text" value="请输入城市中文或拼音" onKeyUp="input_keyup();" onClick="append_city();" onBlur="input_blur()" onFocus="if(value=='请输入城市中文或拼音'){value='';style.color='#606060';}" />	
+				<!--热门城市下拉
+				<input class="text ac_input" id="city_name" type="text" placeholder="请输入城市中文或拼音" value="请输入城市中文或拼音" onKeyUp="input_keyup();" onClick="append_city();" onBlur="input_blur()" onFocus="if(value=='请输入城市中文或拼音'){value='';style.color='red';}" />	
 				<input class="text" id="hid_city_name" name="index_city" style="display:none">
 				<input class="text" id="hid_real_city_name" name="real_index_city" style="display:none">
-				<!--热门城市下拉-->
+				
 				<div class="pop search-citys-pop click" style="display:none;z-index:9999" id="cityarea">
 					<a href="javascript:void(0)" id="pop-close" class="pop-close" ></a>
 					<div class="search-citys-tit click">热门城市(可直接输入中文名/拼音/三字码)</div>
@@ -102,14 +104,32 @@ body{
 					</div>
 					<div class="search-citys-list click" id="citylist"></div>
 				</div>
-			</div>
+				
+				<input type="text" id="city" autocomplete="off" value="上海" name="s_cities" onclick="this.value='';GetCityList(this);" onkeyup="selCity(event)" class="inputbox text ac_input" />
+				-->
+			
+				<input type="text" class="text ac_input"  value="" size="15"  id="homecity_name" onchange="searchCityCs()" name="homecity_name" mod="address|notice" mod_address_source="hotel" mod_address_suggest="@Beijing|北京|53@Shanghai|上海|321@Shenzhen|深圳|91@Guangzhou|广州|80@Qingdao|青岛|292@Chengdu|成都|324@Hangzhou|杭州|383@Wuhan|武汉|192@Tianjin|天津|343@Dalian|大连|248@Xiamen|厦门|61@Chongqing|重庆|394@" mod_address_reference="cityid" mod_notice_tip="中文/拼音" />
+				<input id="cityid" name="cityid" type="hidden" value="{$cityid}" />	
+				<a class="btn btn-xs btn-default" id="city_search">查询</a>
+		</div>
 	</div>
-</div>
-<div class="map" id="r-map"></div>
+<!--城市选择下拉 -->
+	<div id="jsContainer" class="jsContainer" style="height:0">
+					    <div id="tuna_alert" style="display:none;position:absolute;z-index:999;overflow:hidden;"></div>
+					    <div id="tuna_jmpinfo" style="visibility:hidden;position:absolute;z-index:120;"></div>
+	</div>
+<!--城市选择下拉结束-->
+	<div class="map-container">
+	<div class="map" id="r-map"></div>
+	<div class="tishi"><img alt="图标说明" src="pic/tishi.png"></div>
+	</div>
 </div>
 <%@include file="footer.jsp" %>
 </body>
 </html>
+
+<script type="text/javascript" src="js/fixdiv.js"></script>
+<script type="text/javascript" src="js/address.js"></script>
 <script type="text/javascript">
 				initalMap();
 				function myFun(result){
@@ -118,211 +138,59 @@ body{
 				    //alert(cityName);
 				    change_city_val(cityName);
 				}
+				function searchCityCs(){
+					var	city = $('#homecity_name').val();
+					change_city_val(city);
+				}
+					
 				var myCity = new BMap.LocalCity();
 				myCity.get(myFun);
 				//创建一个LocalCity对象myCity，然后调用其get()方法，就得到了用户IP对应的城市。该城市结果会以参数形式传递给回调函数myFun。接下来就是myFun(结果城市result)来执行了----即上文红色代码。
 
-				function G(id) {
-						return document.getElementById(id);
-					}        
-				
-				function submitOpt()  
-					    { 
-					     var district=G("district");
-					     var station=G("station");
-					     if(district.value!="false" && station.value!=null){
-						     G("quyu").value=district.value;
-						     G("c_leibie").value = station.value;
-						     G("form1").submit();
-						    // alert(district.value+","+station.value);
-					     }else{
-					     	alert("请选择范围！");
-					     }
-				}  
+				/**
+				 * 用户点击城市后，城市名填入input框
+				 *
+				 */
+				function change_city_val(city)
+				{
+					$('#homecity_name').css({ color: "#606060"});
+					$('#homecity_name').val(city);
+					//$('#hid_city_name').val(pinyin_city);
+					//$("#hid_real_city_name").val(city);
+					//$('#cityarea').hide();
+					 var cityName = city.substring(0,2);
+					 map.centerAndZoom(city,11);
+					 map.clearOverlays();
+				     $.ajax({
+				                        type: "POST",
+				                        dataType: "json",
+				                        crossDomain: true, 
+				                        url: "dealMessage",
+				                        data: {cityname:city,act:"searchCityCS"},
+				                        success: function (data) {
+				                                CsAllData = data;
+				                                var point = new Array(); //存放标注点经纬信息的数组
+				                                marker = new Array(); //存放标注点对象的数组
+				                                var info = new Array(); //存放提示信息窗口对象的数组
+				                                searchInfoWindow =new Array();//存放检索信息窗口对象的数组
+				                                var srcpic = "pic/icon_charger.png";
+				                                eachAllCs(srcpic,point,marker,info,searchInfoWindow,false);
+				                        },
+				                        error: function(data) {
+				                            alert("error:"+data.responseText);
+				                         }
+				                    }); 
+				}
+					$("#city_search").click(function(){
+						var cityname =  $("#homecity_name").val();
+						change_city_val(cityname);
+					})
+					$("#homecity_name").change(function(){
+						var cityname =  $("#homecity_name").val();
+						change_city_val(cityname);
+					})
 </script>
-<script language="javascript">
-
-var cityChange= eval(cityChange);
-$(function(){
- $('#index_province').change(function(){
-    for(var i in cityChange){
-        if(i==this.value){
-           var index_city_obj = $('#index_city')[0];
-           index_city_obj.innerHTML='';
-           var obj = cityChange[i];
-           for(var k in obj){
-              if(obj[k].name){             
-			  	index_city_obj.options[index_city_obj.options.length] = new Option( obj[k].name,obj[k].pinyin);
-              }
-           }
-           break;
-        }
-    }
-    
- });
- 
-})
-//点击X选择城市框消失
-$("#pop-close").click(function (e) {
-	$("#cityarea").hide();
-});
-$(function() {
-	$('#city_name').autocomplete(cities, {
-	max: 12, //列表里的条目数
-	minChars: 0, //自动完成激活之前填入的最小字符
-	width: 385, //提示的宽度，溢出隐藏
-	scrollHeight: 300, //提示的高度，溢出显示滚动条
-	matchContains: true, //包含匹配，就是data参数里的数据，是否只要包含文本框里的数据就显示
-	autoFill: false, //自动填充
-	minChars:1,
-	formatItem: function(row, i, max) {
-	return row.name + '（'+row.pinyin+'）';
-	},
-	formatMatch: function(row, i, max) {
-	return row.match;
-	},
-	
-	formatResult: function(row) {
-	return row.name;
-	},resultsClass:'search-text'
-	}).result(function(event, row, formatted) {
-		$("#hid_city_name").val(row.pinyin);
-		$("#hid_real_city_name").val(row.name);
-		$('#pop_cities').hide();
-		});
-});
 
 
-$(document).ready(function(){
-		$(document).bind('click', hide_div);
-    });
-    
-    function hide_div(e){
-    	var biaoqian = "click";
-    	var classname= $(e.target)[0].className;
-    	if(classname.indexOf('click')>'-1' ||$(e.target)[0].id=='city_name')
-    	return ;
-
-    	if($('#city_name').val()=='')
-        {
-        	$('#city_name').val('请输入城市中文或拼音');
-        	$('#city_name').css('color','#B7B7B7');
-        }
-        $("#cityarea").hide();
-    } 
-
-//直接输入地址框的onblur事件
-function input_blur()
-{
-	var value = $('#city_name').val();
-	var all_city_val = $(".ac_over").text();
-	if(all_city_val && all_city_val!="")
-	{
-		var str = all_city_val.substr(0,(all_city_val.length-1));
-		strs=str.split("（");
-		$("#hid_city_name").val(strs[1]);
-		$("#hid_real_city_name").val(strs[0]);
-		$("#city_name").val(strs[0]);
-		$(".search-text").hide();
-	}else if($.trim(value)==''&& $('#cityarea').css('display')=='none')
-	{
-		$('#city_name').val('请输入城市中文或拼音');
-		$('#city_name').css("color","#B7B7B7");
-	}	
-}
-    
-//直接输入地址框的onkeyup事件
-function input_keyup()
-{
-	var value = $('#city_name').val();
-	if($('#hid_real_city_name').val()!=value || $('#hid_real_city_name').val()=='')
-	{
-		$('#cityarea').hide();
-		
-	}else if(value==$('#hid_real_city_name').val())
-	{
-		$('#cityarea').hide();
-		
-	}
-		
-}
-
-function check_input(){
-	var value = $('#city_name').val();
-	if(value==$('#hid_real_city_name').val() && $("#hid_city_name").val()!=""){
-		return true;
-	}
-	return false;
-}
-
-/**
- * 字母页面内链
- *
- */
-function letter_scroll(letter)
-{
-	 var obj = $("#c_"+letter);
-	 $('html,body').animate({scrollTop: obj.offset().top}, 500);
-}
-
-/**
- * 用户点击城市后，城市名填入input框
- *
- */
-function change_city_val(city, pinyin_city)
-{
-	$('#city_name').css({ color: "#606060"});
-	$('#city_name').val(city);
-	$('#hid_city_name').val(pinyin_city);
-	$("#hid_real_city_name").val(city);
-	$('#cityarea').hide();
-	map.centerAndZoom(city,11);
-	map.clearOverlays();
-    $.ajax({
-                        type: "POST",
-                        dataType: "html",
-                        url: "dealMessage",
-                        data: {cityname:city,act:"searchCityCS"},
-                        success: function (data) {
-                                CsAllData = JSON.parse(data);
-                                var point = new Array(); //存放标注点经纬信息的数组
-                                marker = new Array(); //存放标注点对象的数组
-                                var info = new Array(); //存放提示信息窗口对象的数组
-                                searchInfoWindow =new Array();//存放检索信息窗口对象的数组
-                                var srcpic = "pic/icon_charger.png";
-                                eachAllCs(srcpic,point,marker,info,searchInfoWindow,false);
-                               /*  map.addEventListener('zoomend', function(){
-								    var mapstatue = map.getZoom();
-								    if(mapstatue <= 11 ){
-								    	hidemakers(marker);
-								        markerClusterer = new BMapLib.MarkerClusterer(map, {markers:marker});
-								    }else {
-								    	markerClusterer.clearMarkers(marker);
-								    	showmarkers(marker);
-								    }
-								}); */
-                                //创建聚合点
-                                //map.centerAndZoom(opoint, 11);
-                                //new showRecommend();
-                        },
-                        error: function(data) {
-                            alert("error:"+data.responseText);
-                         }
-                    });  
-}
-
-function hidemakers(marker){ 
-	for (var i = marker.length - 1; i >= 0; i--) {
-		map.removeOverlay(marker[i]);
-	};
-}
-function showmarkers(marker){ 
-	for (var i = marker.length - 1; i >= 0; i--) {
-		map.addOverlay(marker[i]);
-	};
-}
-
-function tabCutover(c,d){$(c).parent().attr("class");$(c).parent().children().removeClass("current");$(c).addClass("current");$("."+d).parent().children().hide();$("."+d).show();}
-</script>
 
 

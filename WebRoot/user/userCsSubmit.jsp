@@ -104,7 +104,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<tr style="display: none;"><th>lat：</th><td><input id="cslat" name="CSLat" maxlength="50"  /></td></tr>
 									<tr><th>快充数量：</th><td><input id="csfast" name="CSFast" maxlength="50" placeholder="请填入数字"/></td></tr>
 									<tr><th>慢充数量：</th><td><input id="cslow" name="CSSlow" maxlength="50" placeholder="请填入数字"/></td></tr>
-									<tr><th>运营商：</th><td><select id="operator" value="" name="OperatorID"><option>普天</option><option>国家电网</option><option>特斯拉</option><option>特锐德</option><option>富电科技</option><option>比亚迪</option><option>其他</option></select> </td></tr>
+									<tr><th>运营商：</th><td><select id="operator" value="" name="OperatorID"><option>普天</option><option>国家电网</option><option>特斯拉</option><option>特锐德</option><option>富电科技</option><option>比亚迪</option><option>埃士</option><option>腾势</option><option>宝马</option><option>其他</option></select> </td></tr>
 									<tr><th>对外状态：</th><td><select id="cspub" value="" name="CSPub"><option>公用</option><option>专用</option><option>待核实</option></select></td></tr>
 									<tr><th>运营状态：</th><td><select id="csstate" value="" name="CSState"><option>运营中</option><option>未运营</option><option>待核实</option></select></td></tr>
 									<tr><th>停车费用：</th><td><input id="parkfee" name="ParkFeeDay" maxlength="50" placeholder="请填入数字"/></td></tr>

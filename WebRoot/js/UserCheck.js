@@ -2,7 +2,7 @@
 //
 
 var USERCheck = { 
-    MAINURL: "localhost:8080/EVTcar2",
+   // MAINURL: "localhost:8080/EVTcar2",
     _trim:function(str){ 
         return $.trim(str);
     },
@@ -62,7 +62,8 @@ var USERCheck = {
         var _this = this;
         $.ajax({ 
             url:url+"/dealPhoneMessage",
-            type:"GET",
+            type:"POST",
+            async:false,
             dataType:"json",
             data:{act:'checkCode',code:code},
             success:function(data){
@@ -248,7 +249,26 @@ var USERCheck = {
             }
         })
     },
-
+    
+    checkCpMsgById:function(id,callback,url){
+    	var _this = this;
+        $.ajax({ 
+            url:url+"/dealPhoneMessage",
+            type:"GET",
+            dataType:"json",
+            data:{
+            	act:'checkCPMsgById',
+            	csId:id,
+            },
+            success:function(data){
+                return _this._callback(callback,true,data,data);
+            },
+            error:function(data){ 
+                console.log(data);
+                return _this._callback(callback,false,"连接服务器失败，请稍后再试",data);
+            }
+        })
+    },
 
 
 

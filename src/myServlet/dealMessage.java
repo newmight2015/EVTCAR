@@ -71,6 +71,7 @@ public class dealMessage extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
+		//ServletActionContext.getResponse().setHeader("Access-Control-Allow-Origin", "*");
 		PrintWriter out = response.getWriter();
 		String act = request.getParameter("act");
 		JSONObject ms = new JSONObject();
@@ -88,7 +89,7 @@ public class dealMessage extends HttpServlet {
 			String uspassword=new String( request.getParameter("uspassword1").getBytes("iso8859-1"), "utf-8");
 			JSONArray Msg = new JSONArray();
 			dbUtil db = new dbUtil();
-			String sql="update UserPerInf set USPassWd=? where Usid=?";
+			String sql="update UserPerInf set USPassWd=? where 	Usid=?";
 			String pras[] = new String[]{uspassword,UsId};
 			db.update(sql,pras);
 			try {
@@ -536,7 +537,7 @@ public class dealMessage extends HttpServlet {
 		if(act.equals("correctCsInf")){	
               
 			String  CSId,CSName,CSAddr,CSDate,CSMode,CSFast,CSlow,Operator,ParkFee,CSPub,CSState,CSPhone,CSNotes;
-			System.out.println("进入produceOrder");
+			//System.out.println("进入produceOrder");
 			CSId=new String( request.getParameter("changedata0").getBytes("iso8859-1"), "utf-8");		
 			CSName=new String( request.getParameter("changedata1").getBytes("iso8859-1"), "utf-8");
 			CSAddr=new String( request.getParameter("changedata2").getBytes("iso8859-1"), "utf-8");
@@ -699,7 +700,7 @@ public class dealMessage extends HttpServlet {
 						isError = false;
 				  }else{
 					    ms.put("isSuccess", false);
-						ms.put("message", "订单生成失败");
+						ms.put("message", "订单生成失败,暂无可用充电桩");
 						isError = true;
 				  };
 				//  dbEntity db = new dbEntity();
@@ -707,9 +708,14 @@ public class dealMessage extends HttpServlet {
 				  } catch (JSONException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
-					}
+					} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			  }
 			  out.println(ms.toString());
+			  out.flush();
+			  out.close();
 		}
 		
 		
@@ -717,22 +723,16 @@ public class dealMessage extends HttpServlet {
 		 * 按城市搜索充电站
 		 */
 		if(act.equals("searchCityCS")){ 
-			//String cityname=new String( request.getParameter("cityname").getBytes("iso8859-1"), "utf-8");
-			String cityname = request.getParameter("cityname");
-			log.info(cityname);
-			//System.out.println(cityname);
+			String cityname = request.getParameter("cityname").trim();
+			//cityname=cityname.substring(0,2);
 			JSONArray csInf = new JSONArray();
-			dataBase db=new dataBase();
-			Connection con =db.getConnection();
-			String condition ;
-			if(cityname.equals("全国")){ 
-				condition ="Select * from CS_BasicInformation ";
-			}
-			else condition ="Select * from CS_BasicInformation cs,CS_ParkOperatorInformation cp where cs.CSID = cp.CSID and cs.CSCity LIKE '"+cityname+"%'";
-			PreparedStatement sql;
+			dbUtil db =new dbUtil();
+			
+			String aa ="Select * from CS_BasicInformation cs,CS_ParkOperatorInformation cp where cs.CSID = cp.CSID  and  (cs.CSProvince LIKE '"+cityname+"%' or cs.CSCity LIKE '"+cityname+"%')";
+			System.out.println(aa);
+			db.query(aa);
+			ResultSet rs =  db.getRS();
 			try {
-			sql = con.prepareStatement(condition);
-			ResultSet rs = sql.executeQuery();
 			while (rs.next()) {
 				JSONObject data = new JSONObject();
 				data.put("CSId", rs.getString(1));
@@ -789,22 +789,20 @@ public class dealMessage extends HttpServlet {
 					}
 				}else if(cspub==3){//未知
 					if(csstate==1){//运营中
-						data.put("srcpic", "pic/s_green.png");
+						data.put("srcpic", "pic/t_green.png");
 					}else if(csstate==2){//未运营
-						data.put("srcpic", "pic/s_red.png");
+						data.put("srcpic", "pic/t_red.png");
 					}else if(csstate==3){//未知
-						data.put("srcpic", "pic/s_red.png");
+						data.put("srcpic", "pic/t_red.png");
 					}
 				}else{
 					data.put("srcpic", "pic/s_red.png");
 				}
 				//end--ZW
-			//	data.put("CSFeeDay", rs.getFloat(24));
 				if(rs.getFloat(28)!=-1) data.put("CSFeeDay", rs.getFloat(28));
 				else  data.put("CSFeeDay", "暂无数据");
 				csInf.put(data);
 			}
-			db.close(rs, sql, con);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -813,8 +811,12 @@ public class dealMessage extends HttpServlet {
 			catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			}finally{
+				db.closeAll();
 			}
 			out.println(csInf);
+			out.flush();
+			out.close();
 		}
 		/*
 		 * 功能：查询历史消息提醒

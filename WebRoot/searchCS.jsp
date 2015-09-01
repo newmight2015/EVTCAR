@@ -7,6 +7,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html lang="zh-cn">
 <head>
 <meta charset="utf-8">
+<meta name="renderer" content="webkit">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>充电导航</title>
@@ -41,7 +42,127 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	STATICINFO.USERINFO.name = "<%= usInf==null ? "" : usInf.getUsId()%>";
 	
 </script>
-
+<script type="text/javascript">
+  var dddd = [
+               {
+                   "CSID": "1000001", 
+                   "CPID": "1", 
+                   "CPType": 1,			//1为快充，2为慢充 
+                   "CPState": 0, 
+                   "CPChargeStartTime": "2015-12-11 11:00:01", 
+                   "CPChargeEndTime": "2015-12-11 11:00:01", 
+                   "CPChargeValue": "0.5"
+               },
+               {
+                   "CSID": "1000001", 
+                   "CPID": "2", 
+                   "CPType": 1,			//1为快充，2为慢充 
+                   "CPState": 1, 
+                   "CPChargeStartTime": "2015-12-11 11:00:01", 
+                   "CPChargeEndTime": "2015-12-11 11:00:01", 
+                   "CPChargeValue": "0.3"
+               },
+               {
+                   "CSID": "1000001", 
+                   "CPID": "3", 
+                   "CPType": 1,			//0为快充，1为慢充 
+                   "CPState": 0, 
+                   "CPChargeStartTime": "2015-12-11 11:00:01", 
+                   "CPChargeEndTime": "2015-12-11 11:00:01", 
+                   "CPChargeValue": "0.8"
+               },
+               {
+                   "CSID": "1000001", 
+                   "CPID": "4", 
+                   "CPType": 1,			//1为快充，2为慢充 
+                   "CPState": 0, 
+                   "CPChargeStartTime": "2015-12-11 11:00:01", 
+                   "CPChargeEndTime": "2015-12-11 11:00:01", 
+                   "CPChargeValue": "0.4"
+               },
+               {
+                   "CSID": "1000001", 
+                   "CPID": "4", 
+                   "CPType": 1,			//1为快充，2为慢充 
+                   "CPState": 1, 
+                   "CPChargeStartTime": "2015-12-11 11:00:01", 
+                   "CPChargeEndTime": "2015-12-11 11:00:01", 
+                   "CPChargeValue": "0.4"
+               },
+               {
+                   "CSID": "1000001", 
+                   "CPID": "4", 
+                   "CPType": 1,			//1为快充，2为慢充 
+                   "CPState": 0, 
+                   "CPChargeStartTime": "2015-12-11 11:00:01", 
+                   "CPChargeEndTime": "2015-12-11 11:00:01", 
+                   "CPChargeValue": "0.4"
+               },
+               {
+                   "CSID": "1000001", 
+                   "CPID": "4", 
+                   "CPType": 1,			//1为快充，2为慢充 
+                   "CPState": 1, 
+                   "CPChargeStartTime": "2015-12-11 11:00:01", 
+                   "CPChargeEndTime": "2015-12-11 11:00:01", 
+                   "CPChargeValue": "0.4"
+               },
+               {
+                   "CSID": "1000001", 
+                   "CPID": "4", 
+                   "CPType": 1,			//1为快充，2为慢充 
+                   "CPState": 0, 
+                   "CPChargeStartTime": "2015-12-11 11:00:01", 
+                   "CPChargeEndTime": "2015-12-11 11:00:01", 
+                   "CPChargeValue": "0.4"
+               },
+               {
+                   "CSID": "1000001", 
+                   "CPID": "4", 
+                   "CPType": 1,			//1为快充，2为慢充 
+                   "CPState": 1, 
+                   "CPChargeStartTime": "2015-12-11 11:00:01", 
+                   "CPChargeEndTime": "2015-12-11 11:00:01", 
+                   "CPChargeValue": "0.4"
+               },
+               {
+                   "CSID": "1000001", 
+                   "CPID": "4", 
+                   "CPType": 1,			//1为快充，2为慢充 
+                   "CPState": 0, 
+                   "CPChargeStartTime": "2015-12-11 11:00:01", 
+                   "CPChargeEndTime": "2015-12-11 11:00:01", 
+                   "CPChargeValue": "0.4"
+               },
+               {
+                   "CSID": "1000001", 
+                   "CPID": "4", 
+                   "CPType": 1,			//1为快充，2为慢充 
+                   "CPState": 1, 
+                   "CPChargeStartTime": "2015-12-11 11:00:01", 
+                   "CPChargeEndTime": "2015-12-11 11:00:01", 
+                   "CPChargeValue": "0.4"
+               },
+               {
+                   "CSID": "1000001", 
+                   "CPID": "4", 
+                   "CPType": 1,			//1为快充，2为慢充 
+                   "CPState": 0, 
+                   "CPChargeStartTime": "2015-12-11 11:00:01", 
+                   "CPChargeEndTime": "2015-12-11 11:00:01", 
+                   "CPChargeValue": "0.4"
+               },
+               {
+                   "CSID": "1000001", 
+                   "CPID": "4", 
+                   "CPType": 1,			//1为快充，2为慢充 
+                   "CPState": 1, 
+                   "CPChargeStartTime": "2015-12-11 11:00:01", 
+                   "CPChargeEndTime": "2015-12-11 11:00:01", 
+                   "CPChargeValue": "0.4"
+               },
+           ]
+</script>
 <style>
 body {
 	font-size: 14px;
@@ -53,6 +174,7 @@ body {
 	width:100%;
 	height:500px;
 }
+
 </style>
 
 </head>
@@ -186,17 +308,21 @@ body {
         <h4 class="modal-title text"><strong>用户充电预约</strong></h4>
       </div>
       <div class="modal-body">
-      	 <div  class="info">
-      	 	
+      <!-- 充电站基本信息 -->
+      	 <div  class="info"></div>
+      <!-- 充电桩基本信息 -->
+      	 <div class=" iconarea">
+      	 		<div class="unuse"></div>
+      	 		<div class="use"></div>		
       	 </div>
+
         <div class="appoint">
         	<div class="errormsg"></div>
         	<div class="box">
         		<div class="text">充电桩类型</div>
         		<div class="cptype clearfix">
-        			<input type="checkbox" name="cp" value="快充" /><span>快充</span>
-	        		<input type="checkbox" name="cp" value="慢充" /><span>慢充</span>
-	        		<input type="checkbox" name="cp" value="快慢充" /><span>快慢充</span>
+        			<input type="checkbox" name="cp" value="1" /><span>快充</span>
+	        		<input type="checkbox" name="cp" value="2" /><span>慢充</span>
         		</div>
         		
         	</div>
@@ -242,6 +368,7 @@ body {
 <div class="map-container">
 <div class="map" id="r-map" style="min-width:1024px;height:600px;">
 </div>
+<div class="tishi"><img alt="图标说明" src="pic/tishi.png"></div>
 <div class="map-messagebox" style="display:none">
 	<div class="message">
 		请输入您的详细位置
@@ -259,6 +386,10 @@ body {
 				<dd data-value="003"><a href="#">特锐德</a></dd>
 				<dd data-value="004"><a href="#">富电科技</a></dd>
 				<dd data-value="005"><a href="#">特斯拉</a></dd>
+				<dd data-value="006"><a href="#">比亚迪</a></dd>
+				<dd data-value="007"><a href="#">埃士</a></dd>
+				<dd data-value="008"><a href="#">腾势</a></dd>
+				<dd data-value="009"><a href="#">宝马</a></dd>
 			</dl>
 		</li>
 		<li class="select-list">
@@ -302,6 +433,13 @@ body {
 	</ul>
 </div>
 
+<!-- Generated markup by the plugin -->
+<div class="tooltip top" role="tooltip" id="tooltip">
+  <div class="tooltip-arrow"></div>
+  <div class="tooltip-inner">
+    Some tooltip text!
+  </div>
+</div>
 
 <div id="searchResultPanel">
 	<div class="search-box">
@@ -312,6 +450,7 @@ body {
 		<!--以下显示推荐充电桩-->
 			<div class="resultAll">
 			</div>
+			
 		</div>
 	</div>
 </div>
@@ -320,19 +459,19 @@ body {
 <%@include file="footer.jsp" %>
 
 <!--下面是左侧导航栏的代码-->
-<script src="js/bootstrap.min.js"></script>
+<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script src="js/mapcontrol.js" type="text/javascript"></script>
 <script src="js/search.js"></script> 
 <script src="js/showInf.js" type="text/javascript"></script>
 <script src="js/jquery.raty.js" type="text/javascript"></script>
 <script>
 $(document).ready(function(){
-	initalMap();
+	
 	function myFun(result){
 	    var cityName = result.name;
 	    //alert(""+cityName);
 	    $("#cityname").val(cityName);
-	    map.setCenter(cityName);   //关于setCenter()可参考API文档---”传送门“
+	    map.setCenter(cityName);   			
 	    map.setCurrentCity(cityName);          // 设置地图显示的城市 此项是必须设置的
 	    //alert(cityName);
 	    //change_city_val(cityName);
@@ -344,11 +483,15 @@ $(document).ready(function(){
 	tempPt=[];
 	$(".orderUnuse").bind("click",function(){alert("此功能正在开发中，敬请期待！")})
 	$("#clearOverlays").bind("click",function(){map.clearOverlays;})
+	$(".iconarea .mesh span").bind("mouseover",function(){
+		$(this).tooltip('show')
+	});
+	
 })
 
 $(function(){
 	
-	
+	 $('[data-toggle="tooltip"]').tooltip()
 	$("[name='start-date']").val(CurentDateTime(0));
 	$("[name='start-time']").val(CurentTime());
 	$("[name='stop-date']").val(CurentDateTime(1));
@@ -384,6 +527,7 @@ function CurentDateTime(i)
     clock += day;
     return(clock); 
 }
+<<<<<<< HEAD
 //点击提交评价信息----张伟增加
 $("#makeComment").click(function(){
 	var r=confirm("是否确认提交评价！");
@@ -518,6 +662,9 @@ $("#makeComment").click(function(){
     },window.MAINURL);
     }
 	});
+=======
+
+>>>>>>> origin/master
 function CurentTime()
 { 
     var now = new Date();

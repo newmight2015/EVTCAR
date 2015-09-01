@@ -411,6 +411,13 @@ padding:15px 0px;
 	font-weight: 700;
 	font-size: 19px;
 }
+.bordergreen{
+	border:5px solid green;
+}
+.borderred{
+	border:5px solid red;
+}
+
 #csorder .appoint{
 	margin-top: 30px;
 	border-top:3px solid rgb(126,194,21);
@@ -422,6 +429,61 @@ padding:15px 0px;
 	float: left;
 	margin-top: 20px;
 }
+#csorder .appoint .iconarea{
+	overflow:scroll;
+	float: left;
+	margin-top: 20px;
+	display:inline-block;
+}
+#csorder .iconarea .mesh{
+	position:relative;
+	background:white;
+	height:50px;
+	width:70px;
+	padding:3px;
+	display:inline-block;
+	margin:7px;
+}
+#csorder .iconarea .bordergreen:before{
+	content:"";
+	position:absolute;
+	top:50%;
+	right:-10px;
+	height:20px;
+	width:7px;
+	margin-top:-10px;
+	background:green;
+}
+#csorder .iconarea .borderred:before{
+	content:"";
+	position:absolute;
+	top:50%;
+	right:-10px;
+	height:20px;
+	width:7px;
+	margin-top:-10px;
+	background:red;
+}
+.green-charge-icon{
+	height:34px;
+	width:54px;
+	background:green;
+	display:inline-block;
+}
+.red-charge-icon{
+	height:34px;
+	width:54px;
+	background:red;
+	display:inline-block;
+}
+#csorder .appoint .box{
+	width: 80%;
+	margin-right: 80px;
+	float: left;
+	margin-top: 20px;
+}
+
+
 #csorder .appoint .box .text{
 	float: left;
 	font-family: 'Microsoft Yahei';
@@ -630,4 +692,12 @@ position: relative;
 .yellowstar45{background-position:0 -684px}
 .yellowstar50{background-position:0 -576px}
 
-
+.tishi{ 
+	position: absolute;
+	right: 0px;
+	bottom: 0px;
+	width: 160px;
+	height: 289px;
+	background: rgb(221, 233, 212);
+	z-index: 999999;
+}

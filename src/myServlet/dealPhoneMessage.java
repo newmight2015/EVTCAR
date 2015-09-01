@@ -341,7 +341,7 @@ public class dealPhoneMessage extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		JSONObject ms = new JSONObject();
 		
-		
+		//String isphone = request.getParameter("isphone");
 		String cityname = request.getParameter("cityname");
 		log.info("要查询的城市名："+ cityname);
 		//System.out.println(cityname);
@@ -352,7 +352,8 @@ public class dealPhoneMessage extends HttpServlet {
 		if(cityname.equals("全国")){ 
 			condition ="Select * from CS_BasicInformation cs,CS_ParkOperatorInformation cp where cs.CSID = cp.CSID";
 		}
-		else condition ="Select * from CS_BasicInformation cs,CS_ParkOperatorInformation cp where cs.CSID = cp.CSID and cs.CSCity LIKE '"+cityname+"%'";
+		else condition ="Select * from CS_BasicInformation cs,CS_ParkOperatorInformation cp where cs.CSID = cp.CSID and (cs.CSProvince LIKE '"+cityname+"%' or cs.CSCity LIKE '"+cityname+"%' )";
+		log.info(condition);
 		PreparedStatement sql;
 		try {
 		sql = con.prepareStatement(condition);
@@ -387,8 +388,14 @@ public class dealPhoneMessage extends HttpServlet {
 			data.put("ServiceFee", rs.getFloat(18));
 			if(rs.getString(19)!=null) data.put("Feenotes", rs.getString(19).trim());
 			else data.put("Feenotes", "暂无信息");
+			/*
 			data.put("CSPub", rs.getFloat(20));
 			data.put("CSState", rs.getFloat(21));
+			*/
+				data.put("CSPub", rs.getFloat(21));
+				data.put("CSState", rs.getFloat(20));
+			
+			
 			data.put("CSTime", rs.getString(22));
 			if(rs.getString(23)!=null) data.put("CSPhone", rs.getString(23).trim());
 			else data.put("CSPhone", "暂无信息");
@@ -570,6 +577,7 @@ public class dealPhoneMessage extends HttpServlet {
 		HttpSession sess = request.getSession();
 		String code = (String)sess.getAttribute("rand");
 		String ccode = (String)request.getParameter("code");
+		log.info(ccode);
 		if(code.equals(ccode)){
 			try {
 				ms.put("isSuccess", true);
@@ -587,6 +595,12 @@ public class dealPhoneMessage extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
+		try {
+			log.info(ms.get("message"));
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		out.println(ms);
 		out.flush();
 		out.close();
@@ -596,8 +610,9 @@ public class dealPhoneMessage extends HttpServlet {
 	 * @param request
 	 * @param response
 	 * @throws IOException
+	 * @throws SQLException 
 	 */
-	private static void produceOrder(HttpServletRequest request, HttpServletResponse response)throws IOException{
+	private static void produceOrder(HttpServletRequest request, HttpServletResponse response)throws IOException, SQLException{
 		PrintWriter out = response.getWriter();
 		JSONObject ms = new JSONObject();
 		DateFormat fmt = new SimpleDateFormat("yyyy-MM-dd"); 
@@ -800,7 +815,7 @@ public class dealPhoneMessage extends HttpServlet {
 		ss.setAttribute("vcode", result);
 		
 		String Phone = request.getParameter("phone").trim();
-		SDKSendSMS.sendSMS(Phone, String.valueOf(result));
+		SDKSendSMS.sendSMS(Phone, String.valueOf(result),"29063");
         JSONObject data = new JSONObject();
         try {
 		    	    log.info("验证码发送成功");
@@ -887,6 +902,47 @@ public class dealPhoneMessage extends HttpServlet {
 		out.flush();
 		out.close();
 	}
+	/**
+	 * 获取某个充电站所有充电桩信息
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 * @throws SQLException
+	 */
+	private static void checkCPMsgById(HttpServletRequest request, HttpServletResponse response)throws IOException{
+		PrintWriter out = response.getWriter();
+		response.setContentType("json");
+		
+		String csId = request.getParameter("csId");
+		String sql= "select * from CP_DynamicInformation where CSID = '"+csId+"'";
+		
+		JSONArray cpInf = new JSONArray();
+		dbUtil db = new dbUtil();
+        try {
+            	ResultSet rs = db.query(sql);
+            	while(rs.next()){
+            		JSONObject data = new JSONObject();
+            		data.put("CPID", rs.getString(3));
+            		data.put("CPType", rs.getInt(4));
+            		data.put("CPState", rs.getInt(5));
+            		data.put("CPChargeStartTime", rs.getString(6));
+            		data.put("CPChargeEndTime", rs.getString(7));
+            		data.put("CPChargeValue", rs.getFloat(8));
+            		cpInf.put(data);
+            	}
+			}catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally{
+				db.closeAll();
+			}
+        out.println(cpInf);
+		out.flush();
+		out.close();
+	}
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -914,13 +970,18 @@ public class dealPhoneMessage extends HttpServlet {
 			case "comment"		: this.comment(request, response);break;//提交评价信息
 			case "searchCityCS" : this.searchCityCS(request, response);break;// 查询全国充电站信息
 			case "checkAPPUpdate":this.checkAPPUpdate(request, response);break;//app版本检测
-		
+			case "checkCPMsgById"	:this.checkCPMsgById(request, response);break;//获取充电站信息 8-12
 			/****以下仍需修改***/
 			case "deleteMsg"	: this.deleteMsg(request, response, 2);break;//删除消息提醒的最新消息，放入历史消息中
 			case "deleteOldMsg"	: this.deleteMsg(request, response,3);break;//删除消息提醒的最新消息，放入历史消息中
 			case "analysiscminfo":this.analysiscminfo(request, response);break;//统计评星信息
 			case "checkCode"	: this.checkCode(request, response);break;//检验验证码
-			case "produceOrder" : this.produceOrder(request, response);break;//生产订单信息
+			case "produceOrder" : try {
+				this.produceOrder(request, response);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}break;//生产订单信息
 			case "checkNewOrder": this.checkOrder(request, response,1);break;//查询最新订单信息
 			case "checkOldOrder": this.checkOrder(request, response,2);break;//查询历史订单信息
 			case "userCsSubmit" : this.userCsSubmit(request, response);break;//分享充电站信息

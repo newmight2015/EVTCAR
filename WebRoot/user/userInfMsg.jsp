@@ -167,9 +167,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 	//重新执行查询最新消息---张伟
                 	$("#msgContent").empty();
                 	$("#oldMsgContent").empty();
-                	USERCheck.checkMsg(function(isok,error){ 
+                	USERCheck.checkMsg(function(isok,data){ 
         				if(isok){ 
-        					data = JSON.parse(error);
         					var j=0;
         					$.each(data, function(i, content){
         						var msg = "<div class='alert alert-success alert-dismissible' role='alert'><input id='msg"+j+"' style='display: none;' value='"+data[i].msgid+
@@ -183,9 +182,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         					alert("false")
         				}
         			},window.MAINURL);
-        			USERCheck.checkOldMsg(function(isok,error){
+        			USERCheck.checkOldMsg(function(isok,data){
 						if(isok){
-							data = JSON.parse(error);
 							var j=0;
 							$.each(data, function(i, content){
 								var msg = "<div class='alert alert-success alert-dismissible' role='alert'><input id='oldmsg"+j+"' style='display: none;' value='"+data[i].msgid+

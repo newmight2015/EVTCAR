@@ -9,10 +9,10 @@
       </div>
       <div class="modal-body" style="text-align:center;"> 
       		
-      		<img src="pic/andriodapp.png"/>
+      		<img src="../pic/andriodapp.png"/>
       		<p>扫描二维码下载app</p>
       		<p>建议Android4.0以上版本</p>
-      		<p><a href="http://www.ezchong.com/download/ezchong.apk" class="btn btn-success">点此下载到电脑</a></p>
+      		<p><a href="http://www.ezchong.com/download/ezchong731.apk" class="btn btn-success">点此下载到电脑</a></p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>

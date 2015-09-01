@@ -27,16 +27,65 @@ public class usOrder {
 	private String USOrdType;
 	private String USOrdCsName;
 	private String USOrdCsAddr;
+	private String USOrdCpId;
 	private String CSID;
 	
 	public usOrder(){
 		
 	}
 	
+	private String findFreeCPNum(String uSOrdType, String cSID) throws SQLException{
+		
+		dbEntity db = new dbEntity();
+		String result = db.findFreeCpNum(uSOrdType,cSID);
+		return result;
+	}
+	
+	public void getOrdId(){
+		dbEntity db = new dbEntity();
+		int ordid = 0;
+		if(db.checkOrdId(CSID,USid,USOrdDate)){
+			 try {
+				  ordid = db.getResultSet().getInt(1);
+				  USOrdId = String.valueOf(ordid);
+			 } catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		 }
+		
+	}
+	
+	public boolean saveOrder() throws SQLException{
+		USOrdCpId = this.findFreeCPNum(USOrdType, CSID);
+		if(USOrdCpId.equals("fail")) return false;
+		else{
+			dbEntity db = new dbEntity();
+			db.changeCpState(USOrdStartTime,USOrdEndTime,CSID,USOrdCpId);//更新充电站状态
+		    return db.SaveOrder(CSID,USid,USOrdDate,USOrdStartTime,USOrdEndTime,USOrdStatue,USOrdType,USOrdCsName,USOrdCsAddr,USOrdCpId);
+		}	
+	}
+	/**
+	 * 保存订单信息
+	 * @return
+	 */
+	public boolean saveMsg(){
+	//	this.getOrdId();
+		StringBuffer temp = new StringBuffer();
+		temp.append("您的预约订单已经生成,充电站名：");
+		temp.append(USOrdCsName);
+		temp.append("，充电桩编号：");
+		temp.append(USOrdCpId);
+		temp.append("，起始时间：");
+		temp.append(USOrdStartTime);
+		temp.append("，请及时充电！");
+		return new messageAlert("createOrd",temp.toString(),USOrdDate,USid).SaveMsg();
+	}
+	
 	public usOrder(String uSid, String cSID,
 			String uSOrdStartTime, String uSOrdEndTime, String uSOrdStatue,String uSOrdType
 			,String uSOrdCsName,String uSOrdCsAddr
-			) {
+			) throws SQLException {
 		super();
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//�������ڸ�ʽ
 		USOrdDate = df.format(new Date());// new Date()
@@ -48,6 +97,7 @@ public class usOrder {
 		USOrdType = uSOrdType;
 		USOrdCsName  = uSOrdCsName;
 		USOrdCsAddr = uSOrdCsAddr;
+		
 	}
 	public String getUSOrdId() {
 		return USOrdId;
@@ -109,36 +159,6 @@ public class usOrder {
 	public void setUSOrdCsAddr(String uSOrdCsAddr) {
 		USOrdCsAddr = uSOrdCsAddr;
 	}
-	public void getOrdId(){
-		dbEntity db = new dbEntity();
-		int ordid = 0;
-		if(db.checkOrdId(CSID,USid,USOrdDate)){
-			 try {
-				  ordid = db.getResultSet().getInt(1);
-				  USOrdId = String.valueOf(ordid);
-			 } catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		 }
-		
-	}
-	
-	public boolean saveOrder(){
-		dbEntity db = new dbEntity();
-	    return db.SaveOrder(CSID,USid,USOrdDate,USOrdStartTime,USOrdEndTime,USOrdStatue,USOrdType,USOrdCsName,USOrdCsAddr);
-	}
-	public boolean saveMsg(){
-	//	this.getOrdId();
-		StringBuffer temp = new StringBuffer();
-		temp.append("您的预约订单已经生成,充电站名：");
-		temp.append(USOrdCsName);
-		temp.append("，起始时间：");
-		temp.append(USOrdStartTime);
-		temp.append("，请及时充电！");
-		return new messageAlert("createOrd",temp.toString(),USOrdDate,USid).SaveMsg();
-	}
-	
 	
 	
 }

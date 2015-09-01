@@ -2,72 +2,62 @@ package myServlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.TreeMap;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.Map.Entry;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import myTools.dataBase;
+import myTools.sort;
+import myTools.utils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import myBean.csInformation;
-import myTools.dataBase;
-import myTools.sort;
-import myTools.utils;
-public class dealCsQuery extends HttpServlet {
+/**
+ * Servlet implementation class dealPcCsQuery
+ */
+@WebServlet(name = "dealPcCsQuery.do", urlPatterns = { "/dealPcCsQuery.do" })
+public class dealPcCsQuery extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public dealPcCsQuery() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
 	/**
-	 * Destruction of the servlet. <br>
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	public void destroy() {
-		super.destroy(); // Just puts "destroy" string in log
-		// Put your code here
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		this.doGet(request, response);
 	}
 
 	/**
-	 * The doGet method of the servlet. <br>
-	 *
-	 * This method is called when a form has its tag value method equals to get.
-	 * 
-	 * @param request the request send by the client to the server
-	 * @param response the response send by the server to the client
-	 * @throws ServletException if an error occurred
-	 * @throws IOException if an error occurred
-	 */
-	public void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-			this.doPost(request, response);
-	}
-
-	/**
-	 * The doPost method of the servlet. <br>
-	 *
-	 * This method is called when a form has its tag value method equals to post.
-	 * 
-	 * @param request the request send by the client to the server
-	 * @param response the response send by the server to the client
-	 * @throws ServletException if an error occurred
-	 * @throws IOException if an error occurred
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		response.setContentType("text/html");
+		///request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
+		response.setContentType("json");
 		PrintWriter out = response.getWriter();
 		JSONArray csInf = new JSONArray();
 		JSONArray dataAsec = new JSONArray();
@@ -82,10 +72,6 @@ public class dealCsQuery extends HttpServlet {
 		String lat=request.getParameter("lat").trim();
 		//String CSProvince=request.getParameter("cityName").trim();
 		String CSProvince=new String( request.getParameter("cityName").getBytes("iso8859-1"), "utf-8").substring(0,2);
-		if(CSProvince.lastIndexOf("省")>0){
-			CSProvince =CSProvince.substring(0,CSProvince.lastIndexOf("省"));
-			System.out.println(CSProvince);
-		}
 		//System.out.println(CSProvince);
 		/*System.out.println(lng);
 		System.out.println(lat);
@@ -98,7 +84,6 @@ public class dealCsQuery extends HttpServlet {
 		String condition ;
 		ArrayList<String> temp = new ArrayList<String>();
 		StringBuffer tempCondition = new StringBuffer();
-		
 		//condition ="Select * from CS_BasicInformation cs,CS_ParkOperatorInformation cp where cs.CSPub = 1 and cs.CSState = 1 ";
 		//查询所有充电站（包括公用私用运营未运营等充电站）zw
 		condition ="Select * from CS_BasicInformation cs,CS_ParkOperatorInformation cp where (cs.CSProvince LIKE '"+CSProvince+"%' or cs.CSCity LIKE '"+CSProvince+"%' )";
@@ -107,12 +92,12 @@ public class dealCsQuery extends HttpServlet {
 			temp.add(" cs.OperatorID= '"+csOperator+"'");
 		}
 		if(!csParkFee.equals("none")){
-			temp.add(" cs.CSID IN (select CSID from [CS_ParkOperatorInformation] cp where cp.ParkFeeDay <="+csParkFee +")");
+			temp.add(" cs.CSID IN (select CSID from CS_ParkOperatorInformation cp where cp.ParkFeeDay <="+csParkFee +")");
 		}
 		
 		//if(temp.isEmpty()) condition ="Select * from CS_BasicInformation cs,CS_ParkOperatorInformation cp where cs.CSID = cp.CSID and cs.CSPub = 1 and cs.CSState = 1 ";
 		//查询所有充电站（包括公用私用运营未运营等充电站）zw
-		if(temp.isEmpty()) condition ="Select * from CS_BasicInformation cs,CS_ParkOperatorInformation cp where cs.CSID = cp.CSID and (cs.CSProvince LIKE '"+CSProvince+"%' or cs.CSCity LIKE '"+CSProvince+"%' )";
+		if(temp.isEmpty()) condition ="Select * from CS_BasicInformation cs,CS_ParkOperatorInformation cp where cs.CSID = cp.CSID and (cs.CSProvince LIKE '"+CSProvince+"%' or cs.CSCity LIKE '"+CSProvince+"%')";
 		else {
 			Iterator i = temp.iterator();
 			while(i.hasNext()){
@@ -143,7 +128,7 @@ public class dealCsQuery extends HttpServlet {
 			data.put("CSAddr", rs.getString(3).trim());
 			data.put("CSProvince", rs.getString(4).trim());
 			data.put("CSCity", rs.getString(5).trim());
-			data.put("CSArea", rs.getString(6).trim());
+			if(rs.getString(6).trim()!=null) data.put("CSArea", rs.getString(6).trim());
 			data.put("Datetime",rs.getDate(7));
 			data.put("CSLatiValue", rs.getFloat(8));
 			data.put("CSLongValue", rs.getFloat(9));
@@ -200,21 +185,22 @@ public class dealCsQuery extends HttpServlet {
 				}
 			}else if(cspub==3){//未知
 				if(csstate==1){//运营中
-					data.put("srcpic", "pic/s_green.png");
+					data.put("srcpic", "pic/t_green.png");
 				}else if(csstate==2){//未运营
-					data.put("srcpic", "pic/s_red.png");
+					data.put("srcpic", "pic/t_red.png");
 				}else if(csstate==3){//未知
-					data.put("srcpic", "pic/s_red.png");
+					data.put("srcpic", "pic/t_red.png");
 				}
 			}else{
 				data.put("srcpic", "pic/s_red.png");
 			}
 			//end--ZW
+			//System.out.println(data.toString());
 			csInf.put(data);
 			i++;
 		}
 		//System.out.println("共"+i+"条结果");
-		rs.close();
+		db.close(rs, sql, con);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -223,7 +209,8 @@ public class dealCsQuery extends HttpServlet {
 		catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}finally{
+		}
+			
 			Map<String,Double> map= new TreeMap<String,Double>();
 			for(int i=0;i<csInf.length();i++){
 				JSONObject data = new JSONObject();
@@ -259,20 +246,11 @@ public class dealCsQuery extends HttpServlet {
 					e.printStackTrace();
 				}
 			} 
-		}
 		
 		out.println(dataAsec);
 		out.flush();
 		out.close();
 	}
 
-	/**
-	 * Initialization of the servlet. <br>
-	 *
-	 * @throws ServletException if an error occurs
-	 */
-	public void init() throws ServletException {
-		// Put your code here
-	}
 
 }

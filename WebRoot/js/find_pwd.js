@@ -1052,7 +1052,6 @@ function checkname(){
                         return false;
                     }
                 }
-                
                 USERCheck.checkIsReg(name1,function(isOk,message,data){
 	                	if(isOk){
 	                		if(div.siblings().hasClass("checkimg")==true){
@@ -1066,6 +1065,7 @@ function checkname(){
 	                		var temp2 = phoneNum.substring(8,11);
 	                		var	phone = temp1+"****"+temp2;
 	                		$("[name='tel']").val(phone);
+	                		$("#imgCodeArea").show();
 	                		$("#vcodeArea").show();		//加载手机验证码输入框
 	                		div.hide();
 	        		    	div.siblings(".warn").hide();
@@ -1131,27 +1131,35 @@ function checkemail(){
                     return true;
                 
             }        
-function checkcode(){ 
-	var input =  $("[name='txt_vcode']");
-	var code = input.val();
-	var url = window.location.href;
-	var t = url.lastIndexOf("/");
-	var href = url.substring(0,t);
-	USERCheck.checkCode(code,function(isok,err,data){
-		if(isok==true){
-			input.siblings(".cue").hide();
-			input.siblings(".warn").hide();
-            if(input.siblings().hasClass("checkimg")==false){
-            	input.css("borderColor","green").after("<i class='fa fa-check-circle checkimg'></i>");
-            }
-			return true;
-		}else {
-			input.siblings(".cue").html("您输入的验证码有误").show();
-			return false;
-		}
-	},href)
-	return true;
-}   
+ var isImgOk ;
+ function checkcode(){ 
+		var input =  $("[name='txt_vcode']");
+		var code = input.val();
+		var url = window.location.href;
+		var t = url.lastIndexOf("/");
+		var href = url.substring(0,t);
+		var isSuccess;
+		USERCheck.checkCode(code,function(isok,err,data){
+			if(isok==true){
+				$("#spn_vcode_wrong").hide();
+				input.siblings(".warn").hide();
+	            if(input.siblings().hasClass("checkimg")==false){
+	            	input.css("borderColor","green").after("<i class='fa fa-check-circle checkimg'></i>");
+	            }
+	            isSuccess = true;
+	            isImgOk = true;
+				//return true;
+			}else {
+				input.siblings(".warn").hide();
+				$("#spn_vcode_wrong").html("您输入的验证码有误").show();
+				isSuccess = false;
+				isImgOk = false;
+				//return false;
+			}
+		},href)
+		if(isSuccess) return true;
+		else return false;
+	}    
 
 /**手机验证码**/
 function checkVcode(){ 
@@ -1184,27 +1192,37 @@ function checkVcode(){
     }
    
 }   
-var STABLETIME = 60;
+var STABLETIME = 120;
 var maxtime = STABLETIME;
 function sendVcode(){
-	setTimeout(function(){
-		if(maxtime>0){
-			if(maxtime==STABLETIME){
-				var phone = $.trim(phoneNum);
-				$.get("dealPhoneMessage?act=sendSMS&phone="+phone,function(data,status){
-						Vcode = data.message;		//获取的验证码
-				  });
+	if(!isImgOk)
+	{
+		checkcode();
+		$("#div7").html("请先输入正确的图形验证码").show();
+		$("[name='txt_vcode']").focus();
+		return false;
+	}
+	else{
+		$("#div7").hide();
+		setTimeout(function(){
+			if(maxtime>0){
+				if(maxtime==STABLETIME){
+					var phone = $.trim(phoneNum);
+					$.get("dealPhoneMessage?act=sendSMS&phone="+phone,function(data,status){
+							Vcode = data.message;		//获取的验证码
+					  });
+				}
+				maxtime--;
+				$("#sendSMS").attr('disabled',"true");
+				$("#sendSMS").html(maxtime+"s后重新获取");
+				sendVcode();
+			}else{
+				$("#sendSMS").removeAttr('disabled');
+				$("#sendSMS").html("获取验证码");
+				maxtime = STABLETIME;
+				return true;
 			}
-			maxtime--;
-			$("#sendSMS").attr('disabled',"true");
-			$("#sendSMS").html(maxtime+"s后重新获取");
-			sendVcode();
-		}else{
-			$("#sendSMS").removeAttr('disabled');
-			$("#sendSMS").html("获取验证码");
-			maxtime = STABLETIME;
-			return true;
-		}
-	},1000)
+		},1000)
+	}
 }
 

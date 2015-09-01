@@ -1,4 +1,5 @@
 <%@  page language="java" import="java.util.*" import="myBean.usInformation" pageEncoding="UTF-8" %>
+<script src="js/respond.js" type="text/javascript"></script>
 <header>
 
 
@@ -14,7 +15,7 @@
       		<img src="pic/andriodapp.png"/>
       		<p>扫描二维码下载app</p>
       		<p>建议Android4.0以上版本</p>
-      		<p><a href="http://www.ezchong.com/download/ezchong.apk" class="btn btn-success">点此下载到电脑</a></p>
+      		<p><a href="http://www.ezchong.com/download/ezchong731.apk" class="btn btn-success">点此下载到电脑</a></p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -31,6 +32,7 @@
 		<div class="menu">
 			<div class="xl">
 				<ul>
+				
 					<li><a id="download">客户端下载</a></li>
 					<li><a>运营商加盟</a></li>
 				</ul>

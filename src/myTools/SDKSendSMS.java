@@ -10,7 +10,7 @@ public class SDKSendSMS{
 	/**
 	 * @param args
 	 */
-	public static void sendSMS(String phone,String content){
+	public static void sendSMS(String phone,String content,String AppId){
 		HashMap<String, Object> result = null;
 
 		//初始化SDK
@@ -22,7 +22,7 @@ public class SDKSendSMS{
 		//*生产环境（用户应用上线使用）：restAPI.init("app.cloopen.com", "8883");       *
 		//*******************************************************************************
 		restAPI.init("app.cloopen.com", "8883"); 
-		
+		//restAPI.init("sandboxapp.cloopen.com", "8883");
 		//******************************注释*********************************************
 		//*初始化主帐号和主帐号令牌,对应官网开发者主账号下的ACCOUNT SID和AUTH TOKEN     *
 		//*ACOUNT SID和AUTH TOKEN在登陆官网后，在“应用-管理控制台”中查看开发者主账号获取*
@@ -53,7 +53,7 @@ public class SDKSendSMS{
 		//*result = restAPI.sendTemplateSMS("13800000000","1" ,new String[]{"6532","5"});																		  *
 		//*则13800000000手机号收到的短信内容是：【云通讯】您使用的是云通讯短信模板，您的验证码是6532，请于5分钟内正确输入     *
 		//*********************************************************************************************************************
-		result = restAPI.sendTemplateSMS(phone,"1" ,new String[]{content,"5"});
+		result = restAPI.sendTemplateSMS(phone,AppId ,new String[]{content,"2"});
 		
 		System.out.println("SDKTestGetSubAccounts result=" + result);
 		if("000000".equals(result.get("statusCode"))){
