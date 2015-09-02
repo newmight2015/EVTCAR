@@ -269,23 +269,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}
 			
 		});
-		$("#uspassword2").blur(function(){
-			var uspassword1 = $("#uspassword1").val();
-			var uspassword2 = $("#uspassword2").val();
+		/* $("#uspassword2").blur(function(){
+			var uspassword1 = $("#txt_password").val();
+			var uspassword2 = $("#txt_repassword").val();
 			if(uspassword1!=uspassword2){
 			  	$("#alertinf").html("<h6>两次输入的密码不同</h6>");
 			}else{
 				$("#alertinf").html("");
 				//$("#changepassword").attr("disabled",true);
 			}
-		});
+		}); */
 		$("#changepassword").click(function (e) {
 			//uspassword1,uspassword2
 			$("#cm").css("display","none");
 			$("#ChangeMsg").css("display","none");
 			if(repassword_check()==true){
-				var uspassword1 = $("#uspassword1").val();
-				var uspassword2 = $("#uspassword2").val();
+				var uspassword1 = $("#txt_password").val();
+				var uspassword2 = $("#txt_repassword").val();
 				var act="changepassword";
 				if(uspassword1==uspassword2){
 		            var AjaxURL=window.MAINURL+"dealMessage?uspassword1="+uspassword1+"&act="+act;
