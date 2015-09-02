@@ -25,8 +25,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <link href="../css/evtcar.css" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="../css/userInf.css">
 	<link rel="stylesheet" href="../font-awesome-4.3.0/css/font-awesome.min.css">
-	 <script src="../js/jquery-2.1.3.min.js"></script>
+	<script src="../js/jquery-2.1.3.min.js"></script>
 	<script src="../js/staticinfo.js" type="text/javascript"></script>
+	<script src="../js/register_121015.js" type="text/javascript"></script>
 	<script src="../js/UserCheck.js"></script> 
 	<script type="text/javascript">
 	<%
@@ -37,6 +38,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	STATICINFO.USERINFO.URL = "<%=basePath%>";
 	STATICINFO.USERINFO.name = "<%= usInf==null ? "" : usInf.getUsId()%>";
 	</script>
+	<style>
+	.important{ 
+		color:red;
+		margin-right:8px;
+	}
+	.textarea{
+		border: 1px solid #7f9db9;
+		float: left;
+		width: 400px;
+		margin-right: 10px;
+		padding: 7px 10px;
+		line-height: 18px;
+		outline: 0 none;
+	}  
+	</style>
 </head>
 
 <body>
@@ -84,32 +100,51 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<table cellpadding="0" cellspacing="0" border="0" width="100%">
 				            <tbody>
 				            				<tr>
-				                                <td class="t" ><span>*</span>昵称：</td>
-				                                <td><input type="text" id="usname" value="" autocomplete="off"></td>
+				                                <td class="t" ><span class="important">*</span>昵称：</td>
+				                                <td>
+				                                	<input class="text" type="text" id="usname" value="" autocomplete="off">
+					                                <span id="a1" style="display:none" class="warn">请填入2-10位中文或英文昵称</span>
+	                                    			<span id="a2" style="display: none;" class="cue"></span>
+												</td>
 				                            </tr>
 				                            <tr>
-				                                <td class="t" ><span>*</span>邮箱：</td>
-				                                <td><input type="text" id="usemail" value="" autocomplete="off"></td>
+				                                <td class="t" ><span class="important">*</span>邮箱：</td>
+				                                <td>
+					                                <input class="text" type="text" id="usemail" value="" autocomplete="off">
+					                                <span id="b1" style="display:none" class="warn">请输入您的邮箱，用于找回密码和接受消息</span>
+	                                    			<span id="b2" style="display: none;" class="cue"></span>
+				                                </td>
 				                            </tr>
 				                            <tr>
-				                                <td class="t" ><span>*</span>手机：</td>
-				                                <td><input type="text" id="usphone" value="" autocomplete="off"></td>
+				                                <td class="t" ><span class="important">*</span>手机：</td>
+				                                <td>
+					                                <input class="text" type="text" id="usphone" value="" autocomplete="off">
+					                                <span id="c1" style="display:none" class="warn">用于接收信息，密码修改，获取积分奖励等服务</span>
+		                                    		<span id="c2" style="display: none;" class="cue"></span>
+				                                </td>
 				                            </tr>
 				                            <tr>
 				                                <td class="t" >城市：</td>
-				                                <td><input type="text" id="uscity" value="" autocomplete="off"></td>
+				                                <td>
+				                                	<input class="text" type="text" id="uscity" value="" autocomplete="off">
+				                                	<span id="d1" style="display:none" class="warn">请填入您所在城市</span>
+	                                    			<span id="d2" style="display: none;" class="cue">请输入正确的城市</span>
+				                                </td>
 				                            </tr>
 				                            <tr>
 				                                <td class="t" >简介：</td>
-				                                <td><textarea rows="3" cols="50" type="text" id="usnotes" value="" autocomplete="off"></textarea></td>
+				                                <td>
+				                               	 	<textarea class="textarea"  rows="3" cols="50" type="text" id="usnotes" value="" autocomplete="off"></textarea>
+				                                </td>
 				                            </tr>
 				                            <tr>
 				                                <td class="t">
 				                                    &nbsp;
 				                                </td>
 				                                <td>
-				                                	<input type="submit" id="saveusinf" style="background: -webkit-linear-gradient(#75abda,#6698c9);width: 68px;  height: 34px;color: #fff;" value="保存信息"></input>
-				                                	<span  id="SaveOkMsg" style="display: none;"> 你的资料保存成功！ </span>
+				                                	<input class="btn btn-primary" type="submit" id="saveusinf" style="float: left;margin-right: 10px;" value="保存信息"></input>
+				                                	<span class="warn" id="SaveOkMsg" style="display: none;"> 你的资料保存成功！ </span>
+				                                	<span id="s2" style="display: none;" class="cue">请正确输入以上信息</span>
 				                                </td>
 				                            </tr>
 				                        </tbody>
@@ -122,20 +157,48 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<table cellpadding="0" cellspacing="0" border="0" width="100%">
 				            <tbody>
 				            				<tr>
-				                                <td class="t" >新登录密码：</td>
-				                                <td><input type="password" id="uspassword1" value="" autocomplete="off"></td>
+				                                <td class="t" ><span class="important">*</span>新登录密码：</td>
+				                                <!-- <td><input type="password" id="uspassword1" class="text" value="" autocomplete="off"></td> -->
+				                                <td><input type="password" id="txt_password" name="password" class="text" onfocus="check_password_focus()" onkeyup="txtPassword_strong_check()" onblur="password_check()" onpaste="return false;" style="display:'';" tabindex="2">
+                                    			<input type="text" id="hid_txt_password" name="hid_txt_password" class="text" onfocus="check_password_focus()" onkeyup="txtPassword_strong_check()" onblur="password_check()" onpaste="return false;" style="display:none" tabindex="2">
+				                                <span id="capslock_change" class="prompt" style="display:none"><span class="icon"></span>大写键盘已打开</span>
+			                                    <span id="spn_password_ok" class="warn" style="display: none;"></span>
+			                                    <span id="spn_password_wrong" class="cue" style="display: none;"></span>
+			                                    <span id="spnPwdStrongTips" style="display: none" class="warn warn_p">密码强度:
+			                                    <span class="msg_level" id="spnPwdStrong1" style="display: none;"><span class="s1">弱</span><span>中</span><span>强</span></span>
+			                                    <span id="spnPwdStrong2" class="msg_level" style="display: none;"><span class="s1">弱</span><span class="s2">中</span><span>强</span></span>
+			                                    <span id="spnPwdStrong3" class="msg_level" style="display: none;">
+			                                    <span class="s1">弱</span><span class="s2">中</span><span class="s3">强</span></span>
+			                                    </span>
+			                                    <span style="display: none;" class="warn"></span>
+			                                    <span id="div4" style="display: none;" class="cue"></span>
+				                                <span id="m1" style="display:none" class="warn">请输入6-20个字符，可用英文、数字及字符组成</span>
+                                    			<span id="m2" style="display: none;" class="cue">请输入正确的城市</span>
+                                    			</td>
 				                            </tr>
 				                            <tr>
-				                                <td class="t" >确认新密码：</td>
-				                                <td><input type="password" id="uspassword2" value="" autocomplete="off"></td><td><div id="alertinf" style="color:red;"></div></td>
+				                                <td class="t" ><span class="important">*</span>重新输入新密码：</td>
+				                                <!-- <td><input type="password" id="uspassword2" class="text" value="" autocomplete="off"></td><td><div id="alertinf" style="color:red;"></div></td>
+				                                <span id="n1" style="display:none" class="warn"></span>
+                                    			<span id="n2" style="display: none;" class="cue">请输入正确的城市</span> -->
+                                    			<td><input type="password" id="txt_repassword" name="checkpassword" class="text" onfocus="check_repassword_focus()" onblur="repassword_check()" onkeyup="repassword_session_check()" onkeydown="CheckdoSubmit(event)" onpaste="return false" style="display:'';" tabindex="3">
+                                    
+			                                    <input type="text" id="hid_txt_repassword" name="hid_txt_repassword" class="text" onfocus="check_repassword_focus()" onblur="repassword_check()" onkeyup="repassword_session_check()" onkeydown="CheckdoSubmit(event)" onpaste="return false" style="display:none" tabindex="3">
+			                                    
+			                                    <span id="spn_repassword_ok" class="warn" style="display: none;"></i></span>
+			                                    <span id="spn_repassword_wrong" style="display: none;" class="cue"></span>
+			                                    <span style="display: none;" class="warn"></span>
+			                                    <span id="div5" style="display: none;" class="cue"></span>
+			                                    </td>
 				                            </tr>
 				                            <tr>
 				                                <td class="t">
 				                                    &nbsp;
 				                                </td>
 				                                <td>
-				                                	<input type="submit" id="changepassword" style="background: -webkit-linear-gradient(#75abda,#6698c9);width: 68px;  height: 34px;color: #fff;" value="修改密码"></input>
-				                                	<span  id="ChangeMsg" style="display: none;"> 你的密码修改成功！ </span>
+				                                	<input type="submit" id="changepassword" class="btn btn-primary" style="float: left;margin-right: 10px;" value="修改密码"></input>
+				                                	<span id="ChangeMsg" style="display: none;" class="warn" > 你的密码修改成功！ </span>
+				                                	<span id="cm" style="display: none;" class="cue">请正确输入您的密码！</span>
 				                                </td>
 				                            </tr>
 				            </tbody>
@@ -174,30 +237,37 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     });
    		 $("#saveusinf").click(function (e) {
 			//usname,usemail,usphone,uscity,usnotes
-			var usname = $("#usname").val();
-			var usemail = $("#usemail").val();
-			var usphone = $("#usphone").val();
-			var uscity = $("#uscity").val();
-			var usnotes = $("#usnotes").val();
-			var act="saveusinf";
-            var AjaxURL=window.MAINURL+"dealMessage?usname="+usname+"&usemail="+usemail+"&usphone="+usphone
-            +"&uscity="+uscity+"&usnotes="+usnotes+"&act="+act;
-            //alert(AjaxURL);
-            var a=confirm("确认提交修改");
-            if(a==true){
-	            $.ajax({
-	                        type: "POST",
-	                        dataType: "html",
-	                        url: AjaxURL,
-	                        success: function (data) {
-	                        	//alert("修改信息成功！");
-	                        	$("#SaveOkMsg").show();
-	                        },
-	                        error: function(data) {
-	                            alert("error!");
-	                         }
-	                    }); 
-            }
+			$("#s2").css("display","none");
+			$("#SaveOkMsg").css("display","none");
+   			if(checkusname() && checkusemail() && checkusphone()){ //判断信息是否输入正确
+   				var usname = $("#usname").val();
+   				var usemail = $("#usemail").val();
+   				var usphone = $("#usphone").val();
+   				var uscity = $("#uscity").val();
+   				var usnotes = $("#usnotes").val();
+   				var act="saveusinf";
+   	            var AjaxURL=window.MAINURL+"dealMessage?usname="+usname+"&usemail="+usemail+"&usphone="+usphone
+   	            +"&uscity="+uscity+"&usnotes="+usnotes+"&act="+act;
+   	            //alert(AjaxURL);
+   	            var a=confirm("确认提交修改");
+   	            if(a==true){
+   		            $.ajax({
+   		                        type: "POST",
+   		                        dataType: "html",
+   		                        url: AjaxURL,
+   		                        success: function (data) {
+   		                        	//alert("修改信息成功！");
+   		                        	$("#SaveOkMsg").show();
+   		                        },
+   		                        error: function(data) {
+   		                            alert("error!");
+   		                         }
+   		                    }); 
+   	            }
+			}else{
+				$("#s2").css("display","block");
+			}
+			
 		});
 		$("#uspassword2").blur(function(){
 			var uspassword1 = $("#uspassword1").val();
@@ -211,32 +281,86 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		});
 		$("#changepassword").click(function (e) {
 			//uspassword1,uspassword2
-			var uspassword1 = $("#uspassword1").val();
-			var uspassword2 = $("#uspassword2").val();
-			var act="changepassword";
-			if(uspassword1==uspassword2){
-	            var AjaxURL=window.MAINURL+"dealMessage?uspassword1="+uspassword1+"&act="+act;
-	            //alert(AjaxURL);
-	            var a=confirm("是否确认修改密码？");
-	            if(a==true){
-		            $.ajax({
-		                        type: "POST",
-		                        dataType: "html",
-		                        url: AjaxURL,
-		                        success: function (data) {
-		                        	//alert("修改信息成功！");
-		                        	$("#ChangeMsg").show();
-		                        },
-		                        error: function(data) {
-		                            alert("error!");
-		                         }
-		                    });
-	            }
-	            $("#alertinf").html("");
+			$("#cm").css("display","none");
+			$("#ChangeMsg").css("display","none");
+			if(repassword_check()==true){
+				var uspassword1 = $("#uspassword1").val();
+				var uspassword2 = $("#uspassword2").val();
+				var act="changepassword";
+				if(uspassword1==uspassword2){
+		            var AjaxURL=window.MAINURL+"dealMessage?uspassword1="+uspassword1+"&act="+act;
+		            //alert(AjaxURL);
+		            var a=confirm("是否确认修改密码？");
+		            if(a==true){
+			            $.ajax({
+			                        type: "POST",
+			                        dataType: "html",
+			                        url: AjaxURL,
+			                        success: function (data) {
+			                        	//alert("修改信息成功！");
+			                        	$("#ChangeMsg").show();
+			                        },
+			                        error: function(data) {
+			                            alert("error!");
+			                         }
+			                    });
+		            }
+		            $("#alertinf").html("");
+				}else{
+					$("#alertinf").html("<h6>两次输入的密码不同</h6>");
+				}
 			}else{
-				$("#alertinf").html("<h6>两次输入的密码不同</h6>");
+				$("#cm").css("display","block");
+			}
+			
+		});
+		//修改个人信息和密码的限制
+		//昵称
+		$("#usname").focus(function() {
+			$("#a1").css("display","block");
+			$("#a2").css("display","none");
+		});
+		$("#usname").blur(function() {
+			$("#a1").css("display","none");
+			if(checkusname()==false){
+				$("#a2").css("display","block");
 			}
 		});
+		//邮箱
+		$("#usemail").focus(function() {
+			$("#b1").css("display","block");
+			$("#b2").css("display","none");
+		});
+		$("#usemail").blur(function() {
+			$("#b1").css("display","none");
+			if(checkusemail()==false){
+				$("#b2").css("display","block"); 
+				
+			}
+		});
+		//手机
+		$("#usphone").focus(function() {
+			$("#c1").css("display","block");
+			$("#c2").css("display","none");
+			
+		});
+		$("#usphone").blur(function() {
+			$("#c1").css("display","none");
+			if(checkusphone()==false){
+				$("#c2").css("display","block"); 
+			}
+		});
+		//城市(暂时不限制)
+		/* $("#uscity").focus(function() {
+			//alert("1");
+			$("#d1").css("display","block");
+			$("#d2").css("display","none");
+		});
+		$("#uscity").blur(function() {
+			//alert("2");
+			$("#d1").css("display","none");
+			$("#d2").css("display","block"); 
+		}); */
 		
 	</script>
 </body>

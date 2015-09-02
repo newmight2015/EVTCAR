@@ -524,7 +524,7 @@ function repassword_check() {
         if(k=="false")
         j=p_password.length+1;
         var errmind="第"+j+"位输入错误";
-        var errhtml="<span class=\"icon\"></span><span id=\"pwrong_mind\">"+errmind+"</span><a id=\"a_show_pass\"  href=\"javascript:show_visible_password();\" class=\"show_pass\"   style=\"display:;\";>显示密码</a>";   
+        var errhtml="<span class=\"icon\"></span><span id=\"pwrong_mind\">"+errmind+"</span><a  id=\"a_show_pass\"  href=\"javascript:show_visible_password();\" class=\"show_pass\"   style=\"text-decoration:underline; color:red;\";>显示密码</a>";   
         $('#txt_repassword').attr('class', 'text wrong').css('border-color', '');
         $('#spn_repassword_ok').hide();
         $('#txt_repassword').css("color","red");
@@ -558,7 +558,7 @@ function repassword_session_check(){
           if(password.charAt(i)!=rep_password.charAt(i)){ 
             var errBit=i+1;
             var errmind="第"+errBit+"位输入错误";
-            var errhtml="<span class=\"icon\"></span><span id=\"pwrong_mind\">"+errmind+"</span><a id=\"a_show_pass\"  href=\"javascript:show_visible_password();\" class=\"show_pass\"   style=\"display:;\";>显示密码</a>";   
+            var errhtml="<span class=\"icon\"></span><span id=\"pwrong_mind\">"+errmind+"</span><a id=\"a_show_pass\"  href=\"javascript:show_visible_password();\" class=\"show_pass\"   style=\"text-decoration:underline; color:red;\";>显示密码</a>";   
             $('#txt_repassword').attr('class', 'text wrong').css('border-color', '');
             $('#spn_repassword_ok').hide();
             $('#txt_repassword').css("color","red");
@@ -1070,7 +1070,7 @@ function checkname(){
                 	return false;
                 }else return true;
             }
-          
+   
 function checkemail(){
 
 		    var div = $("#div2");
@@ -1243,3 +1243,49 @@ function check(){
                     return false;
                 }
  }
+
+//验证修改个人信息
+function checkusname(){  //修改个人信息验证用户昵称
+	var usname=$("#usname").val();
+	if(usname==""){
+		$("#a2").html("昵称不能为空！").show();
+		return false;
+	}
+	if(usname.length==1||usname.length>9){
+		$("#a2").html("昵称不能小于2个且不能多于10").show();
+		return false;
+	}
+	return true;
+}
+function checkusemail(){
+    var usemail = $("#usemail").val();
+    if(usemail==""){
+    	$("#b2").html("邮箱不能为空").show();
+		return false;
+    }
+	if (!/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/.test(usemail)) 
+	{
+		$("#b2").html("输入的邮箱格式不正确！").show();
+		return false;
+	}
+	return true;
+}
+function checkusphone(){
+    var usphone = $("#usphone").val();
+   
+    if (usphone == "") {
+    	 $("#c2").html("手机号不能为空！").show();
+        return false;
+    }else if (usphone.length != 11) {
+    	$("#c2").html("请输入11位手机号码!").show();
+        return false;
+    }
+    for (var i = 0; i < usphone.length; i++) {
+        var charphone = usphone.charAt(i);
+        if (!(charphone >= 0 && charphone <= 9)) {
+        	$("#c2").html("请输入数字!").show();
+            return false;
+        }
+    }
+    return true;
+} 
