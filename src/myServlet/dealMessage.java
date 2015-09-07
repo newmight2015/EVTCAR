@@ -123,16 +123,16 @@ public class dealMessage extends HttpServlet {
 		if(act.equals("saveusinf")){
 			System.out.println("进入servlet"+act);
 			String UsId=usInf.getUsId();
-			String usname,usemail,usphone,uscity,usnotes;
-			usname=new String( request.getParameter("usname").getBytes("iso8859-1"), "utf-8");
+			String usemail,usphone,uscity,usnotes;
+			//usname=new String( request.getParameter("usname").getBytes("iso8859-1"), "utf-8");
 			usemail=new String( request.getParameter("usemail").getBytes("iso8859-1"), "utf-8");
 			usphone=new String( request.getParameter("usphone").getBytes("iso8859-1"), "utf-8");
 			uscity=new String( request.getParameter("uscity").getBytes("iso8859-1"), "utf-8");
 			usnotes=new String( request.getParameter("usnotes").getBytes("iso8859-1"), "utf-8");
 			JSONArray Msg = new JSONArray();
 			dbUtil db = new dbUtil();
-			String sql="update UserPerInf set USMail=?,USPhoneNum=?,USName=?,USCity=?,USIntroduction=? where Usid=?";
-			String pras[] = new String[]{usemail,usphone,usname,uscity,usnotes,UsId};
+			String sql="update UserPerInf set USMail=?,USPhoneNum=?,USCity=?,USIntroduction=? where Usid=?";
+			String pras[] = new String[]{usemail,usphone,uscity,usnotes,UsId};
 			db.update(sql,pras);
 			try {
 			       if(db.getResu()!=0)

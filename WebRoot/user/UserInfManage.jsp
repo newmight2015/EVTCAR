@@ -99,7 +99,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					
 						<table cellpadding="0" cellspacing="0" border="0" width="100%">
 				            <tbody>
-				            				<tr>
+				            				<tr style="display: none;" >
 				                                <td class="t" ><span class="important">*</span>昵称：</td>
 				                                <td>
 				                                	<input class="text" type="text" id="usname" value="" autocomplete="off">
@@ -239,14 +239,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			//usname,usemail,usphone,uscity,usnotes
 			$("#s2").css("display","none");
 			$("#SaveOkMsg").css("display","none");
-   			if(checkusname() && checkusemail() && checkusphone()){ //判断信息是否输入正确
-   				var usname = $("#usname").val();
+   			if( checkusemail() && checkusphone()){ //判断信息是否输入正确
+   				//var usname = $("#usname").val();
    				var usemail = $("#usemail").val();
    				var usphone = $("#usphone").val();
    				var uscity = $("#uscity").val();
    				var usnotes = $("#usnotes").val();
    				var act="saveusinf";
-   	            var AjaxURL=window.MAINURL+"dealMessage?usname="+usname+"&usemail="+usemail+"&usphone="+usphone
+   	            var AjaxURL=window.MAINURL+"dealMessage?usemail="+usemail+"&usphone="+usphone
    	            +"&uscity="+uscity+"&usnotes="+usnotes+"&act="+act;
    	            //alert(AjaxURL);
    	            var a=confirm("确认提交修改");

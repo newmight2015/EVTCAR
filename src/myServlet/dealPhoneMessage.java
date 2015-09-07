@@ -943,6 +943,100 @@ public class dealPhoneMessage extends HttpServlet {
 		out.flush();
 		out.close();
 	}
+	/**
+	 * 修改个人资料
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 * @throws SQLException
+	 */
+	private static void saveUsInf(HttpServletRequest request, HttpServletResponse response)throws IOException{
+		PrintWriter out = response.getWriter();
+		response.setContentType("json");
+		
+		String  usid,usname,usemail,usphone,uscity,usnotes;
+		usid=new String( request.getParameter("usid").getBytes("iso8859-1"), "utf-8");
+		usname=new String( request.getParameter("usname").getBytes("iso8859-1"), "utf-8");
+		usemail=new String( request.getParameter("usemail").getBytes("iso8859-1"), "utf-8");
+		usphone=new String( request.getParameter("usphone").getBytes("iso8859-1"), "utf-8");
+		uscity=new String( request.getParameter("uscity").getBytes("iso8859-1"), "utf-8");
+		usnotes=new String( request.getParameter("usnotes").getBytes("iso8859-1"), "utf-8");
+		JSONArray Msg = new JSONArray();
+		dbUtil db = new dbUtil();
+		String sql="update UserPerInf set USMail=?,USPhoneNum=?,USName=?,USCity=?,USIntroduction=? where Usid=?";
+		String pras[] = new String[]{usemail,usphone,usname,uscity,usnotes,usid};
+		db.update(sql,pras);
+		try {
+		       if(db.getResu()!=0)
+		       {
+		    	    log.info("修改个人资料成功");
+		    	    JSONObject data = new JSONObject();
+					data.put("isSucess", "true");
+					data.put("message", "修改个人资料成功");
+					Msg.put(data);
+		       }else{
+		    	    log.info("修改个人资料失败");
+		    	   	JSONObject data = new JSONObject();
+				    data.put("isSuccess", "false");
+					data.put("message", "修改个人资料失败");
+					Msg.put(data);
+		       }    		  
+	           //con.close();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//System.out.println(Msg);
+		out.println(Msg);
+		out.flush();
+		out.close();
+
+	}
+	/**
+	 * 修改密码
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 * @throws SQLException
+	 */
+	private static void changePassword(HttpServletRequest request, HttpServletResponse response)throws IOException{
+		PrintWriter out = response.getWriter();
+		response.setContentType("json");
+		
+		String UsId=new String( request.getParameter("usid").getBytes("iso8859-1"), "utf-8");
+		String uspassword=new String( request.getParameter("uspassword").getBytes("iso8859-1"), "utf-8");
+		JSONArray Msg = new JSONArray();
+		dbUtil db = new dbUtil();
+		String sql="update UserPerInf set USPassWd=? where 	Usid=?";
+		String pras[] = new String[]{uspassword,UsId};
+		db.update(sql,pras);
+		try {
+		       if(db.getResu()!=0)  
+		       {
+		    	    log.info("修改密码成功");
+		    	    JSONObject data = new JSONObject();
+					data.put("isSucess", "true");
+					data.put("message", "修改密码成功");
+					Msg.put(data);
+		       }else{
+		    	    log.info("修改密码失败");
+		    	   	JSONObject data = new JSONObject();
+				    data.put("isSuccess", "false");
+					data.put("message", "修改密码失败");
+					Msg.put(data);
+		       }    		  
+	           //con.close();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//System.out.println(Msg);
+		out.println(Msg);
+		out.flush();
+		out.close();
+
+
+	}
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -985,6 +1079,8 @@ public class dealPhoneMessage extends HttpServlet {
 			case "checkNewOrder": this.checkOrder(request, response,1);break;//查询最新订单信息
 			case "checkOldOrder": this.checkOrder(request, response,2);break;//查询历史订单信息
 			case "userCsSubmit" : this.userCsSubmit(request, response);break;//分享充电站信息
+			case "saveusinf" : this.saveUsInf(request, response);break;//修改个人资料
+			case "changepassword" : this.changePassword(request, response);break;//修改密码
 			default :  
 				log.error("暂无此功能:"+act);
 				break;
