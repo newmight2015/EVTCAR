@@ -309,13 +309,60 @@ body {
       </div>
       <div class="modal-body">
       <!-- 充电站基本信息 -->
-      	 <div  class="info"></div>
+      	 	<div  class="info"></div>
       <!-- 充电桩基本信息 -->
-      	 <div class=" iconarea">
-      	 		<div class="unuse"></div>
-      	 		<div class="use"></div>		
+      	<style>
+      		.iconarea{
+      			position:relative;
+      			width:100%;
+      			height:auto;
+      			border-top:10px solid rgb(126,194,21);
+      			padding-top:8px;
+      		 }
+      		
+      		.r-btn{
+      			position: absolute;
+				top: 10px;
+				right: 4px;
+				width: 99px;
+				height: 29px;
+				padding: 4px;
+				background: rgb(152, 216, 57);
+				z-index: 101;
+      		}
+      		.thismap{ 
+				width: 100%;
+				height: 100%;
+				z-index:100;
+      		}
+      	</style>
+      	 <div class="iconarea">
+      	 		<div class="modal-title">充电桩运行状态：</div>
+      	 		<hr>
+      	 		<div>
+      	 			<h3>充电中</h3>
+      	 			<div class="unuse"></div>
+      	 		</div>
+      	 		<hr>
+      	 		<div>
+      	 			<h3>空闲中</h3>
+      	 			<div class="use"></div>
+      	 		</div>
+      	 		<hr>
+      	 		<div class="r-btn">充电桩分布图</div>
+      	 		<div class="thismap" style="display:none;">
+      	 			<button type="button" class="close" id="mapclose"><span aria-hidden="true">&times;</span></button>
+      	 			<img alt="" src="pic/bjtu.jpg"> 
+      	 		</div>
       	 </div>
-
+		<script type="text/javascript">
+			$(".r-btn").click(function(){
+				$(".thismap").toggle();
+			})
+			$("#mapclose").click(function(){
+				$(".thismap").hide();
+			})
+		</script>
         <div class="appoint">
         	<div class="errormsg"></div>
         	<div class="box">
@@ -366,15 +413,26 @@ body {
 </header>
 <!--顶部导航栏结束 -->
 <div class="map-container">
-<div class="map" id="r-map" style="min-width:1024px;height:600px;">
-</div>
-<div class="tishi"><img alt="图标说明" src="pic/tishi.png"></div>
-<div class="map-messagebox" style="display:none">
-	<div class="message">
-		请输入您的详细位置
+	<div class="map" id="r-map" style="min-width:1024px;height:600px;"></div>
+	<div class="tishi"><img alt="图标说明" src="pic/tishi.png"></div>
+	<div class="tishibtn">关闭</div>
+	<div class="map-messagebox" style="display:none">
+		<div class="message">
+			请输入您的详细位置
+		</div>
 	</div>
-</div>
-<div class="map-search">
+	<script type="text/javascript">
+		$(".tishibtn").click(function(){
+		if($(".tishi").is(":visible")){
+			$(".tishi").hide();
+			$(this).html("图标说明")
+		}else {
+			$(".tishi").show();
+			$(this).html("关闭")
+		}
+	})
+	</script>
+	<div class="map-search">
 	<ul class="select">
 		<div class="select-section">
 		<li class="select-list">
@@ -425,7 +483,7 @@ body {
 		<li class="search-input clearfix">
 			<dl>
 				<dt>您的位置：</dt>
-				<dd><input type="text" placeholder="请输入您的位置" id="suggestId"><input id="cityname" type="text" style="display:none;" ></dd>
+				<dd><input type="text" placeholder="请输入您的位置" id="suggestId" ><input id="cityname" type="text" style="display:none;" ></dd>
 				<div class="search btn btn-default" id="search"><a href="#">查询</a></div>
 			</dl>
 		</li>
@@ -466,27 +524,22 @@ body {
 <script src="js/jquery.raty.js" type="text/javascript"></script>
 <script>
 $(document).ready(function(){
-	
-	function myFun(result){
-	    var cityName = result.name;
-	    //alert(""+cityName);
-	    $("#cityname").val(cityName);
-	    map.setCenter(cityName);   			
-	    map.setCurrentCity(cityName);          // 设置地图显示的城市 此项是必须设置的
-	    //alert(cityName);
-	    //change_city_val(cityName);
-	}
-	var myCity = new BMap.LocalCity();
-	myCity.get(myFun);  
+
+	initalMap();  
 	productNum=0;
 	VehData = {};
 	tempPt=[];
+	
 	$(".orderUnuse").bind("click",function(){alert("此功能正在开发中，敬请期待！")})
 	$("#clearOverlays").bind("click",function(){map.clearOverlays;})
 	$(".iconarea .mesh span").bind("mouseover",function(){
 		$(this).tooltip('show')
 	});
-	
+	$("#suggestId").keydown(function(e){
+		if(e.which==13){
+			scs();
+		}
+	})
 })
 
 $(function(){
@@ -512,35 +565,7 @@ $(function(){
 		//alert(CsAllData[i].CSId);
 	});
 })
-function CurentDateTime(i)
-{ 
-    var now = new Date();
-    var year = now.getFullYear();    //年
-    var month = now.getMonth()+1;     //月
-    var day = now.getDate()+i;        //日
-    var clock = year + "-";
-    if(month < 10)
-        clock += "0";
-    clock += month + "-";
-    if(day < 10)
-        clock += "0";
-    clock += day;
-    return(clock); 
-}
 
-function CurentTime()
-{ 
-    var now = new Date();
-    var hh = now.getHours();            //时
-    var mm = now.getMinutes();          //分
-    var ss = now.getSeconds();           //秒
-    var clock = hh + ":";
-    if (mm < 10) clock += '0'; 
-    clock += mm + ":"; 
-    if (ss < 10) clock += '0'; 
-    clock += ss; 
-    return(clock); 
-}
 </script>
 </body>
 </html>

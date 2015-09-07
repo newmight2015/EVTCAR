@@ -33,6 +33,7 @@ import org.json.JSONObject;
 public class dealPhoneMessage extends HttpServlet {
 	private static  final transient Logger log = Logger.getLogger(dealPhoneMessage.class);
 	private static String appVersion;
+	private static String downloadUrl;
 	/**
 	 * Constructor of the object.
 	 */
@@ -47,6 +48,7 @@ public class dealPhoneMessage extends HttpServlet {
 	public void init() throws ServletException {
 		// Put your code here
 		appVersion = getServletConfig().getInitParameter("appVersion");
+		downloadUrl = getServletConfig().getInitParameter("downloadUrl");
 	}
 
 	/**
@@ -438,7 +440,7 @@ public class dealPhoneMessage extends HttpServlet {
 			 try {
 			    	    log.info("app版本不一致，需要更新。版本号："+appNowVision);
 					    ms.put("isSuccess", true);
-						ms.put("message", "http://www.ezchong.com/download/ezchong.apk");//APP下载地址
+						ms.put("message", downloadUrl);//APP下载地址
 				}catch (JSONException e) {
 					e.printStackTrace();
 				}
@@ -928,6 +930,8 @@ public class dealPhoneMessage extends HttpServlet {
             		data.put("CPChargeStartTime", rs.getString(6));
             		data.put("CPChargeEndTime", rs.getString(7));
             		data.put("CPChargeValue", rs.getFloat(8));
+            		data.put("CPChargeRealEndTime", rs.getString(9));
+            		data.put("CPChargeStartValue", rs.getFloat(10));
             		cpInf.put(data);
             	}
 			}catch (JSONException e) {
@@ -943,6 +947,71 @@ public class dealPhoneMessage extends HttpServlet {
 		out.flush();
 		out.close();
 	}
+	/**
+	 * 手机端修改密码
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 * @throws SQLException 
+	 */
+	private void findPass(HttpServletRequest request, HttpServletResponse response)throws IOException, SQLException{
+		PrintWriter out = response.getWriter();
+		response.setContentType("json");
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
+		String tel		= request.getParameter("tel");
+		JSONObject data = new JSONObject();
+		dbUtil db = new dbUtil();
+		if(username.equals(null)){
+			log.info(username+"用户名为空");
+			try {
+				data.put("isSuccess", false);
+				data.put("message", "用户名不能为空");
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else{
+			String sql1 = "select USPassWd from UserPerInf where USid = '"+username+"'";
+			db.query(sql1);
+			
+			if(db.getRS().next()){
+				String sql= "UPDATE UserPerInf SET USid=?,USPassWd=?,USPhoneNum=? where USid = ?";
+				String pars[] = new String[]{username,password,tel,username};
+		        try {
+		            db.update(sql,pars);
+						if(db.getResu()!=0){
+						    log.info(username+":该用户已经修改密码。");
+							data.put("isSuccess", true);
+							data.put("message", "密码修改成功");
+						}else{
+							log.info(username+":该用户修改密码失败。");
+							data.put("isSuccess", false);
+							data.put("message", "密码修改失败");
+						}
+					}catch (JSONException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}finally{
+						db.closeAll();
+					}
+			}
+			else{
+				log.info(username+":该用户修改密码失败。");
+				try {
+					data.put("isSuccess", false);
+					data.put("message", username+":该用户不存在");
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		
+        out.println(data);
+		out.flush();
+		out.close();
+	}
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -951,13 +1020,18 @@ public class dealPhoneMessage extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		String act = request.getParameter("act").trim();
 		JSONObject ms = new JSONObject();
-
 		HttpSession ss = request.getSession();
 		usInformation usInf = (usInformation)ss.getAttribute("usInf");
 		
 		log.info("---------act:______"+act);
 		
 		switch(act){
+			case "findpass"		: try {
+				this.findPass(request, response);
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}break;
 			case "userAdviceSub": this.userAdviceSub(request, response);break;//手机用户提交建议信息
 			case "sendSMS"		: this.sendSMS(request, response);break;//生成手机验证码
 			case "checkIsReg"	: this.checkIsReg(request, response);break;//检验是否注册

@@ -69,7 +69,11 @@
     <servlet-class>myServlet.dealPhoneMessage</servlet-class>
     <init-param>
       <param-name>appVersion</param-name>
-      <param-value>1.0.1</param-value>
+      <param-value>1.0.3</param-value>
+    </init-param>
+    <init-param>
+      <param-name>downloadUrl</param-name>
+      <param-value>http://www.ezchong.com/download/ezchong92.apk</param-value>
     </init-param>
   </servlet>
   <servlet-mapping>

@@ -30,9 +30,9 @@ response.setCharacterEncoding("UTF-8");
 <script type="text/javascript" src="http://api.map.baidu.com/library/TextIconOverlay/1.2/src/TextIconOverlay_min.js"></script>
 <script type="text/javascript" src="http://api.map.baidu.com/library/MarkerClusterer/1.2/src/MarkerClusterer_min.js"></script>
 <script src="js/bootstrap.min.js"></script>
-
+<script src="js/UserCheck.js"></script> 
 <script src="js/mapcontrol.js" type="text/javascript"></script>
-	<script src="js/staticinfo.js" type="text/javascript"></script>
+<script src="js/staticinfo.js" type="text/javascript"></script>
 <script type="text/javascript">
 	<%
 		HttpSession sess = request.getSession();
@@ -120,9 +120,21 @@ body{
 	</div>
 <!--城市选择下拉结束-->
 	<div class="map-container">
-	<div class="map" id="r-map"></div>
-	<div class="tishi"><img alt="图标说明" src="pic/tishi.png"></div>
+		<div class="map" id="r-map"></div>
+		<div class="tishi"><img alt="图标说明" src="pic/tishi.png"></div>
+		<div class="tishibtn">关闭</div>
 	</div>
+		<script type="text/javascript">
+		$(".tishibtn").click(function(){
+		if($(".tishi").is(":visible")){
+			$(".tishi").hide();
+			$(this).html("图标说明")
+		}else {
+			$(".tishi").show();
+			$(this).html("关闭")
+		}
+	})
+	</script>
 </div>
 <%@include file="footer.jsp" %>
 </body>
