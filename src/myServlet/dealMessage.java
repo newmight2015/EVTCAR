@@ -97,7 +97,7 @@ public class dealMessage extends HttpServlet {
 			       {
 			    	    log.info("修改密码成功");
 			    	    JSONObject data = new JSONObject();
-						data.put("isSucess", "true");
+						data.put("isSuccess", "true");
 						data.put("message", "修改密码成功");
 						Msg.put(data);
 			       }else{
@@ -139,7 +139,7 @@ public class dealMessage extends HttpServlet {
 			       {
 			    	    log.info("修改个人资料成功");
 			    	    JSONObject data = new JSONObject();
-						data.put("isSucess", "true");
+						data.put("isSuccess", "true");
 						data.put("message", "修改个人资料成功");
 						Msg.put(data);
 			       }else{
@@ -188,7 +188,7 @@ public class dealMessage extends HttpServlet {
 			       {
 			    	    log.info("分享信息提交成功");
 			    	    JSONObject data = new JSONObject();
-						data.put("isSucess", "true");
+						data.put("isSuccess", "true");
 						data.put("message", "提交信息成功");
 						Msg.put(data);
 			       }else{
@@ -232,7 +232,7 @@ public class dealMessage extends HttpServlet {
 					Msg.put(data);
 				}else{
 					JSONObject data = new JSONObject();
-					data.put("isSucess", "false");
+					data.put("isSuccess", "false");
 					Msg.put(data);
 				}
 				//rs.close();
@@ -276,7 +276,7 @@ public class dealMessage extends HttpServlet {
 					Msg.put(data);
 				}else{
 					JSONObject data = new JSONObject();
-					data.put("isSucess", "false");
+					data.put("isSuccess", "false");
 					Msg.put(data);
 				}
 				//rs.close();

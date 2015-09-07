@@ -959,32 +959,29 @@ public class dealPhoneMessage extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		response.setContentType("json");
 		
-		String  usid,usname,usemail,usphone,uscity,usnotes;
-		usid=new String( request.getParameter("usid").getBytes("iso8859-1"), "utf-8");
-		usname=new String( request.getParameter("usname").getBytes("iso8859-1"), "utf-8");
-		usemail=new String( request.getParameter("usemail").getBytes("iso8859-1"), "utf-8");
-		usphone=new String( request.getParameter("usphone").getBytes("iso8859-1"), "utf-8");
-		uscity=new String( request.getParameter("uscity").getBytes("iso8859-1"), "utf-8");
-		usnotes=new String( request.getParameter("usnotes").getBytes("iso8859-1"), "utf-8");
-		JSONArray Msg = new JSONArray();
+		String  usid,usemail,usphone,uscity,usnotes;
+		//request.getParameter("content")
+		usid=request.getParameter("usid");
+		usemail=request.getParameter("usemail");
+		usphone=request.getParameter("usphone");
+		uscity=request.getParameter("uscity");
+		usnotes=request.getParameter("usnotes");
+		JSONObject data = new JSONObject();
 		dbUtil db = new dbUtil();
-		String sql="update UserPerInf set USMail=?,USPhoneNum=?,USName=?,USCity=?,USIntroduction=? where Usid=?";
-		String pras[] = new String[]{usemail,usphone,usname,uscity,usnotes,usid};
+		String sql="update UserPerInf set USMail=?,USPhoneNum=?,USCity=?,USIntroduction=? where Usid=?";
+		String pras[] = new String[]{usemail,usphone,uscity,usnotes,usid};
 		db.update(sql,pras);
 		try {
 		       if(db.getResu()!=0)
 		       {
 		    	    log.info("修改个人资料成功");
-		    	    JSONObject data = new JSONObject();
-					data.put("isSucess", "true");
+		    	    
+					data.put("isSuccess", "true");
 					data.put("message", "修改个人资料成功");
-					Msg.put(data);
 		       }else{
 		    	    log.info("修改个人资料失败");
-		    	   	JSONObject data = new JSONObject();
 				    data.put("isSuccess", "false");
 					data.put("message", "修改个人资料失败");
-					Msg.put(data);
 		       }    		  
 	           //con.close();
 		} catch (JSONException e) {
@@ -992,7 +989,7 @@ public class dealPhoneMessage extends HttpServlet {
 			e.printStackTrace();
 		}
 		//System.out.println(Msg);
-		out.println(Msg);
+		out.println(data);
 		out.flush();
 		out.close();
 
@@ -1008,9 +1005,10 @@ public class dealPhoneMessage extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		response.setContentType("json");
 		
-		String UsId=new String( request.getParameter("usid").getBytes("iso8859-1"), "utf-8");
-		String uspassword=new String( request.getParameter("uspassword").getBytes("iso8859-1"), "utf-8");
-		JSONArray Msg = new JSONArray();
+		String UsId=request.getParameter("usid");
+		String uspassword=request.getParameter("uspassword");
+		//JSONArray Msg = new JSONArray();
+		JSONObject data = new JSONObject();
 		dbUtil db = new dbUtil();
 		String sql="update UserPerInf set USPassWd=? where 	Usid=?";
 		String pras[] = new String[]{uspassword,UsId};
@@ -1019,16 +1017,13 @@ public class dealPhoneMessage extends HttpServlet {
 		       if(db.getResu()!=0)  
 		       {
 		    	    log.info("修改密码成功");
-		    	    JSONObject data = new JSONObject();
-					data.put("isSucess", "true");
+					data.put("isSuccess", "true");
 					data.put("message", "修改密码成功");
-					Msg.put(data);
 		       }else{
 		    	    log.info("修改密码失败");
-		    	   	JSONObject data = new JSONObject();
+		    	   	
 				    data.put("isSuccess", "false");
 					data.put("message", "修改密码失败");
-					Msg.put(data);
 		       }    		  
 	           //con.close();
 		} catch (JSONException e) {
@@ -1036,13 +1031,13 @@ public class dealPhoneMessage extends HttpServlet {
 			e.printStackTrace();
 		}
 		//System.out.println(Msg);
-		out.println(Msg);
+		out.println(data);
 		out.flush();
 		out.close();
+	}
 
 
-=======
-	 * 手机端修改密码
+	 /* 手机端修改密码
 	 * @param request
 	 * @param response
 	 * @throws IOException
@@ -1105,7 +1100,7 @@ public class dealPhoneMessage extends HttpServlet {
         out.println(data);
 		out.flush();
 		out.close();
->>>>>>> origin/master
+//>>>>>>> origin/master
 	}
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
