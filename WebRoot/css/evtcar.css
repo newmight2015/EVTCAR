@@ -695,9 +695,21 @@ position: relative;
 .tishi{ 
 	position: absolute;
 	right: 0px;
-	bottom: 0px;
+	bottom: 25px;
 	width: 160px;
 	height: 289px;
 	background: rgb(221, 233, 212);
 	z-index: 999999;
 }
+.tishibtn{
+	position: absolute;
+	right: 0px;
+	bottom: 0px;
+	width: 160px;
+	height: 25px;
+	z-index: 999999;
+	text-align:center;
+	background: rgb(100, 187, 41);
+}
+
+

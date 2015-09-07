@@ -113,7 +113,43 @@
             }
         },window.MAINURL);
     })
-
+    //搜索充电站
+    function scs(){
+    	var value = $("#suggestId").val().trim();
+    	if(value==""||value==null){
+            $(".map-messagebox .message").html("请输入您的位置");
+            $(".map-messagebox").show(1000,function(){setTimeout(function(){$(".map-messagebox").hide(1000)},2000) });
+        }else {
+    	var myGeo = new BMap.Geocoder();
+    	// 将地址解析结果显示在地图上,并调整地图视野
+    	function myfun(pp){
+            var marker=new BMap.Marker(pp);
+            map.centerAndZoom(pp, 15);
+            sendPos.lng=pp.lng;
+            sendPos.lat=pp.lat;
+            var myIcon = new BMap.Icon("pic/icon_car.png", new BMap.Size(30, 44), {//是引用图标的名字以及大小，注意大小要一样
+                                        anchor: new BMap.Size(20, 32)});//这句表示图片相对于所加的点的位置;
+            var marker2 = new BMap.Marker(pp,{icon:myIcon});  // 创建标注
+            map.addOverlay(marker2);    //添加标注
+            var label = new BMap.Label("您的位置",{offset:new BMap.Size(20,-10)});
+            marker2.setLabel(label);
+            marker2.enableDragging(true); //可拖拽
+            marker2.addEventListener("mouseout", function(){ 
+                        sendPos.lng=marker2.getPosition().lng;
+                        sendPos.lat=marker2.getPosition().lat; //坐标
+            });
+        }
+    	myGeo.getPoint(value, function(point){
+    		sendPos.lat=point.lat;
+    		sendPos.lng=point.lng;
+    	}, cityName);
+    	map.clearOverlays();
+    	$(".search-head span").html($("#suggestId").val());
+    	opoint = new BMap.Point(sendPos.lng, sendPos.lat);
+    	myfun(opoint);
+        }
+    }
+   
     //点击“搜索”，搜索周围充电站
     $("#search").on("click",function(){
     	
@@ -156,7 +192,7 @@
                                     var srcpic = "pic/icon_charger.png";
                                     eachAllCs(srcpic,point,marker,info,searchInfoWindow,true);
                                     //eachAllCs(point,marker,info,searchInfoWindow,true);
-                                    map.centerAndZoom(opoint, 11);
+                                    map.centerAndZoom(opoint, map.getZoom());
                                     new showRecommend();
                                   //  new enableOrderButton();
                                     //alert(CsAllData);
@@ -375,6 +411,7 @@
         },window.MAINURL)
         
     })
+   
 
 	
     

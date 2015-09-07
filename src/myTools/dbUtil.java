@@ -84,6 +84,7 @@ public class dbUtil {
 	               e.printStackTrace();  
 	           }  
 	       }  
+	       logger.info("****数据库关闭成功!****");
 	   }
 	   
 	   

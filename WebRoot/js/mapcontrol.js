@@ -259,6 +259,46 @@ function dealCorrect(i){
 	
 	
 }
+function CurentDateTime(i)
+{ 
+    var now = new Date();
+    var year = now.getFullYear();    //年
+    var month = now.getMonth()+1;     //月
+    var day = now.getDate()+i;        //日
+    var clock = year + "-";
+    if(month < 10)
+        clock += "0";
+    clock += month + "-";
+    if(day < 10)
+        clock += "0";
+    clock += day;
+    return(clock); 
+}
+
+function CurentTime()
+{ 
+    var now = new Date();
+    var hh = now.getHours();            //时
+    var mm = now.getMinutes();          //分
+    var ss = now.getSeconds();           //秒
+    var clock = hh + ":";
+    if (mm < 10) clock += '0'; 
+    clock += mm + ":"; 
+    if (ss < 10) clock += '0'; 
+    clock += ss; 
+    return(clock); 
+}
+function returnMin(day1, day2){
+    var reg = /\-| |\:|\./;
+    var DI1 = day1.split(reg);
+    var DI2 = day2.split(reg);
+    var date1 = new Date(DI1[0], DI1[1], DI1[2], DI1[3], DI1[4], DI1[5]);
+    var date2 = new Date(DI2[0], DI2[1], DI2[2], DI2[3], DI2[4], DI2[5]);
+    //用距标准时间差来获取相距时间
+    var minsec = Date.parse(date1) - Date.parse(date2);
+    var days = minsec / 1000 / 60 / 60; //factor: second / minute / hour / day
+    return minsec;
+}
 
 function showCpInf(id){
 	$(".iconarea .use").empty();
@@ -269,10 +309,11 @@ function showCpInf(id){
 			for(var i=0;i<cpInf.length;i++){
 				var inf;
 				var width = cpInf[i].CPChargeValue.toFixed(2)*100+"%";
+				var endtime = returnMin(cpInf[i].CPChargeEndTime, CurentDateTime(0)+" "+CurentTime());
 				if(cpInf[i].CPType ==1 ){
-					inf="[编号:"+cpInf[i].CPID+"]&nbsp;&nbsp;&nbsp;[类型：快充]"+"&nbsp;&nbsp;&nbsp;[已充:"+width+"]";
+					inf="[编号:"+cpInf[i].CPID+"]&nbsp;&nbsp;&nbsp;[类型：快充]"+"&nbsp;&nbsp;&nbsp;[已充:"+width+"]"+"&nbsp;&nbsp;&nbsp;[剩余时间:"+endtime+"]";
 				}else{
-					inf="[编号:"+cpInf[i].CPID+"]&nbsp;&nbsp;&nbsp;[类型：慢充]"+"&nbsp;&nbsp;&nbsp;[已充:"+width+"]";
+					inf="[编号:"+cpInf[i].CPID+"]&nbsp;&nbsp;&nbsp;[类型：慢充]"+"&nbsp;&nbsp;&nbsp;[已充:"+width+"]"+"&nbsp;&nbsp;&nbsp;[剩余时间:"+endtime+"]";
 				}
 				if(cpInf[i].CPState==0){//0：在充
 						if(cpInf[i].CPType ==1 ) 
@@ -460,7 +501,7 @@ function eachAllCs(srcpic,point,marker,info,searchInfoWindow,hasOpoint){//输出
                                         // js 闭包
                                         return function(){
                                             //将被点击marker置为中心
-                                            map.centerAndZoom(point[k], 13);
+                                            map.centerAndZoom(point[k], map.getZoom());
                                             //在marker上打开检索信息窗口
                                             searchInfoWindow[k].open(marker[k]);
                                             
@@ -560,16 +601,24 @@ function addMarker(e){
 	  var temp={"lng":e.point.lng,"lat":e.point.lat,"address":null};
 	  VehData[productNum]=temp;
 }
-
+function myFun(result){
+    cityName = result.name;
+    map.setCurrentCity(cityName);
+    map.setCenter(cityName);   //关于setCenter()可参考API文档---”传送门“
+}
 function initalMap(){
+	cityName ="";
+		var myCity = new BMap.LocalCity();
+		myCity.get(myFun);
 	    map = new BMap.Map("r-map");    // 创建Map实例
 		map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);  // 初始化地图,设置中心点坐标和地图级别
 		map.addControl(new BMap.MapTypeControl());   //添加地图类型控件
-		map.setCurrentCity("北京");          // 设置地图显示的城市 此项是必须设置的
+		//map.setCurrentCity("北京");          // 设置地图显示的城市 此项是必须设置的
 		map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
 		var top_right_navigation = new BMap.NavigationControl({anchor: BMAP_ANCHOR_TOP_RIGHT, type: BMAP_NAVIGATION_CONTROL_LARGE}); 
 		map.addControl(top_right_navigation);  //右上角，仅包含平移和缩放按钮
 }
+//图标说明显示
 
 
 

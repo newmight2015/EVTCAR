@@ -740,7 +740,9 @@ public class dealMessage extends HttpServlet {
 				data.put("CSAddr", rs.getString(3).trim());
 				data.put("CSProvince", rs.getString(4).trim());
 				data.put("CSCity", rs.getString(5).trim());
-				data.put("CSArea", rs.getString(6).trim());
+				if(rs.getString(6)!=null) 
+					 data.put("CSArea", rs.getString(6).trim());
+				else data.put("CSArea", " ");
 				data.put("Datetime",rs.getDate(7));
 				data.put("CSLatiValue", rs.getFloat(8));
 				data.put("CSLongValue", rs.getFloat(9));
