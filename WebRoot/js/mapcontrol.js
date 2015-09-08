@@ -358,7 +358,8 @@ function dealOrder(i){
              else CSState="未核实";
         
         showCpInf(CsAllData[i].CSId);
-        
+//        $("#cpmap").attr("src",CsAllData[i].CSPicUrl);
+//        alert(CsAllData[i].CSPicUrl);
         $("#csorder .modal-body .info").html("<table data-id='"+i+"'><tbody>"+
         	"<tr><th>用户名：</th><td>"+STATICINFO.USERINFO.name+
         	"<tr><th>您的位置：</th><td>"+STATICINFO.USERPOSITION.name+

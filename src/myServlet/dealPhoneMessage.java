@@ -1102,6 +1102,71 @@ public class dealPhoneMessage extends HttpServlet {
 		out.close();
 //>>>>>>> origin/master
 	}
+	 /* 手机端修改密码
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 * @throws SQLException 
+	 */
+	private void showUsInf(HttpServletRequest request, HttpServletResponse response)throws IOException, SQLException{
+		PrintWriter out = response.getWriter();
+		response.setContentType("json");
+//		String username = request.getParameter("username");
+//		String password = request.getParameter("password");
+//		String tel		= request.getParameter("tel");
+//		JSONObject data = new JSONObject();
+//		dbUtil db = new dbUtil();
+//		if(username.equals(null)){
+//			log.info(username+"用户名为空");
+//			try {
+//				data.put("isSuccess", false);
+//				data.put("message", "用户名不能为空");
+//			} catch (JSONException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		}else{
+//			String sql1 = "select USPassWd from UserPerInf where USid = '"+username+"'";
+//			db.query(sql1);
+//			
+//			if(db.getRS().next()){
+//				String sql= "UPDATE UserPerInf SET USid=?,USPassWd=?,USPhoneNum=? where USid = ?";
+//				String pars[] = new String[]{username,password,tel,username};
+//		        try {
+//		            db.update(sql,pars);
+//						if(db.getResu()!=0){
+//						    log.info(username+":该用户已经修改密码。");
+//							data.put("isSuccess", true);
+//							data.put("message", "密码修改成功");
+//						}else{
+//							log.info(username+":该用户修改密码失败。");
+//							data.put("isSuccess", false);
+//							data.put("message", "密码修改失败");
+//						}
+//					}catch (JSONException e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}finally{
+//						db.closeAll();
+//					}
+//			}
+//			else{
+//				log.info(username+":该用户修改密码失败。");
+//				try {
+//					data.put("isSuccess", false);
+//					data.put("message", username+":该用户不存在");
+//				} catch (JSONException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//			}
+//		}
+//		
+//       out.println(data);
+//		out.flush();
+//		out.close();
+//>>>>>>> origin/master
+	}
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 

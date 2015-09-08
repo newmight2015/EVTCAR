@@ -352,7 +352,8 @@ body {
       	 		<div class="r-btn">充电桩分布图</div>
       	 		<div class="thismap" style="display:none;">
       	 			<button type="button" class="close" id="mapclose"><span aria-hidden="true">&times;</span></button>
-      	 			<img alt="" src="pic/bjtu.jpg"> 
+      	 			<img alt="" src="pic/bjtu.jpg">
+      	 			<!-- <img id="cpmap" alt="" src=""> -->
       	 		</div>
       	 </div>
 		<script type="text/javascript">
@@ -565,7 +566,7 @@ $(function(){
 		//alert(CsAllData[i].CSId);
 	});
 })
-<<<<<<< HEAD
+//<<<<<<< HEAD
 function CurentDateTime(i)
 { 
     var now = new Date();

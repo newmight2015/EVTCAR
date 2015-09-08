@@ -161,8 +161,15 @@ public class dealPcCsQuery extends HttpServlet {
 			else data.put("CSPhone", "暂无信息");
 			if(rs.getString(24)!=null) data.put("CSNotes", rs.getString(24).trim());
 			else data.put("CSNotes", "暂无消息");
+			//增加每个充电站电桩分布图
+			if(rs.getString(25)!=null){
+				data.put("CSPicUrl", rs.getString(25));
+			}else{
+				data.put("CSPicUrl","@@@@@@");
+			}
+			System.out.println("$$$$$$$$$$$$$$$$"+rs.getString(25));
 			
-			if(rs.getString(28)!=null) data.put("CSFeeDay", rs.getFloat(28));
+			if(rs.getString(29)!=null) data.put("CSFeeDay", rs.getFloat(28));
 			else  data.put("CSFeeDay", "暂无数据");
 			//增加每个充电站的图标信息srcpic---ZW
 			int cspub=(int)(rs.getFloat(20));

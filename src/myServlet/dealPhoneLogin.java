@@ -80,34 +80,71 @@ public class dealPhoneLogin extends HttpServlet {
 				rs = pstm.executeQuery();
 				
 				if (rs.next()){
-						String usid = rs.getString("USid");
-						String usphone = rs.getString("USPhoneNum");
-						String usmail = rs.getString("USMail");
-						String coin = rs.getString("USCoin");
-						JSONObject usinf = new JSONObject();//存放用户信息
-						usinf.put("USid", usid);
-						usinf.put("USPhone", usphone);
-						usinf.put("USMail", usmail);
-						usinf.put("USCoin", coin);
-						
-						HttpSession ss = request.getSession();
-						usInformation usInf = new usInformation();
-						usInf.setUsId(usid);
-						usInf.setUsPhoneNum(usphone);
-						usInf.setUsMail(usmail);
-						ss.setAttribute("usInf", usInf);
-						
-						ss.setAttribute("usSessId", ss.getId());
-						
-						log.info("____phoneloginsession:"+ss.getId());
-						jo.put("isSuccess",true);//登录成功标志
-						jo.put("message",usinf);
+					String usid,usphone,usmail,coin,uscity,usname,uslevel,usphoto,usintr,uscontr;
+					usid = rs.getString("USid");
+					usphone = rs.getString("USPhoneNum");
+					usmail = rs.getString("USMail");
+					coin = rs.getString("USCoin");
+					if(rs.getString("USCity")!=null){
+						uscity=rs.getString("USCity");
+					}else{
+						uscity="0";
+					}
+					if(rs.getString("USName")!=null){
+						usname=rs.getString("USName");
+					}else{
+						usname="0";
+					}
+					if(rs.getString("USLevel")!=null){
+						uslevel=rs.getString("USLevel");
+					}else{
+						uslevel="0";
+					}
+					if(rs.getString("USPhoto")!=null){
+						usphoto=rs.getString("USPhoto");
+					}else{
+						usphoto="0";
+					}
+					if(rs.getString("USIntroduction")!=null){
+						usintr=rs.getString("USIntroduction");
+					}else{
+						usintr="0";
+					}
+					if(rs.getString("USContribute")!=null){
+						uscontr=rs.getString("USContribute");
+					}else{
+						uscontr="0";
+					}
+					JSONObject usinf = new JSONObject();//存放用户信息
+					usinf.put("USid", usid);
+					usinf.put("USPhone", usphone);
+					usinf.put("USMail", usmail);
+					usinf.put("USCoin", coin);
+					usinf.put("USCity", uscity);
+					usinf.put("USName", usname);
+					usinf.put("USLevel", uslevel);
+					usinf.put("USPhoto", usphoto);
+					usinf.put("USIntroduction", usintr);
+					usinf.put("USContribute", uscontr);
+					
+					HttpSession ss = request.getSession();
+					usInformation usInf = new usInformation();
+					usInf.setUsId(usid);
+					usInf.setUsPhoneNum(usphone);
+					usInf.setUsMail(usmail);
+					ss.setAttribute("usInf", usInf);
+					
+					ss.setAttribute("usSessId", ss.getId());
+					
+					log.info("____phoneloginsession:"+ss.getId());
+					jo.put("isSuccess",true);//登录成功标志
+					jo.put("message",usinf);
 				}else {
 						jo.put("isSuccess",false);//登录失败
 						jo.put("message","登录失败");
 				}
 				mc.close(rs, pstm, conn);
-				 
+				
               out.println(jo.toString());  
               out.flush();  
               out.close();
@@ -127,15 +164,52 @@ public class dealPhoneLogin extends HttpServlet {
 			    ResultSet rs = db.getRS();
 					try {
 						if (rs.next()){
-								String usid = rs.getString("USid");
-								String usphone = rs.getString("USPhoneNum");
-								String usmail = rs.getString("USMail");
-								String coin = rs.getString("USCoin");
+							    String usid,usphone,usmail,coin,uscity,usname,uslevel,usphoto,usintr,uscontr;
+								usid = rs.getString("USid");
+								usphone = rs.getString("USPhoneNum");
+								usmail = rs.getString("USMail");
+								coin = rs.getString("USCoin");
+								if(rs.getString("USCity")!=null){
+									uscity=rs.getString("USCity");
+								}else{
+									uscity="0";
+								}
+								if(rs.getString("USName")!=null){
+									usname=rs.getString("USName");
+								}else{
+									usname="0";
+								}
+								if(rs.getString("USLevel")!=null){
+									uslevel=rs.getString("USLevel");
+								}else{
+									uslevel="0";
+								}
+								if(rs.getString("USPhoto")!=null){
+									usphoto=rs.getString("USPhoto");
+								}else{
+									usphoto="0";
+								}
+								if(rs.getString("USIntroduction")!=null){
+									usintr=rs.getString("USIntroduction");
+								}else{
+									usintr="0";
+								}
+								if(rs.getString("USContribute")!=null){
+									uscontr=rs.getString("USContribute");
+								}else{
+									uscontr="0";
+								}
 								JSONObject usinf = new JSONObject();//存放用户信息
 								usinf.put("USid", usid);
 								usinf.put("USPhone", usphone);
 								usinf.put("USMail", usmail);
 								usinf.put("USCoin", coin);
+								usinf.put("USCity", uscity);
+								usinf.put("USName", usname);
+								usinf.put("USLevel", uslevel);
+								usinf.put("USPhoto", usphoto);
+								usinf.put("USIntroduction", usintr);
+								usinf.put("USContribute", uscontr);
 								
 								HttpSession ss = request.getSession();
 								usInformation usInf = new usInformation();
