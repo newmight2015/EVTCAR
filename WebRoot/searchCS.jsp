@@ -582,7 +582,7 @@ function CurentDateTime(i)
     clock += day;
     return(clock); 
 }
-<<<<<<< HEAD
+//<<<<<<< HEAD
 //点击提交评价信息----张伟增加
 $("#makeComment").click(function(){
 	var r=confirm("是否确认提交评价！");
@@ -717,9 +717,9 @@ $("#makeComment").click(function(){
     },window.MAINURL);
     }
 	});
-=======
+//=======
 
->>>>>>> origin/master
+//>>>>>>> origin/master
 function CurentTime()
 { 
     var now = new Date();
@@ -733,9 +733,9 @@ function CurentTime()
     clock += ss; 
     return(clock); 
 }
-=======
+//=======
 
->>>>>>> origin/master
+//>>>>>>> origin/master
 </script>
 </body>
 </html>
