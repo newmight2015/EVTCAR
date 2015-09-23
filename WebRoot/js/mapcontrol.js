@@ -98,7 +98,7 @@ function showcsintro(i){
                         dataType: "html",
                         url: AjaxURL,
                         data:{act:'commentinfo'},
-                       // data: {VehData:JSON.stringify(VehData)},
+                        // data: {VehData:JSON.stringify(VehData)},
                         success: function (data) {
                                   var CommentInfo = JSON.parse(data);//存放评价信息的数组
                                   coo();
@@ -358,8 +358,8 @@ function dealOrder(i){
              else CSState="未核实";
         
         showCpInf(CsAllData[i].CSId);
-//        $("#cpmap").attr("src",CsAllData[i].CSPicUrl);
-//        alert(CsAllData[i].CSPicUrl);
+        $("#cpmap").attr("src",CsAllData[i].CSPicUrl);
+        //alert(CsAllData[i].CSPicUrl);
         $("#csorder .modal-body .info").html("<table data-id='"+i+"'><tbody>"+
         	"<tr><th>用户名：</th><td>"+STATICINFO.USERINFO.name+
         	"<tr><th>您的位置：</th><td>"+STATICINFO.USERPOSITION.name+

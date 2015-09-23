@@ -67,6 +67,14 @@ public class dealMessage extends HttpServlet {
 	 * @throws IOException if an error occurred
 	 */
 	@SuppressWarnings("deprecation")
+	public void checkphone(HttpServletRequest request, HttpServletResponse response) throws IOException{
+		PrintWriter out = response.getWriter();
+		HttpSession ss = request.getSession();
+		JSONObject ms = new JSONObject();
+		
+		log.info("进入检测手机号是否重复注册");
+		
+	}
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");

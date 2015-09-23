@@ -352,8 +352,8 @@ body {
       	 		<div class="r-btn">充电桩分布图</div>
       	 		<div class="thismap" style="display:none;">
       	 			<button type="button" class="close" id="mapclose"><span aria-hidden="true">&times;</span></button>
-      	 			<img alt="" src="pic/bjtu.jpg">
-      	 			<!-- <img id="cpmap" alt="" src=""> -->
+      	 			<!-- <img alt="" src="pic/bjtu.jpg"> -->
+      	 			<img id="cpmap" alt="" src="">
       	 		</div>
       	 </div>
 		<script type="text/javascript">
@@ -717,9 +717,7 @@ $("#makeComment").click(function(){
     },window.MAINURL);
     }
 	});
-//=======
 
-//>>>>>>> origin/master
 function CurentTime()
 { 
     var now = new Date();
@@ -733,9 +731,7 @@ function CurentTime()
     clock += ss; 
     return(clock); 
 }
-//=======
 
-//>>>>>>> origin/master
 </script>
 </body>
 </html>

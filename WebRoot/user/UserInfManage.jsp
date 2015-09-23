@@ -349,6 +349,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			if(checkusphone()==false){
 				$("#c2").css("display","block"); 
 			}
+			//增加手机号是否已经注册的判断
+			var usphone=$("#usphone").val();
+			var act="checkPhone";
+			var AjaxUrl="dealMessage?usphone="+usphone+"&act="+act;
+			$.ajax({
+				type:"POST",
+				dataType:"html",
+				url:AjaxUrl,
+				success:function(data){
+					
+				},
+				error:function(data){
+					
+				}
+			});
 		});
 		//城市(暂时不限制)
 		/* $("#uscity").focus(function() {
